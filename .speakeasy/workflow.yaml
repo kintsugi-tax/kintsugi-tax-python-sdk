@@ -16,7 +16,7 @@ targets:
         source: kintsugi-overlay
         publish:
             pypi:
-                token: $pypi_token
+                token: $PYPI_TOKEN
         codeSamples:
             registry:
                 location: registry.speakeasyapi.dev/kintsugi-ai/tax-platform/kintsugi-overlay-python-code-samples
