@@ -5,8 +5,10 @@ management:
   docVersion: 1.0.0
   speakeasyVersion: 1.581.0
   generationVersion: 2.656.5
-  releaseVersion: 0.5.5
-  configChecksum: 04fd050f3f0bf76a3e77131ec728ef7e
+  releaseVersion: 0.5.6
+  configChecksum: d9bcb302da89822f04b5948204ce634e
+  repoURL: https://github.com/kintsugi-tax/kintsugi-tax-python-sdk.git
+  installationURL: https://github.com/kintsugi-tax/kintsugi-tax-python-sdk.git
   published: true
 features:
   python:
@@ -306,6 +308,7 @@ generatedFiles:
   - py.typed
   - pylintrc
   - pyproject.toml
+  - scripts/prepare_readme.py
   - scripts/publish.sh
   - src/kintsugi_tax_platform_sdk/__init__.py
   - src/kintsugi_tax_platform_sdk/_hooks/__init__.py

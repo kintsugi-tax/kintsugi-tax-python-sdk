@@ -1,9 +1,9 @@
-# Kintsugi Tax
+# kintsugi-tax-platform-sdk
 
-Developer-friendly & type-safe Python SDK specifically catered to leverage Kintsugi's tax API.
+Developer-friendly & type-safe Python SDK specifically catered to leverage *kintsugi-tax-platform-sdk* API.
 
 <div align="left">
-    <a href="https://www.speakeasy.com/?utm_source=openapi&utm_campaign=python"><img src="https://custom-icon-badges.demolab.com/badge/-Built%20By%20Speakeasy-212015?style=for-the-badge&logoColor=FBE331&logo=speakeasy&labelColor=545454" /></a>
+    <a href="https://www.speakeasy.com/?utm_source=kintsugi-tax-platform-sdk&utm_campaign=python"><img src="https://custom-icon-badges.demolab.com/badge/-Built%20By%20Speakeasy-212015?style=for-the-badge&logoColor=FBE331&logo=speakeasy&labelColor=545454" /></a>
     <a href="https://opensource.org/licenses/MIT">
         <img src="https://img.shields.io/badge/License-MIT-blue.svg" style="width: 100px; height: 28px;" />
     </a>
@@ -11,6 +11,9 @@ Developer-friendly & type-safe Python SDK specifically catered to leverage Kints
 
 
 <br /><br />
+> [!IMPORTANT]
+> This SDK is not yet ready for production use. To complete setup please follow the steps outlined in your [workspace](https://app.speakeasy.com/org/kintsugi-ai/tax-platform). Delete this section before > publishing to a package manager.
+
 <!-- Start Summary [summary] -->
 ## Summary
 
@@ -20,21 +23,21 @@ Developer-friendly & type-safe Python SDK specifically catered to leverage Kints
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
-* [Kintsugi Tax](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/#kintsugi-tax)
-  * [SDK Installation](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/#sdk-installation)
-  * [IDE Support](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/#ide-support)
-  * [SDK Example Usage](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/#sdk-example-usage)
-  * [Authentication](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/#authentication)
-  * [Available Resources and Operations](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/#available-resources-and-operations)
-  * [File uploads](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/#file-uploads)
-  * [Retries](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/#retries)
-  * [Error Handling](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/#error-handling)
-  * [Custom HTTP Client](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/#custom-http-client)
-  * [Resource Management](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/#resource-management)
-  * [Debugging](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/#debugging)
-* [Development](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/#development)
-  * [Maturity](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/#maturity)
-  * [Contributions](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/#contributions)
+* [kintsugi-tax-platform-sdk](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/#kintsugi-tax-platform-sdk)
+  * [SDK Installation](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/#sdk-installation)
+  * [IDE Support](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/#ide-support)
+  * [SDK Example Usage](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/#sdk-example-usage)
+  * [Authentication](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/#authentication)
+  * [Available Resources and Operations](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/#available-resources-and-operations)
+  * [File uploads](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/#file-uploads)
+  * [Retries](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/#retries)
+  * [Error Handling](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/#error-handling)
+  * [Custom HTTP Client](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/#custom-http-client)
+  * [Resource Management](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/#resource-management)
+  * [Debugging](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/#debugging)
+* [Development](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/#development)
+  * [Maturity](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/#maturity)
+  * [Contributions](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/#contributions)
 
 <!-- End Table of Contents [toc] -->
 
@@ -194,56 +197,56 @@ with SDK(
 <details open>
 <summary>Available methods</summary>
 
-### [address_validation](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/addressvalidation/README.md)
+### [address_validation](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/addressvalidation/README.md)
 
-* [search](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/addressvalidation/README.md#search) - Search
-* [suggestions](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/addressvalidation/README.md#suggestions) - Suggestions
+* [search](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/addressvalidation/README.md#search) - Search
+* [suggestions](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/addressvalidation/README.md#suggestions) - Suggestions
 
-### [customers](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/customers/README.md)
+### [customers](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/customers/README.md)
 
-* [list](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/customers/README.md#list) - Get Customers
-* [create](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/customers/README.md#create) - Create Customer
-* [get](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/customers/README.md#get) - Get Customer By Id
-* [update](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/customers/README.md#update) - Update Customer
-* [get_by_external_id](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/customers/README.md#get_by_external_id) - Get Customer By External Id
-* [get_transactions](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/customers/README.md#get_transactions) - Get Transactions By Customer Id
-* [create_transaction](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/customers/README.md#create_transaction) - Create Transaction By Customer Id
+* [list](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/customers/README.md#list) - Get Customers
+* [create](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/customers/README.md#create) - Create Customer
+* [get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/customers/README.md#get) - Get Customer By Id
+* [update](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/customers/README.md#update) - Update Customer
+* [get_by_external_id](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/customers/README.md#get_by_external_id) - Get Customer By External Id
+* [get_transactions](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/customers/README.md#get_transactions) - Get Transactions By Customer Id
+* [create_transaction](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/customers/README.md#create_transaction) - Create Transaction By Customer Id
 
-### [exemptions](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/exemptions/README.md)
+### [exemptions](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/exemptions/README.md)
 
-* [list](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/exemptions/README.md#list) - Get Exemptions
-* [create](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/exemptions/README.md#create) - Create Exemption
-* [get](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/exemptions/README.md#get) - Get Exemption By Id
-* [upload_certificate](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/exemptions/README.md#upload_certificate) - Upload Exemption Certificate
-* [get_attachments](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/exemptions/README.md#get_attachments) - Get Attachments For Exemption
+* [list](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/exemptions/README.md#list) - Get Exemptions
+* [create](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/exemptions/README.md#create) - Create Exemption
+* [get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/exemptions/README.md#get) - Get Exemption By Id
+* [upload_certificate](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/exemptions/README.md#upload_certificate) - Upload Exemption Certificate
+* [get_attachments](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/exemptions/README.md#get_attachments) - Get Attachments For Exemption
 
-### [nexus](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/nexus/README.md)
+### [nexus](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/nexus/README.md)
 
-* [list](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/nexus/README.md#list) - Get Nexus For Org
+* [list](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/nexus/README.md#list) - Get Nexus For Org
 
-### [products](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/products/README.md)
+### [products](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/products/README.md)
 
-* [list](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/products/README.md#list) - Get Products
-* [create](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/products/README.md#create) - Create Product
-* [get](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/products/README.md#get) - Get Product By Id
-* [update](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/products/README.md#update) - Update Product
-* [list_categories](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/products/README.md#list_categories) - Get Product Categories
+* [list](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/products/README.md#list) - Get Products
+* [create](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/products/README.md#create) - Create Product
+* [get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/products/README.md#get) - Get Product By Id
+* [update](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/products/README.md#update) - Update Product
+* [list_categories](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/products/README.md#list_categories) - Get Product Categories
 
 
-### [tax_estimation](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/taxestimation/README.md)
+### [tax_estimation](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/taxestimation/README.md)
 
-* [estimate_tax](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/taxestimation/README.md#estimate_tax) - Estimate Tax
+* [estimate_tax](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/taxestimation/README.md#estimate_tax) - Estimate Tax
 
-### [transactions](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/transactions/README.md)
+### [transactions](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/transactions/README.md)
 
-* [list](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/transactions/README.md#list) - Get Transactions
-* [create](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/transactions/README.md#create) - Create Transaction
-* [get_by_external_id](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/transactions/README.md#get_by_external_id) - Get Transaction By External Id
-* [update](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/transactions/README.md#update) - Update Transaction
-* [get_by_id](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/transactions/README.md#get_by_id) - Get Transaction By Id
-* [get_by_filing_id](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/transactions/README.md#get_by_filing_id) - Get Transactions By Filing Id
-* [create_credit_note](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/transactions/README.md#create_credit_note) - Create Credit Note By Transaction Id
-* [update_credit_note](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/docs/sdks/transactions/README.md#update_credit_note) - Update Credit Note By Transaction Id
+* [list](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/transactions/README.md#list) - Get Transactions
+* [create](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/transactions/README.md#create) - Create Transaction
+* [get_by_external_id](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/transactions/README.md#get_by_external_id) - Get Transaction By External Id
+* [update](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/transactions/README.md#update) - Update Transaction
+* [get_by_id](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/transactions/README.md#get_by_id) - Get Transaction By Id
+* [get_by_filing_id](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/transactions/README.md#get_by_filing_id) - Get Transactions By Filing Id
+* [create_credit_note](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/transactions/README.md#create_credit_note) - Create Credit Note By Transaction Id
+* [update_credit_note](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/transactions/README.md#update_credit_note) - Update Credit Note By Transaction Id
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -328,7 +331,7 @@ with SDK(
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
-[`SDKError`](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/./src/kintsugi_tax_platform_sdk/errors/sdkerror.py) is the base class for all HTTP error responses. It has the following properties:
+[`SDKError`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/sdkerror.py) is the base class for all HTTP error responses. It has the following properties:
 
 | Property           | Type             | Description                                                                             |
 | ------------------ | ---------------- | --------------------------------------------------------------------------------------- |
@@ -337,7 +340,7 @@ with SDK(
 | `err.headers`      | `httpx.Headers`  | HTTP response headers                                                                   |
 | `err.body`         | `str`            | HTTP body. Can be empty string if no body is returned.                                  |
 | `err.raw_response` | `httpx.Response` | Raw HTTP response                                                                       |
-| `err.data`         |                  | Optional. Some errors may contain structured data. [See Error Classes](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/#error-classes). |
+| `err.data`         |                  | Optional. Some errors may contain structured data. [See Error Classes](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/#error-classes). |
 
 ### Example
 ```python
@@ -373,7 +376,7 @@ with SDK(
 
 ### Error Classes
 **Primary error:**
-* [`SDKError`](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/./src/kintsugi_tax_platform_sdk/errors/sdkerror.py): The base class for HTTP error responses.
+* [`SDKError`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/sdkerror.py): The base class for HTTP error responses.
 
 <details><summary>Less common errors (13)</summary>
 
@@ -385,20 +388,20 @@ with SDK(
     * [`httpx.TimeoutException`](https://www.python-httpx.org/exceptions/#httpx.TimeoutException): HTTP request timed out.
 
 
-**Inherit from [`SDKError`](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/./src/kintsugi_tax_platform_sdk/errors/sdkerror.py)**:
-* [`ErrorResponse`](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/./src/kintsugi_tax_platform_sdk/errors/errorresponse.py): Applicable to 20 of 29 methods.*
-* [`HTTPValidationError`](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/./src/kintsugi_tax_platform_sdk/errors/httpvalidationerror.py): Validation Error. Status code `422`. Applicable to 9 of 29 methods.*
-* [`BackendSrcExemptionsResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrcexemptionsresponsesvalidationerrorresponse.py): Validation issues, such as missing required fields or invalid field values. Status code `422`. Applicable to 5 of 29 methods.*
-* [`BackendSrcTransactionsResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrctransactionsresponsesvalidationerrorresponse.py): Status code `422`. Applicable to 5 of 29 methods.*
-* [`BackendSrcProductsResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrcproductsresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 4 of 29 methods.*
-* [`BackendSrcCustomersResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrccustomersresponsesvalidationerrorresponse.py): Query parameters failed validation, such as an out-of-range page number. Status code `422`. Applicable to 3 of 29 methods.*
-* [`BackendSrcAddressValidationResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrcaddressvalidationresponsesvalidationerrorresponse.py): Validation error - Address fields failed validation or are incomplete. Status code `422`. Applicable to 2 of 29 methods.*
-* [`BackendSrcTaxEstimationResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrctaxestimationresponsesvalidationerrorresponse.py): Validation Error. Status code `422`. Applicable to 1 of 29 methods.*
-* [`ResponseValidationError`](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/./src/kintsugi_tax_platform_sdk/errors/responsevalidationerror.py): Type mismatch between the response data and the expected Pydantic model. Provides access to the Pydantic validation error via the `cause` attribute.
+**Inherit from [`SDKError`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/sdkerror.py)**:
+* [`ErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/errorresponse.py): Applicable to 20 of 29 methods.*
+* [`HTTPValidationError`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/httpvalidationerror.py): Validation Error. Status code `422`. Applicable to 9 of 29 methods.*
+* [`BackendSrcExemptionsResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrcexemptionsresponsesvalidationerrorresponse.py): Validation issues, such as missing required fields or invalid field values. Status code `422`. Applicable to 5 of 29 methods.*
+* [`BackendSrcTransactionsResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrctransactionsresponsesvalidationerrorresponse.py): Status code `422`. Applicable to 5 of 29 methods.*
+* [`BackendSrcProductsResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrcproductsresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 4 of 29 methods.*
+* [`BackendSrcCustomersResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrccustomersresponsesvalidationerrorresponse.py): Query parameters failed validation, such as an out-of-range page number. Status code `422`. Applicable to 3 of 29 methods.*
+* [`BackendSrcAddressValidationResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrcaddressvalidationresponsesvalidationerrorresponse.py): Validation error - Address fields failed validation or are incomplete. Status code `422`. Applicable to 2 of 29 methods.*
+* [`BackendSrcTaxEstimationResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrctaxestimationresponsesvalidationerrorresponse.py): Validation Error. Status code `422`. Applicable to 1 of 29 methods.*
+* [`ResponseValidationError`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/responsevalidationerror.py): Type mismatch between the response data and the expected Pydantic model. Provides access to the Pydantic validation error via the `cause` attribute.
 
 </details>
 
-\* Check [the method documentation](https://github.com/kintsugi-tax/kintsugi-speakeasy/blob/master/#available-resources-and-operations) to see if the error is applicable.
+\* Check [the method documentation](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/#available-resources-and-operations) to see if the error is applicable.
 <!-- End Error Handling [errors] -->
 
 <!-- Start Custom HTTP Client [http-client] -->
@@ -539,4 +542,4 @@ looking for the latest version.
 While we value open-source contributions to this SDK, this library is generated programmatically. Any manual changes added to internal files will be overwritten on the next generation. 
 We look forward to hearing your feedback. Feel free to open a PR or an issue with a proof of concept and we'll do our best to include it in a future release. 
 
-### SDK Created by [Speakeasy](https://www.speakeasy.com/?utm_source=openapi&utm_campaign=python)
+### SDK Created by [Speakeasy](https://www.speakeasy.com/?utm_source=kintsugi-tax-platform-sdk&utm_campaign=python)
