@@ -1,0 +1,9 @@
+# EstimateTaxMagentoEstimatePostRequest
+
+
+## Fields
+
+| Field                                                                          | Type                                                                           | Required                                                                       | Description                                                                    | Example                                                                        |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `x_organization_id`                                                            | *Nullable[str]*                                                                | :heavy_check_mark:                                                             | The unique identifier for the organization making the request                  | org_12345                                                                      |
+| `magento_tax_estimation_request`                                               | [models.MagentoTaxEstimationRequest](../models/magentotaxestimationrequest.md) | :heavy_check_mark:                                                             | N/A                                                                            |                                                                                |

@@ -1,0 +1,14 @@
+# ExemptionRequired
+
+
+## Fields
+
+| Field                                                                | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `jurisdiction`                                                       | *OptionalNullable[str]*                                              | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `customer_id`                                                        | *OptionalNullable[str]*                                              | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `organization_id`                                                    | *str*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |
+| `exemption_type`                                                     | [models.ExemptionType](../models/exemptiontype.md)                   | :heavy_check_mark:                                                   | N/A                                                                  |
+| `start_date`                                                         | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_check_mark:                                                   | N/A                                                                  |
+| `status`                                                             | [models.ExemptionStatus](../models/exemptionstatus.md)               | :heavy_check_mark:                                                   | N/A                                                                  |
+| `reseller`                                                           | *bool*                                                               | :heavy_check_mark:                                                   | N/A                                                                  |
