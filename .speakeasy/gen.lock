@@ -1,0 +1,1015 @@
+lockVersion: 2.0.0
+id: a3b5f8df-3e69-405c-9eb8-40a21cc5faba
+management:
+  docChecksum: 21cc094adda452fc5c197731871f1237
+  docVersion: 1.0.0
+  speakeasyVersion: 1.581.0
+  generationVersion: 2.656.5
+  releaseVersion: 0.5.5
+  configChecksum: 04fd050f3f0bf76a3e77131ec728ef7e
+  published: true
+features:
+  python:
+    additionalDependencies: 1.0.0
+    constsAndDefaults: 1.0.5
+    core: 5.19.4
+    defaultEnabledRetries: 0.2.0
+    deprecations: 3.0.2
+    enumUnions: 0.1.0
+    envVarSecurityUsage: 0.3.2
+    flatRequests: 1.0.1
+    flattening: 3.1.1
+    globalSecurity: 3.0.3
+    globalSecurityCallbacks: 1.0.0
+    globalSecurityFlattening: 1.0.0
+    globalServerURLs: 3.1.1
+    groups: 3.0.0
+    methodArguments: 1.0.2
+    methodSecurity: 3.0.1
+    multipartFileContentType: 1.0.0
+    nameOverrides: 3.0.1
+    nullables: 1.0.1
+    responseFormat: 1.0.1
+    retries: 3.0.2
+    sdkHooks: 1.1.0
+    unions: 3.0.4
+    uploadStreams: 1.0.0
+generatedFiles:
+  - .gitattributes
+  - .vscode/settings.json
+  - USAGE.md
+  - docs/errors/backendsrcaddressvalidationresponsesvalidationerrorresponse.md
+  - docs/errors/backendsrccustomersresponsesvalidationerrorresponse.md
+  - docs/errors/backendsrcexemptionsresponsesvalidationerrorresponse.md
+  - docs/errors/backendsrcproductsresponsesvalidationerrorresponse.md
+  - docs/errors/backendsrctaxestimationresponsesvalidationerrorresponse.md
+  - docs/errors/backendsrctransactionsresponsesvalidationerrorresponse.md
+  - docs/errors/errorresponse.md
+  - docs/errors/httpvalidationerror.md
+  - docs/models/addressbase.md
+  - docs/models/addressinput.md
+  - docs/models/addressresponsedata.md
+  - docs/models/addresssearchresponse.md
+  - docs/models/addressstatus.md
+  - docs/models/addresssubmittedresponse.md
+  - docs/models/addresstype.md
+  - docs/models/appliedto.md
+  - docs/models/attachmentread.md
+  - docs/models/backendsrcaddressvalidationresponsesvalidationerroritem.md
+  - docs/models/backendsrccustomersresponsesvalidationerroritem.md
+  - docs/models/backendsrcexemptionsmodelsexemptionread.md
+  - docs/models/backendsrcexemptionsresponsesvalidationerroritem.md
+  - docs/models/backendsrcexemptionsserializersexemptionread.md
+  - docs/models/backendsrcproductsresponsesvalidationerroritem.md
+  - docs/models/backendsrctaxestimationresponsesvalidationerroritem.md
+  - docs/models/backendsrctransactionsresponsesvalidationerroritem.md
+  - docs/models/bodyuploadexemptioncertificatev1exemptionsexemptionidattachmentspost.md
+  - docs/models/code.md
+  - docs/models/countrycode.md
+  - docs/models/countrycodeenum.md
+  - docs/models/createcreditnotebytransactionidv1transactionsoriginaltransactionidcreditnotespostrequest.md
+  - docs/models/createcreditnotebytransactionidv1transactionsoriginaltransactionidcreditnotespostsecurity.md
+  - docs/models/createcustomerv1customerspostrequest.md
+  - docs/models/createcustomerv1customerspostsecurity.md
+  - docs/models/createexemptionv1exemptionspostrequest.md
+  - docs/models/createexemptionv1exemptionspostsecurity.md
+  - docs/models/createproductv1productspostrequest.md
+  - docs/models/createproductv1productspostsecurity.md
+  - docs/models/createtransactionbycustomeridv1customerscustomeridtransactionspostrequest.md
+  - docs/models/createtransactionbycustomeridv1customerscustomeridtransactionspostsecurity.md
+  - docs/models/createtransactionv1transactionspostrequest.md
+  - docs/models/createtransactionv1transactionspostsecurity.md
+  - docs/models/creditnotecreate.md
+  - docs/models/creditnotecreatetaxableamount.md
+  - docs/models/creditnotecreatetaxamountimported.md
+  - docs/models/creditnotecreatetaxrateimported.md
+  - docs/models/creditnotecreatetotalamount.md
+  - docs/models/creditnoteitemcreateupdate.md
+  - docs/models/creditnoteitemcreateupdateamount.md
+  - docs/models/creditnoteitemcreateupdatequantity.md
+  - docs/models/creditnoteitemcreateupdatetaxableamount.md
+  - docs/models/creditnoteitemcreateupdatetaxamountimported.md
+  - docs/models/creditnoteitemcreateupdatetaxrateimported.md
+  - docs/models/currencyenum.md
+  - docs/models/customer.md
+  - docs/models/customerbasebase.md
+  - docs/models/customerbaseinput.md
+  - docs/models/customerbaseoutput.md
+  - docs/models/customercreate.md
+  - docs/models/customerread.md
+  - docs/models/customerupdate.md
+  - docs/models/discountamount.md
+  - docs/models/discountbuilder.md
+  - docs/models/estimatetaxv1taxestimatepostrequest.md
+  - docs/models/estimatetaxv1taxestimatepostsecurity.md
+  - docs/models/exemption.md
+  - docs/models/exemptioncreate.md
+  - docs/models/exemptionrequired.md
+  - docs/models/exemptionstatus.md
+  - docs/models/exemptiontype.md
+  - docs/models/fastapipaginationdefaultpageexemptionread2.md
+  - docs/models/file.md
+  - docs/models/getattachmentsforexemptionv1exemptionsexemptionidattachmentsgetrequest.md
+  - docs/models/getattachmentsforexemptionv1exemptionsexemptionidattachmentsgetsecurity.md
+  - docs/models/getcustomerbyexternalidv1customersexternalexternalidgetrequest.md
+  - docs/models/getcustomerbyexternalidv1customersexternalexternalidgetsecurity.md
+  - docs/models/getcustomerbyidv1customerscustomeridgetrequest.md
+  - docs/models/getcustomerbyidv1customerscustomeridgetsecurity.md
+  - docs/models/getcustomersv1country.md
+  - docs/models/getcustomersv1request.md
+  - docs/models/getcustomersv1security.md
+  - docs/models/getexemptionbyidv1exemptionsexemptionidgetrequest.md
+  - docs/models/getexemptionbyidv1exemptionsexemptionidgetsecurity.md
+  - docs/models/getexemptionsv1exemptionsgetrequest.md
+  - docs/models/getexemptionsv1exemptionsgetsecurity.md
+  - docs/models/getnexusfororgv1nexusgetrequest.md
+  - docs/models/getnexusfororgv1nexusgetsecurity.md
+  - docs/models/getproductbyidv1productsproductidgetrequest.md
+  - docs/models/getproductbyidv1productsproductidgetsecurity.md
+  - docs/models/getproductcategoriesv1productscategoriesgetrequest.md
+  - docs/models/getproductcategoriesv1productscategoriesgetsecurity.md
+  - docs/models/getproductsv1productsgetrequest.md
+  - docs/models/getproductsv1productsgetsecurity.md
+  - docs/models/gettransactionbyexternalidv1transactionsexternalexternalidgetrequest.md
+  - docs/models/gettransactionbyexternalidv1transactionsexternalexternalidgetsecurity.md
+  - docs/models/gettransactionbyidv1transactionstransactionidgetrequest.md
+  - docs/models/gettransactionbyidv1transactionstransactionidgetsecurity.md
+  - docs/models/gettransactionsbycustomeridv1customerscustomeridtransactionsgetrequest.md
+  - docs/models/gettransactionsbycustomeridv1customerscustomeridtransactionsgetsecurity.md
+  - docs/models/gettransactionsbyfilingidv1transactionsfilingsfilingidgetrequest.md
+  - docs/models/gettransactionsbyfilingidv1transactionsfilingsfilingidgetsecurity.md
+  - docs/models/gettransactionsv1transactionsgetcountry.md
+  - docs/models/gettransactionsv1transactionsgetrequest.md
+  - docs/models/gettransactionsv1transactionsgetsecurity.md
+  - docs/models/jurisdictiontype.md
+  - docs/models/loc.md
+  - docs/models/nexusresponse.md
+  - docs/models/nexusstateenum.md
+  - docs/models/nexusstatusenum.md
+  - docs/models/nexustypeenum.md
+  - docs/models/pagecustomerread.md
+  - docs/models/pagenexusresponse.md
+  - docs/models/pageproductread.md
+  - docs/models/pagetransactionestimateresponse.md
+  - docs/models/pagetransactionread.md
+  - docs/models/periodmodelenum.md
+  - docs/models/processingstatusenum.md
+  - docs/models/product.md
+  - docs/models/productcategories.md
+  - docs/models/productcategoryenum.md
+  - docs/models/productcodeenum.md
+  - docs/models/productcreatemanual.md
+  - docs/models/productcreatemanualproductcategory.md
+  - docs/models/productcreatemanualproductsubcategory.md
+  - docs/models/productread.md
+  - docs/models/productreadproductcategory.md
+  - docs/models/productreadproductsubcategory.md
+  - docs/models/productstatusenum.md
+  - docs/models/productsubcategory.md
+  - docs/models/productsubcategoryenum.md
+  - docs/models/productupdate.md
+  - docs/models/productupdatev2.md
+  - docs/models/quantityoftheproduct.md
+  - docs/models/rate.md
+  - docs/models/registrationsregimeenum.md
+  - docs/models/relatedentitytype.md
+  - docs/models/salesortransactionsenum.md
+  - docs/models/searchv1addressvalidationsearchpostsecurity.md
+  - docs/models/security.md
+  - docs/models/sourceenum.md
+  - docs/models/status.md
+  - docs/models/statusenum.md
+  - docs/models/suggestionsv1addressvalidationsuggestionspostrequest.md
+  - docs/models/suggestionsv1addressvalidationsuggestionspostsecurity.md
+  - docs/models/taxexemptionenum.md
+  - docs/models/taxitembuilder.md
+  - docs/models/taxitembuilderamount.md
+  - docs/models/taxitembuilderconvertedamount.md
+  - docs/models/taxitemestimate.md
+  - docs/models/taxitemread.md
+  - docs/models/taxitemreturnreasonenum.md
+  - docs/models/taxitemtypeenum.md
+  - docs/models/taxliabilitysourceenum.md
+  - docs/models/totalamountofthetransactionafterdiscounts.md
+  - docs/models/totalamountofthistransactionitemafterdiscounts.md
+  - docs/models/transactionaddressbuilder.md
+  - docs/models/transactionaddresspublic.md
+  - docs/models/transactionaddressreadoutput.md
+  - docs/models/transactioncreate.md
+  - docs/models/transactioncreateaddresses.md
+  - docs/models/transactioncreateconversionrate.md
+  - docs/models/transactioncreateconvertedsubtotal.md
+  - docs/models/transactioncreateconvertedtaxableamount.md
+  - docs/models/transactioncreateconvertedtotalamount.md
+  - docs/models/transactioncreateconvertedtotaldiscount.md
+  - docs/models/transactioncreateconvertedtotaltaxamountcalculated.md
+  - docs/models/transactioncreateconvertedtotaltaxamountimported.md
+  - docs/models/transactioncreateconvertedtotaltaxliabilityamount.md
+  - docs/models/transactioncreatetaxableamount.md
+  - docs/models/transactioncreatetaxratecalculated.md
+  - docs/models/transactioncreatetaxrateimported.md
+  - docs/models/transactioncreatetotalamount.md
+  - docs/models/transactioncreatetotaltaxamountcalculated.md
+  - docs/models/transactioncreatetotaltaxamountimported.md
+  - docs/models/transactioncreatetotaltaxliabilityamount.md
+  - docs/models/transactionestimaterequest.md
+  - docs/models/transactionestimaterequestaddress.md
+  - docs/models/transactionestimaterequesttype.md
+  - docs/models/transactionestimateresponse.md
+  - docs/models/transactionestimateresponseaddress.md
+  - docs/models/transactionestimateresponsetype.md
+  - docs/models/transactionexemptstatusenum.md
+  - docs/models/transactionimportcustomer.md
+  - docs/models/transactionitembuilder.md
+  - docs/models/transactionitembuilderamount.md
+  - docs/models/transactionitembuilderconvertedamount.md
+  - docs/models/transactionitembuilderconvertedsubtotal.md
+  - docs/models/transactionitembuilderconvertedtaxableamount.md
+  - docs/models/transactionitembuilderconvertedtaxamountcalculated.md
+  - docs/models/transactionitembuilderconvertedtaxamountimported.md
+  - docs/models/transactionitembuilderconvertedtotaldiscount.md
+  - docs/models/transactionitembuilderquantity.md
+  - docs/models/transactionitembuildertaxableamount.md
+  - docs/models/transactionitembuildertaxamountcalculated.md
+  - docs/models/transactionitembuildertaxamountimported.md
+  - docs/models/transactionitembuildertaxratecalculated.md
+  - docs/models/transactionitembuildertaxrateimported.md
+  - docs/models/transactionitemcreateupdate.md
+  - docs/models/transactionitemcreateupdateamount.md
+  - docs/models/transactionitemcreateupdateconvertedamount.md
+  - docs/models/transactionitemcreateupdateconvertedsubtotal.md
+  - docs/models/transactionitemcreateupdateconvertedtaxableamount.md
+  - docs/models/transactionitemcreateupdateconvertedtaxamountcalculated.md
+  - docs/models/transactionitemcreateupdateconvertedtaxamountimported.md
+  - docs/models/transactionitemcreateupdateconvertedtotaldiscount.md
+  - docs/models/transactionitemcreateupdatequantity.md
+  - docs/models/transactionitemcreateupdatetaxableamount.md
+  - docs/models/transactionitemcreateupdatetaxamountcalculated.md
+  - docs/models/transactionitemcreateupdatetaxamountimported.md
+  - docs/models/transactionitemcreateupdatetaxratecalculated.md
+  - docs/models/transactionitemcreateupdatetaxrateimported.md
+  - docs/models/transactionitemestimatebase.md
+  - docs/models/transactionitemestimateresponse.md
+  - docs/models/transactionitemread.md
+  - docs/models/transactionpublicrequest.md
+  - docs/models/transactionpublicrequesttaxableamount.md
+  - docs/models/transactionpublicrequesttaxratecalculated.md
+  - docs/models/transactionpublicrequesttaxrateimported.md
+  - docs/models/transactionpublicrequesttotalamount.md
+  - docs/models/transactionpublicrequesttotaltaxamountcalculated.md
+  - docs/models/transactionpublicrequesttotaltaxamountimported.md
+  - docs/models/transactionpublicrequesttotaltaxliabilityamount.md
+  - docs/models/transactionread.md
+  - docs/models/transactionrefundstatus.md
+  - docs/models/transactionstatusenum.md
+  - docs/models/transactiontypeenum.md
+  - docs/models/transactionupdate.md
+  - docs/models/transactionupdateaddresses.md
+  - docs/models/transactionupdateconversionrate.md
+  - docs/models/transactionupdateconvertedsubtotal.md
+  - docs/models/transactionupdateconvertedtaxableamount.md
+  - docs/models/transactionupdateconvertedtotalamount.md
+  - docs/models/transactionupdateconvertedtotaldiscount.md
+  - docs/models/transactionupdateconvertedtotaltaxamountcalculated.md
+  - docs/models/transactionupdateconvertedtotaltaxamountimported.md
+  - docs/models/transactionupdateconvertedtotaltaxliabilityamount.md
+  - docs/models/transactionupdatetaxableamount.md
+  - docs/models/transactionupdatetaxratecalculated.md
+  - docs/models/transactionupdatetaxrateimported.md
+  - docs/models/transactionupdatetotalamount.md
+  - docs/models/transactionupdatetotaltaxamountcalculated.md
+  - docs/models/transactionupdatetotaltaxamountimported.md
+  - docs/models/transactionupdatetotaltaxliabilityamount.md
+  - docs/models/treatmentenum.md
+  - docs/models/updatecreditnotebytransactionidv1transactionsoriginaltransactionidcreditnotescreditnoteidputrequest.md
+  - docs/models/updatecreditnotebytransactionidv1transactionsoriginaltransactionidcreditnotescreditnoteidputsecurity.md
+  - docs/models/updatecustomerv1customerscustomeridputrequest.md
+  - docs/models/updatecustomerv1customerscustomeridputsecurity.md
+  - docs/models/updateproductv1productsproductidputrequest.md
+  - docs/models/updateproductv1productsproductidputsecurity.md
+  - docs/models/updatetransactionv1transactionstransactionidputrequest.md
+  - docs/models/updatetransactionv1transactionstransactionidputsecurity.md
+  - docs/models/uploadexemptioncertificatev1exemptionsexemptionidattachmentspostrequest.md
+  - docs/models/uploadexemptioncertificatev1exemptionsexemptionidattachmentspostsecurity.md
+  - docs/models/utils/retryconfig.md
+  - docs/models/validationaddress.md
+  - docs/models/validationerror.md
+  - docs/sdks/addressvalidation/README.md
+  - docs/sdks/customers/README.md
+  - docs/sdks/exemptions/README.md
+  - docs/sdks/nexus/README.md
+  - docs/sdks/products/README.md
+  - docs/sdks/sdk/README.md
+  - docs/sdks/taxestimation/README.md
+  - docs/sdks/transactions/README.md
+  - poetry.toml
+  - py.typed
+  - pylintrc
+  - pyproject.toml
+  - scripts/publish.sh
+  - src/kintsugi_tax_platform_sdk/__init__.py
+  - src/kintsugi_tax_platform_sdk/_hooks/__init__.py
+  - src/kintsugi_tax_platform_sdk/_hooks/sdkhooks.py
+  - src/kintsugi_tax_platform_sdk/_hooks/types.py
+  - src/kintsugi_tax_platform_sdk/_version.py
+  - src/kintsugi_tax_platform_sdk/addressvalidation.py
+  - src/kintsugi_tax_platform_sdk/basesdk.py
+  - src/kintsugi_tax_platform_sdk/customers.py
+  - src/kintsugi_tax_platform_sdk/errors/__init__.py
+  - src/kintsugi_tax_platform_sdk/errors/apierror.py
+  - src/kintsugi_tax_platform_sdk/errors/backend_src_address_validation_responses_validationerrorresponse.py
+  - src/kintsugi_tax_platform_sdk/errors/backend_src_customers_responses_validationerrorresponse.py
+  - src/kintsugi_tax_platform_sdk/errors/backend_src_exemptions_responses_validationerrorresponse.py
+  - src/kintsugi_tax_platform_sdk/errors/backend_src_products_responses_validationerrorresponse.py
+  - src/kintsugi_tax_platform_sdk/errors/backend_src_tax_estimation_responses_validationerrorresponse.py
+  - src/kintsugi_tax_platform_sdk/errors/backend_src_transactions_responses_validationerrorresponse.py
+  - src/kintsugi_tax_platform_sdk/errors/errorresponse.py
+  - src/kintsugi_tax_platform_sdk/errors/httpvalidationerror.py
+  - src/kintsugi_tax_platform_sdk/errors/no_response_error.py
+  - src/kintsugi_tax_platform_sdk/errors/responsevalidationerror.py
+  - src/kintsugi_tax_platform_sdk/errors/sdkerror.py
+  - src/kintsugi_tax_platform_sdk/exemptions.py
+  - src/kintsugi_tax_platform_sdk/httpclient.py
+  - src/kintsugi_tax_platform_sdk/models/__init__.py
+  - src/kintsugi_tax_platform_sdk/models/address_input.py
+  - src/kintsugi_tax_platform_sdk/models/addressbase.py
+  - src/kintsugi_tax_platform_sdk/models/addressresponsedata.py
+  - src/kintsugi_tax_platform_sdk/models/addresssearchresponse.py
+  - src/kintsugi_tax_platform_sdk/models/addressstatus.py
+  - src/kintsugi_tax_platform_sdk/models/addresssubmittedresponse.py
+  - src/kintsugi_tax_platform_sdk/models/addresstype.py
+  - src/kintsugi_tax_platform_sdk/models/appliedto.py
+  - src/kintsugi_tax_platform_sdk/models/attachmentread.py
+  - src/kintsugi_tax_platform_sdk/models/backend_src_address_validation_responses_validationerroritem.py
+  - src/kintsugi_tax_platform_sdk/models/backend_src_customers_responses_validationerroritem.py
+  - src/kintsugi_tax_platform_sdk/models/backend_src_exemptions_models_exemptionread.py
+  - src/kintsugi_tax_platform_sdk/models/backend_src_exemptions_responses_validationerroritem.py
+  - src/kintsugi_tax_platform_sdk/models/backend_src_exemptions_serializers_exemptionread.py
+  - src/kintsugi_tax_platform_sdk/models/backend_src_products_responses_validationerroritem.py
+  - src/kintsugi_tax_platform_sdk/models/backend_src_tax_estimation_responses_validationerroritem.py
+  - src/kintsugi_tax_platform_sdk/models/backend_src_transactions_responses_validationerroritem.py
+  - src/kintsugi_tax_platform_sdk/models/body_upload_exemption_certificate_v1_exemptions_exemption_id_attachments_post.py
+  - src/kintsugi_tax_platform_sdk/models/countrycodeenum.py
+  - src/kintsugi_tax_platform_sdk/models/create_credit_note_by_transaction_id_v1_transactions_original_transaction_id_credit_notes_postop.py
+  - src/kintsugi_tax_platform_sdk/models/create_customer_v1_customers_postop.py
+  - src/kintsugi_tax_platform_sdk/models/create_exemption_v1_exemptions_postop.py
+  - src/kintsugi_tax_platform_sdk/models/create_product_v1_products_postop.py
+  - src/kintsugi_tax_platform_sdk/models/create_transaction_by_customer_id_v1_customers_customer_id_transactions_postop.py
+  - src/kintsugi_tax_platform_sdk/models/create_transaction_v1_transactions_postop.py
+  - src/kintsugi_tax_platform_sdk/models/creditnotecreate.py
+  - src/kintsugi_tax_platform_sdk/models/creditnoteitemcreateupdate.py
+  - src/kintsugi_tax_platform_sdk/models/currencyenum.py
+  - src/kintsugi_tax_platform_sdk/models/customerbase_input.py
+  - src/kintsugi_tax_platform_sdk/models/customerbase_output.py
+  - src/kintsugi_tax_platform_sdk/models/customerbasebase.py
+  - src/kintsugi_tax_platform_sdk/models/customercreate.py
+  - src/kintsugi_tax_platform_sdk/models/customerread.py
+  - src/kintsugi_tax_platform_sdk/models/customerupdate.py
+  - src/kintsugi_tax_platform_sdk/models/discountbuilder.py
+  - src/kintsugi_tax_platform_sdk/models/estimate_tax_v1_tax_estimate_postop.py
+  - src/kintsugi_tax_platform_sdk/models/exemption.py
+  - src/kintsugi_tax_platform_sdk/models/exemptioncreate.py
+  - src/kintsugi_tax_platform_sdk/models/exemptionrequired.py
+  - src/kintsugi_tax_platform_sdk/models/exemptionstatus.py
+  - src/kintsugi_tax_platform_sdk/models/exemptiontype.py
+  - src/kintsugi_tax_platform_sdk/models/fastapi_pagination_default_page_exemptionread_2.py
+  - src/kintsugi_tax_platform_sdk/models/get_attachments_for_exemption_v1_exemptions_exemption_id_attachments_getop.py
+  - src/kintsugi_tax_platform_sdk/models/get_customer_by_external_id_v1_customers_external_external_id_getop.py
+  - src/kintsugi_tax_platform_sdk/models/get_customer_by_id_v1_customers_customer_id_getop.py
+  - src/kintsugi_tax_platform_sdk/models/get_customers_v1op.py
+  - src/kintsugi_tax_platform_sdk/models/get_exemption_by_id_v1_exemptions_exemption_id_getop.py
+  - src/kintsugi_tax_platform_sdk/models/get_exemptions_v1_exemptions_getop.py
+  - src/kintsugi_tax_platform_sdk/models/get_nexus_for_org_v1_nexus_getop.py
+  - src/kintsugi_tax_platform_sdk/models/get_product_by_id_v1_products_product_id_getop.py
+  - src/kintsugi_tax_platform_sdk/models/get_product_categories_v1_products_categories_getop.py
+  - src/kintsugi_tax_platform_sdk/models/get_products_v1_products_getop.py
+  - src/kintsugi_tax_platform_sdk/models/get_transaction_by_external_id_v1_transactions_external_external_id_getop.py
+  - src/kintsugi_tax_platform_sdk/models/get_transaction_by_id_v1_transactions_transaction_id_getop.py
+  - src/kintsugi_tax_platform_sdk/models/get_transactions_by_customer_id_v1_customers_customer_id_transactions_getop.py
+  - src/kintsugi_tax_platform_sdk/models/get_transactions_by_filing_id_v1_transactions_filings_filing_id_getop.py
+  - src/kintsugi_tax_platform_sdk/models/get_transactions_v1_transactions_getop.py
+  - src/kintsugi_tax_platform_sdk/models/jurisdictiontype.py
+  - src/kintsugi_tax_platform_sdk/models/nexusresponse.py
+  - src/kintsugi_tax_platform_sdk/models/nexusstateenum.py
+  - src/kintsugi_tax_platform_sdk/models/nexusstatusenum.py
+  - src/kintsugi_tax_platform_sdk/models/nexustypeenum.py
+  - src/kintsugi_tax_platform_sdk/models/page_customerread_.py
+  - src/kintsugi_tax_platform_sdk/models/page_nexusresponse_.py
+  - src/kintsugi_tax_platform_sdk/models/page_productread_.py
+  - src/kintsugi_tax_platform_sdk/models/page_transactionestimateresponse_.py
+  - src/kintsugi_tax_platform_sdk/models/page_transactionread_.py
+  - src/kintsugi_tax_platform_sdk/models/periodmodelenum.py
+  - src/kintsugi_tax_platform_sdk/models/processingstatusenum.py
+  - src/kintsugi_tax_platform_sdk/models/productcategories.py
+  - src/kintsugi_tax_platform_sdk/models/productcategoryenum.py
+  - src/kintsugi_tax_platform_sdk/models/productcodeenum.py
+  - src/kintsugi_tax_platform_sdk/models/productcreatemanual.py
+  - src/kintsugi_tax_platform_sdk/models/productread.py
+  - src/kintsugi_tax_platform_sdk/models/productstatusenum.py
+  - src/kintsugi_tax_platform_sdk/models/productsubcategory.py
+  - src/kintsugi_tax_platform_sdk/models/productsubcategoryenum.py
+  - src/kintsugi_tax_platform_sdk/models/productupdate.py
+  - src/kintsugi_tax_platform_sdk/models/productupdatev2.py
+  - src/kintsugi_tax_platform_sdk/models/registrationsregimeenum.py
+  - src/kintsugi_tax_platform_sdk/models/relatedentitytype.py
+  - src/kintsugi_tax_platform_sdk/models/salesortransactionsenum.py
+  - src/kintsugi_tax_platform_sdk/models/search_v1_address_validation_search_postop.py
+  - src/kintsugi_tax_platform_sdk/models/security.py
+  - src/kintsugi_tax_platform_sdk/models/sourceenum.py
+  - src/kintsugi_tax_platform_sdk/models/statusenum.py
+  - src/kintsugi_tax_platform_sdk/models/suggestions_v1_address_validation_suggestions_postop.py
+  - src/kintsugi_tax_platform_sdk/models/taxexemptionenum.py
+  - src/kintsugi_tax_platform_sdk/models/taxitembuilder.py
+  - src/kintsugi_tax_platform_sdk/models/taxitemestimate.py
+  - src/kintsugi_tax_platform_sdk/models/taxitemread.py
+  - src/kintsugi_tax_platform_sdk/models/taxitemreturnreasonenum.py
+  - src/kintsugi_tax_platform_sdk/models/taxitemtypeenum.py
+  - src/kintsugi_tax_platform_sdk/models/taxliabilitysourceenum.py
+  - src/kintsugi_tax_platform_sdk/models/transactionaddressbuilder.py
+  - src/kintsugi_tax_platform_sdk/models/transactionaddresspublic.py
+  - src/kintsugi_tax_platform_sdk/models/transactionaddressread_output.py
+  - src/kintsugi_tax_platform_sdk/models/transactioncreate.py
+  - src/kintsugi_tax_platform_sdk/models/transactionestimaterequest.py
+  - src/kintsugi_tax_platform_sdk/models/transactionestimateresponse.py
+  - src/kintsugi_tax_platform_sdk/models/transactionexemptstatusenum.py
+  - src/kintsugi_tax_platform_sdk/models/transactionimportcustomer.py
+  - src/kintsugi_tax_platform_sdk/models/transactionitembuilder.py
+  - src/kintsugi_tax_platform_sdk/models/transactionitemcreateupdate.py
+  - src/kintsugi_tax_platform_sdk/models/transactionitemestimatebase.py
+  - src/kintsugi_tax_platform_sdk/models/transactionitemestimateresponse.py
+  - src/kintsugi_tax_platform_sdk/models/transactionitemread.py
+  - src/kintsugi_tax_platform_sdk/models/transactionpublicrequest.py
+  - src/kintsugi_tax_platform_sdk/models/transactionread.py
+  - src/kintsugi_tax_platform_sdk/models/transactionrefundstatus.py
+  - src/kintsugi_tax_platform_sdk/models/transactionstatusenum.py
+  - src/kintsugi_tax_platform_sdk/models/transactiontypeenum.py
+  - src/kintsugi_tax_platform_sdk/models/transactionupdate.py
+  - src/kintsugi_tax_platform_sdk/models/treatmentenum.py
+  - src/kintsugi_tax_platform_sdk/models/update_credit_note_by_transaction_id_v1_transactions_original_transaction_id_credit_notes_credit_note_id_putop.py
+  - src/kintsugi_tax_platform_sdk/models/update_customer_v1_customers_customer_id_putop.py
+  - src/kintsugi_tax_platform_sdk/models/update_product_v1_products_product_id_putop.py
+  - src/kintsugi_tax_platform_sdk/models/update_transaction_v1_transactions_transaction_id_putop.py
+  - src/kintsugi_tax_platform_sdk/models/upload_exemption_certificate_v1_exemptions_exemption_id_attachments_postop.py
+  - src/kintsugi_tax_platform_sdk/models/validationaddress.py
+  - src/kintsugi_tax_platform_sdk/models/validationerror.py
+  - src/kintsugi_tax_platform_sdk/nexus.py
+  - src/kintsugi_tax_platform_sdk/products.py
+  - src/kintsugi_tax_platform_sdk/py.typed
+  - src/kintsugi_tax_platform_sdk/sdk.py
+  - src/kintsugi_tax_platform_sdk/sdkconfiguration.py
+  - src/kintsugi_tax_platform_sdk/taxestimation.py
+  - src/kintsugi_tax_platform_sdk/transactions.py
+  - src/kintsugi_tax_platform_sdk/types/__init__.py
+  - src/kintsugi_tax_platform_sdk/types/basemodel.py
+  - src/kintsugi_tax_platform_sdk/utils/__init__.py
+  - src/kintsugi_tax_platform_sdk/utils/annotations.py
+  - src/kintsugi_tax_platform_sdk/utils/datetimes.py
+  - src/kintsugi_tax_platform_sdk/utils/enums.py
+  - src/kintsugi_tax_platform_sdk/utils/eventstreaming.py
+  - src/kintsugi_tax_platform_sdk/utils/forms.py
+  - src/kintsugi_tax_platform_sdk/utils/headers.py
+  - src/kintsugi_tax_platform_sdk/utils/logger.py
+  - src/kintsugi_tax_platform_sdk/utils/metadata.py
+  - src/kintsugi_tax_platform_sdk/utils/queryparams.py
+  - src/kintsugi_tax_platform_sdk/utils/requestbodies.py
+  - src/kintsugi_tax_platform_sdk/utils/retries.py
+  - src/kintsugi_tax_platform_sdk/utils/security.py
+  - src/kintsugi_tax_platform_sdk/utils/serializers.py
+  - src/kintsugi_tax_platform_sdk/utils/unmarshal_json_response.py
+  - src/kintsugi_tax_platform_sdk/utils/url.py
+  - src/kintsugi_tax_platform_sdk/utils/values.py
+examples:
+  search_v1_address_validation_search_post:
+    speakeasy-default-search-v1-address-validation-search-post:
+      requestBody:
+        application/json: {}
+      responses:
+        "200":
+          application/json: [{"address_submitted": {}, "response_address": {}, "verification_status": "<value>", "enrich_fields": ["<value 1>", "<value 2>"]}]
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": []}
+        "500":
+          application/json: {"detail": "<value>"}
+  suggestions_v1_address_validation_suggestions_post:
+    speakeasy-default-suggestions-v1-address-validation-suggestions-post:
+      parameters:
+        header:
+          x-organization-id: "org_12345"
+      requestBody:
+        application/json: {}
+      responses:
+        "200":
+          application/json: "<value>"
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": [{"type": "<value>", "loc": ["<value 1>", "<value 2>"], "msg": "<value>", "input": "<value>", "ctx": {"key": "<value>", "key1": "<value>", "key2": "<value>"}}]}
+        "500":
+          application/json: {"detail": "<value>"}
+  get_customers_v1:
+    speakeasy-default-get-customers-v1:
+      parameters:
+        query:
+          search_query: "John"
+          country: ["US"]
+          state: "CA"
+          source__in: "SHOPIFY,API"
+          order_by: "created_at,street_1,street_2,city,state,postal_code,country,status"
+          page: 1
+          size: 50
+        header:
+          x-organization-id: "org_12345"
+      responses:
+        "200":
+          application/json: {"items": [{"id": "<id>", "organization_id": "<id>"}], "total": 719000, "page": 273955, "size": 335750}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": []}
+        "500":
+          application/json: {"detail": "<value>"}
+  create_customer_v1_customers_post:
+    speakeasy-default-create-customer-v1-customers-post:
+      parameters:
+        header:
+          x-organization-id: "org_12345"
+      requestBody:
+        application/json: {}
+      responses:
+        "200":
+          application/json: {"id": "<id>", "organization_id": "<id>"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": []}
+        "500":
+          application/json: {"detail": "<value>"}
+  get_customer_by_id_v1_customers__customer_id__get:
+    speakeasy-default-get-customer-by-id-v1-customers-customer-id-get:
+      parameters:
+        path:
+          customer_id: "cust_abc123"
+        header:
+          x-organization-id: "org_12345"
+      responses:
+        "200":
+          application/json: {"id": "<id>", "organization_id": "<id>"}
+        "422":
+          application/json: {}
+  update_customer_v1_customers__customer_id__put:
+    speakeasy-default-update-customer-v1-customers-customer-id-put:
+      parameters:
+        path:
+          customer_id: "<id>"
+        header:
+          x-organization-id: "org_12345"
+      requestBody:
+        application/json: {}
+      responses:
+        "200":
+          application/json: {"id": "<id>", "organization_id": "<id>"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": [{"type": "<value>", "loc": ["<value 1>"], "msg": "<value>", "input": "<value>", "ctx": {"key": "<value>"}}]}
+        "500":
+          application/json: {"detail": "<value>"}
+  get_customer_by_external_id_v1_customers_external__external_id__get:
+    speakeasy-default-get-customer-by-external-id-v1-customers-external-external-id-get:
+      parameters:
+        path:
+          external_id: "external_12345"
+        header:
+          x-organization-id: "org_12345"
+      responses:
+        "200":
+          application/json: {"id": "<id>", "organization_id": "<id>"}
+        "422":
+          application/json: {}
+  get_transactions_by_customer_id_v1_customers__customer_id__transactions_get:
+    speakeasy-default-get-transactions-by-customer-id-v1-customers-customer-id-transactions-get:
+      parameters:
+        path:
+          customer_id: "<id>"
+        header:
+          x-organization-id: "org_12345"
+      responses:
+        "200":
+          application/json: [{"organization_id": "<id>", "external_id": "<id>", "date": "2023-02-17T13:13:59.050Z", "total_amount": "0.00", "total_tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "total_tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "total_tax_liability_amount": "0.00", "taxable_amount": "0.00", "locked": false, "id": "<id>", "addresses": [{"type": "SHIP_TO"}], "transaction_items": [{"organization_id": "<id>", "date": "2024-01-20T22:07:20.889Z", "external_product_id": "<id>", "quantity": "1.0", "amount": "0.00", "tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "taxable_amount": "0.00", "exempt": false, "id": "<id>", "tax_items": [{"rule_id": "0000", "rate": "<value>", "amount": "954.69", "name": "<value>"}]}], "type": "ARCHIVE"}]
+        "422":
+          application/json: {}
+  create_transaction_by_customer_id_v1_customers__customer_id__transactions_post:
+    speakeasy-default-create-transaction-by-customer-id-v1-customers-customer-id-transactions-post:
+      parameters:
+        path:
+          customer_id: "<value>"
+        header:
+          x-organization-id: "org_12345"
+      requestBody:
+        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2023-02-16T04:36:50.697Z", "locked": false, "addresses": [], "transaction_items": [{"organization_id": "<id>", "date": "2024-05-13T04:49:24.946Z", "external_product_id": "<id>", "exempt": false}]}
+      responses:
+        "200":
+          application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2024-03-26T21:54:40.067Z", "total_amount": "0.00", "total_tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "total_tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "total_tax_liability_amount": "0.00", "taxable_amount": "0.00", "locked": false, "id": "<id>", "addresses": [], "transaction_items": [{"organization_id": "<id>", "date": "2025-07-02T12:31:43.127Z", "external_product_id": "<id>", "quantity": "1.0", "amount": "0.00", "tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "taxable_amount": "0.00", "exempt": false, "id": "<id>", "tax_items": [{"rule_id": "0000", "rate": "<value>", "amount": "817.28", "name": "<value>"}]}], "type": "PARTIAL_CREDIT_NOTE"}
+        "422":
+          application/json: {}
+  get_exemptions_v1_exemptions_get:
+    speakeasy-default-get-exemptions-v1-exemptions-get:
+      parameters:
+        query:
+          search_query: "John"
+          country_code: ["US"]
+          jurisdiction: "CA"
+          start_date: "2024-01-01"
+          end_date: "2024-01-01"
+          customer_id: "cust_1234"
+          transaction_id: "trans_1234"
+          page: 1
+          size: 50
+        header:
+          x-organization-id: "org_12345"
+      responses:
+        "200":
+          application/json: {"items": [], "total": 809509, "page": 948427, "size": null}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": [{"type": "<value>", "loc": ["<value 1>", "<value 2>"], "msg": "<value>", "input": "<value>", "ctx": {"key": "<value>"}}]}
+        "500":
+          application/json: {"detail": "<value>"}
+  create_exemption_v1_exemptions_post:
+    speakeasy-default-create-exemption-v1-exemptions-post:
+      parameters:
+        header:
+          x-organization-id: "org_12345"
+      requestBody:
+        application/json: {"exemption_type": "customer", "start_date": "2023-03-27", "customer_id": "<id>", "reseller": false, "FEIN": "<value>", "sales_tax_id": "<id>", "status": "ACTIVE"}
+      responses:
+        "200":
+          application/json: {"start_date": "2025-05-21", "reseller": false, "id": "<id>", "exemption_type": "transaction", "status": "ARCHIVED"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": [{"type": "<value>", "loc": ["<value 1>"], "msg": "<value>", "input": "<value>", "ctx": {"key": "<value>"}}]}
+        "500":
+          application/json: {"detail": "<value>"}
+  get_exemption_by_id_v1_exemptions__exemption_id__get:
+    speakeasy-default-get-exemption-by-id-v1-exemptions-exemption-id-get:
+      parameters:
+        path:
+          exemption_id: "<id>"
+        header:
+          x-organization-id: "org_12345"
+      responses:
+        "200":
+          application/json: {"exemption_type": "transaction", "start_date": "2024-02-13", "reseller": false, "id": "<id>"}
+        "404":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": []}
+        "500":
+          application/json: {"detail": "<value>"}
+  upload_exemption_certificate_v1_exemptions__exemption_id__attachments_post:
+    speakeasy-default-upload-exemption-certificate-v1-exemptions-exemption-id-attachments-post:
+      parameters:
+        path:
+          exemption_id: "<id>"
+        header:
+          x-organization-id: "org_12345"
+      requestBody:
+        multipart/form-data: {"file": "x-file: example.file"}
+      responses:
+        "200":
+          application/json: {"related_entity_id": "<id>", "related_entity_type": "EXEMPTION", "id": "<id>"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": []}
+        "500":
+          application/json: {"detail": "<value>"}
+  get_attachments_for_exemption_v1_exemptions__exemption_id__attachments_get:
+    speakeasy-default-get-attachments-for-exemption-v1-exemptions-exemption-id-attachments-get:
+      parameters:
+        path:
+          exemption_id: "<id>"
+        header:
+          x-organization-id: "org_12345"
+      responses:
+        "200":
+          application/json: [{"related_entity_id": "<id>", "related_entity_type": "EXEMPTION", "id": "<id>"}]
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": [{"type": "<value>", "loc": ["<value 1>", "<value 2>"], "msg": "<value>", "input": "<value>", "ctx": {"key": "<value>", "key1": "<value>"}}]}
+  get_nexus_for_org_v1_nexus_get:
+    speakeasy-default-get-nexus-for-org-v1-nexus-get:
+      parameters:
+        query:
+          page: 1
+          size: 50
+        header:
+          x-organization-id: "org_12345"
+      responses:
+        "200":
+          application/json: {"items": [{"country_code": "CN", "state_code": "<value>", "state_name": "<value>", "treatment_of_exempt_transactions": "YES_SALES_NO_TRANSACTIONS", "trigger": "<value>", "sales_or_transactions": "SALES", "threshold_sales": 476092, "threshold_transactions": 144398, "start_date": "2025-03-09", "transaction_count": 0, "transactions_amount": "0.00", "previous_transaction_count": 0, "previous_transactions_amount": "0.00", "tax_liability": "0.00", "nexus_met": false, "economic_nexus_met": false, "physical_nexus_met": false, "collected_tax_enabled": false, "period_model": "PRECEDING_YEAR_QUARTERLY_OFFSET", "period_start_date": "2024-12-20", "period_end_date": "2023-10-25", "previous_period_start_date": "2023-02-23", "previous_period_end_date": "2023-05-08", "earliest_collected_date": "2018-01-01T00:00:00", "id": "<id>", "created_at": "2025-07-27T10:58:50.049Z", "updated_at": "2024-12-31T08:38:28.993Z", "organization_id": "<id>", "is_vda_eligible": false, "nexus_type": "STATE", "total_transactions": 218796, "total_transactions_included": 800733, "total_transactions_exempted": 990975, "total_transactions_marketplace": 980208}], "total": null, "page": 886833, "size": 272984}
+        "422":
+          application/json: {}
+  get_products_v1_products__get:
+    speakeasy-default-get-products-v1-products-get:
+      parameters:
+        query:
+          page: 1
+          size: 50
+        header:
+          x-organization-id: "org_12345"
+      responses:
+        "200":
+          application/json: {"items": [{"id": "<id>", "external_id": "<id>", "sku": ["<value 1>"], "code": "CODE_3006", "name": "<value>", "description": "furthermore suckle whose", "status": "APPROVED", "product_category": "MISCELLANEOUS", "product_subcategory": "COMMERCIAL_CONSTRUCTION_EXISTING_BUILDINGS_LABOR", "tax_exempt": true, "source": "RECURLY", "connection_id": "<id>", "classification_failed": true}], "total": 158694, "page": null, "size": 727379}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": [{"type": "<value>", "loc": ["<value 1>"], "msg": "<value>", "input": "<value>", "ctx": {"key": "<value>", "key1": "<value>"}}]}
+        "500":
+          application/json: {"detail": "<value>"}
+  create_product_v1_products__post:
+    speakeasy-default-create-product-v1-products-post:
+      parameters:
+        header:
+          x-organization-id: "org_12345"
+      requestBody:
+        application/json: {"external_id": "<id>", "name": "<value>", "product_category": "<value>", "product_subcategory": "<value>", "tax_exempt": true}
+      responses:
+        "200":
+          application/json: {"id": "<id>", "external_id": "<id>", "sku": ["<value 1>", "<value 2>"], "code": "CODE_3009", "name": "<value>", "description": "huzzah incidentally below pfft under stitcher", "status": "PARTIALLY_APPROVED", "product_category": "<value>", "product_subcategory": "FOOD_VENDING_MACHINE", "tax_exempt": true, "source": "OTHER", "connection_id": "<id>", "classification_failed": null}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": [{"type": "<value>", "loc": [], "msg": "<value>", "input": "<value>", "ctx": {}}]}
+        "500":
+          application/json: {"detail": "<value>"}
+  get_product_by_id_v1_products__product_id__get:
+    speakeasy-default-get-product-by-id-v1-products-product-id-get:
+      parameters:
+        path:
+          product_id: "<id>"
+        header:
+          x-organization-id: "org_12345"
+      responses:
+        "200":
+          application/json: {"id": "<id>", "external_id": "<id>", "sku": null, "code": "<value>", "name": "<value>", "description": "once unnaturally unlike pulverize", "status": "PARTIALLY_APPROVED", "product_category": "SERVICE", "product_subcategory": "CATERING", "tax_exempt": false, "source": "DEEL", "connection_id": "<id>", "classification_failed": false}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": [{"type": "<value>", "loc": ["<value 1>", "<value 2>", "<value 3>"], "msg": "<value>", "input": "<value>", "ctx": {"key": "<value>", "key1": "<value>", "key2": "<value>"}}]}
+        "500":
+          application/json: {"detail": "<value>"}
+  update_product_v1_products__product_id__put:
+    speakeasy-default-update-product-v1-products-product-id-put:
+      parameters:
+        path:
+          product_id: "<id>"
+        header:
+          x-organization-id: "org_12345"
+      requestBody:
+        application/json: {"name": "<value>", "product_category": "SERVICE", "product_subcategory": "CUSTOMIZATION_OF_SOFTWARE", "tax_exempt": true}
+      responses:
+        "200":
+          application/json: {"id": "<id>", "external_id": "<id>", "sku": ["<value 1>", "<value 2>"], "code": "<value>", "name": "<value>", "description": "pfft clearly before evince hmph", "status": "PARTIALLY_APPROVED", "product_category": "<value>", "product_subcategory": "<value>", "tax_exempt": true, "source": "POS", "connection_id": "<id>", "classification_failed": false}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": [{"type": "<value>", "loc": ["<value 1>", "<value 2>", "<value 3>"], "msg": "<value>", "input": "<value>", "ctx": {"key": "<value>"}}]}
+        "500":
+          application/json: {"detail": "<value>"}
+  get_product_categories_v1_products_categories__get:
+    speakeasy-default-get-product-categories-v1-products-categories-get:
+      parameters:
+        header:
+          x-organization-id: "org_12345"
+      responses:
+        "200":
+          application/json: [{"name": "<value>", "subcategories": []}]
+        "422":
+          application/json: {}
+  get_transactions_v1_transactions_get:
+    speakeasy-default-get-transactions-v1-transactions-get:
+      parameters:
+        query:
+          page: 1
+          size: 50
+        header:
+          x-organization-id: "org_12345"
+      responses:
+        "200":
+          application/json: {"items": [], "total": null, "page": 659955, "size": 969694}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": [{"type": "<value>", "loc": ["<value 1>", "<value 2>"], "msg": "<value>", "input": "<value>", "ctx": {"key": "<value>", "key1": "<value>"}}]}
+        "500":
+          application/json: {"detail": "<value>"}
+  create_transaction_v1_transactions_post:
+    speakeasy-default-create-transaction-v1-transactions-post:
+      parameters:
+        header:
+          x-organization-id: "org_12345"
+      requestBody:
+        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-11-05T23:48:53.053Z", "locked": false, "addresses": [], "transaction_items": [], "customer": {}, "type": "ARCHIVE"}
+      responses:
+        "202":
+          application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-09-02T23:33:30.843Z", "total_amount": "0.00", "total_tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "total_tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "total_tax_liability_amount": "0.00", "taxable_amount": "0.00", "locked": false, "id": "<id>", "addresses": [{"type": "SHIP_FROM"}], "transaction_items": [{"organization_id": "<id>", "date": "2023-08-29T15:50:05.795Z", "external_product_id": "<id>", "quantity": "1.0", "amount": "0.00", "tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "taxable_amount": "0.00", "exempt": false, "id": "<id>", "tax_items": []}], "type": "FULL_CREDIT_NOTE"}
+        "400":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": []}
+        "500":
+          application/json: {"detail": "<value>"}
+    duplicate_external_id:
+      parameters:
+        header:
+          x-organization-id: "org_12345"
+      requestBody:
+        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-11-05T23:48:53.053Z", "locked": false, "addresses": [], "transaction_items": [], "customer": {}, "type": "ARCHIVE"}
+      responses:
+        "400":
+          application/json: {"detail": "Duplicate external id (ORDER_XYZ_789) for the given transaction not allowed."}
+        "500":
+          application/json: {"detail": "Duplicate external id (ORDER_XYZ_789) for the given transaction not allowed."}
+    missing_product_external_id:
+      parameters:
+        header:
+          x-organization-id: "org_12345"
+      requestBody:
+        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-11-05T23:48:53.053Z", "locked": false, "addresses": [], "transaction_items": [], "customer": {}, "type": "ARCHIVE"}
+      responses:
+        "400":
+          application/json: {"detail": "[orgn_YourOrgIdHere] Product does not have an external id"}
+        "500":
+          application/json: {"detail": "[orgn_YourOrgIdHere] Product does not have an external id"}
+    connection_mismatch:
+      parameters:
+        header:
+          x-organization-id: "org_12345"
+      requestBody:
+        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-11-05T23:48:53.053Z", "locked": false, "addresses": [], "transaction_items": [], "customer": {}, "type": "ARCHIVE"}
+      responses:
+        "400":
+          application/json: {"detail": "Connection mismatch between transaction and customer"}
+        "500":
+          application/json: {"detail": "Connection mismatch between transaction and customer"}
+    invalid_address:
+      parameters:
+        header:
+          x-organization-id: "org_12345"
+      requestBody:
+        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-11-05T23:48:53.053Z", "locked": false, "addresses": [], "transaction_items": [], "customer": {}, "type": "ARCHIVE"}
+      responses:
+        "400":
+          application/json: {"detail": "Address validation failed: missing required fields"}
+        "500":
+          application/json: {"detail": "Address validation failed: missing required fields"}
+    missing_org_id:
+      parameters:
+        header:
+          x-organization-id: "org_12345"
+      requestBody:
+        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-11-05T23:48:53.053Z", "locked": false, "addresses": [], "transaction_items": [], "customer": {}, "type": "ARCHIVE"}
+      responses:
+        "422":
+          application/json: {"detail": [{"type": "missing", "loc": ["header", "x-organization-id"], "msg": "Field required", "input": "<value>", "ctx": {"key": "<value>"}}]}
+    missing_required_field:
+      parameters:
+        header:
+          x-organization-id: "org_12345"
+      requestBody:
+        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-11-05T23:48:53.053Z", "locked": false, "addresses": [], "transaction_items": [], "customer": {}, "type": "ARCHIVE"}
+      responses:
+        "422":
+          application/json: {"detail": [{"type": "missing", "loc": ["body", "external_id"], "msg": "Field required", "input": "<value>", "ctx": {"key": "<value>", "key1": "<value>", "key2": "<value>"}}]}
+    invalid_enum_value:
+      parameters:
+        header:
+          x-organization-id: "org_12345"
+      requestBody:
+        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-11-05T23:48:53.053Z", "locked": false, "addresses": [], "transaction_items": [], "customer": {}, "type": "ARCHIVE"}
+      responses:
+        "422":
+          application/json: {"detail": [{"type": "enum", "loc": ["body", "currency"], "msg": "Input should be 'USD', 'CAD', 'EUR'...", "input": "INVALID", "ctx": {"expected": "one of USD, CAD, EUR..."}}]}
+    invalid_date_format:
+      parameters:
+        header:
+          x-organization-id: "org_12345"
+      requestBody:
+        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-11-05T23:48:53.053Z", "locked": false, "addresses": [], "transaction_items": [], "customer": {}, "type": "ARCHIVE"}
+      responses:
+        "422":
+          application/json: {"detail": [{"type": "datetime_parsing", "loc": ["body", "date"], "msg": "Input should be a valid datetime, invalid format", "input": "2023-13-45", "ctx": {}}]}
+  get_transaction_by_external_id_v1_transactions_external__external_id__get:
+    speakeasy-default-get-transaction-by-external-id-v1-transactions-external-external-id-get:
+      parameters:
+        path:
+          external_id: "<id>"
+        header:
+          x-organization-id: "org_12345"
+      responses:
+        "200":
+          application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2024-07-02T09:59:25.499Z", "total_amount": "0.00", "total_tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "total_tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "total_tax_liability_amount": "0.00", "taxable_amount": "0.00", "locked": false, "id": "<id>", "addresses": [], "transaction_items": [{"organization_id": "<id>", "date": "2025-02-10T16:56:41.984Z", "external_product_id": "<id>", "quantity": "1.0", "amount": "0.00", "tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "taxable_amount": "0.00", "exempt": false, "id": "<id>", "tax_items": [{"rule_id": "0000", "rate": "<value>", "amount": "530.73", "name": "<value>"}]}], "type": "PARTIAL_CREDIT_NOTE"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": [{"type": "<value>", "loc": ["<value 1>", "<value 2>", "<value 3>"], "msg": "<value>", "input": "<value>", "ctx": {}}]}
+        "500":
+          application/json: {"detail": "<value>"}
+  update_transaction_v1_transactions__transaction_id__put:
+    speakeasy-default-update-transaction-v1-transactions-transaction-id-put:
+      parameters:
+        path:
+          transaction_id: "<id>"
+        header:
+          x-organization-id: "org_12345"
+      requestBody:
+        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2024-09-25T05:56:56.167Z", "locked": false, "addresses": [], "transaction_items": [{"organization_id": "<id>", "date": "2024-12-29T19:13:48.302Z", "external_product_id": "<id>", "exempt": false}], "customer": {}}
+      responses:
+        "200":
+          application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2024-09-25T16:52:09.866Z", "total_amount": "0.00", "total_tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "total_tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "total_tax_liability_amount": "0.00", "taxable_amount": "0.00", "locked": false, "id": "<id>", "addresses": [{"type": "SHIP_FROM"}], "transaction_items": [{"organization_id": "<id>", "date": "2025-08-27T16:42:02.917Z", "external_product_id": "<id>", "quantity": "1.0", "amount": "0.00", "tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "taxable_amount": "0.00", "exempt": false, "id": "<id>", "tax_items": [{"rule_id": "0000", "rate": "<value>", "amount": "391.29", "name": "<value>"}]}], "type": "FULL_CREDIT_NOTE"}
+        "422":
+          application/json: {}
+  get_transaction_by_id_v1_transactions__transaction_id__get:
+    speakeasy-default-get-transaction-by-id-v1-transactions-transaction-id-get:
+      parameters:
+        path:
+          transaction_id: "<id>"
+        header:
+          x-organization-id: "org_12345"
+      responses:
+        "200":
+          application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2024-08-13T05:12:45.031Z", "total_amount": "0.00", "total_tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "total_tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "total_tax_liability_amount": "0.00", "taxable_amount": "0.00", "locked": false, "id": "<id>", "addresses": [{"type": "BILL_TO"}], "transaction_items": [], "type": "ARCHIVE"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": [{"type": "<value>", "loc": [], "msg": "<value>", "input": "<value>", "ctx": {}}]}
+        "500":
+          application/json: {"detail": "<value>"}
+  get_transactions_by_filing_id_v1_transactions_filings__filing_id__get:
+    speakeasy-default-get-transactions-by-filing-id-v1-transactions-filings-filing-id-get:
+      parameters:
+        path:
+          filing_id: "<id>"
+        header:
+          x-organization-id: "org_12345"
+      responses:
+        "200":
+          application/json: [{"organization_id": "<id>", "external_id": "<id>", "date": "2023-04-06T23:55:54.854Z", "total_amount": "0.00", "total_tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "total_tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "total_tax_liability_amount": "0.00", "taxable_amount": "0.00", "locked": false, "id": "<id>", "addresses": [{"type": "SHIP_FROM"}], "transaction_items": [], "type": "SALE"}]
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": []}
+        "500":
+          application/json: {"detail": "<value>"}
+  create_credit_note_by_transaction_id_v1_transactions__original_transaction_id__credit_notes_post:
+    speakeasy-default-create-credit-note-by-transaction-id-v1-transactions-original-transaction-id-credit-notes-post:
+      parameters:
+        path:
+          original_transaction_id: "<id>"
+        header:
+          x-organization-id: "org_12345"
+      requestBody:
+        application/json: {"external_id": "<id>", "date": "2023-02-14T16:33:11.373Z", "status": "COMMITTED", "currency": "SAR", "transaction_items": [{"external_id": "<id>", "date": "2025-10-23T02:20:00.049Z", "external_product_id": "<id>"}]}
+      responses:
+        "200":
+          application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-04-11T07:36:34.923Z", "total_amount": "0.00", "total_tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "total_tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "total_tax_liability_amount": "0.00", "taxable_amount": "0.00", "locked": false, "id": "<id>", "addresses": [{"type": "BILL_FROM"}], "transaction_items": [{"organization_id": "<id>", "date": "2025-03-22T02:57:08.436Z", "external_product_id": "<id>", "quantity": "1.0", "amount": "0.00", "tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "taxable_amount": "0.00", "exempt": false, "id": "<id>", "tax_items": [{"rule_id": "0000", "rate": "<value>", "amount": "927.80", "name": "<value>"}]}], "type": "ARCHIVE"}
+        "422":
+          application/json: {}
+  update_credit_note_by_transaction_id_v1_transactions__original_transaction_id__credit_notes__credit_note_id__put:
+    speakeasy-default-update-credit-note-by-transaction-id-v1-transactions-original-transaction-id-credit-notes-credit-note-id-put:
+      parameters:
+        path:
+          original_transaction_id: "<id>"
+          credit_note_id: "<id>"
+        header:
+          x-organization-id: "org_12345"
+      requestBody:
+        application/json: {"external_id": "<id>", "date": "2023-04-03T14:25:55.241Z", "status": "PENDING", "currency": "JOD", "transaction_items": [{"external_id": "<id>", "date": "2024-04-29T01:52:56.740Z", "external_product_id": "<id>"}]}
+      responses:
+        "200":
+          application/json: "<value>"
+        "422":
+          application/json: {}
+  estimate_tax_v1_tax_estimate_post:
+    speakeasy-default-estimate-tax-v1-tax-estimate-post:
+      parameters:
+        header:
+          x-organization-id: "org_12345"
+      requestBody:
+        application/json: {"date": "2025-10-15T06:09:56.760Z", "external_id": "<id>", "currency": "WST", "addresses": [{"type": "BILL_TO", "state": "Virginia", "postal_code": "53776-2466", "country": "Wallis and Futuna"}], "transaction_items": [{"date": "2023-10-09T10:49:19.753Z", "amount": "612.37", "exempt": false}]}
+      responses:
+        "200":
+          application/json: {"items": [], "total": 610767, "page": 61497, "size": 435684}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": [{"type": "<value>", "loc": ["<value 1>"], "msg": "<value>", "input": "<value>", "ctx": {"key": "<value>", "key1": "<value>", "key2": "<value>"}}]}
+        "500":
+          application/json: {"detail": "<value>"}
+examplesVersion: 1.0.2

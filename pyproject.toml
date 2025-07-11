@@ -3,7 +3,7 @@ name = "kintsugi-tax-platform-sdk"
 version = "0.5.5"
 description = "Python Client SDK for Kintsugi Tax Platform API."
 authors = [{ name = "Kintsugi Tax" },]
-readme = "README-PYPI.md"
+readme = "README.md"
 requires-python = ">=3.9.2"
 dependencies = [
     "httpcore >=1.0.9",
@@ -12,7 +12,6 @@ dependencies = [
 ]
 
 [tool.poetry]
-repository = "https://github.com/kintsugi-tax/kintsugi-speakeasy.git"
 packages = [
     { include = "kintsugi_tax_platform_sdk", from = "src" }
 ]

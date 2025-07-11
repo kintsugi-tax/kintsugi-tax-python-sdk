@@ -444,7 +444,7 @@ CreateTransactionByCustomerIdV1CustomersCustomerIdTransactionsPostRequest (custo
      DiscountAmount (union)
 CreateTransactionByCustomerIdV1CustomersCustomerIdTransactionsPostSecurity (APIKeyHeader: string, HTTPBearer: string)
 Exemptions (SDK empty)
-GetExemptionsV1ExemptionsGetRequest (status__in: string, country_code: array, jurisdiction: string ...)
+GetExemptionsV1ExemptionsGetRequest (search_query: string, status__in: string, country_code: array ...)
   CountryCode (union)
 FastapiPaginationDefaultPageExemptionRead2 (items: array, total: integer, page: integer ...)
   BackendSrcExemptionsModelsExemptionRead (exemption_type: ExemptionType, jurisdiction: string, country_code: CountryCodeEnum ...)
