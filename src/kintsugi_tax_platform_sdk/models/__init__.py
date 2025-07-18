@@ -122,9 +122,9 @@ if TYPE_CHECKING:
         CreditNoteItemCreateUpdateTypedDict,
     )
     from .currencyenum import CurrencyEnum
-    from .customerbase_input import CustomerBaseInput, CustomerBaseInputTypedDict
-    from .customerbase_output import CustomerBaseOutput, CustomerBaseOutputTypedDict
+    from .customerbase import CustomerBase, CustomerBaseTypedDict
     from .customerbasebase import CustomerBaseBase, CustomerBaseBaseTypedDict
+    from .customerbasepublic import CustomerBasePublic, CustomerBasePublicTypedDict
     from .customercreate import CustomerCreate, CustomerCreateTypedDict
     from .customerread import CustomerRead, CustomerReadTypedDict
     from .customerupdate import CustomerUpdate, CustomerUpdateTypedDict
@@ -366,14 +366,14 @@ if TYPE_CHECKING:
         TransactionCreateTotalTaxLiabilityAmountTypedDict,
         TransactionCreateTypedDict,
     )
-    from .transactionestimaterequest import (
+    from .transactionestimatepublicrequest import (
         TotalAmountOfTheTransactionAfterDiscounts,
         TotalAmountOfTheTransactionAfterDiscountsTypedDict,
-        TransactionEstimateRequest,
-        TransactionEstimateRequestAddress,
-        TransactionEstimateRequestAddressTypedDict,
-        TransactionEstimateRequestType,
-        TransactionEstimateRequestTypedDict,
+        TransactionEstimatePublicRequest,
+        TransactionEstimatePublicRequestAddress,
+        TransactionEstimatePublicRequestAddressTypedDict,
+        TransactionEstimatePublicRequestType,
+        TransactionEstimatePublicRequestTypedDict,
     )
     from .transactionestimateresponse import (
         TransactionEstimateResponse,
@@ -648,12 +648,12 @@ __all__ = [
     "CreditNoteItemCreateUpdateTypedDict",
     "CurrencyEnum",
     "Customer",
+    "CustomerBase",
     "CustomerBaseBase",
     "CustomerBaseBaseTypedDict",
-    "CustomerBaseInput",
-    "CustomerBaseInputTypedDict",
-    "CustomerBaseOutput",
-    "CustomerBaseOutputTypedDict",
+    "CustomerBasePublic",
+    "CustomerBasePublicTypedDict",
+    "CustomerBaseTypedDict",
     "CustomerCreate",
     "CustomerCreateTypedDict",
     "CustomerRead",
@@ -867,11 +867,11 @@ __all__ = [
     "TransactionCreateTotalTaxLiabilityAmount",
     "TransactionCreateTotalTaxLiabilityAmountTypedDict",
     "TransactionCreateTypedDict",
-    "TransactionEstimateRequest",
-    "TransactionEstimateRequestAddress",
-    "TransactionEstimateRequestAddressTypedDict",
-    "TransactionEstimateRequestType",
-    "TransactionEstimateRequestTypedDict",
+    "TransactionEstimatePublicRequest",
+    "TransactionEstimatePublicRequestAddress",
+    "TransactionEstimatePublicRequestAddressTypedDict",
+    "TransactionEstimatePublicRequestType",
+    "TransactionEstimatePublicRequestTypedDict",
     "TransactionEstimateResponse",
     "TransactionEstimateResponseAddress",
     "TransactionEstimateResponseAddressTypedDict",
@@ -1109,12 +1109,12 @@ _dynamic_imports: dict[str, str] = {
     "CreditNoteItemCreateUpdateTaxableAmountTypedDict": ".creditnoteitemcreateupdate",
     "CreditNoteItemCreateUpdateTypedDict": ".creditnoteitemcreateupdate",
     "CurrencyEnum": ".currencyenum",
-    "CustomerBaseInput": ".customerbase_input",
-    "CustomerBaseInputTypedDict": ".customerbase_input",
-    "CustomerBaseOutput": ".customerbase_output",
-    "CustomerBaseOutputTypedDict": ".customerbase_output",
+    "CustomerBase": ".customerbase",
+    "CustomerBaseTypedDict": ".customerbase",
     "CustomerBaseBase": ".customerbasebase",
     "CustomerBaseBaseTypedDict": ".customerbasebase",
+    "CustomerBasePublic": ".customerbasepublic",
+    "CustomerBasePublicTypedDict": ".customerbasepublic",
     "CustomerCreate": ".customercreate",
     "CustomerCreateTypedDict": ".customercreate",
     "CustomerRead": ".customerread",
@@ -1318,13 +1318,13 @@ _dynamic_imports: dict[str, str] = {
     "TransactionCreateTotalTaxLiabilityAmount": ".transactioncreate",
     "TransactionCreateTotalTaxLiabilityAmountTypedDict": ".transactioncreate",
     "TransactionCreateTypedDict": ".transactioncreate",
-    "TotalAmountOfTheTransactionAfterDiscounts": ".transactionestimaterequest",
-    "TotalAmountOfTheTransactionAfterDiscountsTypedDict": ".transactionestimaterequest",
-    "TransactionEstimateRequest": ".transactionestimaterequest",
-    "TransactionEstimateRequestAddress": ".transactionestimaterequest",
-    "TransactionEstimateRequestAddressTypedDict": ".transactionestimaterequest",
-    "TransactionEstimateRequestType": ".transactionestimaterequest",
-    "TransactionEstimateRequestTypedDict": ".transactionestimaterequest",
+    "TotalAmountOfTheTransactionAfterDiscounts": ".transactionestimatepublicrequest",
+    "TotalAmountOfTheTransactionAfterDiscountsTypedDict": ".transactionestimatepublicrequest",
+    "TransactionEstimatePublicRequest": ".transactionestimatepublicrequest",
+    "TransactionEstimatePublicRequestAddress": ".transactionestimatepublicrequest",
+    "TransactionEstimatePublicRequestAddressTypedDict": ".transactionestimatepublicrequest",
+    "TransactionEstimatePublicRequestType": ".transactionestimatepublicrequest",
+    "TransactionEstimatePublicRequestTypedDict": ".transactionestimatepublicrequest",
     "TransactionEstimateResponse": ".transactionestimateresponse",
     "TransactionEstimateResponseAddress": ".transactionestimateresponse",
     "TransactionEstimateResponseAddressTypedDict": ".transactionestimateresponse",

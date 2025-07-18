@@ -17,7 +17,7 @@ from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-class CustomerBaseInputTypedDict(TypedDict):
+class CustomerBasePublicTypedDict(TypedDict):
     phone: NotRequired[Nullable[str]]
     r"""Phone number associated with the address."""
     street_1: NotRequired[Nullable[str]]
@@ -49,11 +49,9 @@ class CustomerBaseInputTypedDict(TypedDict):
     registration_number: NotRequired[Nullable[str]]
     connection_id: NotRequired[Nullable[str]]
     r"""Unique identifier of the connection related to the customer."""
-    enriched_fields: NotRequired[Nullable[str]]
-    r"""Additional enriched fields for the customer, if available."""
 
 
-class CustomerBaseInput(BaseModel):
+class CustomerBasePublic(BaseModel):
     phone: OptionalNullable[str] = UNSET
     r"""Phone number associated with the address."""
 
@@ -102,9 +100,6 @@ class CustomerBaseInput(BaseModel):
     connection_id: OptionalNullable[str] = UNSET
     r"""Unique identifier of the connection related to the customer."""
 
-    enriched_fields: OptionalNullable[str] = UNSET
-    r"""Additional enriched fields for the customer, if available."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -125,7 +120,6 @@ class CustomerBaseInput(BaseModel):
             "source",
             "registration_number",
             "connection_id",
-            "enriched_fields",
         ]
         nullable_fields = [
             "phone",
@@ -143,7 +137,6 @@ class CustomerBaseInput(BaseModel):
             "source",
             "registration_number",
             "connection_id",
-            "enriched_fields",
         ]
         null_default_fields = []
 

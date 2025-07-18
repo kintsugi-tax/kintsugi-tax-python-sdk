@@ -6,7 +6,7 @@ import shutil
 try:
     with open("README.md", "r", encoding="utf-8") as rh:
         readme_contents = rh.read()
-        GITHUB_URL = "https://github.com/kintsugi-tax/kintsugi-speakeasy.git"
+        GITHUB_URL = "https://github.com/kintsugi-tax/kintsugi-tax-python-sdk.git"
         GITHUB_URL = (
             GITHUB_URL[: -len(".git")] if GITHUB_URL.endswith(".git") else GITHUB_URL
         )

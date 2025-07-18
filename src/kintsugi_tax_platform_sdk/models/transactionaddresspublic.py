@@ -36,8 +36,6 @@ class TransactionAddressPublicTypedDict(TypedDict):
     r"""Country code in ISO 3166-1 alpha-2 format"""
     full_address: NotRequired[Nullable[str]]
     r"""Complete address string of the customer, which can be used as an alternative to individual fields."""
-    enriched_fields: NotRequired[Nullable[str]]
-    r"""Optional additional enriched data for the address."""
 
 
 class TransactionAddressPublic(BaseModel):
@@ -72,9 +70,6 @@ class TransactionAddressPublic(BaseModel):
     full_address: OptionalNullable[str] = UNSET
     r"""Complete address string of the customer, which can be used as an alternative to individual fields."""
 
-    enriched_fields: OptionalNullable[str] = UNSET
-    r"""Optional additional enriched data for the address."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -87,7 +82,6 @@ class TransactionAddressPublic(BaseModel):
             "postal_code",
             "country",
             "full_address",
-            "enriched_fields",
         ]
         nullable_fields = [
             "phone",
@@ -99,7 +93,6 @@ class TransactionAddressPublic(BaseModel):
             "postal_code",
             "country",
             "full_address",
-            "enriched_fields",
         ]
         null_default_fields = []
 

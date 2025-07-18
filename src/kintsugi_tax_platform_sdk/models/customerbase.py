@@ -17,7 +17,7 @@ from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-class CustomerBaseOutputTypedDict(TypedDict):
+class CustomerBaseTypedDict(TypedDict):
     phone: NotRequired[Nullable[str]]
     r"""Phone number associated with the address."""
     street_1: NotRequired[Nullable[str]]
@@ -51,7 +51,7 @@ class CustomerBaseOutputTypedDict(TypedDict):
     r"""Unique identifier of the connection related to the customer."""
 
 
-class CustomerBaseOutput(BaseModel):
+class CustomerBase(BaseModel):
     phone: OptionalNullable[str] = UNSET
     r"""Phone number associated with the address."""
 

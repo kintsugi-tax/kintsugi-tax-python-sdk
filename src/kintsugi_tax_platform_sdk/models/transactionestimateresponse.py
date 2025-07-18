@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from .currencyenum import CurrencyEnum
-from .customerbase_output import CustomerBaseOutput, CustomerBaseOutputTypedDict
+from .customerbase import CustomerBase, CustomerBaseTypedDict
 from .sourceenum import SourceEnum
 from .transactionitemestimateresponse import (
     TransactionItemEstimateResponse,
@@ -112,9 +112,9 @@ class TransactionEstimateResponseTypedDict(TypedDict):
     external_id: str
     r"""Unique identifier of this transaction in the source system."""
     currency: CurrencyEnum
+    transaction_items: List[TransactionItemEstimateResponseTypedDict]
     addresses: List[TransactionEstimateResponseAddressTypedDict]
     r"""List of addresses related to the transaction. At least one BILL_TO or SHIP_TO address must be provided. The address will be validated during estimation, and the transaction may be rejected if the address does not pass validation. The SHIP_TO will be preferred to use for determining tax liability. **Deprecated:** Use of `address.status` in estimate api is ignored and will be removed in the future status will be considered UNVERIFIED by default and always validated"""
-    transaction_items: List[TransactionItemEstimateResponseTypedDict]
     total_amount: NotRequired[str]
     r"""Total amount of the transaction."""
     description: NotRequired[Nullable[str]]
@@ -123,7 +123,7 @@ class TransactionEstimateResponseTypedDict(TypedDict):
     r"""While currently not used, it may be used in the future to determine taxability. The source of the transaction (e.g., OTHER)."""
     marketplace: NotRequired[Nullable[bool]]
     r"""Indicates if the transaction involves a marketplace."""
-    customer: NotRequired[Nullable[CustomerBaseOutputTypedDict]]
+    customer: NotRequired[Nullable[CustomerBaseTypedDict]]
     r"""Details about the customer. If the customer is not found, it will be ignored."""
     total_tax_amount_calculated: NotRequired[str]
     r"""The total amount of tax determined for the transaction."""
@@ -146,10 +146,10 @@ class TransactionEstimateResponse(BaseModel):
 
     currency: CurrencyEnum
 
+    transaction_items: List[TransactionItemEstimateResponse]
+
     addresses: List[TransactionEstimateResponseAddress]
     r"""List of addresses related to the transaction. At least one BILL_TO or SHIP_TO address must be provided. The address will be validated during estimation, and the transaction may be rejected if the address does not pass validation. The SHIP_TO will be preferred to use for determining tax liability. **Deprecated:** Use of `address.status` in estimate api is ignored and will be removed in the future status will be considered UNVERIFIED by default and always validated"""
-
-    transaction_items: List[TransactionItemEstimateResponse]
 
     total_amount: Optional[str] = "0.0"
     r"""Total amount of the transaction."""
@@ -168,7 +168,7 @@ class TransactionEstimateResponse(BaseModel):
     marketplace: OptionalNullable[bool] = UNSET
     r"""Indicates if the transaction involves a marketplace."""
 
-    customer: OptionalNullable[CustomerBaseOutput] = UNSET
+    customer: OptionalNullable[CustomerBase] = UNSET
     r"""Details about the customer. If the customer is not found, it will be ignored."""
 
     total_tax_amount_calculated: Optional[str] = "0.00"

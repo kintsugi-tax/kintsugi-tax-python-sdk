@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from .currencyenum import CurrencyEnum
-from .customerbase_input import CustomerBaseInput, CustomerBaseInputTypedDict
+from .customerbasepublic import CustomerBasePublic, CustomerBasePublicTypedDict
 from .sourceenum import SourceEnum
 from .transactionitemestimatebase import (
     TransactionItemEstimateBase,
@@ -35,7 +35,7 @@ TotalAmountOfTheTransactionAfterDiscounts = TypeAliasType(
 r"""Total amount of the transaction."""
 
 
-class TransactionEstimateRequestType(str, Enum):
+class TransactionEstimatePublicRequestType(str, Enum):
     r"""Type of the address. Must be either
     SHIP_TO or BILL_TO.
     """
@@ -44,8 +44,8 @@ class TransactionEstimateRequestType(str, Enum):
     BILL_TO = "BILL_TO"
 
 
-class TransactionEstimateRequestAddressTypedDict(TypedDict):
-    type: TransactionEstimateRequestType
+class TransactionEstimatePublicRequestAddressTypedDict(TypedDict):
+    type: TransactionEstimatePublicRequestType
     r"""Type of the address. Must be either
     SHIP_TO or BILL_TO.
     """
@@ -69,12 +69,10 @@ class TransactionEstimateRequestAddressTypedDict(TypedDict):
     r"""Complete address string of the customer, which can be used as an alternative to individual fields."""
     status: NotRequired[str]
     r"""Status of the address. Deprecated and ignored."""
-    enriched_fields: NotRequired[str]
-    r"""Additional enriched fields related to the address."""
 
 
-class TransactionEstimateRequestAddress(BaseModel):
-    type: TransactionEstimateRequestType
+class TransactionEstimatePublicRequestAddress(BaseModel):
+    type: TransactionEstimatePublicRequestType
     r"""Type of the address. Must be either
     SHIP_TO or BILL_TO.
     """
@@ -114,13 +112,10 @@ class TransactionEstimateRequestAddress(BaseModel):
     ] = None
     r"""Status of the address. Deprecated and ignored."""
 
-    enriched_fields: Optional[str] = None
-    r"""Additional enriched fields related to the address."""
 
-
-class TransactionEstimateRequestTypedDict(TypedDict):
-    r"""Request model for tax estimation, including all fields from TransactionEstimateBase
-    and an additional field to simulate nexus being met.
+class TransactionEstimatePublicRequestTypedDict(TypedDict):
+    r"""Public request model for tax estimation API documentation.
+    This model excludes internal fields like enriched_fields that should not be exposed in API docs.
     """
 
     date_: datetime
@@ -128,10 +123,10 @@ class TransactionEstimateRequestTypedDict(TypedDict):
     external_id: str
     r"""Unique identifier of this transaction in the source system."""
     currency: CurrencyEnum
-    addresses: List[TransactionEstimateRequestAddressTypedDict]
-    r"""List of addresses related to the transaction. At least one BILL_TO or SHIP_TO address must be provided. The address will be validated during estimation, and the transaction may be rejected if the address does not pass validation. The SHIP_TO will be preferred to use for determining tax liability. **Deprecated:** Use of `address.status` in estimate api is ignored and will be removed in the future status will be considered UNVERIFIED by default and always validated"""
     transaction_items: List[TransactionItemEstimateBaseTypedDict]
     r"""List of items involved in the transaction."""
+    addresses: List[TransactionEstimatePublicRequestAddressTypedDict]
+    r"""List of addresses related to the transaction. At least one BILL_TO or SHIP_TO address must be provided. The address will be validated during estimation, and the transaction may be rejected if the address does not pass validation. The SHIP_TO will be preferred to use for determining tax liability."""
     total_amount: NotRequired[TotalAmountOfTheTransactionAfterDiscountsTypedDict]
     r"""Total amount of the transaction."""
     description: NotRequired[Nullable[str]]
@@ -140,19 +135,13 @@ class TransactionEstimateRequestTypedDict(TypedDict):
     r"""While currently not used, it may be used in the future to determine taxability. The source of the transaction (e.g., OTHER)."""
     marketplace: NotRequired[Nullable[bool]]
     r"""Indicates if the transaction involves a marketplace."""
-    customer: NotRequired[Nullable[CustomerBaseInputTypedDict]]
+    customer: NotRequired[Nullable[CustomerBasePublicTypedDict]]
     r"""Details about the customer. If the customer is not found, it will be ignored."""
-    simulate_active_registration: NotRequired[Nullable[bool]]
-    r"""If True, assumes active registration is met for tax estimation."""
-    simulate_nexus_met: NotRequired[Nullable[bool]]
-    r"""Use simulate_active_registration instead.
-    This field will be removed in future releases.
-    """
 
 
-class TransactionEstimateRequest(BaseModel):
-    r"""Request model for tax estimation, including all fields from TransactionEstimateBase
-    and an additional field to simulate nexus being met.
+class TransactionEstimatePublicRequest(BaseModel):
+    r"""Public request model for tax estimation API documentation.
+    This model excludes internal fields like enriched_fields that should not be exposed in API docs.
     """
 
     date_: Annotated[datetime, pydantic.Field(alias="date")]
@@ -163,11 +152,11 @@ class TransactionEstimateRequest(BaseModel):
 
     currency: CurrencyEnum
 
-    addresses: List[TransactionEstimateRequestAddress]
-    r"""List of addresses related to the transaction. At least one BILL_TO or SHIP_TO address must be provided. The address will be validated during estimation, and the transaction may be rejected if the address does not pass validation. The SHIP_TO will be preferred to use for determining tax liability. **Deprecated:** Use of `address.status` in estimate api is ignored and will be removed in the future status will be considered UNVERIFIED by default and always validated"""
-
     transaction_items: List[TransactionItemEstimateBase]
     r"""List of items involved in the transaction."""
+
+    addresses: List[TransactionEstimatePublicRequestAddress]
+    r"""List of addresses related to the transaction. At least one BILL_TO or SHIP_TO address must be provided. The address will be validated during estimation, and the transaction may be rejected if the address does not pass validation. The SHIP_TO will be preferred to use for determining tax liability."""
 
     total_amount: Optional[TotalAmountOfTheTransactionAfterDiscounts] = None
     r"""Total amount of the transaction."""
@@ -186,21 +175,8 @@ class TransactionEstimateRequest(BaseModel):
     marketplace: OptionalNullable[bool] = UNSET
     r"""Indicates if the transaction involves a marketplace."""
 
-    customer: OptionalNullable[CustomerBaseInput] = UNSET
+    customer: OptionalNullable[CustomerBasePublic] = UNSET
     r"""Details about the customer. If the customer is not found, it will be ignored."""
-
-    simulate_active_registration: OptionalNullable[bool] = UNSET
-    r"""If True, assumes active registration is met for tax estimation."""
-
-    simulate_nexus_met: Annotated[
-        OptionalNullable[bool],
-        pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-        ),
-    ] = UNSET
-    r"""Use simulate_active_registration instead.
-    This field will be removed in future releases.
-    """
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -210,17 +186,8 @@ class TransactionEstimateRequest(BaseModel):
             "source",
             "marketplace",
             "customer",
-            "simulate_active_registration",
-            "simulate_nexus_met",
         ]
-        nullable_fields = [
-            "description",
-            "source",
-            "marketplace",
-            "customer",
-            "simulate_active_registration",
-            "simulate_nexus_met",
-        ]
+        nullable_fields = ["description", "source", "marketplace", "customer"]
         null_default_fields = []
 
         serialized = handler(self)

@@ -39,6 +39,7 @@ class Transactions(BaseSDK):
         date_lte: OptionalNullable[date] = UNSET,
         processing_status_in: OptionalNullable[str] = UNSET,
         marketplace: OptionalNullable[bool] = UNSET,
+        exempt_in: OptionalNullable[str] = UNSET,
         page: Optional[int] = 1,
         size: Optional[int] = 50,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -67,6 +68,7 @@ class Transactions(BaseSDK):
         :param date_lte: Retrieve transactions with a date         less than or equal to (YYYY-MM-DD).
         :param processing_status_in: Filter transactions based on processing status.         Multiple values can be passed as a comma-separated list.
         :param marketplace: Filter transactions by marketplace (e.g., AMAZON, EBAY).
+        :param exempt_in: Filter transactions by exemption status.         Multiple values can be passed as a comma-separated list (e.g., EXEMPT,TAXABLE).
         :param page: Page number
         :param size: Page size
         :param retries: Override the default retry configuration for this method
@@ -99,6 +101,7 @@ class Transactions(BaseSDK):
             date_lte=date_lte,
             processing_status_in=processing_status_in,
             marketplace=marketplace,
+            exempt_in=exempt_in,
             page=page,
             size=size,
             x_organization_id=x_organization_id,
@@ -196,6 +199,7 @@ class Transactions(BaseSDK):
         date_lte: OptionalNullable[date] = UNSET,
         processing_status_in: OptionalNullable[str] = UNSET,
         marketplace: OptionalNullable[bool] = UNSET,
+        exempt_in: OptionalNullable[str] = UNSET,
         page: Optional[int] = 1,
         size: Optional[int] = 50,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -224,6 +228,7 @@ class Transactions(BaseSDK):
         :param date_lte: Retrieve transactions with a date         less than or equal to (YYYY-MM-DD).
         :param processing_status_in: Filter transactions based on processing status.         Multiple values can be passed as a comma-separated list.
         :param marketplace: Filter transactions by marketplace (e.g., AMAZON, EBAY).
+        :param exempt_in: Filter transactions by exemption status.         Multiple values can be passed as a comma-separated list (e.g., EXEMPT,TAXABLE).
         :param page: Page number
         :param size: Page size
         :param retries: Override the default retry configuration for this method
@@ -256,6 +261,7 @@ class Transactions(BaseSDK):
             date_lte=date_lte,
             processing_status_in=processing_status_in,
             marketplace=marketplace,
+            exempt_in=exempt_in,
             page=page,
             size=size,
             x_organization_id=x_organization_id,

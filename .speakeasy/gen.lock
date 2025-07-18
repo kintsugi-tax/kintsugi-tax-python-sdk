@@ -1,12 +1,14 @@
 lockVersion: 2.0.0
 id: a3b5f8df-3e69-405c-9eb8-40a21cc5faba
 management:
-  docChecksum: 21cc094adda452fc5c197731871f1237
+  docChecksum: f400455b19ae3ea3a1c7941292d77ecf
   docVersion: 1.0.0
-  speakeasyVersion: 1.581.0
-  generationVersion: 2.656.5
-  releaseVersion: 0.5.5
-  configChecksum: 04fd050f3f0bf76a3e77131ec728ef7e
+  speakeasyVersion: 1.583.0
+  generationVersion: 2.658.3
+  releaseVersion: 0.5.6
+  configChecksum: d9bcb302da89822f04b5948204ce634e
+  repoURL: https://github.com/kintsugi-tax/kintsugi-tax-python-sdk.git
+  installationURL: https://github.com/kintsugi-tax/kintsugi-tax-python-sdk.git
   published: true
 features:
   python:
@@ -92,9 +94,9 @@ generatedFiles:
   - docs/models/creditnoteitemcreateupdatetaxrateimported.md
   - docs/models/currencyenum.md
   - docs/models/customer.md
+  - docs/models/customerbase.md
   - docs/models/customerbasebase.md
-  - docs/models/customerbaseinput.md
-  - docs/models/customerbaseoutput.md
+  - docs/models/customerbasepublic.md
   - docs/models/customercreate.md
   - docs/models/customerread.md
   - docs/models/customerupdate.md
@@ -212,9 +214,9 @@ generatedFiles:
   - docs/models/transactioncreatetotaltaxamountcalculated.md
   - docs/models/transactioncreatetotaltaxamountimported.md
   - docs/models/transactioncreatetotaltaxliabilityamount.md
-  - docs/models/transactionestimaterequest.md
-  - docs/models/transactionestimaterequestaddress.md
-  - docs/models/transactionestimaterequesttype.md
+  - docs/models/transactionestimatepublicrequest.md
+  - docs/models/transactionestimatepublicrequestaddress.md
+  - docs/models/transactionestimatepublicrequesttype.md
   - docs/models/transactionestimateresponse.md
   - docs/models/transactionestimateresponseaddress.md
   - docs/models/transactionestimateresponsetype.md
@@ -306,6 +308,7 @@ generatedFiles:
   - py.typed
   - pylintrc
   - pyproject.toml
+  - scripts/prepare_readme.py
   - scripts/publish.sh
   - src/kintsugi_tax_platform_sdk/__init__.py
   - src/kintsugi_tax_platform_sdk/_hooks/__init__.py
@@ -359,9 +362,9 @@ generatedFiles:
   - src/kintsugi_tax_platform_sdk/models/creditnotecreate.py
   - src/kintsugi_tax_platform_sdk/models/creditnoteitemcreateupdate.py
   - src/kintsugi_tax_platform_sdk/models/currencyenum.py
-  - src/kintsugi_tax_platform_sdk/models/customerbase_input.py
-  - src/kintsugi_tax_platform_sdk/models/customerbase_output.py
+  - src/kintsugi_tax_platform_sdk/models/customerbase.py
   - src/kintsugi_tax_platform_sdk/models/customerbasebase.py
+  - src/kintsugi_tax_platform_sdk/models/customerbasepublic.py
   - src/kintsugi_tax_platform_sdk/models/customercreate.py
   - src/kintsugi_tax_platform_sdk/models/customerread.py
   - src/kintsugi_tax_platform_sdk/models/customerupdate.py
@@ -429,7 +432,7 @@ generatedFiles:
   - src/kintsugi_tax_platform_sdk/models/transactionaddresspublic.py
   - src/kintsugi_tax_platform_sdk/models/transactionaddressread_output.py
   - src/kintsugi_tax_platform_sdk/models/transactioncreate.py
-  - src/kintsugi_tax_platform_sdk/models/transactionestimaterequest.py
+  - src/kintsugi_tax_platform_sdk/models/transactionestimatepublicrequest.py
   - src/kintsugi_tax_platform_sdk/models/transactionestimateresponse.py
   - src/kintsugi_tax_platform_sdk/models/transactionexemptstatusenum.py
   - src/kintsugi_tax_platform_sdk/models/transactionimportcustomer.py
@@ -1002,7 +1005,7 @@ examples:
         header:
           x-organization-id: "org_12345"
       requestBody:
-        application/json: {"date": "2025-10-15T06:09:56.760Z", "external_id": "<id>", "currency": "WST", "addresses": [{"type": "BILL_TO", "state": "Virginia", "postal_code": "53776-2466", "country": "Wallis and Futuna"}], "transaction_items": [{"date": "2023-10-09T10:49:19.753Z", "amount": "612.37", "exempt": false}]}
+        application/json: {"date": "2025-10-15T06:09:56.760Z", "external_id": "<id>", "currency": "WST", "transaction_items": [{"date": "2023-10-09T10:49:19.753Z", "amount": "612.37", "exempt": false}], "addresses": [{"type": "BILL_TO", "state": "Virginia", "postal_code": "53776-2466", "country": "Wallis and Futuna"}]}
       responses:
         "200":
           application/json: {"items": [], "total": 610767, "page": 61497, "size": 435684}
