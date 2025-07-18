@@ -1,0 +1,44 @@
+speakeasyVersion: 1.582.0
+sources:
+    kintsugi-overlay:
+        sourceNamespace: kintsugi-overlay
+        sourceRevisionDigest: sha256:57663ccfc6b4cd42ae00d2b0b23bc815fa219a3db6014c77a41402d0babbc3b1
+        sourceBlobDigest: sha256:7603ce3c544496794c03d1cab7b56b0317b1d02bb2330cd0c1265ed0db7b9984
+        tags:
+            - latest
+            - speakeasy-sdk-regen-1752279118
+            - 1.0.0
+targets:
+    python:
+        source: kintsugi-overlay
+        sourceNamespace: kintsugi-overlay
+        sourceRevisionDigest: sha256:57663ccfc6b4cd42ae00d2b0b23bc815fa219a3db6014c77a41402d0babbc3b1
+        sourceBlobDigest: sha256:7603ce3c544496794c03d1cab7b56b0317b1d02bb2330cd0c1265ed0db7b9984
+        codeSamplesNamespace: kintsugi-overlay-python-code-samples
+        codeSamplesRevisionDigest: sha256:657d2fbe69cc23ec6635c313effb73f75d06649f31ac152bacfd7d4cddd53173
+workflow:
+    workflowVersion: 1.0.0
+    speakeasyVersion: latest
+    sources:
+        kintsugi-overlay:
+            inputs:
+                - location: https://api.trykintsugi.com/openapi.json
+            overlays:
+                - location: ./overlay.yaml
+                - location: .speakeasy/speakeasy-modifications-overlay.yaml
+            output: output.yaml
+            registry:
+                location: registry.speakeasyapi.dev/kintsugi-ai/tax-platform/kintsugi-overlay
+    targets:
+        python:
+            target: python
+            source: kintsugi-overlay
+            publish:
+                pypi:
+                    token: $PYPI_TOKEN
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/kintsugi-ai/tax-platform/kintsugi-overlay-python-code-samples
+                labelOverride:
+                    fixedValue: Python (SDK)
+                blocking: false
