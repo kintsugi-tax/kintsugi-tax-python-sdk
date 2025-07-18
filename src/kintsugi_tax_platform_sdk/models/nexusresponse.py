@@ -77,6 +77,7 @@ class NexusResponseTypedDict(TypedDict):
     vda_eligible: NotRequired[Nullable[bool]]
     confidence_level: NotRequired[Nullable[float]]
     last_processed_at: NotRequired[Nullable[datetime]]
+    last_tax_liability_processed_at: NotRequired[Nullable[datetime]]
     periods: NotRequired[Nullable[List[Dict[str, Any]]]]
     currency: NotRequired[Nullable[CurrencyEnum]]
     r"""Currency code for the nexus (e.g., USD, CAD)."""
@@ -195,6 +196,8 @@ class NexusResponse(BaseModel):
 
     last_processed_at: OptionalNullable[datetime] = UNSET
 
+    last_tax_liability_processed_at: OptionalNullable[datetime] = UNSET
+
     periods: OptionalNullable[List[Dict[str, Any]]] = UNSET
 
     currency: OptionalNullable[CurrencyEnum] = UNSET
@@ -232,6 +235,7 @@ class NexusResponse(BaseModel):
             "vda_eligible",
             "confidence_level",
             "last_processed_at",
+            "last_tax_liability_processed_at",
             "periods",
             "currency",
             "registration",
@@ -254,6 +258,7 @@ class NexusResponse(BaseModel):
             "vda_eligible",
             "confidence_level",
             "last_processed_at",
+            "last_tax_liability_processed_at",
             "periods",
             "currency",
             "registration",

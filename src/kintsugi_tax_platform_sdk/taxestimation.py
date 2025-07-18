@@ -23,15 +23,15 @@ class TaxEstimation(BaseSDK):
         date_: datetime,
         external_id: str,
         currency: models.CurrencyEnum,
-        addresses: Union[
-            List[models.TransactionEstimateRequestAddress],
-            List[models.TransactionEstimateRequestAddressTypedDict],
-        ],
         transaction_items: Union[
             List[models.TransactionItemEstimateBase],
             List[models.TransactionItemEstimateBaseTypedDict],
         ],
-        simulate_nexus_met_param: Optional[bool] = None,
+        addresses: Union[
+            List[models.TransactionEstimatePublicRequestAddress],
+            List[models.TransactionEstimatePublicRequestAddressTypedDict],
+        ],
+        simulate_nexus_met: Optional[bool] = None,
         total_amount: Optional[
             Union[
                 models.TotalAmountOfTheTransactionAfterDiscounts,
@@ -42,10 +42,8 @@ class TaxEstimation(BaseSDK):
         source: OptionalNullable[models.SourceEnum] = UNSET,
         marketplace: OptionalNullable[bool] = UNSET,
         customer: OptionalNullable[
-            Union[models.CustomerBaseInput, models.CustomerBaseInputTypedDict]
+            Union[models.CustomerBasePublic, models.CustomerBasePublicTypedDict]
         ] = UNSET,
-        simulate_active_registration: OptionalNullable[bool] = UNSET,
-        simulate_nexus_met: OptionalNullable[bool] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -62,16 +60,14 @@ class TaxEstimation(BaseSDK):
         :param date_: The date of the transaction in ISO 8601 format (e.g., 2025-01-25T12:00:00Z).
         :param external_id: Unique identifier of this transaction in the source system.
         :param currency:
-        :param addresses: List of addresses related to the transaction. At least one BILL_TO or SHIP_TO address must be provided. The address will be validated during estimation, and the transaction may be rejected if the address does not pass validation. The SHIP_TO will be preferred to use for determining tax liability. **Deprecated:** Use of `address.status` in estimate api is ignored and will be removed in the future status will be considered UNVERIFIED by default and always validated
         :param transaction_items: List of items involved in the transaction.
-        :param simulate_nexus_met_param: **Deprecated:** Use `simulate_active_registration` in the request body instead.
+        :param addresses: List of addresses related to the transaction. At least one BILL_TO or SHIP_TO address must be provided. The address will be validated during estimation, and the transaction may be rejected if the address does not pass validation. The SHIP_TO will be preferred to use for determining tax liability.
+        :param simulate_nexus_met: **Deprecated:** Use `simulate_active_registration` in the request body instead.
         :param total_amount: Total amount of the transaction.
         :param description: An optional description of the transaction.
         :param source: While currently not used, it may be used in the future to determine taxability. The source of the transaction (e.g., OTHER).
         :param marketplace: Indicates if the transaction involves a marketplace.
         :param customer: Details about the customer. If the customer is not found, it will be ignored.
-        :param simulate_active_registration: If True, assumes active registration is met for tax estimation.
-        :param simulate_nexus_met: Use simulate_active_registration instead.         This field will be removed in future releases.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -88,9 +84,9 @@ class TaxEstimation(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.EstimateTaxV1TaxEstimatePostRequest(
-            simulate_nexus_met_param=simulate_nexus_met_param,
+            simulate_nexus_met=simulate_nexus_met,
             x_organization_id=x_organization_id,
-            transaction_estimate_request=models.TransactionEstimateRequest(
+            transaction_estimate_public_request=models.TransactionEstimatePublicRequest(
                 date_=date_,
                 external_id=external_id,
                 total_amount=total_amount,
@@ -98,17 +94,15 @@ class TaxEstimation(BaseSDK):
                 description=description,
                 source=source,
                 marketplace=marketplace,
-                customer=utils.get_pydantic_model(
-                    customer, OptionalNullable[models.CustomerBaseInput]
-                ),
-                addresses=utils.get_pydantic_model(
-                    addresses, List[models.TransactionEstimateRequestAddress]
-                ),
                 transaction_items=utils.get_pydantic_model(
                     transaction_items, List[models.TransactionItemEstimateBase]
                 ),
-                simulate_active_registration=simulate_active_registration,
-                simulate_nexus_met=simulate_nexus_met,
+                customer=utils.get_pydantic_model(
+                    customer, OptionalNullable[models.CustomerBasePublic]
+                ),
+                addresses=utils.get_pydantic_model(
+                    addresses, List[models.TransactionEstimatePublicRequestAddress]
+                ),
             ),
         )
 
@@ -128,11 +122,11 @@ class TaxEstimation(BaseSDK):
                 security, models.EstimateTaxV1TaxEstimatePostSecurity
             ),
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.transaction_estimate_request,
+                request.transaction_estimate_public_request,
                 False,
                 False,
                 "json",
-                models.TransactionEstimateRequest,
+                models.TransactionEstimatePublicRequest,
             ),
             timeout_ms=timeout_ms,
         )
@@ -197,15 +191,15 @@ class TaxEstimation(BaseSDK):
         date_: datetime,
         external_id: str,
         currency: models.CurrencyEnum,
-        addresses: Union[
-            List[models.TransactionEstimateRequestAddress],
-            List[models.TransactionEstimateRequestAddressTypedDict],
-        ],
         transaction_items: Union[
             List[models.TransactionItemEstimateBase],
             List[models.TransactionItemEstimateBaseTypedDict],
         ],
-        simulate_nexus_met_param: Optional[bool] = None,
+        addresses: Union[
+            List[models.TransactionEstimatePublicRequestAddress],
+            List[models.TransactionEstimatePublicRequestAddressTypedDict],
+        ],
+        simulate_nexus_met: Optional[bool] = None,
         total_amount: Optional[
             Union[
                 models.TotalAmountOfTheTransactionAfterDiscounts,
@@ -216,10 +210,8 @@ class TaxEstimation(BaseSDK):
         source: OptionalNullable[models.SourceEnum] = UNSET,
         marketplace: OptionalNullable[bool] = UNSET,
         customer: OptionalNullable[
-            Union[models.CustomerBaseInput, models.CustomerBaseInputTypedDict]
+            Union[models.CustomerBasePublic, models.CustomerBasePublicTypedDict]
         ] = UNSET,
-        simulate_active_registration: OptionalNullable[bool] = UNSET,
-        simulate_nexus_met: OptionalNullable[bool] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -236,16 +228,14 @@ class TaxEstimation(BaseSDK):
         :param date_: The date of the transaction in ISO 8601 format (e.g., 2025-01-25T12:00:00Z).
         :param external_id: Unique identifier of this transaction in the source system.
         :param currency:
-        :param addresses: List of addresses related to the transaction. At least one BILL_TO or SHIP_TO address must be provided. The address will be validated during estimation, and the transaction may be rejected if the address does not pass validation. The SHIP_TO will be preferred to use for determining tax liability. **Deprecated:** Use of `address.status` in estimate api is ignored and will be removed in the future status will be considered UNVERIFIED by default and always validated
         :param transaction_items: List of items involved in the transaction.
-        :param simulate_nexus_met_param: **Deprecated:** Use `simulate_active_registration` in the request body instead.
+        :param addresses: List of addresses related to the transaction. At least one BILL_TO or SHIP_TO address must be provided. The address will be validated during estimation, and the transaction may be rejected if the address does not pass validation. The SHIP_TO will be preferred to use for determining tax liability.
+        :param simulate_nexus_met: **Deprecated:** Use `simulate_active_registration` in the request body instead.
         :param total_amount: Total amount of the transaction.
         :param description: An optional description of the transaction.
         :param source: While currently not used, it may be used in the future to determine taxability. The source of the transaction (e.g., OTHER).
         :param marketplace: Indicates if the transaction involves a marketplace.
         :param customer: Details about the customer. If the customer is not found, it will be ignored.
-        :param simulate_active_registration: If True, assumes active registration is met for tax estimation.
-        :param simulate_nexus_met: Use simulate_active_registration instead.         This field will be removed in future releases.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -262,9 +252,9 @@ class TaxEstimation(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.EstimateTaxV1TaxEstimatePostRequest(
-            simulate_nexus_met_param=simulate_nexus_met_param,
+            simulate_nexus_met=simulate_nexus_met,
             x_organization_id=x_organization_id,
-            transaction_estimate_request=models.TransactionEstimateRequest(
+            transaction_estimate_public_request=models.TransactionEstimatePublicRequest(
                 date_=date_,
                 external_id=external_id,
                 total_amount=total_amount,
@@ -272,17 +262,15 @@ class TaxEstimation(BaseSDK):
                 description=description,
                 source=source,
                 marketplace=marketplace,
-                customer=utils.get_pydantic_model(
-                    customer, OptionalNullable[models.CustomerBaseInput]
-                ),
-                addresses=utils.get_pydantic_model(
-                    addresses, List[models.TransactionEstimateRequestAddress]
-                ),
                 transaction_items=utils.get_pydantic_model(
                     transaction_items, List[models.TransactionItemEstimateBase]
                 ),
-                simulate_active_registration=simulate_active_registration,
-                simulate_nexus_met=simulate_nexus_met,
+                customer=utils.get_pydantic_model(
+                    customer, OptionalNullable[models.CustomerBasePublic]
+                ),
+                addresses=utils.get_pydantic_model(
+                    addresses, List[models.TransactionEstimatePublicRequestAddress]
+                ),
             ),
         )
 
@@ -302,11 +290,11 @@ class TaxEstimation(BaseSDK):
                 security, models.EstimateTaxV1TaxEstimatePostSecurity
             ),
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.transaction_estimate_request,
+                request.transaction_estimate_public_request,
                 False,
                 False,
                 "json",
-                models.TransactionEstimateRequest,
+                models.TransactionEstimatePublicRequest,
             ),
             timeout_ms=timeout_ms,
         )

@@ -115,6 +115,10 @@ class GetTransactionsV1TransactionsGetRequestTypedDict(TypedDict):
     """
     marketplace: NotRequired[Nullable[bool]]
     r"""Filter transactions by marketplace (e.g., AMAZON, EBAY)."""
+    exempt_in: NotRequired[Nullable[str]]
+    r"""Filter transactions by exemption status.
+    Multiple values can be passed as a comma-separated list (e.g., EXEMPT,TAXABLE).
+    """
     page: NotRequired[int]
     r"""Page number"""
     size: NotRequired[int]
@@ -235,6 +239,15 @@ class GetTransactionsV1TransactionsGetRequest(BaseModel):
     ] = UNSET
     r"""Filter transactions by marketplace (e.g., AMAZON, EBAY)."""
 
+    exempt_in: Annotated[
+        OptionalNullable[str],
+        pydantic.Field(alias="exempt__in"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = UNSET
+    r"""Filter transactions by exemption status.
+    Multiple values can be passed as a comma-separated list (e.g., EXEMPT,TAXABLE).
+    """
+
     page: Annotated[
         Optional[int],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
@@ -264,6 +277,7 @@ class GetTransactionsV1TransactionsGetRequest(BaseModel):
             "date__lte",
             "processing_status__in",
             "marketplace",
+            "exempt__in",
             "page",
             "size",
         ]
@@ -282,6 +296,7 @@ class GetTransactionsV1TransactionsGetRequest(BaseModel):
             "date__lte",
             "processing_status__in",
             "marketplace",
+            "exempt__in",
             "x-organization-id",
         ]
         null_default_fields = []
