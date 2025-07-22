@@ -50,6 +50,7 @@ class NexusResponseTypedDict(TypedDict):
     total_transactions_included: int
     total_transactions_exempted: int
     total_transactions_marketplace: int
+    marketplace_included: Nullable[bool]
     processing_status: NotRequired[NexusStatusEnum]
     status: NotRequired[NexusStateEnum]
     transaction_count: NotRequired[int]
@@ -133,6 +134,8 @@ class NexusResponse(BaseModel):
     total_transactions_exempted: int
 
     total_transactions_marketplace: int
+
+    marketplace_included: Nullable[bool]
 
     processing_status: Optional[NexusStatusEnum] = None
 
@@ -263,6 +266,7 @@ class NexusResponse(BaseModel):
             "currency",
             "registration",
             "registration_regime",
+            "marketplace_included",
         ]
         null_default_fields = []
 
