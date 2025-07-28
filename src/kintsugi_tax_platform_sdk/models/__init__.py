@@ -286,6 +286,12 @@ if TYPE_CHECKING:
     from .productsubcategoryenum import ProductSubCategoryEnum
     from .productupdate import ProductUpdate, ProductUpdateTypedDict
     from .productupdatev2 import ProductUpdateV2, ProductUpdateV2TypedDict
+    from .put_update_credit_note_by_transaction_idop import (
+        PUTUpdateCreditNoteByTransactionIDRequest,
+        PUTUpdateCreditNoteByTransactionIDRequestTypedDict,
+        PUTUpdateCreditNoteByTransactionIDSecurity,
+        PUTUpdateCreditNoteByTransactionIDSecurityTypedDict,
+    )
     from .registrationsregimeenum import RegistrationsRegimeEnum
     from .relatedentitytype import RelatedEntityType
     from .salesortransactionsenum import SalesOrTransactionsEnum
@@ -521,12 +527,6 @@ if TYPE_CHECKING:
         TransactionUpdateTypedDict,
     )
     from .treatmentenum import TreatmentEnum
-    from .update_credit_note_by_transaction_id_v1_transactions_original_transaction_id_credit_notes_credit_note_id_putop import (
-        UpdateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesCreditNoteIDPutRequest,
-        UpdateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesCreditNoteIDPutRequestTypedDict,
-        UpdateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesCreditNoteIDPutSecurity,
-        UpdateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesCreditNoteIDPutSecurityTypedDict,
-    )
     from .update_customer_v1_customers_customer_id_putop import (
         UpdateCustomerV1CustomersCustomerIDPutRequest,
         UpdateCustomerV1CustomersCustomerIDPutRequestTypedDict,
@@ -753,6 +753,10 @@ __all__ = [
     "NexusStateEnum",
     "NexusStatusEnum",
     "NexusTypeEnum",
+    "PUTUpdateCreditNoteByTransactionIDRequest",
+    "PUTUpdateCreditNoteByTransactionIDRequestTypedDict",
+    "PUTUpdateCreditNoteByTransactionIDSecurity",
+    "PUTUpdateCreditNoteByTransactionIDSecurityTypedDict",
     "PageCustomerRead",
     "PageCustomerReadTypedDict",
     "PageNexusResponse",
@@ -998,10 +1002,6 @@ __all__ = [
     "TransactionUpdateTotalTaxLiabilityAmountTypedDict",
     "TransactionUpdateTypedDict",
     "TreatmentEnum",
-    "UpdateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesCreditNoteIDPutRequest",
-    "UpdateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesCreditNoteIDPutRequestTypedDict",
-    "UpdateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesCreditNoteIDPutSecurity",
-    "UpdateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesCreditNoteIDPutSecurityTypedDict",
     "UpdateCustomerV1CustomersCustomerIDPutRequest",
     "UpdateCustomerV1CustomersCustomerIDPutRequestTypedDict",
     "UpdateCustomerV1CustomersCustomerIDPutSecurity",
@@ -1249,6 +1249,10 @@ _dynamic_imports: dict[str, str] = {
     "ProductUpdateTypedDict": ".productupdate",
     "ProductUpdateV2": ".productupdatev2",
     "ProductUpdateV2TypedDict": ".productupdatev2",
+    "PUTUpdateCreditNoteByTransactionIDRequest": ".put_update_credit_note_by_transaction_idop",
+    "PUTUpdateCreditNoteByTransactionIDRequestTypedDict": ".put_update_credit_note_by_transaction_idop",
+    "PUTUpdateCreditNoteByTransactionIDSecurity": ".put_update_credit_note_by_transaction_idop",
+    "PUTUpdateCreditNoteByTransactionIDSecurityTypedDict": ".put_update_credit_note_by_transaction_idop",
     "RegistrationsRegimeEnum": ".registrationsregimeenum",
     "RelatedEntityType": ".relatedentitytype",
     "SalesOrTransactionsEnum": ".salesortransactionsenum",
@@ -1457,10 +1461,6 @@ _dynamic_imports: dict[str, str] = {
     "TransactionUpdateTotalTaxLiabilityAmountTypedDict": ".transactionupdate",
     "TransactionUpdateTypedDict": ".transactionupdate",
     "TreatmentEnum": ".treatmentenum",
-    "UpdateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesCreditNoteIDPutRequest": ".update_credit_note_by_transaction_id_v1_transactions_original_transaction_id_credit_notes_credit_note_id_putop",
-    "UpdateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesCreditNoteIDPutRequestTypedDict": ".update_credit_note_by_transaction_id_v1_transactions_original_transaction_id_credit_notes_credit_note_id_putop",
-    "UpdateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesCreditNoteIDPutSecurity": ".update_credit_note_by_transaction_id_v1_transactions_original_transaction_id_credit_notes_credit_note_id_putop",
-    "UpdateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesCreditNoteIDPutSecurityTypedDict": ".update_credit_note_by_transaction_id_v1_transactions_original_transaction_id_credit_notes_credit_note_id_putop",
     "UpdateCustomerV1CustomersCustomerIDPutRequest": ".update_customer_v1_customers_customer_id_putop",
     "UpdateCustomerV1CustomersCustomerIDPutRequestTypedDict": ".update_customer_v1_customers_customer_id_putop",
     "UpdateCustomerV1CustomersCustomerIDPutSecurity": ".update_customer_v1_customers_customer_id_putop",

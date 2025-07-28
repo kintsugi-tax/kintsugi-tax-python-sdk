@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: a3b5f8df-3e69-405c-9eb8-40a21cc5faba
 management:
-  docChecksum: 890469606d92bc400c9d71b5d930330b
+  docChecksum: abf6143ab509ec16a4cf8fb0683fbb3d
   docVersion: 1.0.0
-  speakeasyVersion: 1.586.0
-  generationVersion: 2.661.4
-  releaseVersion: 0.5.8
-  configChecksum: d4caee35f1ae3e777bfadf85198b11cb
+  speakeasyVersion: 1.590.0
+  generationVersion: 2.666.0
+  releaseVersion: 0.5.9
+  configChecksum: d0c9362904c00b718b979aa7b10be1ad
   repoURL: https://github.com/kintsugi-tax/kintsugi-tax-python-sdk.git
   installationURL: https://github.com/kintsugi-tax/kintsugi-tax-python-sdk.git
   published: true
@@ -171,6 +171,8 @@ generatedFiles:
   - docs/models/productsubcategoryenum.md
   - docs/models/productupdate.md
   - docs/models/productupdatev2.md
+  - docs/models/putupdatecreditnotebytransactionidrequest.md
+  - docs/models/putupdatecreditnotebytransactionidsecurity.md
   - docs/models/quantityoftheproduct.md
   - docs/models/rate.md
   - docs/models/registrationsregimeenum.md
@@ -283,8 +285,6 @@ generatedFiles:
   - docs/models/transactionupdatetotaltaxamountimported.md
   - docs/models/transactionupdatetotaltaxliabilityamount.md
   - docs/models/treatmentenum.md
-  - docs/models/updatecreditnotebytransactionidv1transactionsoriginaltransactionidcreditnotescreditnoteidputrequest.md
-  - docs/models/updatecreditnotebytransactionidv1transactionsoriginaltransactionidcreditnotescreditnoteidputsecurity.md
   - docs/models/updatecustomerv1customerscustomeridputrequest.md
   - docs/models/updatecustomerv1customerscustomeridputsecurity.md
   - docs/models/updateproductv1productsproductidputrequest.md
@@ -413,6 +413,7 @@ generatedFiles:
   - src/kintsugi_tax_platform_sdk/models/productsubcategoryenum.py
   - src/kintsugi_tax_platform_sdk/models/productupdate.py
   - src/kintsugi_tax_platform_sdk/models/productupdatev2.py
+  - src/kintsugi_tax_platform_sdk/models/put_update_credit_note_by_transaction_idop.py
   - src/kintsugi_tax_platform_sdk/models/registrationsregimeenum.py
   - src/kintsugi_tax_platform_sdk/models/relatedentitytype.py
   - src/kintsugi_tax_platform_sdk/models/salesortransactionsenum.py
@@ -448,7 +449,6 @@ generatedFiles:
   - src/kintsugi_tax_platform_sdk/models/transactiontypeenum.py
   - src/kintsugi_tax_platform_sdk/models/transactionupdate.py
   - src/kintsugi_tax_platform_sdk/models/treatmentenum.py
-  - src/kintsugi_tax_platform_sdk/models/update_credit_note_by_transaction_id_v1_transactions_original_transaction_id_credit_notes_credit_note_id_putop.py
   - src/kintsugi_tax_platform_sdk/models/update_customer_v1_customers_customer_id_putop.py
   - src/kintsugi_tax_platform_sdk/models/update_product_v1_products_product_id_putop.py
   - src/kintsugi_tax_platform_sdk/models/update_transaction_v1_transactions_transaction_id_putop.py
@@ -1015,4 +1015,19 @@ examples:
           application/json: {"detail": [{"type": "<value>", "loc": ["<value 1>"], "msg": "<value>", "input": "<value>", "ctx": {"key": "<value>", "key1": "<value>", "key2": "<value>"}}]}
         "500":
           application/json: {"detail": "<value>"}
+  PUT_update_credit_note_by_transaction_id:
+    speakeasy-default-PUT-update-credit-note-by-transaction-id:
+      parameters:
+        path:
+          original_transaction_id: "<id>"
+          credit_note_id: "<id>"
+        header:
+          x-organization-id: "org_12345"
+      requestBody:
+        application/json: {"external_id": "<id>", "date": "2023-07-25T11:01:44.924Z", "status": "CANCELLED", "currency": "SPL", "transaction_items": [{"external_id": "<id>", "date": "2024-09-15T23:01:02.880Z", "external_product_id": "<id>"}]}
+      responses:
+        "200":
+          application/json: "<value>"
+        "422":
+          application/json: {}
 examplesVersion: 1.0.2
