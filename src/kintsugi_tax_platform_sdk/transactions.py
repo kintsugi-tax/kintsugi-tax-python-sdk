@@ -2608,8 +2608,8 @@ class Transactions(BaseSDK):
         self,
         *,
         security: Union[
-            models.UpdateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesCreditNoteIDPutSecurity,
-            models.UpdateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesCreditNoteIDPutSecurityTypedDict,
+            models.PUTUpdateCreditNoteByTransactionIDSecurity,
+            models.PUTUpdateCreditNoteByTransactionIDSecurityTypedDict,
         ],
         original_transaction_id: str,
         credit_note_id: str,
@@ -2694,7 +2694,7 @@ class Transactions(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.UpdateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesCreditNoteIDPutRequest(
+        request = models.PUTUpdateCreditNoteByTransactionIDRequest(
             original_transaction_id=original_transaction_id,
             credit_note_id=credit_note_id,
             x_organization_id=x_organization_id,
@@ -2731,8 +2731,7 @@ class Transactions(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=utils.get_pydantic_model(
-                security,
-                models.UpdateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesCreditNoteIDPutSecurity,
+                security, models.PUTUpdateCreditNoteByTransactionIDSecurity
             ),
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.credit_note_create,
@@ -2756,7 +2755,7 @@ class Transactions(BaseSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="update_credit_note_by_transaction_id_v1_transactions__original_transaction_id__credit_notes__credit_note_id__put",
+                operation_id="PUT_update_credit_note_by_transaction_id",
                 oauth2_scopes=None,
                 security_source=security,
             ),
@@ -2786,8 +2785,8 @@ class Transactions(BaseSDK):
         self,
         *,
         security: Union[
-            models.UpdateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesCreditNoteIDPutSecurity,
-            models.UpdateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesCreditNoteIDPutSecurityTypedDict,
+            models.PUTUpdateCreditNoteByTransactionIDSecurity,
+            models.PUTUpdateCreditNoteByTransactionIDSecurityTypedDict,
         ],
         original_transaction_id: str,
         credit_note_id: str,
@@ -2872,7 +2871,7 @@ class Transactions(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.UpdateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesCreditNoteIDPutRequest(
+        request = models.PUTUpdateCreditNoteByTransactionIDRequest(
             original_transaction_id=original_transaction_id,
             credit_note_id=credit_note_id,
             x_organization_id=x_organization_id,
@@ -2909,8 +2908,7 @@ class Transactions(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=utils.get_pydantic_model(
-                security,
-                models.UpdateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesCreditNoteIDPutSecurity,
+                security, models.PUTUpdateCreditNoteByTransactionIDSecurity
             ),
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.credit_note_create,
@@ -2934,7 +2932,7 @@ class Transactions(BaseSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="update_credit_note_by_transaction_id_v1_transactions__original_transaction_id__credit_notes__credit_note_id__put",
+                operation_id="PUT_update_credit_note_by_transaction_id",
                 oauth2_scopes=None,
                 security_source=security,
             ),

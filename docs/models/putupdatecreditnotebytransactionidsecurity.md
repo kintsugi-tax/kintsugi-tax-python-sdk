@@ -1,4 +1,4 @@
-# UpdateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesCreditNoteIDPutSecurity
+# PUTUpdateCreditNoteByTransactionIDSecurity
 
 
 ## Fields

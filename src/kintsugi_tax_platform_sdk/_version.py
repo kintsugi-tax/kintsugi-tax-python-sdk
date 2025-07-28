@@ -3,11 +3,11 @@
 import importlib.metadata
 
 __title__: str = "kintsugi-tax-platform-sdk"
-__version__: str = "0.5.8"
+__version__: str = "0.5.9"
 __openapi_doc_version__: str = "1.0.0"
-__gen_version__: str = "2.661.4"
+__gen_version__: str = "2.666.0"
 __user_agent__: str = (
-    "speakeasy-sdk/python 0.5.8 2.661.4 1.0.0 kintsugi-tax-platform-sdk"
+    "speakeasy-sdk/python 0.5.9 2.666.0 1.0.0 kintsugi-tax-platform-sdk"
 )
 
 try:

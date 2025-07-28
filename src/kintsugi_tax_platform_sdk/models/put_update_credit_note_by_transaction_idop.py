@@ -16,16 +16,12 @@ from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class UpdateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesCreditNoteIDPutSecurityTypedDict(
-    TypedDict
-):
+class PUTUpdateCreditNoteByTransactionIDSecurityTypedDict(TypedDict):
     api_key_header: NotRequired[str]
     http_bearer: NotRequired[str]
 
 
-class UpdateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesCreditNoteIDPutSecurity(
-    BaseModel
-):
+class PUTUpdateCreditNoteByTransactionIDSecurity(BaseModel):
     api_key_header: Annotated[
         Optional[str],
         FieldMetadata(
@@ -51,9 +47,7 @@ class UpdateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNo
     ] = None
 
 
-class UpdateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesCreditNoteIDPutRequestTypedDict(
-    TypedDict
-):
+class PUTUpdateCreditNoteByTransactionIDRequestTypedDict(TypedDict):
     original_transaction_id: str
     credit_note_id: str
     x_organization_id: Nullable[str]
@@ -61,9 +55,7 @@ class UpdateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNo
     credit_note_create: CreditNoteCreateTypedDict
 
 
-class UpdateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesCreditNoteIDPutRequest(
-    BaseModel
-):
+class PUTUpdateCreditNoteByTransactionIDRequest(BaseModel):
     original_transaction_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
