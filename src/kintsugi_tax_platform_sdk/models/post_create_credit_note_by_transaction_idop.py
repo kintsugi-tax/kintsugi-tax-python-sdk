@@ -16,16 +16,12 @@ from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class CreateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesPostSecurityTypedDict(
-    TypedDict
-):
+class POSTCreateCreditNoteByTransactionIDSecurityTypedDict(TypedDict):
     api_key_header: NotRequired[str]
     http_bearer: NotRequired[str]
 
 
-class CreateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesPostSecurity(
-    BaseModel
-):
+class POSTCreateCreditNoteByTransactionIDSecurity(BaseModel):
     api_key_header: Annotated[
         Optional[str],
         FieldMetadata(
@@ -51,18 +47,14 @@ class CreateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNo
     ] = None
 
 
-class CreateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesPostRequestTypedDict(
-    TypedDict
-):
+class POSTCreateCreditNoteByTransactionIDRequestTypedDict(TypedDict):
     original_transaction_id: str
     x_organization_id: Nullable[str]
     r"""The unique identifier for the organization making the request"""
     credit_note_create: CreditNoteCreateTypedDict
 
 
-class CreateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesPostRequest(
-    BaseModel
-):
+class POSTCreateCreditNoteByTransactionIDRequest(BaseModel):
     original_transaction_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]

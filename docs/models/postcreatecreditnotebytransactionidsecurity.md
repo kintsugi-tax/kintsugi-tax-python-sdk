@@ -1,4 +1,4 @@
-# CreateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesPostSecurity
+# POSTCreateCreditNoteByTransactionIDSecurity
 
 
 ## Fields
