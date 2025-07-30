@@ -58,12 +58,6 @@ if TYPE_CHECKING:
         FileTypedDict,
     )
     from .countrycodeenum import CountryCodeEnum
-    from .create_credit_note_by_transaction_id_v1_transactions_original_transaction_id_credit_notes_postop import (
-        CreateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesPostRequest,
-        CreateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesPostRequestTypedDict,
-        CreateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesPostSecurity,
-        CreateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesPostSecurityTypedDict,
-    )
     from .create_customer_v1_customers_postop import (
         CreateCustomerV1CustomersPostRequest,
         CreateCustomerV1CustomersPostRequestTypedDict,
@@ -259,6 +253,12 @@ if TYPE_CHECKING:
     )
     from .page_transactionread_ import PageTransactionRead, PageTransactionReadTypedDict
     from .periodmodelenum import PeriodModelEnum
+    from .post_create_credit_note_by_transaction_idop import (
+        POSTCreateCreditNoteByTransactionIDRequest,
+        POSTCreateCreditNoteByTransactionIDRequestTypedDict,
+        POSTCreateCreditNoteByTransactionIDSecurity,
+        POSTCreateCreditNoteByTransactionIDSecurityTypedDict,
+    )
     from .processingstatusenum import ProcessingStatusEnum
     from .productcategories import ProductCategories, ProductCategoriesTypedDict
     from .productcategoryenum import ProductCategoryEnum
@@ -600,10 +600,6 @@ __all__ = [
     "CountryCode",
     "CountryCodeEnum",
     "CountryCodeTypedDict",
-    "CreateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesPostRequest",
-    "CreateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesPostRequestTypedDict",
-    "CreateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesPostSecurity",
-    "CreateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesPostSecurityTypedDict",
     "CreateCustomerV1CustomersPostRequest",
     "CreateCustomerV1CustomersPostRequestTypedDict",
     "CreateCustomerV1CustomersPostSecurity",
@@ -753,6 +749,10 @@ __all__ = [
     "NexusStateEnum",
     "NexusStatusEnum",
     "NexusTypeEnum",
+    "POSTCreateCreditNoteByTransactionIDRequest",
+    "POSTCreateCreditNoteByTransactionIDRequestTypedDict",
+    "POSTCreateCreditNoteByTransactionIDSecurity",
+    "POSTCreateCreditNoteByTransactionIDSecurityTypedDict",
     "PUTUpdateCreditNoteByTransactionIDRequest",
     "PUTUpdateCreditNoteByTransactionIDRequestTypedDict",
     "PUTUpdateCreditNoteByTransactionIDSecurity",
@@ -1061,10 +1061,6 @@ _dynamic_imports: dict[str, str] = {
     "File": ".body_upload_exemption_certificate_v1_exemptions_exemption_id_attachments_post",
     "FileTypedDict": ".body_upload_exemption_certificate_v1_exemptions_exemption_id_attachments_post",
     "CountryCodeEnum": ".countrycodeenum",
-    "CreateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesPostRequest": ".create_credit_note_by_transaction_id_v1_transactions_original_transaction_id_credit_notes_postop",
-    "CreateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesPostRequestTypedDict": ".create_credit_note_by_transaction_id_v1_transactions_original_transaction_id_credit_notes_postop",
-    "CreateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesPostSecurity": ".create_credit_note_by_transaction_id_v1_transactions_original_transaction_id_credit_notes_postop",
-    "CreateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesPostSecurityTypedDict": ".create_credit_note_by_transaction_id_v1_transactions_original_transaction_id_credit_notes_postop",
     "CreateCustomerV1CustomersPostRequest": ".create_customer_v1_customers_postop",
     "CreateCustomerV1CustomersPostRequestTypedDict": ".create_customer_v1_customers_postop",
     "CreateCustomerV1CustomersPostSecurity": ".create_customer_v1_customers_postop",
@@ -1222,6 +1218,10 @@ _dynamic_imports: dict[str, str] = {
     "PageTransactionRead": ".page_transactionread_",
     "PageTransactionReadTypedDict": ".page_transactionread_",
     "PeriodModelEnum": ".periodmodelenum",
+    "POSTCreateCreditNoteByTransactionIDRequest": ".post_create_credit_note_by_transaction_idop",
+    "POSTCreateCreditNoteByTransactionIDRequestTypedDict": ".post_create_credit_note_by_transaction_idop",
+    "POSTCreateCreditNoteByTransactionIDSecurity": ".post_create_credit_note_by_transaction_idop",
+    "POSTCreateCreditNoteByTransactionIDSecurityTypedDict": ".post_create_credit_note_by_transaction_idop",
     "ProcessingStatusEnum": ".processingstatusenum",
     "ProductCategories": ".productcategories",
     "ProductCategoriesTypedDict": ".productcategories",

@@ -17,6 +17,7 @@ Retrieve a list of exemptions based on filters.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="get_exemptions_v1_exemptions_get" method="get" path="/v1/exemptions" -->
 ```python
 from datetime import date
 from kintsugi_tax_platform_sdk import SDK, models
@@ -78,6 +79,7 @@ The Create Exemption API allows you to create a new exemption record.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="create_exemption_v1_exemptions_post" method="post" path="/v1/exemptions" -->
 ```python
 from datetime import date
 from kintsugi_tax_platform_sdk import SDK, models
@@ -137,6 +139,7 @@ The Get Exemption By ID API retrieves a specific exemption record by
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="get_exemption_by_id_v1_exemptions__exemption_id__get" method="get" path="/v1/exemptions/{exemption_id}" -->
 ```python
 from kintsugi_tax_platform_sdk import SDK, models
 
@@ -185,6 +188,7 @@ The Upload Exemption Certificate API allows you
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="upload_exemption_certificate_v1_exemptions__exemption_id__attachments_post" method="post" path="/v1/exemptions/{exemption_id}/attachments" -->
 ```python
 from kintsugi_tax_platform_sdk import SDK, models
 
@@ -237,6 +241,7 @@ The Get Attachments for Exemption API retrieves all
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="get_attachments_for_exemption_v1_exemptions__exemption_id__attachments_get" method="get" path="/v1/exemptions/{exemption_id}/attachments" -->
 ```python
 from kintsugi_tax_platform_sdk import SDK, models
 

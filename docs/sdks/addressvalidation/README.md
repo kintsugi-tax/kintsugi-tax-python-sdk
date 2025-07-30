@@ -17,6 +17,7 @@ This API validates and enriches address information
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="search_v1_address_validation_search_post" method="post" path="/v1/address_validation/search" -->
 ```python
 from kintsugi_tax_platform_sdk import SDK, models
 
@@ -73,6 +74,7 @@ This API endpoint provides address suggestions based on
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="suggestions_v1_address_validation_suggestions_post" method="post" path="/v1/address_validation/suggestions" -->
 ```python
 from kintsugi_tax_platform_sdk import SDK, models
 

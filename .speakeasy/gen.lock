@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: a3b5f8df-3e69-405c-9eb8-40a21cc5faba
 management:
-  docChecksum: abf6143ab509ec16a4cf8fb0683fbb3d
+  docChecksum: 3b7599d4823043c763a96752a57b54f0
   docVersion: 1.0.0
-  speakeasyVersion: 1.590.0
-  generationVersion: 2.666.0
-  releaseVersion: 0.5.9
-  configChecksum: d0c9362904c00b718b979aa7b10be1ad
+  speakeasyVersion: 1.592.1
+  generationVersion: 2.667.0
+  releaseVersion: 0.5.10
+  configChecksum: a0fc7410d72034ee525d264d75c69a87
   repoURL: https://github.com/kintsugi-tax/kintsugi-tax-python-sdk.git
   installationURL: https://github.com/kintsugi-tax/kintsugi-tax-python-sdk.git
   published: true
@@ -14,7 +14,7 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.19.4
+    core: 5.19.5
     defaultEnabledRetries: 0.2.0
     deprecations: 3.0.2
     enumUnions: 0.1.0
@@ -69,8 +69,6 @@ generatedFiles:
   - docs/models/code.md
   - docs/models/countrycode.md
   - docs/models/countrycodeenum.md
-  - docs/models/createcreditnotebytransactionidv1transactionsoriginaltransactionidcreditnotespostrequest.md
-  - docs/models/createcreditnotebytransactionidv1transactionsoriginaltransactionidcreditnotespostsecurity.md
   - docs/models/createcustomerv1customerspostrequest.md
   - docs/models/createcustomerv1customerspostsecurity.md
   - docs/models/createexemptionv1exemptionspostrequest.md
@@ -155,6 +153,8 @@ generatedFiles:
   - docs/models/pagetransactionestimateresponse.md
   - docs/models/pagetransactionread.md
   - docs/models/periodmodelenum.md
+  - docs/models/postcreatecreditnotebytransactionidrequest.md
+  - docs/models/postcreatecreditnotebytransactionidsecurity.md
   - docs/models/processingstatusenum.md
   - docs/models/product.md
   - docs/models/productcategories.md
@@ -353,7 +353,6 @@ generatedFiles:
   - src/kintsugi_tax_platform_sdk/models/backend_src_transactions_responses_validationerroritem.py
   - src/kintsugi_tax_platform_sdk/models/body_upload_exemption_certificate_v1_exemptions_exemption_id_attachments_post.py
   - src/kintsugi_tax_platform_sdk/models/countrycodeenum.py
-  - src/kintsugi_tax_platform_sdk/models/create_credit_note_by_transaction_id_v1_transactions_original_transaction_id_credit_notes_postop.py
   - src/kintsugi_tax_platform_sdk/models/create_customer_v1_customers_postop.py
   - src/kintsugi_tax_platform_sdk/models/create_exemption_v1_exemptions_postop.py
   - src/kintsugi_tax_platform_sdk/models/create_product_v1_products_postop.py
@@ -402,6 +401,7 @@ generatedFiles:
   - src/kintsugi_tax_platform_sdk/models/page_transactionestimateresponse_.py
   - src/kintsugi_tax_platform_sdk/models/page_transactionread_.py
   - src/kintsugi_tax_platform_sdk/models/periodmodelenum.py
+  - src/kintsugi_tax_platform_sdk/models/post_create_credit_note_by_transaction_idop.py
   - src/kintsugi_tax_platform_sdk/models/processingstatusenum.py
   - src/kintsugi_tax_platform_sdk/models/productcategories.py
   - src/kintsugi_tax_platform_sdk/models/productcategoryenum.py
@@ -1028,6 +1028,20 @@ examples:
       responses:
         "200":
           application/json: "<value>"
+        "422":
+          application/json: {}
+  POST_create_credit_note_by_transaction_id:
+    speakeasy-default-POST-create-credit-note-by-transaction-id:
+      parameters:
+        path:
+          original_transaction_id: "<id>"
+        header:
+          x-organization-id: "org_12345"
+      requestBody:
+        application/json: {"external_id": "<id>", "date": "2024-01-17T09:54:06.459Z", "status": "PENDING", "currency": "GEL", "transaction_items": [{"external_id": "<id>", "date": "2023-07-11T07:57:04.867Z", "external_product_id": "<id>"}]}
+      responses:
+        "200":
+          application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2024-03-08T14:51:43.874Z", "total_amount": "0.00", "total_tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "total_tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "total_tax_liability_amount": "0.00", "taxable_amount": "0.00", "locked": false, "id": "<id>", "addresses": [], "transaction_items": [{"organization_id": "<id>", "date": "2025-04-01T04:49:49.945Z", "external_product_id": "<id>", "quantity": "1.0", "amount": "0.00", "tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "taxable_amount": "0.00", "exempt": false, "id": "<id>", "tax_items": []}], "type": "SALE"}
         "422":
           application/json: {}
 examplesVersion: 1.0.2

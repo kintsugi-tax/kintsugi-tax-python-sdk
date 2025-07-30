@@ -13,6 +13,7 @@ Get a list of all nexuses for the organization.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="get_nexus_for_org_v1_nexus_get" method="get" path="/v1/nexus" -->
 ```python
 from kintsugi_tax_platform_sdk import SDK, models
 

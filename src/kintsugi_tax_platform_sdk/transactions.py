@@ -2258,8 +2258,8 @@ class Transactions(BaseSDK):
         self,
         *,
         security: Union[
-            models.CreateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesPostSecurity,
-            models.CreateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesPostSecurityTypedDict,
+            models.POSTCreateCreditNoteByTransactionIDSecurity,
+            models.POSTCreateCreditNoteByTransactionIDSecurityTypedDict,
         ],
         original_transaction_id: str,
         x_organization_id: Nullable[str],
@@ -2342,7 +2342,7 @@ class Transactions(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesPostRequest(
+        request = models.POSTCreateCreditNoteByTransactionIDRequest(
             original_transaction_id=original_transaction_id,
             x_organization_id=x_organization_id,
             credit_note_create=models.CreditNoteCreate(
@@ -2378,8 +2378,7 @@ class Transactions(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=utils.get_pydantic_model(
-                security,
-                models.CreateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesPostSecurity,
+                security, models.POSTCreateCreditNoteByTransactionIDSecurity
             ),
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.credit_note_create,
@@ -2403,7 +2402,7 @@ class Transactions(BaseSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="create_credit_note_by_transaction_id_v1_transactions__original_transaction_id__credit_notes_post",
+                operation_id="POST_create_credit_note_by_transaction_id",
                 oauth2_scopes=None,
                 security_source=security,
             ),
@@ -2433,8 +2432,8 @@ class Transactions(BaseSDK):
         self,
         *,
         security: Union[
-            models.CreateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesPostSecurity,
-            models.CreateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesPostSecurityTypedDict,
+            models.POSTCreateCreditNoteByTransactionIDSecurity,
+            models.POSTCreateCreditNoteByTransactionIDSecurityTypedDict,
         ],
         original_transaction_id: str,
         x_organization_id: Nullable[str],
@@ -2517,7 +2516,7 @@ class Transactions(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesPostRequest(
+        request = models.POSTCreateCreditNoteByTransactionIDRequest(
             original_transaction_id=original_transaction_id,
             x_organization_id=x_organization_id,
             credit_note_create=models.CreditNoteCreate(
@@ -2553,8 +2552,7 @@ class Transactions(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=utils.get_pydantic_model(
-                security,
-                models.CreateCreditNoteByTransactionIDV1TransactionsOriginalTransactionIDCreditNotesPostSecurity,
+                security, models.POSTCreateCreditNoteByTransactionIDSecurity
             ),
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.credit_note_create,
@@ -2578,7 +2576,7 @@ class Transactions(BaseSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="create_credit_note_by_transaction_id_v1_transactions__original_transaction_id__credit_notes_post",
+                operation_id="POST_create_credit_note_by_transaction_id",
                 oauth2_scopes=None,
                 security_source=security,
             ),
