@@ -5,16 +5,16 @@
 
 ### Available Operations
 
-* [get_transactions_v1_transactions_get](#get_transactions_v1_transactions_get) - Get Transactions
-* [create_transaction_v1_transactions_post](#create_transaction_v1_transactions_post) - Create Transaction
-* [get_transaction_by_external_id_v1_transactions_external_external_id_get](#get_transaction_by_external_id_v1_transactions_external_external_id_get) - Get Transaction By External Id
-* [update_transaction_v1_transactions_transaction_id_put](#update_transaction_v1_transactions_transaction_id_put) - Update Transaction
-* [get_transaction_by_id_v1_transactions_transaction_id_get](#get_transaction_by_id_v1_transactions_transaction_id_get) - Get Transaction By Id
-* [get_transactions_by_filing_id_v1_transactions_filings_filing_id_get](#get_transactions_by_filing_id_v1_transactions_filings_filing_id_get) - Get Transactions By Filing Id
-* [post_create_credit_note_by_transaction_id](#post_create_credit_note_by_transaction_id) - Create Credit Note By Transaction Id
-* [put_update_credit_note_by_transaction_id](#put_update_credit_note_by_transaction_id) - Update Credit Note By Transaction Id
+* [list](#list) - Get Transactions
+* [create](#create) - Create Transaction
+* [get_by_external_id](#get_by_external_id) - Get Transaction By External Id
+* [update](#update) - Update Transaction
+* [get_by_id](#get_by_id) - Get Transaction By Id
+* [get_by_filing_id](#get_by_filing_id) - Get Transactions By Filing Id
+* [create_credit_note](#create_credit_note) - Create Credit Note By Transaction Id
+* [update_credit_note](#update_credit_note) - Update Credit Note By Transaction Id
 
-## get_transactions_v1_transactions_get
+## list
 
 The Get Transactions API retrieves a list of transactions with
     optional filtering, sorting, and pagination.
@@ -33,7 +33,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.transactions.get_transactions_v1_transactions_get(address_status_in="UNVERIFIED,INVALID,PARTIALLY_VERIFIED,VERIFIED,UNVERIFIABLE", order_by="date,state,customer_name,status", page=1, size=50)
+    res = sdk.transactions.list(address_status_in="UNVERIFIED,INVALID,PARTIALLY_VERIFIED,VERIFIED,UNVERIFIABLE", order_by="date,state,customer_name,status", page=1, size=50)
 
     # Handle response
     print(res)
@@ -76,7 +76,7 @@ with SDK(
 | errors.ErrorResponse                                          | 500                                                           | application/json                                              |
 | errors.APIError                                               | 4XX, 5XX                                                      | \*/\*                                                         |
 
-## create_transaction_v1_transactions_post
+## create
 
 Create a transaction.
 
@@ -95,7 +95,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.transactions.create_transaction_v1_transactions_post(organization_id="orgn_YourOrgIdHere", external_id="YourUniqueOrder123", date_=parse_datetime("2024-01-15T14:30:00Z"), addresses=[
+    res = sdk.transactions.create(organization_id="orgn_YourOrgIdHere", external_id="YourUniqueOrder123", date_=parse_datetime("2024-01-15T14:30:00Z"), addresses=[
         {
             "street_1": "123 Main St",
             "city": "San Francisco",
@@ -183,7 +183,7 @@ with SDK(
 | errors.ErrorResponse                                          | 500                                                           | application/json                                              |
 | errors.APIError                                               | 4XX, 5XX                                                      | \*/\*                                                         |
 
-## get_transaction_by_external_id_v1_transactions_external_external_id_get
+## get_by_external_id
 
 Retrieves a specific transaction based on its external ID.
     This allows users to fetch transaction details using an identifier from an external system.
@@ -202,7 +202,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.transactions.get_transaction_by_external_id_v1_transactions_external_external_id_get(external_id="<id>")
+    res = sdk.transactions.get_by_external_id(external_id="<id>")
 
     # Handle response
     print(res)
@@ -229,7 +229,7 @@ with SDK(
 | errors.ErrorResponse                                          | 500                                                           | application/json                                              |
 | errors.APIError                                               | 4XX, 5XX                                                      | \*/\*                                                         |
 
-## update_transaction_v1_transactions_transaction_id_put
+## update
 
 Update a specific transaction by its ID.
 
@@ -248,7 +248,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.transactions.update_transaction_v1_transactions_transaction_id_put(transaction_id="<id>", organization_id="orgn_argaLQwMy2fJc", external_id="EXT12345", date_=parse_datetime("2025-04-02T17:36:59.814Z"), addresses=[
+    res = sdk.transactions.update(transaction_id="<id>", organization_id="orgn_argaLQwMy2fJc", external_id="EXT12345", date_=parse_datetime("2025-04-02T17:36:59.814Z"), addresses=[
         {
             "type": models.AddressType.BILL_TO,
         },
@@ -333,7 +333,7 @@ with SDK(
 | errors.HTTPValidationError | 422                        | application/json           |
 | errors.APIError            | 4XX, 5XX                   | \*/\*                      |
 
-## get_transaction_by_id_v1_transactions_transaction_id_get
+## get_by_id
 
 The Get Transaction By Id API retrieves detailed information
     about a specific transaction by providing its unique transaction ID.
@@ -352,7 +352,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.transactions.get_transaction_by_id_v1_transactions_transaction_id_get(transaction_id="<id>")
+    res = sdk.transactions.get_by_id(transaction_id="<id>")
 
     # Handle response
     print(res)
@@ -379,7 +379,7 @@ with SDK(
 | errors.ErrorResponse                                          | 500                                                           | application/json                                              |
 | errors.APIError                                               | 4XX, 5XX                                                      | \*/\*                                                         |
 
-## get_transactions_by_filing_id_v1_transactions_filings_filing_id_get
+## get_by_filing_id
 
 Retrieve transactions by filing ID.
 
@@ -397,7 +397,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.transactions.get_transactions_by_filing_id_v1_transactions_filings_filing_id_get(filing_id="<id>")
+    res = sdk.transactions.get_by_filing_id(filing_id="<id>")
 
     # Handle response
     print(res)
@@ -424,7 +424,7 @@ with SDK(
 | errors.ErrorResponse                                          | 500                                                           | application/json                                              |
 | errors.APIError                                               | 4XX, 5XX                                                      | \*/\*                                                         |
 
-## post_create_credit_note_by_transaction_id
+## create_credit_note
 
 Create a new credit note for a specific transaction.
 
@@ -443,7 +443,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.transactions.post_create_credit_note_by_transaction_id(original_transaction_id="<id>", external_id="CN-12345", date_=parse_datetime("2024-10-27T14:30:00Z"), status=models.Status.PENDING, currency=models.CurrencyEnum.USD, transaction_items=[
+    res = sdk.transactions.create_credit_note(original_transaction_id="<id>", external_id="CN-12345", date_=parse_datetime("2024-10-27T14:30:00Z"), status=models.Status.PENDING, currency=models.CurrencyEnum.USD, transaction_items=[
         {
             "external_id": "ITEM-1",
             "date_": parse_datetime("2024-10-27T14:30:00Z"),
@@ -488,7 +488,7 @@ with SDK(
 | errors.HTTPValidationError | 422                        | application/json           |
 | errors.APIError            | 4XX, 5XX                   | \*/\*                      |
 
-## put_update_credit_note_by_transaction_id
+## update_credit_note
 
 Update an existing credit note for a specific transaction.
 
@@ -507,7 +507,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.transactions.put_update_credit_note_by_transaction_id(original_transaction_id="<id>", credit_note_id="<id>", external_id="<id>", date_=parse_datetime("2023-07-25T11:01:44.924Z"), status=models.Status.CANCELLED, currency=models.CurrencyEnum.SPL, transaction_items=[
+    res = sdk.transactions.update_credit_note(original_transaction_id="<id>", credit_note_id="<id>", external_id="<id>", date_=parse_datetime("2023-07-25T11:01:44.924Z"), status=models.Status.CANCELLED, currency=models.CurrencyEnum.SPL, transaction_items=[
         {
             "external_id": "<id>",
             "date_": parse_datetime("2024-09-15T23:01:02.880Z"),

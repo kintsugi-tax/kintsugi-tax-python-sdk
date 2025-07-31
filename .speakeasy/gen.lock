@@ -5,8 +5,8 @@ management:
   docVersion: 1.0.0
   speakeasyVersion: 1.595.0
   generationVersion: 2.670.1
-  releaseVersion: 0.8.0
-  configChecksum: 3e17993106e0bdaf6e77b15c90f390ce
+  releaseVersion: 0.8.1
+  configChecksum: 899d28684049816c0bf1b16b571ad077
   repoURL: https://github.com/kintsugi-tax/kintsugi-tax-python-sdk.git
   installationURL: https://github.com/kintsugi-tax/kintsugi-tax-python-sdk.git
   published: true
