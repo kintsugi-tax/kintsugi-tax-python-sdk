@@ -12,7 +12,7 @@ from typing import Any, List, Mapping, Optional, Union
 
 
 class Transactions(BaseSDK):
-    def list(
+    def get_transactions_v1_transactions_get(
         self,
         *,
         state_code: Optional[str] = None,
@@ -159,7 +159,7 @@ class Transactions(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def list_async(
+    async def get_transactions_v1_transactions_get_async(
         self,
         *,
         state_code: Optional[str] = None,
@@ -306,7 +306,7 @@ class Transactions(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    def create(
+    def create_transaction_v1_transactions_post(
         self,
         *,
         organization_id: str,
@@ -540,7 +540,7 @@ class Transactions(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def create_async(
+    async def create_transaction_v1_transactions_post_async(
         self,
         *,
         organization_id: str,
@@ -774,7 +774,7 @@ class Transactions(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    def get_by_external_id(
+    def get_transaction_by_external_id_v1_transactions_external_external_id_get(
         self,
         *,
         external_id: str,
@@ -873,7 +873,7 @@ class Transactions(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def get_by_external_id_async(
+    async def get_transaction_by_external_id_v1_transactions_external_external_id_get_async(
         self,
         *,
         external_id: str,
@@ -972,7 +972,7 @@ class Transactions(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    def update(
+    def update_transaction_v1_transactions_transaction_id_put(
         self,
         *,
         transaction_id: str,
@@ -1236,7 +1236,7 @@ class Transactions(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def update_async(
+    async def update_transaction_v1_transactions_transaction_id_put_async(
         self,
         *,
         transaction_id: str,
@@ -1500,7 +1500,7 @@ class Transactions(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    def get_by_id(
+    def get_transaction_by_id_v1_transactions_transaction_id_get(
         self,
         *,
         transaction_id: str,
@@ -1597,7 +1597,7 @@ class Transactions(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def get_by_id_async(
+    async def get_transaction_by_id_v1_transactions_transaction_id_get_async(
         self,
         *,
         transaction_id: str,
@@ -1694,7 +1694,7 @@ class Transactions(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    def get_by_filing_id(
+    def get_transactions_by_filing_id_v1_transactions_filings_filing_id_get(
         self,
         *,
         filing_id: str,
@@ -1792,7 +1792,7 @@ class Transactions(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def get_by_filing_id_async(
+    async def get_transactions_by_filing_id_v1_transactions_filings_filing_id_get_async(
         self,
         *,
         filing_id: str,
@@ -1890,7 +1890,7 @@ class Transactions(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    def create_credit_note(
+    def post_create_credit_note_by_transaction_id(
         self,
         *,
         original_transaction_id: str,
@@ -2034,7 +2034,7 @@ class Transactions(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def create_credit_note_async(
+    async def post_create_credit_note_by_transaction_id_async(
         self,
         *,
         original_transaction_id: str,
@@ -2178,7 +2178,7 @@ class Transactions(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    def update_credit_note(
+    def put_update_credit_note_by_transaction_id(
         self,
         *,
         original_transaction_id: str,
@@ -2325,7 +2325,7 @@ class Transactions(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def update_credit_note_async(
+    async def put_update_credit_note_by_transaction_id_async(
         self,
         *,
         original_transaction_id: str,

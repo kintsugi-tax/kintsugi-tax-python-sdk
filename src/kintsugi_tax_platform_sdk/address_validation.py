@@ -11,7 +11,7 @@ from typing import Any, List, Mapping, Optional, Union
 
 
 class AddressValidation(BaseSDK):
-    def search(
+    def search_v1_address_validation_search_post(
         self,
         *,
         security: Union[
@@ -144,7 +144,7 @@ class AddressValidation(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def search_async(
+    async def search_v1_address_validation_search_post_async(
         self,
         *,
         security: Union[
@@ -277,7 +277,7 @@ class AddressValidation(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    def suggestions(
+    def suggestions_v1_address_validation_suggestions_post(
         self,
         *,
         line1: Optional[str] = None,
@@ -407,7 +407,7 @@ class AddressValidation(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def suggestions_async(
+    async def suggestions_v1_address_validation_suggestions_post_async(
         self,
         *,
         line1: Optional[str] = None,
