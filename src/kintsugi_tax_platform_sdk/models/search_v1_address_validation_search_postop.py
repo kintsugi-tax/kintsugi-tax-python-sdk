@@ -3,18 +3,16 @@
 from __future__ import annotations
 from kintsugi_tax_platform_sdk.types import BaseModel
 from kintsugi_tax_platform_sdk.utils import FieldMetadata, SecurityMetadata
-from typing import Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated, TypedDict
 
 
 class SearchV1AddressValidationSearchPostSecurityTypedDict(TypedDict):
-    api_key_header: NotRequired[str]
-    http_bearer: NotRequired[str]
+    api_key_header: str
 
 
 class SearchV1AddressValidationSearchPostSecurity(BaseModel):
     api_key_header: Annotated[
-        Optional[str],
+        str,
         FieldMetadata(
             security=SecurityMetadata(
                 scheme=True,
@@ -23,16 +21,4 @@ class SearchV1AddressValidationSearchPostSecurity(BaseModel):
                 field_name="X-API-KEY",
             )
         ),
-    ] = None
-
-    http_bearer: Annotated[
-        Optional[str],
-        FieldMetadata(
-            security=SecurityMetadata(
-                scheme=True,
-                scheme_type="http",
-                sub_type="bearer",
-                field_name="Authorization",
-            )
-        ),
-    ] = None
+    ]

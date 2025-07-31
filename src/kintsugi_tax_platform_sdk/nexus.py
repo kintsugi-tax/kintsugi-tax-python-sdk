@@ -3,27 +3,24 @@
 from .basesdk import BaseSDK
 from kintsugi_tax_platform_sdk import errors, models, utils
 from kintsugi_tax_platform_sdk._hooks import HookContext
-from kintsugi_tax_platform_sdk.types import Nullable, OptionalNullable, UNSET
+from kintsugi_tax_platform_sdk.types import OptionalNullable, UNSET
 from kintsugi_tax_platform_sdk.utils.unmarshal_json_response import (
     unmarshal_json_response,
 )
-from typing import Any, Mapping, Optional, Union
+from typing import Any, Mapping, Optional
 
 
 class Nexus(BaseSDK):
     def list(
         self,
         *,
-        security: Union[
-            models.GetNexusForOrgV1NexusGetSecurity,
-            models.GetNexusForOrgV1NexusGetSecurityTypedDict,
-        ],
-        x_organization_id: Nullable[str],
-        status_in: OptionalNullable[str] = UNSET,
-        state_code: OptionalNullable[str] = UNSET,
-        country_code_in: OptionalNullable[str] = UNSET,
-        order_by: OptionalNullable[str] = UNSET,
-        collected_tax_nexus_met: OptionalNullable[bool] = UNSET,
+        status_in: Optional[
+            str
+        ] = "APPROACHING,NOT_EXPOSED,PENDING_REGISTRATION,EXPOSED,APPROACHING,REGISTERED",
+        state_code: Optional[str] = None,
+        country_code_in: Optional[str] = None,
+        order_by: Optional[str] = "state_code,country_code",
+        collected_tax_nexus_met: Optional[bool] = None,
         page: Optional[int] = 1,
         size: Optional[int] = 50,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -35,8 +32,6 @@ class Nexus(BaseSDK):
 
         Get a list of all nexuses for the organization.
 
-        :param security:
-        :param x_organization_id: The unique identifier for the organization making the request
         :param status_in:
         :param state_code:
         :param country_code_in:
@@ -67,7 +62,6 @@ class Nexus(BaseSDK):
             collected_tax_nexus_met=collected_tax_nexus_met,
             page=page,
             size=size,
-            x_organization_id=x_organization_id,
         )
 
         req = self._build_request(
@@ -82,9 +76,7 @@ class Nexus(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            security=utils.get_pydantic_model(
-                security, models.GetNexusForOrgV1NexusGetSecurity
-            ),
+            security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
 
@@ -101,8 +93,8 @@ class Nexus(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_nexus_for_org_v1_nexus_get",
-                oauth2_scopes=None,
-                security_source=security,
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["422", "4XX", "5XX"],
@@ -129,16 +121,13 @@ class Nexus(BaseSDK):
     async def list_async(
         self,
         *,
-        security: Union[
-            models.GetNexusForOrgV1NexusGetSecurity,
-            models.GetNexusForOrgV1NexusGetSecurityTypedDict,
-        ],
-        x_organization_id: Nullable[str],
-        status_in: OptionalNullable[str] = UNSET,
-        state_code: OptionalNullable[str] = UNSET,
-        country_code_in: OptionalNullable[str] = UNSET,
-        order_by: OptionalNullable[str] = UNSET,
-        collected_tax_nexus_met: OptionalNullable[bool] = UNSET,
+        status_in: Optional[
+            str
+        ] = "APPROACHING,NOT_EXPOSED,PENDING_REGISTRATION,EXPOSED,APPROACHING,REGISTERED",
+        state_code: Optional[str] = None,
+        country_code_in: Optional[str] = None,
+        order_by: Optional[str] = "state_code,country_code",
+        collected_tax_nexus_met: Optional[bool] = None,
         page: Optional[int] = 1,
         size: Optional[int] = 50,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -150,8 +139,6 @@ class Nexus(BaseSDK):
 
         Get a list of all nexuses for the organization.
 
-        :param security:
-        :param x_organization_id: The unique identifier for the organization making the request
         :param status_in:
         :param state_code:
         :param country_code_in:
@@ -182,7 +169,6 @@ class Nexus(BaseSDK):
             collected_tax_nexus_met=collected_tax_nexus_met,
             page=page,
             size=size,
-            x_organization_id=x_organization_id,
         )
 
         req = self._build_request_async(
@@ -197,9 +183,7 @@ class Nexus(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            security=utils.get_pydantic_model(
-                security, models.GetNexusForOrgV1NexusGetSecurity
-            ),
+            security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
 
@@ -216,8 +200,8 @@ class Nexus(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_nexus_for_org_v1_nexus_get",
-                oauth2_scopes=None,
-                security_source=security,
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["422", "4XX", "5XX"],

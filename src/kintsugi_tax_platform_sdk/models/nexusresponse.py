@@ -11,18 +11,19 @@ from .registrationsregimeenum import RegistrationsRegimeEnum
 from .salesortransactionsenum import SalesOrTransactionsEnum
 from .treatmentenum import TreatmentEnum
 from datetime import date, datetime
-from kintsugi_tax_platform_sdk.types import (
-    BaseModel,
-    Nullable,
-    OptionalNullable,
-    UNSET,
-    UNSET_SENTINEL,
-)
+from kintsugi_tax_platform_sdk.types import BaseModel
 from kintsugi_tax_platform_sdk.utils import parse_datetime
 import pydantic
-from pydantic import model_serializer
 from typing import Any, Dict, List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
+
+
+class RegistrationTypedDict(TypedDict):
+    pass
+
+
+class Registration(BaseModel):
+    pass
 
 
 class NexusResponseTypedDict(TypedDict):
@@ -33,13 +34,13 @@ class NexusResponseTypedDict(TypedDict):
     trigger: str
     sales_or_transactions: SalesOrTransactionsEnum
     threshold_sales: int
-    threshold_transactions: Nullable[int]
+    threshold_transactions: int
     start_date: date
     period_model: PeriodModelEnum
     period_start_date: date
     period_end_date: date
-    previous_period_start_date: Nullable[date]
-    previous_period_end_date: Nullable[date]
+    previous_period_start_date: str
+    previous_period_end_date: str
     id: str
     created_at: datetime
     updated_at: datetime
@@ -50,7 +51,7 @@ class NexusResponseTypedDict(TypedDict):
     total_transactions_included: int
     total_transactions_exempted: int
     total_transactions_marketplace: int
-    marketplace_included: Nullable[bool]
+    marketplace_included: bool
     processing_status: NotRequired[NexusStatusEnum]
     status: NotRequired[NexusStateEnum]
     transaction_count: NotRequired[int]
@@ -59,31 +60,30 @@ class NexusResponseTypedDict(TypedDict):
     r"""Deprecated: transaction_count now includes both current and previous period values when period_model is CURRENT_OR_PREVIOUS"""
     previous_transactions_amount: NotRequired[str]
     r"""Deprecated: transactions_amount now includes both current and previous period values when period_model is CURRENT_OR_PREVIOUS"""
-    calculated_tax_liability: NotRequired[Nullable[str]]
-    imported_tax_liability: NotRequired[Nullable[str]]
+    calculated_tax_liability: NotRequired[str]
+    imported_tax_liability: NotRequired[str]
     tax_liability: NotRequired[str]
     nexus_met: NotRequired[bool]
-    nexus_met_date: NotRequired[Nullable[date]]
+    nexus_met_date: NotRequired[str]
     economic_nexus_met: NotRequired[bool]
-    economic_nexus_met_date: NotRequired[Nullable[date]]
+    economic_nexus_met_date: NotRequired[str]
     physical_nexus_met: NotRequired[bool]
-    physical_nexus_met_date: NotRequired[Nullable[date]]
-    collected_tax_nexus_met: NotRequired[Nullable[bool]]
-    collected_tax_nexus_met_date: NotRequired[Nullable[date]]
+    physical_nexus_met_date: NotRequired[str]
+    collected_tax_nexus_met: NotRequired[bool]
+    collected_tax_nexus_met_date: NotRequired[str]
     collected_tax_enabled: NotRequired[bool]
-    earliest_transaction_date: NotRequired[Nullable[datetime]]
-    most_recent_transaction_date: NotRequired[Nullable[datetime]]
+    earliest_transaction_date: NotRequired[str]
+    most_recent_transaction_date: NotRequired[str]
     earliest_collected_date: NotRequired[datetime]
-    predicted_month_from_today: NotRequired[Nullable[int]]
-    vda_eligible: NotRequired[Nullable[bool]]
-    confidence_level: NotRequired[Nullable[float]]
-    last_processed_at: NotRequired[Nullable[datetime]]
-    last_tax_liability_processed_at: NotRequired[Nullable[datetime]]
-    periods: NotRequired[Nullable[List[Dict[str, Any]]]]
-    currency: NotRequired[Nullable[CurrencyEnum]]
-    r"""Currency code for the nexus (e.g., USD, CAD)."""
-    registration: NotRequired[Nullable[Dict[str, Any]]]
-    registration_regime: NotRequired[Nullable[RegistrationsRegimeEnum]]
+    predicted_month_from_today: NotRequired[int]
+    vda_eligible: NotRequired[bool]
+    confidence_level: NotRequired[float]
+    last_processed_at: NotRequired[str]
+    last_tax_liability_processed_at: NotRequired[str]
+    periods: NotRequired[List[Dict[str, Any]]]
+    currency: NotRequired[CurrencyEnum]
+    registration: NotRequired[RegistrationTypedDict]
+    registration_regime: NotRequired[RegistrationsRegimeEnum]
 
 
 class NexusResponse(BaseModel):
@@ -101,7 +101,7 @@ class NexusResponse(BaseModel):
 
     threshold_sales: int
 
-    threshold_transactions: Nullable[int]
+    threshold_transactions: int
 
     start_date: date
 
@@ -111,9 +111,9 @@ class NexusResponse(BaseModel):
 
     period_end_date: date
 
-    previous_period_start_date: Nullable[date]
+    previous_period_start_date: str
 
-    previous_period_end_date: Nullable[date]
+    previous_period_end_date: str
 
     id: str
 
@@ -135,7 +135,7 @@ class NexusResponse(BaseModel):
 
     total_transactions_marketplace: int
 
-    marketplace_included: Nullable[bool]
+    marketplace_included: bool
 
     processing_status: Optional[NexusStatusEnum] = None
 
@@ -161,135 +161,50 @@ class NexusResponse(BaseModel):
     ] = "0.00"
     r"""Deprecated: transactions_amount now includes both current and previous period values when period_model is CURRENT_OR_PREVIOUS"""
 
-    calculated_tax_liability: OptionalNullable[str] = UNSET
+    calculated_tax_liability: Optional[str] = "0.00"
 
-    imported_tax_liability: OptionalNullable[str] = UNSET
+    imported_tax_liability: Optional[str] = "0.00"
 
     tax_liability: Optional[str] = "0.00"
 
     nexus_met: Optional[bool] = False
 
-    nexus_met_date: OptionalNullable[date] = UNSET
+    nexus_met_date: Optional[str] = None
 
     economic_nexus_met: Optional[bool] = False
 
-    economic_nexus_met_date: OptionalNullable[date] = UNSET
+    economic_nexus_met_date: Optional[str] = None
 
     physical_nexus_met: Optional[bool] = False
 
-    physical_nexus_met_date: OptionalNullable[date] = UNSET
+    physical_nexus_met_date: Optional[str] = None
 
-    collected_tax_nexus_met: OptionalNullable[bool] = UNSET
+    collected_tax_nexus_met: Optional[bool] = False
 
-    collected_tax_nexus_met_date: OptionalNullable[date] = UNSET
+    collected_tax_nexus_met_date: Optional[str] = None
 
     collected_tax_enabled: Optional[bool] = False
 
-    earliest_transaction_date: OptionalNullable[datetime] = UNSET
+    earliest_transaction_date: Optional[str] = None
 
-    most_recent_transaction_date: OptionalNullable[datetime] = UNSET
+    most_recent_transaction_date: Optional[str] = None
 
     earliest_collected_date: Optional[datetime] = parse_datetime("2018-01-01T00:00:00")
 
-    predicted_month_from_today: OptionalNullable[int] = UNSET
+    predicted_month_from_today: Optional[int] = None
 
-    vda_eligible: OptionalNullable[bool] = UNSET
+    vda_eligible: Optional[bool] = False
 
-    confidence_level: OptionalNullable[float] = UNSET
+    confidence_level: Optional[float] = None
 
-    last_processed_at: OptionalNullable[datetime] = UNSET
+    last_processed_at: Optional[str] = None
 
-    last_tax_liability_processed_at: OptionalNullable[datetime] = UNSET
+    last_tax_liability_processed_at: Optional[str] = None
 
-    periods: OptionalNullable[List[Dict[str, Any]]] = UNSET
+    periods: Optional[List[Dict[str, Any]]] = None
 
-    currency: OptionalNullable[CurrencyEnum] = UNSET
-    r"""Currency code for the nexus (e.g., USD, CAD)."""
+    currency: Optional[CurrencyEnum] = None
 
-    registration: OptionalNullable[Dict[str, Any]] = UNSET
+    registration: Optional[Registration] = None
 
-    registration_regime: OptionalNullable[RegistrationsRegimeEnum] = UNSET
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = [
-            "processing_status",
-            "status",
-            "transaction_count",
-            "transactions_amount",
-            "previous_transaction_count",
-            "previous_transactions_amount",
-            "calculated_tax_liability",
-            "imported_tax_liability",
-            "tax_liability",
-            "nexus_met",
-            "nexus_met_date",
-            "economic_nexus_met",
-            "economic_nexus_met_date",
-            "physical_nexus_met",
-            "physical_nexus_met_date",
-            "collected_tax_nexus_met",
-            "collected_tax_nexus_met_date",
-            "collected_tax_enabled",
-            "earliest_transaction_date",
-            "most_recent_transaction_date",
-            "earliest_collected_date",
-            "predicted_month_from_today",
-            "vda_eligible",
-            "confidence_level",
-            "last_processed_at",
-            "last_tax_liability_processed_at",
-            "periods",
-            "currency",
-            "registration",
-            "registration_regime",
-        ]
-        nullable_fields = [
-            "threshold_transactions",
-            "calculated_tax_liability",
-            "imported_tax_liability",
-            "nexus_met_date",
-            "economic_nexus_met_date",
-            "physical_nexus_met_date",
-            "collected_tax_nexus_met",
-            "collected_tax_nexus_met_date",
-            "previous_period_start_date",
-            "previous_period_end_date",
-            "earliest_transaction_date",
-            "most_recent_transaction_date",
-            "predicted_month_from_today",
-            "vda_eligible",
-            "confidence_level",
-            "last_processed_at",
-            "last_tax_liability_processed_at",
-            "periods",
-            "currency",
-            "registration",
-            "registration_regime",
-            "marketplace_included",
-        ]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
+    registration_regime: Optional[RegistrationsRegimeEnum] = None

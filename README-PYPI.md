@@ -32,6 +32,7 @@ Developer-friendly & type-safe Python SDK specifically catered to leverage *kint
   * [File uploads](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/#file-uploads)
   * [Retries](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/#retries)
   * [Error Handling](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/#error-handling)
+  * [Server Selection](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/#server-selection)
   * [Custom HTTP Client](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/#custom-http-client)
   * [Resource Management](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/#resource-management)
   * [Debugging](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/#debugging)
@@ -119,9 +120,7 @@ Generally, the SDK will work well with most IDEs out of the box. However, when u
 from kintsugi_tax_platform_sdk import SDK, models
 
 
-with SDK(
-    server_url="https://api.example.com",
-) as sdk:
+with SDK() as sdk:
 
     res = sdk.address_validation.search(security=models.SearchV1AddressValidationSearchPostSecurity(
         api_key_header="<YOUR_API_KEY_HERE>",
@@ -141,9 +140,7 @@ from kintsugi_tax_platform_sdk import SDK, models
 
 async def main():
 
-    async with SDK(
-        server_url="https://api.example.com",
-    ) as sdk:
+    async with SDK() as sdk:
 
         res = await sdk.address_validation.search_async(security=models.SearchV1AddressValidationSearchPostSecurity(
             api_key_header="<YOUR_API_KEY_HERE>",
@@ -161,14 +158,31 @@ asyncio.run(main())
 
 ### Per-Client Security Schemes
 
-This SDK supports the following security scheme globally:
+This SDK supports the following security schemes globally:
 
 | Name             | Type   | Scheme  |
 | ---------------- | ------ | ------- |
 | `api_key_header` | apiKey | API key |
+| `custom_header`  | apiKey | API key |
 
-To authenticate with the API the `api_key_header` parameter must be set when initializing the SDK client instance. For example:
+You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
+```python
+from kintsugi_tax_platform_sdk import SDK, models
 
+
+with SDK(
+    security=models.Security(
+        api_key_header="<YOUR_API_KEY_HERE>",
+        custom_header="<YOUR_API_KEY_HERE>",
+    ),
+) as sdk:
+
+    res = sdk.address_validation.suggestions(line1="1600 Amphitheatre Parkway", line2="", line3="", city="Mountain View", state="CA", country="US", postal_code="94043", id=215, county="", full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043")
+
+    # Handle response
+    print(res)
+
+```
 
 ### Per-Operation Security Schemes
 
@@ -177,12 +191,10 @@ Some operations in this SDK require the security scheme to be specified at the r
 from kintsugi_tax_platform_sdk import SDK, models
 
 
-with SDK(
-    server_url="https://api.example.com",
-) as sdk:
+with SDK() as sdk:
 
     res = sdk.address_validation.search(security=models.SearchV1AddressValidationSearchPostSecurity(
-
+        api_key_header="<YOUR_API_KEY_HERE>",
     ), phone="555-123-4567", street_1="1600 Amphitheatre Parkway", street_2="Building 40", city="Mountain View", county="Santa Clara", state="CA", postal_code="94043", country=models.CountryCodeEnum.US, full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043")
 
     # Handle response
@@ -266,12 +278,13 @@ from kintsugi_tax_platform_sdk import SDK, models
 
 
 with SDK(
-    server_url="https://api.example.com",
+    security=models.Security(
+        api_key_header="<YOUR_API_KEY_HERE>",
+        custom_header="<YOUR_API_KEY_HERE>",
+    ),
 ) as sdk:
 
-    res = sdk.exemptions.upload_certificate(security=models.UploadExemptionCertificateV1ExemptionsExemptionIDAttachmentsPostSecurity(
-        api_key_header="<YOUR_API_KEY_HERE>",
-    ), exemption_id="<id>", x_organization_id="org_12345", file={
+    res = sdk.exemptions.upload_certificate(exemption_id="<id>", file={
         "file_name": "example.file",
         "content": open("example.file", "rb"),
     })
@@ -293,9 +306,7 @@ from kintsugi_tax_platform_sdk import SDK, models
 from kintsugi_tax_platform_sdk.utils import BackoffStrategy, RetryConfig
 
 
-with SDK(
-    server_url="https://api.example.com",
-) as sdk:
+with SDK() as sdk:
 
     res = sdk.address_validation.search(security=models.SearchV1AddressValidationSearchPostSecurity(
         api_key_header="<YOUR_API_KEY_HERE>",
@@ -314,7 +325,6 @@ from kintsugi_tax_platform_sdk.utils import BackoffStrategy, RetryConfig
 
 
 with SDK(
-    server_url="https://api.example.com",
     retry_config=RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False),
 ) as sdk:
 
@@ -347,9 +357,7 @@ with SDK(
 from kintsugi_tax_platform_sdk import SDK, errors, models
 
 
-with SDK(
-    server_url="https://api.example.com",
-) as sdk:
+with SDK() as sdk:
     res = None
     try:
 
@@ -403,6 +411,30 @@ with SDK(
 
 \* Check [the method documentation](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/#available-resources-and-operations) to see if the error is applicable.
 <!-- End Error Handling [errors] -->
+
+<!-- Start Server Selection [server] -->
+## Server Selection
+
+### Override Server URL Per-Client
+
+The default server can be overridden globally by passing a URL to the `server_url: str` optional parameter when initializing the SDK client instance. For example:
+```python
+from kintsugi_tax_platform_sdk import SDK, models
+
+
+with SDK(
+    server_url="https://api.trykintsugi.com",
+) as sdk:
+
+    res = sdk.address_validation.search(security=models.SearchV1AddressValidationSearchPostSecurity(
+        api_key_header="<YOUR_API_KEY_HERE>",
+    ), phone="555-123-4567", street_1="1600 Amphitheatre Parkway", street_2="Building 40", city="Mountain View", county="Santa Clara", state="CA", postal_code="94043", country=models.CountryCodeEnum.US, full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043")
+
+    # Handle response
+    print(res)
+
+```
+<!-- End Server Selection [server] -->
 
 <!-- Start Custom HTTP Client [http-client] -->
 ## Custom HTTP Client
@@ -496,18 +528,14 @@ The `SDK` class implements the context manager protocol and registers a finalize
 from kintsugi_tax_platform_sdk import SDK
 def main():
 
-    with SDK(
-        server_url="https://api.example.com",
-    ) as sdk:
+    with SDK() as sdk:
         # Rest of application here...
 
 
 # Or when using async:
 async def amain():
 
-    async with SDK(
-        server_url="https://api.example.com",
-    ) as sdk:
+    async with SDK() as sdk:
         # Rest of application here...
 ```
 <!-- End Resource Management [resource-management] -->
@@ -523,7 +551,7 @@ from kintsugi_tax_platform_sdk import SDK
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
-s = SDK(server_url="https://example.com", debug_logger=logging.getLogger("kintsugi_tax_platform_sdk"))
+s = SDK(debug_logger=logging.getLogger("kintsugi_tax_platform_sdk"))
 ```
 <!-- End Debugging [debug] -->
 
