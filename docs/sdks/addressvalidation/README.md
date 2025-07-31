@@ -5,10 +5,10 @@
 
 ### Available Operations
 
-* [search_v1_address_validation_search_post](#search_v1_address_validation_search_post) - Search
-* [suggestions_v1_address_validation_suggestions_post](#suggestions_v1_address_validation_suggestions_post) - Suggestions
+* [search](#search) - Search
+* [suggestions](#suggestions) - Suggestions
 
-## search_v1_address_validation_search_post
+## search
 
 This API validates and enriches address information
     submitted by the user. It ensures that the address is standardized, accurate,
@@ -24,7 +24,7 @@ from kintsugi_tax_platform_sdk import SDK, models
 
 with SDK() as sdk:
 
-    res = sdk.address_validation.search_v1_address_validation_search_post(security=models.SearchV1AddressValidationSearchPostSecurity(
+    res = sdk.address_validation.search(security=models.SearchV1AddressValidationSearchPostSecurity(
         api_key_header="<YOUR_API_KEY_HERE>",
     ), phone="555-123-4567", street_1="1600 Amphitheatre Parkway", street_2="Building 40", city="Mountain View", county="Santa Clara", state="CA", postal_code="94043", country=models.CountryCodeEnum.US, full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043")
 
@@ -62,7 +62,7 @@ with SDK() as sdk:
 | errors.ErrorResponse                                               | 500                                                                | application/json                                                   |
 | errors.APIError                                                    | 4XX, 5XX                                                           | \*/\*                                                              |
 
-## suggestions_v1_address_validation_suggestions_post
+## suggestions
 
 This API endpoint provides address suggestions based on
     partial input data. It helps users auto-complete and validate addresses efficiently
@@ -84,7 +84,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.address_validation.suggestions_v1_address_validation_suggestions_post(line1="1600 Amphitheatre Parkway", line2="", line3="", city="Mountain View", state="CA", country="US", postal_code="94043", id=215, county="", full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043")
+    res = sdk.address_validation.suggestions(line1="1600 Amphitheatre Parkway", line2="", line3="", city="Mountain View", state="CA", country="US", postal_code="94043", id=215, county="", full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043")
 
     # Handle response
     print(res)

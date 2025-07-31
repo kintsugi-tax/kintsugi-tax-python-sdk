@@ -12,7 +12,7 @@ from typing import Any, List, Mapping, Optional, Union
 
 
 class Customers(BaseSDK):
-    def get_customers_v1(
+    def list(
         self,
         *,
         search_query: Optional[str] = None,
@@ -127,7 +127,7 @@ class Customers(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def get_customers_v1_async(
+    async def list_async(
         self,
         *,
         search_query: Optional[str] = None,
@@ -242,7 +242,7 @@ class Customers(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    def create_customer_v1_customers_post(
+    def create(
         self,
         *,
         phone: Optional[str] = None,
@@ -389,7 +389,7 @@ class Customers(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def create_customer_v1_customers_post_async(
+    async def create_async(
         self,
         *,
         phone: Optional[str] = None,
@@ -536,7 +536,7 @@ class Customers(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    def get_customer_by_id_v1_customers_customer_id_get(
+    def get(
         self,
         *,
         customer_id: str,
@@ -625,7 +625,7 @@ class Customers(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def get_customer_by_id_v1_customers_customer_id_get_async(
+    async def get_async(
         self,
         *,
         customer_id: str,
@@ -714,7 +714,7 @@ class Customers(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    def update_customer_v1_customers_customer_id_put(
+    def update(
         self,
         *,
         customer_id: str,
@@ -861,7 +861,7 @@ class Customers(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def update_customer_v1_customers_customer_id_put_async(
+    async def update_async(
         self,
         *,
         customer_id: str,
@@ -1008,7 +1008,7 @@ class Customers(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    def get_customer_by_external_id_v1_customers_external_external_id_get(
+    def get_by_external_id(
         self,
         *,
         external_id: str,
@@ -1097,7 +1097,7 @@ class Customers(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def get_customer_by_external_id_v1_customers_external_external_id_get_async(
+    async def get_by_external_id_async(
         self,
         *,
         external_id: str,
@@ -1186,7 +1186,7 @@ class Customers(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    def get_transactions_by_customer_id_v1_customers_customer_id_transactions_get(
+    def get_transactions(
         self,
         *,
         customer_id: str,
@@ -1273,7 +1273,7 @@ class Customers(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def get_transactions_by_customer_id_v1_customers_customer_id_transactions_get_async(
+    async def get_transactions_async(
         self,
         *,
         customer_id: str,
@@ -1360,7 +1360,7 @@ class Customers(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    def create_transaction_by_customer_id_v1_customers_customer_id_transactions_post(
+    def create_transaction(
         self,
         *,
         customer_id_param: str,
@@ -1628,7 +1628,7 @@ class Customers(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def create_transaction_by_customer_id_v1_customers_customer_id_transactions_post_async(
+    async def create_transaction_async(
         self,
         *,
         customer_id_param: str,
