@@ -2,78 +2,23 @@
 
 from __future__ import annotations
 from .countrycodeenum import CountryCodeEnum
-from kintsugi_tax_platform_sdk.types import (
-    BaseModel,
-    Nullable,
-    OptionalNullable,
-    UNSET,
-    UNSET_SENTINEL,
-)
-from kintsugi_tax_platform_sdk.utils import (
-    FieldMetadata,
-    HeaderMetadata,
-    QueryParamMetadata,
-    SecurityMetadata,
-)
+from kintsugi_tax_platform_sdk.types import BaseModel
+from kintsugi_tax_platform_sdk.utils import FieldMetadata, QueryParamMetadata
 import pydantic
-from pydantic import model_serializer
-from typing import List, Optional, Union
-from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
-
-
-class GetCustomersV1SecurityTypedDict(TypedDict):
-    api_key_header: NotRequired[str]
-    http_bearer: NotRequired[str]
-
-
-class GetCustomersV1Security(BaseModel):
-    api_key_header: Annotated[
-        Optional[str],
-        FieldMetadata(
-            security=SecurityMetadata(
-                scheme=True,
-                scheme_type="apiKey",
-                sub_type="header",
-                field_name="X-API-KEY",
-            )
-        ),
-    ] = None
-
-    http_bearer: Annotated[
-        Optional[str],
-        FieldMetadata(
-            security=SecurityMetadata(
-                scheme=True,
-                scheme_type="http",
-                sub_type="bearer",
-                field_name="Authorization",
-            )
-        ),
-    ] = None
-
-
-GetCustomersV1CountryTypedDict = TypeAliasType(
-    "GetCustomersV1CountryTypedDict", Union[CountryCodeEnum, str]
-)
-
-
-GetCustomersV1Country = TypeAliasType(
-    "GetCustomersV1Country", Union[CountryCodeEnum, str]
-)
+from typing import List, Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class GetCustomersV1RequestTypedDict(TypedDict):
-    x_organization_id: Nullable[str]
-    r"""The unique identifier for the organization making the request"""
-    search_query: NotRequired[Nullable[str]]
+    search_query: NotRequired[str]
     r"""Search term to filter customers by name or other details"""
-    country: NotRequired[Nullable[List[GetCustomersV1CountryTypedDict]]]
+    country: NotRequired[List[CountryCodeEnum]]
     r"""Country code in ISO 3166-1 alpha-2 format (e.g., 'US')"""
-    state: NotRequired[Nullable[str]]
+    state: NotRequired[str]
     r"""State or province code to filter customers"""
-    source_in: NotRequired[Nullable[str]]
+    source_in: NotRequired[str]
     r"""Filter customers by source (comma-separated)"""
-    order_by: NotRequired[Nullable[str]]
+    order_by: NotRequired[str]
     r"""Comma-separated list of fields to sort results by."""
     page: NotRequired[int]
     r"""Page number"""
@@ -82,42 +27,35 @@ class GetCustomersV1RequestTypedDict(TypedDict):
 
 
 class GetCustomersV1Request(BaseModel):
-    x_organization_id: Annotated[
-        Nullable[str],
-        pydantic.Field(alias="x-organization-id"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ]
-    r"""The unique identifier for the organization making the request"""
-
     search_query: Annotated[
-        OptionalNullable[str],
+        Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = UNSET
+    ] = None
     r"""Search term to filter customers by name or other details"""
 
     country: Annotated[
-        OptionalNullable[List[GetCustomersV1Country]],
+        Optional[List[CountryCodeEnum]],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = UNSET
+    ] = None
     r"""Country code in ISO 3166-1 alpha-2 format (e.g., 'US')"""
 
     state: Annotated[
-        OptionalNullable[str],
+        Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = UNSET
+    ] = None
     r"""State or province code to filter customers"""
 
     source_in: Annotated[
-        OptionalNullable[str],
+        Optional[str],
         pydantic.Field(alias="source__in"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = UNSET
+    ] = None
     r"""Filter customers by source (comma-separated)"""
 
     order_by: Annotated[
-        OptionalNullable[str],
+        Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = UNSET
+    ] = None
     r"""Comma-separated list of fields to sort results by."""
 
     page: Annotated[
@@ -131,48 +69,3 @@ class GetCustomersV1Request(BaseModel):
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = 50
     r"""Page size"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = [
-            "search_query",
-            "country",
-            "state",
-            "source__in",
-            "order_by",
-            "page",
-            "size",
-        ]
-        nullable_fields = [
-            "search_query",
-            "country",
-            "state",
-            "source__in",
-            "order_by",
-            "x-organization-id",
-        ]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m

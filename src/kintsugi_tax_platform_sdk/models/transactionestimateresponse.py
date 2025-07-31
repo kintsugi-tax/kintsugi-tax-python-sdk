@@ -10,15 +10,8 @@ from .transactionitemestimateresponse import (
 )
 from datetime import datetime
 from enum import Enum
-from kintsugi_tax_platform_sdk.types import (
-    BaseModel,
-    Nullable,
-    OptionalNullable,
-    UNSET,
-    UNSET_SENTINEL,
-)
+from kintsugi_tax_platform_sdk.types import BaseModel
 import pydantic
-from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -117,14 +110,12 @@ class TransactionEstimateResponseTypedDict(TypedDict):
     r"""List of addresses related to the transaction. At least one BILL_TO or SHIP_TO address must be provided. The address will be validated during estimation, and the transaction may be rejected if the address does not pass validation. The SHIP_TO will be preferred to use for determining tax liability. **Deprecated:** Use of `address.status` in estimate api is ignored and will be removed in the future status will be considered UNVERIFIED by default and always validated"""
     total_amount: NotRequired[str]
     r"""Total amount of the transaction."""
-    description: NotRequired[Nullable[str]]
+    description: NotRequired[str]
     r"""An optional description of the transaction."""
-    source: NotRequired[Nullable[SourceEnum]]
-    r"""While currently not used, it may be used in the future to determine taxability. The source of the transaction (e.g., OTHER)."""
-    marketplace: NotRequired[Nullable[bool]]
+    source: NotRequired[SourceEnum]
+    marketplace: NotRequired[bool]
     r"""Indicates if the transaction involves a marketplace."""
-    customer: NotRequired[Nullable[CustomerBaseTypedDict]]
-    r"""Details about the customer. If the customer is not found, it will be ignored."""
+    customer: NotRequired[CustomerBaseTypedDict]
     total_tax_amount_calculated: NotRequired[str]
     r"""The total amount of tax determined for the transaction."""
     taxable_amount: NotRequired[str]
@@ -154,22 +145,15 @@ class TransactionEstimateResponse(BaseModel):
     total_amount: Optional[str] = "0.0"
     r"""Total amount of the transaction."""
 
-    description: OptionalNullable[str] = UNSET
+    description: Optional[str] = None
     r"""An optional description of the transaction."""
 
-    source: Annotated[
-        OptionalNullable[SourceEnum],
-        pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-        ),
-    ] = UNSET
-    r"""While currently not used, it may be used in the future to determine taxability. The source of the transaction (e.g., OTHER)."""
+    source: Optional[SourceEnum] = None
 
-    marketplace: OptionalNullable[bool] = UNSET
+    marketplace: Optional[bool] = False
     r"""Indicates if the transaction involves a marketplace."""
 
-    customer: OptionalNullable[CustomerBase] = UNSET
-    r"""Details about the customer. If the customer is not found, it will be ignored."""
+    customer: Optional[CustomerBase] = None
 
     total_tax_amount_calculated: Optional[str] = "0.00"
     r"""The total amount of tax determined for the transaction."""
@@ -190,44 +174,3 @@ class TransactionEstimateResponse(BaseModel):
 
     has_active_registration: Optional[bool] = False
     r"""Indicates if there is an active registration for the transaction."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = [
-            "total_amount",
-            "description",
-            "source",
-            "marketplace",
-            "customer",
-            "total_tax_amount_calculated",
-            "taxable_amount",
-            "tax_rate_calculated",
-            "nexus_met",
-            "has_active_registration",
-        ]
-        nullable_fields = ["description", "source", "marketplace", "customer"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m

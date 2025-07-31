@@ -3,17 +3,17 @@
 from __future__ import annotations
 from kintsugi_tax_platform_sdk.types import BaseModel
 from kintsugi_tax_platform_sdk.utils import FieldMetadata, SecurityMetadata
-from typing import Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated, TypedDict
 
 
 class SecurityTypedDict(TypedDict):
-    api_key_header: NotRequired[str]
+    api_key_header: str
+    custom_header: str
 
 
 class Security(BaseModel):
     api_key_header: Annotated[
-        Optional[str],
+        str,
         FieldMetadata(
             security=SecurityMetadata(
                 scheme=True,
@@ -22,4 +22,16 @@ class Security(BaseModel):
                 field_name="X-API-KEY",
             )
         ),
-    ] = None
+    ]
+
+    custom_header: Annotated[
+        str,
+        FieldMetadata(
+            security=SecurityMetadata(
+                scheme=True,
+                scheme_type="apiKey",
+                sub_type="header",
+                field_name="x-organization-id",
+            )
+        ),
+    ]

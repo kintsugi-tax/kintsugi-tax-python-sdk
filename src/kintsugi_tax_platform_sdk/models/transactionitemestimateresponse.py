@@ -7,15 +7,8 @@ from .sourceenum import SourceEnum
 from .taxexemptionenum import TaxExemptionEnum
 from .taxitemestimate import TaxItemEstimate, TaxItemEstimateTypedDict
 from datetime import datetime
-from kintsugi_tax_platform_sdk.types import (
-    BaseModel,
-    Nullable,
-    OptionalNullable,
-    UNSET,
-    UNSET_SENTINEL,
-)
+from kintsugi_tax_platform_sdk.types import BaseModel
 import pydantic
-from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -25,27 +18,21 @@ class TransactionItemEstimateResponseTypedDict(TypedDict):
     r"""The date of the transaction item."""
     amount: str
     r"""The total amount of the item."""
-    external_id: NotRequired[Nullable[str]]
+    external_id: NotRequired[str]
     r"""A unique identifier for the transaction item."""
-    description: NotRequired[Nullable[str]]
+    description: NotRequired[str]
     r"""A description of the item."""
-    external_product_id: NotRequired[Nullable[str]]
+    external_product_id: NotRequired[str]
     r"""External product identifier. If not found and product_subcategory
     and product_category are not provided, an error occurs.
     """
-    product_name: NotRequired[Nullable[str]]
+    product_name: NotRequired[str]
     r"""Name of the product. Used if creating a new product."""
-    product_description: NotRequired[Nullable[str]]
+    product_description: NotRequired[str]
     r"""Description of the product. Used if creating a new product."""
-    product_source: NotRequired[Nullable[SourceEnum]]
-    product_subcategory: NotRequired[Nullable[ProductSubCategoryEnum]]
-    r"""Subcategory of the product. Required if product_category is used
-    in place of external_product_id.
-    """
-    product_category: NotRequired[Nullable[ProductCategoryEnum]]
-    r"""Category of the product. Required if product_subcategory is used
-    in place of external_product_id.
-    """
+    product_source: NotRequired[SourceEnum]
+    product_subcategory: NotRequired[ProductSubCategoryEnum]
+    product_category: NotRequired[ProductCategoryEnum]
     quantity: NotRequired[str]
     r"""Defaults to 1.0. The quantity of the item."""
     exempt: NotRequired[bool]
@@ -56,8 +43,8 @@ class TransactionItemEstimateResponseTypedDict(TypedDict):
     r"""The taxable amount for the transaction item."""
     tax_rate: NotRequired[str]
     r"""The tax rate applied to the transaction item."""
-    exempt_reason: NotRequired[Nullable[TaxExemptionEnum]]
-    r"""Reason for exemption, if applicable."""
+    exempt_reason: NotRequired[TaxExemptionEnum]
+    r"""This enum is used to determine if a transaction is exempt from tax."""
     tax_items: NotRequired[List[TaxItemEstimateTypedDict]]
     r"""List of tax items applied to the transaction item."""
 
@@ -69,34 +56,28 @@ class TransactionItemEstimateResponse(BaseModel):
     amount: str
     r"""The total amount of the item."""
 
-    external_id: OptionalNullable[str] = UNSET
+    external_id: Optional[str] = None
     r"""A unique identifier for the transaction item."""
 
-    description: OptionalNullable[str] = UNSET
+    description: Optional[str] = None
     r"""A description of the item."""
 
-    external_product_id: OptionalNullable[str] = UNSET
+    external_product_id: Optional[str] = None
     r"""External product identifier. If not found and product_subcategory
     and product_category are not provided, an error occurs.
     """
 
-    product_name: OptionalNullable[str] = UNSET
+    product_name: Optional[str] = None
     r"""Name of the product. Used if creating a new product."""
 
-    product_description: OptionalNullable[str] = UNSET
+    product_description: Optional[str] = None
     r"""Description of the product. Used if creating a new product."""
 
-    product_source: OptionalNullable[SourceEnum] = UNSET
+    product_source: Optional[SourceEnum] = None
 
-    product_subcategory: OptionalNullable[ProductSubCategoryEnum] = UNSET
-    r"""Subcategory of the product. Required if product_category is used
-    in place of external_product_id.
-    """
+    product_subcategory: Optional[ProductSubCategoryEnum] = None
 
-    product_category: OptionalNullable[ProductCategoryEnum] = UNSET
-    r"""Category of the product. Required if product_subcategory is used
-    in place of external_product_id.
-    """
+    product_category: Optional[ProductCategoryEnum] = None
 
     quantity: Optional[str] = "1.0"
     r"""Defaults to 1.0. The quantity of the item."""
@@ -113,64 +94,8 @@ class TransactionItemEstimateResponse(BaseModel):
     tax_rate: Optional[str] = "0.00"
     r"""The tax rate applied to the transaction item."""
 
-    exempt_reason: OptionalNullable[TaxExemptionEnum] = UNSET
-    r"""Reason for exemption, if applicable."""
+    exempt_reason: Optional[TaxExemptionEnum] = None
+    r"""This enum is used to determine if a transaction is exempt from tax."""
 
     tax_items: Optional[List[TaxItemEstimate]] = None
     r"""List of tax items applied to the transaction item."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = [
-            "external_id",
-            "description",
-            "external_product_id",
-            "product_name",
-            "product_description",
-            "product_source",
-            "product_subcategory",
-            "product_category",
-            "quantity",
-            "exempt",
-            "tax_amount",
-            "taxable_amount",
-            "tax_rate",
-            "exempt_reason",
-            "tax_items",
-        ]
-        nullable_fields = [
-            "external_id",
-            "description",
-            "external_product_id",
-            "product_name",
-            "product_description",
-            "product_source",
-            "product_subcategory",
-            "product_category",
-            "exempt_reason",
-        ]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m

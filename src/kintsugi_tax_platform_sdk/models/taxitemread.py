@@ -4,14 +4,7 @@ from __future__ import annotations
 from .currencyenum import CurrencyEnum
 from .jurisdictiontype import JurisdictionType
 from .taxitemtypeenum import TaxItemTypeEnum
-from kintsugi_tax_platform_sdk.types import (
-    BaseModel,
-    Nullable,
-    OptionalNullable,
-    UNSET,
-    UNSET_SENTINEL,
-)
-from pydantic import model_serializer
+from kintsugi_tax_platform_sdk.types import BaseModel
 from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
@@ -23,13 +16,13 @@ class TaxItemReadTypedDict(TypedDict):
     r"""Deprecated: use `jurisdiction_type` instead"""
     rule_id: NotRequired[str]
     r"""The rule ID of the tax item"""
-    converted_amount: NotRequired[Nullable[str]]
-    currency: NotRequired[Nullable[CurrencyEnum]]
-    destination_currency: NotRequired[Nullable[CurrencyEnum]]
-    external_id: NotRequired[Nullable[str]]
+    converted_amount: NotRequired[str]
+    currency: NotRequired[CurrencyEnum]
+    destination_currency: NotRequired[CurrencyEnum]
+    external_id: NotRequired[str]
     type: NotRequired[TaxItemTypeEnum]
-    jurisdiction_type: NotRequired[Nullable[JurisdictionType]]
-    jurisdiction_name: NotRequired[Nullable[str]]
+    jurisdiction_type: NotRequired[JurisdictionType]
+    jurisdiction_name: NotRequired[str]
 
 
 class TaxItemRead(BaseModel):
@@ -43,62 +36,16 @@ class TaxItemRead(BaseModel):
     rule_id: Optional[str] = "0000"
     r"""The rule ID of the tax item"""
 
-    converted_amount: OptionalNullable[str] = UNSET
+    converted_amount: Optional[str] = None
 
-    currency: OptionalNullable[CurrencyEnum] = UNSET
+    currency: Optional[CurrencyEnum] = None
 
-    destination_currency: OptionalNullable[CurrencyEnum] = UNSET
+    destination_currency: Optional[CurrencyEnum] = None
 
-    external_id: OptionalNullable[str] = UNSET
+    external_id: Optional[str] = None
 
     type: Optional[TaxItemTypeEnum] = None
 
-    jurisdiction_type: OptionalNullable[JurisdictionType] = UNSET
+    jurisdiction_type: Optional[JurisdictionType] = None
 
-    jurisdiction_name: OptionalNullable[str] = UNSET
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = [
-            "rule_id",
-            "converted_amount",
-            "currency",
-            "destination_currency",
-            "external_id",
-            "type",
-            "jurisdiction_type",
-            "jurisdiction_name",
-        ]
-        nullable_fields = [
-            "converted_amount",
-            "currency",
-            "destination_currency",
-            "external_id",
-            "jurisdiction_type",
-            "jurisdiction_name",
-        ]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
+    jurisdiction_name: Optional[str] = None
