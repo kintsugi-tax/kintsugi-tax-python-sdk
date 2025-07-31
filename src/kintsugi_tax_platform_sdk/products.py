@@ -11,7 +11,7 @@ from typing import Any, List, Mapping, Optional
 
 
 class Products(BaseSDK):
-    def list(
+    def get(
         self,
         *,
         query: Optional[str] = None,
@@ -127,7 +127,7 @@ class Products(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def list_async(
+    async def get_async(
         self,
         *,
         query: Optional[str] = None,
@@ -485,7 +485,7 @@ class Products(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    def get(
+    def retrieve(
         self,
         *,
         product_id: str,
@@ -582,7 +582,7 @@ class Products(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def get_async(
+    async def retrieve_async(
         self,
         *,
         product_id: str,
@@ -941,7 +941,7 @@ class Products(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    def list_categories(
+    def get_categories(
         self,
         *,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1023,7 +1023,7 @@ class Products(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def list_categories_async(
+    async def get_categories_async(
         self,
         *,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,

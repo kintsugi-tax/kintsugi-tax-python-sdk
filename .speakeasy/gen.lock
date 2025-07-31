@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: a3b5f8df-3e69-405c-9eb8-40a21cc5faba
 management:
-  docChecksum: 05be7a6ce0f40d1f7e41b1dd0493dbfd
+  docChecksum: c2b7b7e2d4ed3801accba1c9c9876093
   docVersion: 1.0.0
-  speakeasyVersion: 1.594.0
+  speakeasyVersion: 1.595.0
   generationVersion: 2.670.1
-  releaseVersion: 0.6.0
-  configChecksum: 5b52112802970b308ad3a951e30b22f0
+  releaseVersion: 0.8.0
+  configChecksum: 3e17993106e0bdaf6e77b15c90f390ce
   repoURL: https://github.com/kintsugi-tax/kintsugi-tax-python-sdk.git
   installationURL: https://github.com/kintsugi-tax/kintsugi-tax-python-sdk.git
   published: true
@@ -32,6 +32,7 @@ features:
     responseFormat: 1.0.1
     retries: 3.0.2
     sdkHooks: 1.1.0
+    unions: 3.0.4
     uploadStreams: 1.0.0
 generatedFiles:
   - .gitattributes
@@ -40,7 +41,10 @@ generatedFiles:
   - docs/errors/backendsrcaddressvalidationresponsesvalidationerrorresponse.md
   - docs/errors/backendsrccustomersresponsesvalidationerrorresponse.md
   - docs/errors/backendsrcexemptionsresponsesvalidationerrorresponse.md
+  - docs/errors/backendsrcfilingsresponsesvalidationerrorresponse.md
+  - docs/errors/backendsrcnexusresponsesvalidationerrorresponse.md
   - docs/errors/backendsrcproductsresponsesvalidationerrorresponse.md
+  - docs/errors/backendsrcregistrationsresponsesvalidationerrorresponse.md
   - docs/errors/backendsrctaxestimationresponsesvalidationerrorresponse.md
   - docs/errors/backendsrctransactionsresponsesvalidationerrorresponse.md
   - docs/errors/errorresponse.md
@@ -53,16 +57,22 @@ generatedFiles:
   - docs/models/addresstype.md
   - docs/models/appliedto.md
   - docs/models/attachmentread.md
+  - docs/models/attachments.md
   - docs/models/backendsrcaddressvalidationresponsesvalidationerroritem.md
   - docs/models/backendsrccustomersresponsesvalidationerroritem.md
   - docs/models/backendsrcexemptionsmodelsexemptionread.md
   - docs/models/backendsrcexemptionsresponsesvalidationerroritem.md
   - docs/models/backendsrcexemptionsserializersexemptionread.md
+  - docs/models/backendsrcfilingsresponsesvalidationerroritem.md
+  - docs/models/backendsrcnexusresponsesvalidationerroritem.md
   - docs/models/backendsrcproductsresponsesvalidationerroritem.md
+  - docs/models/backendsrcregistrationsresponsesvalidationerroritem.md
   - docs/models/backendsrctaxestimationresponsesvalidationerroritem.md
   - docs/models/backendsrctransactionsresponsesvalidationerroritem.md
   - docs/models/bodyuploadexemptioncertificatev1exemptionsexemptionidattachmentspost.md
+  - docs/models/changeregimestatusenum.md
   - docs/models/countrycodeenum.md
+  - docs/models/createregistration.md
   - docs/models/createtransactionbycustomeridv1customerscustomeridtransactionspostrequest.md
   - docs/models/creditnotecreate.md
   - docs/models/creditnoteitemcreateupdate.md
@@ -73,6 +83,8 @@ generatedFiles:
   - docs/models/customercreate.md
   - docs/models/customerread.md
   - docs/models/customerupdate.md
+  - docs/models/deletephysicalnexusv1nexusphysicalnexusphysicalnexusiddeleterequest.md
+  - docs/models/deregisterregistrationv1registrationsregistrationidderegisterpostrequest.md
   - docs/models/discountbuilder.md
   - docs/models/estimatetaxv1taxestimatepostrequest.md
   - docs/models/exemption.md
@@ -82,15 +94,25 @@ generatedFiles:
   - docs/models/exemptiontype.md
   - docs/models/fastapipaginationdefaultpageexemptionread2.md
   - docs/models/file.md
+  - docs/models/filingdetailsread.md
+  - docs/models/filingfrequencyenum.md
+  - docs/models/filingread.md
+  - docs/models/filingstatusenum.md
   - docs/models/getattachmentsforexemptionv1exemptionsexemptionidattachmentsgetrequest.md
   - docs/models/getcustomerbyexternalidv1customersexternalexternalidgetrequest.md
   - docs/models/getcustomerbyidv1customerscustomeridgetrequest.md
   - docs/models/getcustomersv1request.md
   - docs/models/getexemptionbyidv1exemptionsexemptionidgetrequest.md
   - docs/models/getexemptionsv1exemptionsgetrequest.md
+  - docs/models/getfilingbyidv1filingsfilingidgetrequest.md
+  - docs/models/getfilingsbyregistrationidv1filingsregistrationregistrationidgetrequest.md
+  - docs/models/getfilingsv1filingsgetrequest.md
   - docs/models/getnexusfororgv1nexusgetrequest.md
+  - docs/models/getphysicalnexusv1nexusphysicalnexusgetrequest.md
   - docs/models/getproductbyidv1productsproductidgetrequest.md
   - docs/models/getproductsv1productsgetrequest.md
+  - docs/models/getregistrationbyidv1registrationsregistrationidgetrequest.md
+  - docs/models/getregistrationsv1registrationsgetrequest.md
   - docs/models/gettransactionbyexternalidv1transactionsexternalexternalidgetrequest.md
   - docs/models/gettransactionbyidv1transactionstransactionidgetrequest.md
   - docs/models/gettransactionsbycustomeridv1customerscustomeridtransactionsgetrequest.md
@@ -101,12 +123,21 @@ generatedFiles:
   - docs/models/nexusstateenum.md
   - docs/models/nexusstatusenum.md
   - docs/models/nexustypeenum.md
+  - docs/models/ossregistrationcreatepayload.md
+  - docs/models/osstypeenum.md
   - docs/models/pagecustomerread.md
+  - docs/models/pagefilingread.md
   - docs/models/pagenexusresponse.md
+  - docs/models/pagephysicalnexusread.md
   - docs/models/pageproductread.md
+  - docs/models/pageregistrationreadwithpassword.md
   - docs/models/pagetransactionestimateresponse.md
   - docs/models/pagetransactionread.md
   - docs/models/periodmodelenum.md
+  - docs/models/physicalnexuscategory.md
+  - docs/models/physicalnexuscreate.md
+  - docs/models/physicalnexusread.md
+  - docs/models/physicalnexusupdate.md
   - docs/models/postcreatecreditnotebytransactionidrequest.md
   - docs/models/processingstatusenum.md
   - docs/models/productcategories.md
@@ -120,12 +151,19 @@ generatedFiles:
   - docs/models/productupdate.md
   - docs/models/putupdatecreditnotebytransactionidrequest.md
   - docs/models/registration.md
+  - docs/models/registrationcreatepayload.md
+  - docs/models/registrationread.md
+  - docs/models/registrationreadwithpassword.md
   - docs/models/registrationsregimeenum.md
+  - docs/models/registrationstatusenum.md
+  - docs/models/registrationtypeenum.md
+  - docs/models/registrationupdateapi.md
   - docs/models/relatedentitytype.md
   - docs/models/salesortransactionsenum.md
   - docs/models/searchv1addressvalidationsearchpostsecurity.md
   - docs/models/security.md
   - docs/models/sourceenum.md
+  - docs/models/sstregistrationcreatepayload.md
   - docs/models/status.md
   - docs/models/statusenum.md
   - docs/models/taxexemptionenum.md
@@ -159,7 +197,9 @@ generatedFiles:
   - docs/models/transactionupdate.md
   - docs/models/treatmentenum.md
   - docs/models/updatecustomerv1customerscustomeridputrequest.md
+  - docs/models/updatephysicalnexusv1nexusphysicalnexusphysicalnexusidputrequest.md
   - docs/models/updateproductv1productsproductidputrequest.md
+  - docs/models/updateregistrationv1registrationsregistrationidputrequest.md
   - docs/models/updatetransactionv1transactionstransactionidputrequest.md
   - docs/models/uploadexemptioncertificatev1exemptionsexemptionidattachmentspostrequest.md
   - docs/models/utils/retryconfig.md
@@ -168,8 +208,10 @@ generatedFiles:
   - docs/sdks/addressvalidation/README.md
   - docs/sdks/customers/README.md
   - docs/sdks/exemptions/README.md
+  - docs/sdks/filings/README.md
   - docs/sdks/nexus/README.md
   - docs/sdks/products/README.md
+  - docs/sdks/registrations/README.md
   - docs/sdks/sdk/README.md
   - docs/sdks/taxestimation/README.md
   - docs/sdks/transactions/README.md
@@ -192,7 +234,10 @@ generatedFiles:
   - src/kintsugi_tax_platform_sdk/errors/backend_src_address_validation_responses_validationerrorresponse.py
   - src/kintsugi_tax_platform_sdk/errors/backend_src_customers_responses_validationerrorresponse.py
   - src/kintsugi_tax_platform_sdk/errors/backend_src_exemptions_responses_validationerrorresponse.py
+  - src/kintsugi_tax_platform_sdk/errors/backend_src_filings_responses_validationerrorresponse.py
+  - src/kintsugi_tax_platform_sdk/errors/backend_src_nexus_responses_validationerrorresponse.py
   - src/kintsugi_tax_platform_sdk/errors/backend_src_products_responses_validationerrorresponse.py
+  - src/kintsugi_tax_platform_sdk/errors/backend_src_registrations_responses_validationerrorresponse.py
   - src/kintsugi_tax_platform_sdk/errors/backend_src_tax_estimation_responses_validationerrorresponse.py
   - src/kintsugi_tax_platform_sdk/errors/backend_src_transactions_responses_validationerrorresponse.py
   - src/kintsugi_tax_platform_sdk/errors/errorresponse.py
@@ -201,6 +246,7 @@ generatedFiles:
   - src/kintsugi_tax_platform_sdk/errors/responsevalidationerror.py
   - src/kintsugi_tax_platform_sdk/errors/sdkerror.py
   - src/kintsugi_tax_platform_sdk/exemptions.py
+  - src/kintsugi_tax_platform_sdk/filings.py
   - src/kintsugi_tax_platform_sdk/httpclient.py
   - src/kintsugi_tax_platform_sdk/models/__init__.py
   - src/kintsugi_tax_platform_sdk/models/addressbase.py
@@ -216,11 +262,16 @@ generatedFiles:
   - src/kintsugi_tax_platform_sdk/models/backend_src_exemptions_models_exemptionread.py
   - src/kintsugi_tax_platform_sdk/models/backend_src_exemptions_responses_validationerroritem.py
   - src/kintsugi_tax_platform_sdk/models/backend_src_exemptions_serializers_exemptionread.py
+  - src/kintsugi_tax_platform_sdk/models/backend_src_filings_responses_validationerroritem.py
+  - src/kintsugi_tax_platform_sdk/models/backend_src_nexus_responses_validationerroritem.py
   - src/kintsugi_tax_platform_sdk/models/backend_src_products_responses_validationerroritem.py
+  - src/kintsugi_tax_platform_sdk/models/backend_src_registrations_responses_validationerroritem.py
   - src/kintsugi_tax_platform_sdk/models/backend_src_tax_estimation_responses_validationerroritem.py
   - src/kintsugi_tax_platform_sdk/models/backend_src_transactions_responses_validationerroritem.py
   - src/kintsugi_tax_platform_sdk/models/body_upload_exemption_certificate_v1_exemptions_exemption_id_attachments_post.py
+  - src/kintsugi_tax_platform_sdk/models/changeregimestatusenum.py
   - src/kintsugi_tax_platform_sdk/models/countrycodeenum.py
+  - src/kintsugi_tax_platform_sdk/models/create_registration_v1_registrations_postop.py
   - src/kintsugi_tax_platform_sdk/models/create_transaction_by_customer_id_v1_customers_customer_id_transactions_postop.py
   - src/kintsugi_tax_platform_sdk/models/creditnotecreate.py
   - src/kintsugi_tax_platform_sdk/models/creditnoteitemcreateupdate.py
@@ -231,6 +282,8 @@ generatedFiles:
   - src/kintsugi_tax_platform_sdk/models/customercreate.py
   - src/kintsugi_tax_platform_sdk/models/customerread.py
   - src/kintsugi_tax_platform_sdk/models/customerupdate.py
+  - src/kintsugi_tax_platform_sdk/models/delete_physical_nexus_v1_nexus_physical_nexus_physical_nexus_id_deleteop.py
+  - src/kintsugi_tax_platform_sdk/models/deregister_registration_v1_registrations_registration_id_deregister_postop.py
   - src/kintsugi_tax_platform_sdk/models/discountbuilder.py
   - src/kintsugi_tax_platform_sdk/models/estimate_tax_v1_tax_estimate_postop.py
   - src/kintsugi_tax_platform_sdk/models/exemption.py
@@ -239,15 +292,25 @@ generatedFiles:
   - src/kintsugi_tax_platform_sdk/models/exemptionstatus.py
   - src/kintsugi_tax_platform_sdk/models/exemptiontype.py
   - src/kintsugi_tax_platform_sdk/models/fastapi_pagination_default_page_exemptionread_2.py
+  - src/kintsugi_tax_platform_sdk/models/filingdetailsread.py
+  - src/kintsugi_tax_platform_sdk/models/filingfrequencyenum.py
+  - src/kintsugi_tax_platform_sdk/models/filingread.py
+  - src/kintsugi_tax_platform_sdk/models/filingstatusenum.py
   - src/kintsugi_tax_platform_sdk/models/get_attachments_for_exemption_v1_exemptions_exemption_id_attachments_getop.py
   - src/kintsugi_tax_platform_sdk/models/get_customer_by_external_id_v1_customers_external_external_id_getop.py
   - src/kintsugi_tax_platform_sdk/models/get_customer_by_id_v1_customers_customer_id_getop.py
   - src/kintsugi_tax_platform_sdk/models/get_customers_v1op.py
   - src/kintsugi_tax_platform_sdk/models/get_exemption_by_id_v1_exemptions_exemption_id_getop.py
   - src/kintsugi_tax_platform_sdk/models/get_exemptions_v1_exemptions_getop.py
+  - src/kintsugi_tax_platform_sdk/models/get_filing_by_id_v1_filings_filing_id_getop.py
+  - src/kintsugi_tax_platform_sdk/models/get_filings_by_registration_id_v1_filings_registration_registration_id_getop.py
+  - src/kintsugi_tax_platform_sdk/models/get_filings_v1_filings_getop.py
   - src/kintsugi_tax_platform_sdk/models/get_nexus_for_org_v1_nexus_getop.py
+  - src/kintsugi_tax_platform_sdk/models/get_physical_nexus_v1_nexus_physical_nexus_getop.py
   - src/kintsugi_tax_platform_sdk/models/get_product_by_id_v1_products_product_id_getop.py
   - src/kintsugi_tax_platform_sdk/models/get_products_v1_products_getop.py
+  - src/kintsugi_tax_platform_sdk/models/get_registration_by_id_v1_registrations_registration_id_getop.py
+  - src/kintsugi_tax_platform_sdk/models/get_registrations_v1_registrations_getop.py
   - src/kintsugi_tax_platform_sdk/models/get_transaction_by_external_id_v1_transactions_external_external_id_getop.py
   - src/kintsugi_tax_platform_sdk/models/get_transaction_by_id_v1_transactions_transaction_id_getop.py
   - src/kintsugi_tax_platform_sdk/models/get_transactions_by_customer_id_v1_customers_customer_id_transactions_getop.py
@@ -258,12 +321,21 @@ generatedFiles:
   - src/kintsugi_tax_platform_sdk/models/nexusstateenum.py
   - src/kintsugi_tax_platform_sdk/models/nexusstatusenum.py
   - src/kintsugi_tax_platform_sdk/models/nexustypeenum.py
+  - src/kintsugi_tax_platform_sdk/models/ossregistrationcreatepayload.py
+  - src/kintsugi_tax_platform_sdk/models/osstypeenum.py
   - src/kintsugi_tax_platform_sdk/models/page_customerread_.py
+  - src/kintsugi_tax_platform_sdk/models/page_filingread_.py
   - src/kintsugi_tax_platform_sdk/models/page_nexusresponse_.py
+  - src/kintsugi_tax_platform_sdk/models/page_physicalnexusread_.py
   - src/kintsugi_tax_platform_sdk/models/page_productread_.py
+  - src/kintsugi_tax_platform_sdk/models/page_registrationreadwithpassword_.py
   - src/kintsugi_tax_platform_sdk/models/page_transactionestimateresponse_.py
   - src/kintsugi_tax_platform_sdk/models/page_transactionread_.py
   - src/kintsugi_tax_platform_sdk/models/periodmodelenum.py
+  - src/kintsugi_tax_platform_sdk/models/physicalnexuscategory.py
+  - src/kintsugi_tax_platform_sdk/models/physicalnexuscreate.py
+  - src/kintsugi_tax_platform_sdk/models/physicalnexusread.py
+  - src/kintsugi_tax_platform_sdk/models/physicalnexusupdate.py
   - src/kintsugi_tax_platform_sdk/models/post_create_credit_note_by_transaction_idop.py
   - src/kintsugi_tax_platform_sdk/models/processingstatusenum.py
   - src/kintsugi_tax_platform_sdk/models/productcategories.py
@@ -276,12 +348,19 @@ generatedFiles:
   - src/kintsugi_tax_platform_sdk/models/productsubcategoryenum.py
   - src/kintsugi_tax_platform_sdk/models/productupdate.py
   - src/kintsugi_tax_platform_sdk/models/put_update_credit_note_by_transaction_idop.py
+  - src/kintsugi_tax_platform_sdk/models/registrationcreatepayload.py
+  - src/kintsugi_tax_platform_sdk/models/registrationread.py
+  - src/kintsugi_tax_platform_sdk/models/registrationreadwithpassword.py
   - src/kintsugi_tax_platform_sdk/models/registrationsregimeenum.py
+  - src/kintsugi_tax_platform_sdk/models/registrationstatusenum.py
+  - src/kintsugi_tax_platform_sdk/models/registrationtypeenum.py
+  - src/kintsugi_tax_platform_sdk/models/registrationupdateapi.py
   - src/kintsugi_tax_platform_sdk/models/relatedentitytype.py
   - src/kintsugi_tax_platform_sdk/models/salesortransactionsenum.py
   - src/kintsugi_tax_platform_sdk/models/search_v1_address_validation_search_postop.py
   - src/kintsugi_tax_platform_sdk/models/security.py
   - src/kintsugi_tax_platform_sdk/models/sourceenum.py
+  - src/kintsugi_tax_platform_sdk/models/sstregistrationcreatepayload.py
   - src/kintsugi_tax_platform_sdk/models/statusenum.py
   - src/kintsugi_tax_platform_sdk/models/taxexemptionenum.py
   - src/kintsugi_tax_platform_sdk/models/taxitembuilder.py
@@ -310,7 +389,9 @@ generatedFiles:
   - src/kintsugi_tax_platform_sdk/models/transactionupdate.py
   - src/kintsugi_tax_platform_sdk/models/treatmentenum.py
   - src/kintsugi_tax_platform_sdk/models/update_customer_v1_customers_customer_id_putop.py
+  - src/kintsugi_tax_platform_sdk/models/update_physical_nexus_v1_nexus_physical_nexus_physical_nexus_id_putop.py
   - src/kintsugi_tax_platform_sdk/models/update_product_v1_products_product_id_putop.py
+  - src/kintsugi_tax_platform_sdk/models/update_registration_v1_registrations_registration_id_putop.py
   - src/kintsugi_tax_platform_sdk/models/update_transaction_v1_transactions_transaction_id_putop.py
   - src/kintsugi_tax_platform_sdk/models/upload_exemption_certificate_v1_exemptions_exemption_id_attachments_postop.py
   - src/kintsugi_tax_platform_sdk/models/validationaddress.py
@@ -318,6 +399,7 @@ generatedFiles:
   - src/kintsugi_tax_platform_sdk/nexus.py
   - src/kintsugi_tax_platform_sdk/products.py
   - src/kintsugi_tax_platform_sdk/py.typed
+  - src/kintsugi_tax_platform_sdk/registrations.py
   - src/kintsugi_tax_platform_sdk/sdk.py
   - src/kintsugi_tax_platform_sdk/sdkconfiguration.py
   - src/kintsugi_tax_platform_sdk/taxestimation.py
@@ -910,4 +992,238 @@ examples:
           application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2024-03-08T14:51:43.874Z", "total_amount": "0.00", "marketplace": false, "total_tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "total_tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "total_tax_liability_amount": "0.00", "taxable_amount": "0.00", "locked": false, "id": "<id>", "addresses": [], "transaction_items": [{"organization_id": "<id>", "date": "2025-04-01T04:49:49.945Z", "external_product_id": "<id>", "quantity": "1.0", "amount": "0.00", "tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "taxable_amount": "0.00", "exempt": false, "id": "<id>", "tax_items": []}], "type": "SALE"}
         "422":
           application/json: {}
+  get_filings_v1_filings_get:
+    speakeasy-default-get-filings-v1-filings-get:
+      parameters:
+        query:
+          status__in: "FILED,FILING,UNFILED"
+          start_date: "2024-01-01"
+          end_date: "2024-12-31"
+          date_filed__gte: "2024-01-01"
+          date_filed__lte: "2024-12-31"
+          order_by: "status,start_date,end_date,amount"
+          state_code: "CA"
+          country_code: ["US"]
+          page: 1
+          size: 50
+      responses:
+        "200":
+          application/json: {"items": [], "total": 158868, "page": 564163, "size": 870268}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": []}
+        "500":
+          application/json: {"detail": "<value>"}
+  get_filing_by_id_v1_filings__filing_id__get:
+    speakeasy-default-get-filing-by-id-v1-filings-filing-id-get:
+      parameters:
+        path:
+          filing_id: "<id>"
+      responses:
+        "200":
+          application/json: {"start_date": "2024-05-22", "end_date": "2023-08-31", "country_code": "GL", "auto_approved": false, "amount_calculated": "0.00", "amount_adjusted": "0.00", "amount_discounts": "0.00", "amount_fees": "0.00", "amount_penalties": "0.00", "amount_tax_collected": "0.00", "amount_sales": "0.00", "total_taxable_sales": "0.00", "amount": "0.00", "total_tax_liability": "0.00", "transaction_count": 0, "tax_remitted": "0.00", "id": "<id>", "registration_id": "<id>", "credits_utilized": "0.00"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": [{"type": "<value>", "loc": ["<value 1>"], "msg": "<value>", "input": "<value>", "ctx": {}}]}
+        "500":
+          application/json: {"detail": "<value>"}
+  get_filings_by_registration_id_v1_filings_registration__registration_id__get:
+    speakeasy-default-get-filings-by-registration-id-v1-filings-registration-registration-id-get:
+      parameters:
+        path:
+          registration_id: "<id>"
+        query:
+          page: 1
+          size: 50
+      responses:
+        "200":
+          application/json: {"items": [], "total": 546803, "page": 610421, "size": 87254}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": [{"type": "<value>", "loc": ["<value 1>", "<value 2>"], "msg": "<value>", "input": "<value>", "ctx": {}}]}
+        "500":
+          application/json: {"detail": "<value>"}
+  get_physical_nexus_v1_nexus_physical_nexus_get:
+    speakeasy-default-get-physical-nexus-v1-nexus-physical-nexus-get:
+      parameters:
+        query:
+          order_by: "country_code,state_code,start_date,end_date"
+          page: 1
+          size: 50
+      responses:
+        "200":
+          application/json: {"items": [{"country_code": "JO", "state_code": "<value>", "start_date": "2024-03-23", "category": "DIGITAL_INFRASTRUCTURE_LOCALIZED", "id": "<id>"}], "total": 191637, "page": 913277, "size": 155955}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": [{"type": "<value>", "loc": [], "msg": "<value>", "input": "<value>", "ctx": {"key": "<value>", "key1": "<value>"}}]}
+        "500":
+          application/json: {"detail": "<value>"}
+  create_physical_nexus_v1_nexus_physical_nexus_post:
+    speakeasy-default-create-physical-nexus-v1-nexus-physical-nexus-post:
+      requestBody:
+        application/json: {"country_code": "HK", "state_code": "<value>", "start_date": "2023-03-25", "category": "MANUFACTURE_OR_PRODUCTION_IN_CANADA"}
+      responses:
+        "200":
+          application/json: {"country_code": "AW", "state_code": "<value>", "start_date": "2023-01-29", "category": "MANUFACTURING_FACILITIES", "id": "<id>"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": []}
+        "500":
+          application/json: {"detail": "<value>"}
+  update_physical_nexus_v1_nexus_physical_nexus__physical_nexus_id__put:
+    speakeasy-default-update-physical-nexus-v1-nexus-physical-nexus-physical-nexus-id-put:
+      parameters:
+        path:
+          physical_nexus_id: "<id>"
+      requestBody:
+        application/json: {"start_date": "2023-07-29", "category": "WAREHOUSE_AND_INVENTORY_PRESENCE"}
+      responses:
+        "200":
+          application/json: {"country_code": "KR", "state_code": "<value>", "start_date": "2024-12-18", "category": "TELECOMMUTING_OR_REMOTE_EMPLOYEE", "id": "<id>"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": []}
+        "500":
+          application/json: {"detail": "<value>"}
+  delete_physical_nexus_v1_nexus_physical_nexus__physical_nexus_id__delete:
+    speakeasy-default-delete-physical-nexus-v1-nexus-physical-nexus-physical-nexus-id-delete:
+      parameters:
+        path:
+          physical_nexus_id: "<id>"
+      responses:
+        "200":
+          application/json: "<value>"
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": []}
+        "500":
+          application/json: {"detail": "<value>"}
+  get_registrations_v1_registrations_get:
+    speakeasy-default-get-registrations-v1-registrations-get:
+      parameters:
+        query:
+          status__in: "REGISTERED,PROCESSING,UNREGISTERED,DEREGISTERING,DEREGISTERED,VALIDATING,AWAITING_CLARIFICATION"
+          page: 1
+          size: 50
+      responses:
+        "200":
+          application/json: {"items": [], "total": 216521, "page": 460128, "size": 260478}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": []}
+        "500":
+          application/json: {"detail": "<value>"}
+  create_registration_v1_registrations_post:
+    regular_legacy:
+      requestBody:
+        application/json: {"registration_import_type": "OSS", "imported": false}
+      responses:
+        "200":
+          application/json: {"auto_registered": false, "third_party_enabled": false, "status": "UNREGISTERED", "country_code": "AF", "state_code": "<value>", "state_name": "<value>", "filing_frequency": "SEMI_ANNUALLY", "filing_days": 991336, "initial_sync": false, "amount_fees": "0.00", "vda": false, "sst_import": false, "needs_mark_as_collecting": false, "id": "<id>", "credits_total_available": "0.00", "registration_type": "EU_OSS"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": []}
+        "500":
+          application/json: {"detail": "<value>"}
+    regular_new:
+      requestBody:
+        application/json: {"registration_import_type": "REGULAR", "registration_date": "2025-02-01", "registration_email": "example@domain.com", "auto_registered": true, "country_code": "US", "state_code": "TX", "state_name": "Texas", "filing_frequency": "MONTHLY", "filing_days": 15, "comment": "Registering for monthly sales tax filings", "initial_sync": false, "amount_fees": 100, "vda": false, "sst_import": false}
+      responses:
+        "200":
+          application/json: {"auto_registered": false, "third_party_enabled": false, "status": "UNREGISTERED", "country_code": "AF", "state_code": "<value>", "state_name": "<value>", "filing_frequency": "SEMI_ANNUALLY", "filing_days": 991336, "initial_sync": false, "amount_fees": "0.00", "vda": false, "sst_import": false, "needs_mark_as_collecting": false, "id": "<id>", "credits_total_available": "0.00", "registration_type": "EU_OSS"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": []}
+        "500":
+          application/json: {"detail": "<value>"}
+    oss:
+      requestBody:
+        application/json: {"registration_import_type": "OSS", "password_plain_text": "oss_pass_fr", "password_metadata_plain_text": "{\"q\":\"a\"}", "member_state_of_identification_code": "FR", "imported": true}
+      responses:
+        "200":
+          application/json: {"auto_registered": false, "third_party_enabled": false, "status": "UNREGISTERED", "country_code": "AF", "state_code": "<value>", "state_name": "<value>", "filing_frequency": "SEMI_ANNUALLY", "filing_days": 991336, "initial_sync": false, "amount_fees": "0.00", "vda": false, "sst_import": false, "needs_mark_as_collecting": false, "id": "<id>", "credits_total_available": "0.00", "registration_type": "EU_OSS"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": []}
+        "500":
+          application/json: {"detail": "<value>"}
+    sst:
+      requestBody:
+        application/json: {"registration_import_type": "SST", "password_plain_text": "sst_pass", "password_metadata_plain_text": "{\"q\":\"a\"}", "username": "sst_user"}
+      responses:
+        "200":
+          application/json: {"auto_registered": false, "third_party_enabled": false, "status": "UNREGISTERED", "country_code": "AF", "state_code": "<value>", "state_name": "<value>", "filing_frequency": "SEMI_ANNUALLY", "filing_days": 991336, "initial_sync": false, "amount_fees": "0.00", "vda": false, "sst_import": false, "needs_mark_as_collecting": false, "id": "<id>", "credits_total_available": "0.00", "registration_type": "EU_OSS"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": []}
+        "500":
+          application/json: {"detail": "<value>"}
+    speakeasy-default-create-registration-v1-registrations-post:
+      requestBody:
+        application/json: {"registration_import_type": "REGULAR", "auto_registered": false, "country_code": "GM", "state_code": "<value>", "state_name": "<value>", "filing_frequency": "MONTHLY", "filing_days": 801864, "initial_sync": false, "amount_fees": 0, "vda": false, "sst_import": false}
+      responses:
+        "200":
+          application/json: {"auto_registered": false, "third_party_enabled": false, "status": "UNREGISTERED", "country_code": "AF", "state_code": "<value>", "state_name": "<value>", "filing_frequency": "SEMI_ANNUALLY", "filing_days": 991336, "initial_sync": false, "amount_fees": "0.00", "vda": false, "sst_import": false, "needs_mark_as_collecting": false, "id": "<id>", "credits_total_available": "0.00", "registration_type": "EU_OSS"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": []}
+        "500":
+          application/json: {"detail": "<value>"}
+  get_registration_by_id_v1_registrations__registration_id__get:
+    speakeasy-default-get-registration-by-id-v1-registrations-registration-id-get:
+      parameters:
+        path:
+          registration_id: "<id>"
+      responses:
+        "200":
+          application/json: {"auto_registered": false, "third_party_enabled": false, "status": "AWAITING_CLARIFICATION", "country_code": "BO", "state_code": "<value>", "state_name": "<value>", "filing_frequency": "MONTHLY", "filing_days": 607962, "initial_sync": false, "amount_fees": "0.00", "vda": false, "sst_import": false, "needs_mark_as_collecting": false, "id": "<id>", "credits_total_available": "0.00", "registration_type": "EU_OSS"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": [{"type": "<value>", "loc": ["<value 1>", "<value 2>", "<value 3>"], "msg": "<value>", "input": "<value>", "ctx": {"key": "<value>"}}]}
+        "500":
+          application/json: {"detail": "<value>"}
+  update_registration_v1_registrations__registration_id__put:
+    speakeasy-default-update-registration-v1-registrations-registration-id-put:
+      parameters:
+        path:
+          registration_id: "<id>"
+      requestBody:
+        application/json: {"auto_registered": false, "third_party_enabled": false}
+      responses:
+        "200":
+          application/json: {"auto_registered": false, "third_party_enabled": false, "status": "DEREGISTERING", "country_code": "GL", "state_code": "<value>", "state_name": "<value>", "filing_frequency": "SEMI_MONTHLY", "filing_days": 43389, "initial_sync": false, "amount_fees": "0.00", "vda": false, "sst_import": false, "needs_mark_as_collecting": false, "id": "<id>", "credits_total_available": "0.00", "registration_type": "EU_OSS"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": []}
+        "500":
+          application/json: {"detail": "<value>"}
+  deregister_registration_v1_registrations__registration_id__deregister_post:
+    speakeasy-default-deregister-registration-v1-registrations-registration-id-deregister-post:
+      parameters:
+        path:
+          registration_id: "regs_123456"
+      responses:
+        "200":
+          application/json: {"auto_registered": false, "third_party_enabled": false, "status": "DEREGISTERED", "country_code": "PW", "state_code": "<value>", "state_name": "<value>", "filing_frequency": "FOUR_MONTHLY", "filing_days": 352449, "initial_sync": false, "amount_fees": "0.00", "vda": false, "sst_import": false, "needs_mark_as_collecting": false, "id": "<id>", "credits_total_available": "0.00", "registration_type": "EU_OSS"}
+        "401":
+          application/json: {"detail": "<value>"}
+        "422":
+          application/json: {"detail": [{"type": "<value>", "loc": ["<value 1>"], "msg": "<value>", "input": "<value>", "ctx": {"key": "<value>", "key1": "<value>"}}]}
+        "500":
+          application/json: {"detail": "<value>"}
 examplesVersion: 1.0.2

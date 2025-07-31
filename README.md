@@ -230,24 +230,42 @@ with SDK() as sdk:
 * [create](docs/sdks/exemptions/README.md#create) - Create Exemption
 * [get](docs/sdks/exemptions/README.md#get) - Get Exemption By Id
 * [upload_certificate](docs/sdks/exemptions/README.md#upload_certificate) - Upload Exemption Certificate
-* [get_attachments](docs/sdks/exemptions/README.md#get_attachments) - Get Attachments For Exemption
+* [list_attachments](docs/sdks/exemptions/README.md#list_attachments) - Get Attachments For Exemption
+
+### [filings](docs/sdks/filings/README.md)
+
+* [get_all](docs/sdks/filings/README.md#get_all) - Get Filings
+* [get](docs/sdks/filings/README.md#get) - Get Filing By Id
+* [get_by_registration_id](docs/sdks/filings/README.md#get_by_registration_id) - Get Filings By Registration Id
 
 ### [nexus](docs/sdks/nexus/README.md)
 
-* [list](docs/sdks/nexus/README.md#list) - Get Nexus For Org
+* [get_physical](docs/sdks/nexus/README.md#get_physical) - Get Physical Nexus
+* [create_physical](docs/sdks/nexus/README.md#create_physical) - Create Physical Nexus
+* [update_physical_nexus](docs/sdks/nexus/README.md#update_physical_nexus) - Update Physical Nexus
+* [delete_physical_nexus](docs/sdks/nexus/README.md#delete_physical_nexus) - Delete Physical Nexus
+* [get_all](docs/sdks/nexus/README.md#get_all) - Get Nexus For Org
 
 ### [products](docs/sdks/products/README.md)
 
-* [list](docs/sdks/products/README.md#list) - Get Products
+* [get](docs/sdks/products/README.md#get) - Get Products
 * [create](docs/sdks/products/README.md#create) - Create Product
-* [get](docs/sdks/products/README.md#get) - Get Product By Id
+* [retrieve](docs/sdks/products/README.md#retrieve) - Get Product By Id
 * [update](docs/sdks/products/README.md#update) - Update Product
-* [list_categories](docs/sdks/products/README.md#list_categories) - Get Product Categories
+* [get_categories](docs/sdks/products/README.md#get_categories) - Get Product Categories
+
+### [registrations](docs/sdks/registrations/README.md)
+
+* [get_all](docs/sdks/registrations/README.md#get_all) - Get Registrations
+* [create](docs/sdks/registrations/README.md#create) - Create Registration
+* [get](docs/sdks/registrations/README.md#get) - Get Registration By Id
+* [update](docs/sdks/registrations/README.md#update) - Update Registration
+* [deregister](docs/sdks/registrations/README.md#deregister) - Deregister Registration
 
 
 ### [tax_estimation](docs/sdks/taxestimation/README.md)
 
-* [estimate_tax](docs/sdks/taxestimation/README.md#estimate_tax) - Estimate Tax
+* [estimate](docs/sdks/taxestimation/README.md#estimate) - Estimate Tax
 
 ### [transactions](docs/sdks/transactions/README.md)
 
@@ -386,7 +404,7 @@ with SDK() as sdk:
 **Primary error:**
 * [`SDKError`](./src/kintsugi_tax_platform_sdk/errors/sdkerror.py): The base class for HTTP error responses.
 
-<details><summary>Less common errors (13)</summary>
+<details><summary>Less common errors (16)</summary>
 
 <br />
 
@@ -397,14 +415,17 @@ with SDK() as sdk:
 
 
 **Inherit from [`SDKError`](./src/kintsugi_tax_platform_sdk/errors/sdkerror.py)**:
-* [`ErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/errorresponse.py): Applicable to 20 of 29 methods.*
-* [`HTTPValidationError`](./src/kintsugi_tax_platform_sdk/errors/httpvalidationerror.py): Validation Error. Status code `422`. Applicable to 9 of 29 methods.*
-* [`BackendSrcExemptionsResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcexemptionsresponsesvalidationerrorresponse.py): Validation issues, such as missing required fields or invalid field values. Status code `422`. Applicable to 5 of 29 methods.*
-* [`BackendSrcTransactionsResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrctransactionsresponsesvalidationerrorresponse.py): Status code `422`. Applicable to 5 of 29 methods.*
-* [`BackendSrcProductsResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcproductsresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 4 of 29 methods.*
-* [`BackendSrcCustomersResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrccustomersresponsesvalidationerrorresponse.py): Query parameters failed validation, such as an out-of-range page number. Status code `422`. Applicable to 3 of 29 methods.*
-* [`BackendSrcAddressValidationResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcaddressvalidationresponsesvalidationerrorresponse.py): Validation error - Address fields failed validation or are incomplete. Status code `422`. Applicable to 2 of 29 methods.*
-* [`BackendSrcTaxEstimationResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrctaxestimationresponsesvalidationerrorresponse.py): Validation Error. Status code `422`. Applicable to 1 of 29 methods.*
+* [`ErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/errorresponse.py): Applicable to 32 of 41 methods.*
+* [`HTTPValidationError`](./src/kintsugi_tax_platform_sdk/errors/httpvalidationerror.py): Validation Error. Status code `422`. Applicable to 9 of 41 methods.*
+* [`BackendSrcExemptionsResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcexemptionsresponsesvalidationerrorresponse.py): Validation issues, such as missing required fields or invalid field values. Status code `422`. Applicable to 5 of 41 methods.*
+* [`BackendSrcRegistrationsResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcregistrationsresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 5 of 41 methods.*
+* [`BackendSrcTransactionsResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrctransactionsresponsesvalidationerrorresponse.py): Status code `422`. Applicable to 5 of 41 methods.*
+* [`BackendSrcNexusResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcnexusresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 4 of 41 methods.*
+* [`BackendSrcProductsResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcproductsresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 4 of 41 methods.*
+* [`BackendSrcCustomersResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrccustomersresponsesvalidationerrorresponse.py): Query parameters failed validation, such as an out-of-range page number. Status code `422`. Applicable to 3 of 41 methods.*
+* [`BackendSrcFilingsResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcfilingsresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 3 of 41 methods.*
+* [`BackendSrcAddressValidationResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcaddressvalidationresponsesvalidationerrorresponse.py): Validation error - Address fields failed validation or are incomplete. Status code `422`. Applicable to 2 of 41 methods.*
+* [`BackendSrcTaxEstimationResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrctaxestimationresponsesvalidationerrorresponse.py): Validation Error. Status code `422`. Applicable to 1 of 41 methods.*
 * [`ResponseValidationError`](./src/kintsugi_tax_platform_sdk/errors/responsevalidationerror.py): Type mismatch between the response data and the expected Pydantic model. Provides access to the Pydantic validation error via the `cause` attribute.
 
 </details>

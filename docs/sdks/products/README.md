@@ -5,13 +5,13 @@
 
 ### Available Operations
 
-* [list](#list) - Get Products
+* [get](#get) - Get Products
 * [create](#create) - Create Product
-* [get](#get) - Get Product By Id
+* [retrieve](#retrieve) - Get Product By Id
 * [update](#update) - Update Product
-* [list_categories](#list_categories) - Get Product Categories
+* [get_categories](#get_categories) - Get Product Categories
 
-## list
+## get
 
 Retrieve a paginated list of products based on filters and search query.
 
@@ -29,7 +29,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.products.list(page=1, size=50)
+    res = sdk.products.get(page=1, size=50)
 
     # Handle response
     print(res)
@@ -117,7 +117,7 @@ with SDK(
 | errors.ErrorResponse                                      | 500                                                       | application/json                                          |
 | errors.APIError                                           | 4XX, 5XX                                                  | \*/\*                                                     |
 
-## get
+## retrieve
 
 The Get Product By ID API retrieves detailed information about
     a single product by its unique ID. This API helps in viewing the specific details
@@ -137,7 +137,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.products.get(product_id="<id>")
+    res = sdk.products.retrieve(product_id="<id>")
 
     # Handle response
     print(res)
@@ -220,7 +220,7 @@ with SDK(
 | errors.ErrorResponse                                      | 500                                                       | application/json                                          |
 | errors.APIError                                           | 4XX, 5XX                                                  | \*/\*                                                     |
 
-## list_categories
+## get_categories
 
 The Get Product Categories API retrieves all
     product categories.  This endpoint helps users understand and select the
@@ -240,7 +240,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.products.list_categories()
+    res = sdk.products.get_categories()
 
     # Handle response
     print(res)

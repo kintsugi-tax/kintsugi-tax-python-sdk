@@ -17,8 +17,10 @@ if TYPE_CHECKING:
     from kintsugi_tax_platform_sdk.addressvalidation import AddressValidation
     from kintsugi_tax_platform_sdk.customers import Customers
     from kintsugi_tax_platform_sdk.exemptions import Exemptions
+    from kintsugi_tax_platform_sdk.filings import Filings
     from kintsugi_tax_platform_sdk.nexus import Nexus
     from kintsugi_tax_platform_sdk.products import Products
+    from kintsugi_tax_platform_sdk.registrations import Registrations
     from kintsugi_tax_platform_sdk.taxestimation import TaxEstimation
     from kintsugi_tax_platform_sdk.transactions import Transactions
 
@@ -27,8 +29,10 @@ class SDK(BaseSDK):
     address_validation: "AddressValidation"
     customers: "Customers"
     exemptions: "Exemptions"
+    filings: "Filings"
     nexus: "Nexus"
     products: "Products"
+    registrations: "Registrations"
     transactions: "Transactions"
     tax_estimation: "TaxEstimation"
     _sub_sdk_map = {
@@ -38,8 +42,10 @@ class SDK(BaseSDK):
         ),
         "customers": ("kintsugi_tax_platform_sdk.customers", "Customers"),
         "exemptions": ("kintsugi_tax_platform_sdk.exemptions", "Exemptions"),
+        "filings": ("kintsugi_tax_platform_sdk.filings", "Filings"),
         "nexus": ("kintsugi_tax_platform_sdk.nexus", "Nexus"),
         "products": ("kintsugi_tax_platform_sdk.products", "Products"),
+        "registrations": ("kintsugi_tax_platform_sdk.registrations", "Registrations"),
         "transactions": ("kintsugi_tax_platform_sdk.transactions", "Transactions"),
         "tax_estimation": ("kintsugi_tax_platform_sdk.taxestimation", "TaxEstimation"),
     }

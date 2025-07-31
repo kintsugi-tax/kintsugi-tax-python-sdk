@@ -9,7 +9,7 @@
 * [create](#create) - Create Exemption
 * [get](#get) - Get Exemption By Id
 * [upload_certificate](#upload_certificate) - Upload Exemption Certificate
-* [get_attachments](#get_attachments) - Get Attachments For Exemption
+* [list_attachments](#list_attachments) - Get Attachments For Exemption
 
 ## list
 
@@ -226,7 +226,7 @@ with SDK(
 | errors.ErrorResponse                                        | 500                                                         | application/json                                            |
 | errors.APIError                                             | 4XX, 5XX                                                    | \*/\*                                                       |
 
-## get_attachments
+## list_attachments
 
 The Get Attachments for Exemption API retrieves all
     attachments associated with a specific exemption.
@@ -247,7 +247,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.exemptions.get_attachments(exemption_id="<id>")
+    res = sdk.exemptions.list_attachments(exemption_id="<id>")
 
     # Handle response
     print(res)

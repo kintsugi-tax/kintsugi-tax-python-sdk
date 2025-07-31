@@ -958,7 +958,7 @@ class Exemptions(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    def get_attachments(
+    def list_attachments(
         self,
         *,
         exemption_id: str,
@@ -1054,7 +1054,7 @@ class Exemptions(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def get_attachments_async(
+    async def list_attachments_async(
         self,
         *,
         exemption_id: str,
