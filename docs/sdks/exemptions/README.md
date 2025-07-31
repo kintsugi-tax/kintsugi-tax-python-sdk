@@ -5,13 +5,13 @@
 
 ### Available Operations
 
-* [list](#list) - Get Exemptions
-* [create](#create) - Create Exemption
-* [get](#get) - Get Exemption By Id
-* [upload_certificate](#upload_certificate) - Upload Exemption Certificate
-* [get_attachments](#get_attachments) - Get Attachments For Exemption
+* [get_exemptions_v1_exemptions_get](#get_exemptions_v1_exemptions_get) - Get Exemptions
+* [create_exemption_v1_exemptions_post](#create_exemption_v1_exemptions_post) - Create Exemption
+* [get_exemption_by_id_v1_exemptions_exemption_id_get](#get_exemption_by_id_v1_exemptions_exemption_id_get) - Get Exemption By Id
+* [upload_exemption_certificate_v1_exemptions_exemption_id_attachments_post](#upload_exemption_certificate_v1_exemptions_exemption_id_attachments_post) - Upload Exemption Certificate
+* [get_attachments_for_exemption_v1_exemptions_exemption_id_attachments_get](#get_attachments_for_exemption_v1_exemptions_exemption_id_attachments_get) - Get Attachments For Exemption
 
-## list
+## get_exemptions_v1_exemptions_get
 
 Retrieve a list of exemptions based on filters.
 
@@ -29,7 +29,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.exemptions.list(search_query="John", status_in="ACTIVE,INACTIVE,EXPIRED", country_code=[
+    res = sdk.exemptions.get_exemptions_v1_exemptions_get(search_query="John", status_in="ACTIVE,INACTIVE,EXPIRED", country_code=[
 
     ], jurisdiction="CA", start_date="2024-01-01", end_date="2024-01-01", customer_id="cust_1234", transaction_id="trans_1234", order_by="end_date,FEIN,sales_tax_id,status", page=1, size=50)
 
@@ -68,7 +68,7 @@ with SDK(
 | errors.ErrorResponse                                        | 500                                                         | application/json                                            |
 | errors.APIError                                             | 4XX, 5XX                                                    | \*/\*                                                       |
 
-## create
+## create_exemption_v1_exemptions_post
 
 The Create Exemption API allows you to create a new exemption record.
     This includes defining details such as exemption type, jurisdiction,
@@ -89,7 +89,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.exemptions.create(exemption_type=models.ExemptionType.WHOLESALE, start_date=date.fromisoformat("2024-01-01"), customer_id="cust_001", fein="12-3456789", sales_tax_id="ST-98765", status=models.ExemptionStatus.ACTIVE, jurisdiction="CA", country_code=models.CountryCodeEnum.US, end_date="2026-01-01", transaction_id="txn_123", reseller=True)
+    res = sdk.exemptions.create_exemption_v1_exemptions_post(exemption_type=models.ExemptionType.WHOLESALE, start_date=date.fromisoformat("2024-01-01"), customer_id="cust_001", fein="12-3456789", sales_tax_id="ST-98765", status=models.ExemptionStatus.ACTIVE, jurisdiction="CA", country_code=models.CountryCodeEnum.US, end_date="2026-01-01", transaction_id="txn_123", reseller=True)
 
     # Handle response
     print(res)
@@ -126,7 +126,7 @@ with SDK(
 | errors.ErrorResponse                                        | 500                                                         | application/json                                            |
 | errors.APIError                                             | 4XX, 5XX                                                    | \*/\*                                                       |
 
-## get
+## get_exemption_by_id_v1_exemptions_exemption_id_get
 
 The Get Exemption By ID API retrieves a specific exemption record by
     its unique ID. This API is useful for retrieving detailed information
@@ -147,7 +147,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.exemptions.get(exemption_id="<id>")
+    res = sdk.exemptions.get_exemption_by_id_v1_exemptions_exemption_id_get(exemption_id="<id>")
 
     # Handle response
     print(res)
@@ -174,7 +174,7 @@ with SDK(
 | errors.ErrorResponse                                        | 500                                                         | application/json                                            |
 | errors.APIError                                             | 4XX, 5XX                                                    | \*/\*                                                       |
 
-## upload_certificate
+## upload_exemption_certificate_v1_exemptions_exemption_id_attachments_post
 
 The Upload Exemption Certificate API allows you
     to upload a file attachment (e.g., exemption certificate) for a specific exemption.
@@ -195,7 +195,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.exemptions.upload_certificate(exemption_id="<id>", file={
+    res = sdk.exemptions.upload_exemption_certificate_v1_exemptions_exemption_id_attachments_post(exemption_id="<id>", file={
         "file_name": "example.file",
         "content": open("example.file", "rb"),
     })
@@ -226,7 +226,7 @@ with SDK(
 | errors.ErrorResponse                                        | 500                                                         | application/json                                            |
 | errors.APIError                                             | 4XX, 5XX                                                    | \*/\*                                                       |
 
-## get_attachments
+## get_attachments_for_exemption_v1_exemptions_exemption_id_attachments_get
 
 The Get Attachments for Exemption API retrieves all
     attachments associated with a specific exemption.
@@ -247,7 +247,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.exemptions.get_attachments(exemption_id="<id>")
+    res = sdk.exemptions.get_attachments_for_exemption_v1_exemptions_exemption_id_attachments_get(exemption_id="<id>")
 
     # Handle response
     print(res)

@@ -122,7 +122,7 @@ from kintsugi_tax_platform_sdk import SDK, models
 
 with SDK() as sdk:
 
-    res = sdk.address_validation.search(security=models.SearchV1AddressValidationSearchPostSecurity(
+    res = sdk.address_validation.search_v1_address_validation_search_post(security=models.SearchV1AddressValidationSearchPostSecurity(
         api_key_header="<YOUR_API_KEY_HERE>",
     ), phone="555-123-4567", street_1="1600 Amphitheatre Parkway", street_2="Building 40", city="Mountain View", county="Santa Clara", state="CA", postal_code="94043", country=models.CountryCodeEnum.US, full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043")
 
@@ -142,7 +142,7 @@ async def main():
 
     async with SDK() as sdk:
 
-        res = await sdk.address_validation.search_async(security=models.SearchV1AddressValidationSearchPostSecurity(
+        res = await sdk.address_validation.search_v1_address_validation_search_post_async(security=models.SearchV1AddressValidationSearchPostSecurity(
             api_key_header="<YOUR_API_KEY_HERE>",
         ), phone="555-123-4567", street_1="1600 Amphitheatre Parkway", street_2="Building 40", city="Mountain View", county="Santa Clara", state="CA", postal_code="94043", country=models.CountryCodeEnum.US, full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043")
 
@@ -177,7 +177,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.address_validation.suggestions(line1="1600 Amphitheatre Parkway", line2="", line3="", city="Mountain View", state="CA", country="US", postal_code="94043", id=215, county="", full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043")
+    res = sdk.address_validation.suggestions_v1_address_validation_suggestions_post(line1="1600 Amphitheatre Parkway", line2="", line3="", city="Mountain View", state="CA", country="US", postal_code="94043", id=215, county="", full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043")
 
     # Handle response
     print(res)
@@ -193,7 +193,7 @@ from kintsugi_tax_platform_sdk import SDK, models
 
 with SDK() as sdk:
 
-    res = sdk.address_validation.search(security=models.SearchV1AddressValidationSearchPostSecurity(
+    res = sdk.address_validation.search_v1_address_validation_search_post(security=models.SearchV1AddressValidationSearchPostSecurity(
         api_key_header="<YOUR_API_KEY_HERE>",
     ), phone="555-123-4567", street_1="1600 Amphitheatre Parkway", street_2="Building 40", city="Mountain View", county="Santa Clara", state="CA", postal_code="94043", country=models.CountryCodeEnum.US, full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043")
 
@@ -211,54 +211,72 @@ with SDK() as sdk:
 
 ### [address_validation](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/addressvalidation/README.md)
 
-* [search](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/addressvalidation/README.md#search) - Search
-* [suggestions](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/addressvalidation/README.md#suggestions) - Suggestions
+* [search_v1_address_validation_search_post](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/addressvalidation/README.md#search_v1_address_validation_search_post) - Search
+* [suggestions_v1_address_validation_suggestions_post](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/addressvalidation/README.md#suggestions_v1_address_validation_suggestions_post) - Suggestions
 
 ### [customers](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/customers/README.md)
 
-* [list](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/customers/README.md#list) - Get Customers
-* [create](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/customers/README.md#create) - Create Customer
-* [get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/customers/README.md#get) - Get Customer By Id
-* [update](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/customers/README.md#update) - Update Customer
-* [get_by_external_id](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/customers/README.md#get_by_external_id) - Get Customer By External Id
-* [get_transactions](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/customers/README.md#get_transactions) - Get Transactions By Customer Id
-* [create_transaction](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/customers/README.md#create_transaction) - Create Transaction By Customer Id
+* [get_customers_v1](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/customers/README.md#get_customers_v1) - Get Customers
+* [create_customer_v1_customers_post](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/customers/README.md#create_customer_v1_customers_post) - Create Customer
+* [get_customer_by_id_v1_customers_customer_id_get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/customers/README.md#get_customer_by_id_v1_customers_customer_id_get) - Get Customer By Id
+* [update_customer_v1_customers_customer_id_put](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/customers/README.md#update_customer_v1_customers_customer_id_put) - Update Customer
+* [get_customer_by_external_id_v1_customers_external_external_id_get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/customers/README.md#get_customer_by_external_id_v1_customers_external_external_id_get) - Get Customer By External Id
+* [get_transactions_by_customer_id_v1_customers_customer_id_transactions_get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/customers/README.md#get_transactions_by_customer_id_v1_customers_customer_id_transactions_get) - Get Transactions By Customer Id
+* [create_transaction_by_customer_id_v1_customers_customer_id_transactions_post](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/customers/README.md#create_transaction_by_customer_id_v1_customers_customer_id_transactions_post) - Create Transaction By Customer Id
 
 ### [exemptions](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/exemptions/README.md)
 
-* [list](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/exemptions/README.md#list) - Get Exemptions
-* [create](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/exemptions/README.md#create) - Create Exemption
-* [get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/exemptions/README.md#get) - Get Exemption By Id
-* [upload_certificate](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/exemptions/README.md#upload_certificate) - Upload Exemption Certificate
-* [get_attachments](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/exemptions/README.md#get_attachments) - Get Attachments For Exemption
+* [get_exemptions_v1_exemptions_get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/exemptions/README.md#get_exemptions_v1_exemptions_get) - Get Exemptions
+* [create_exemption_v1_exemptions_post](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/exemptions/README.md#create_exemption_v1_exemptions_post) - Create Exemption
+* [get_exemption_by_id_v1_exemptions_exemption_id_get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/exemptions/README.md#get_exemption_by_id_v1_exemptions_exemption_id_get) - Get Exemption By Id
+* [upload_exemption_certificate_v1_exemptions_exemption_id_attachments_post](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/exemptions/README.md#upload_exemption_certificate_v1_exemptions_exemption_id_attachments_post) - Upload Exemption Certificate
+* [get_attachments_for_exemption_v1_exemptions_exemption_id_attachments_get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/exemptions/README.md#get_attachments_for_exemption_v1_exemptions_exemption_id_attachments_get) - Get Attachments For Exemption
+
+### [filings](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/filings/README.md)
+
+* [get_filings_v1_filings_get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/filings/README.md#get_filings_v1_filings_get) - Get Filings
+* [get_filing_by_id_v1_filings_filing_id_get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/filings/README.md#get_filing_by_id_v1_filings_filing_id_get) - Get Filing By Id
+* [get_filings_by_registration_id_v1_filings_registration_registration_id_get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/filings/README.md#get_filings_by_registration_id_v1_filings_registration_registration_id_get) - Get Filings By Registration Id
 
 ### [nexus](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/nexus/README.md)
 
-* [list](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/nexus/README.md#list) - Get Nexus For Org
+* [get_physical_nexus_v1_nexus_physical_nexus_get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/nexus/README.md#get_physical_nexus_v1_nexus_physical_nexus_get) - Get Physical Nexus
+* [create_physical_nexus_v1_nexus_physical_nexus_post](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/nexus/README.md#create_physical_nexus_v1_nexus_physical_nexus_post) - Create Physical Nexus
+* [update_physical_nexus_v1_nexus_physical_nexus_physical_nexus_id_put](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/nexus/README.md#update_physical_nexus_v1_nexus_physical_nexus_physical_nexus_id_put) - Update Physical Nexus
+* [delete_physical_nexus_v1_nexus_physical_nexus_physical_nexus_id_delete](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/nexus/README.md#delete_physical_nexus_v1_nexus_physical_nexus_physical_nexus_id_delete) - Delete Physical Nexus
+* [get_nexus_for_org_v1_nexus_get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/nexus/README.md#get_nexus_for_org_v1_nexus_get) - Get Nexus For Org
 
 ### [products](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/products/README.md)
 
-* [list](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/products/README.md#list) - Get Products
-* [create](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/products/README.md#create) - Create Product
-* [get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/products/README.md#get) - Get Product By Id
-* [update](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/products/README.md#update) - Update Product
-* [list_categories](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/products/README.md#list_categories) - Get Product Categories
+* [get_products_v1_products_get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/products/README.md#get_products_v1_products_get) - Get Products
+* [create_product_v1_products_post](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/products/README.md#create_product_v1_products_post) - Create Product
+* [get_product_by_id_v1_products_product_id_get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/products/README.md#get_product_by_id_v1_products_product_id_get) - Get Product By Id
+* [update_product_v1_products_product_id_put](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/products/README.md#update_product_v1_products_product_id_put) - Update Product
+* [get_product_categories_v1_products_categories_get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/products/README.md#get_product_categories_v1_products_categories_get) - Get Product Categories
+
+### [registrations](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/registrations/README.md)
+
+* [get_registrations_v1_registrations_get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/registrations/README.md#get_registrations_v1_registrations_get) - Get Registrations
+* [create_registration_v1_registrations_post](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/registrations/README.md#create_registration_v1_registrations_post) - Create Registration
+* [get_registration_by_id_v1_registrations_registration_id_get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/registrations/README.md#get_registration_by_id_v1_registrations_registration_id_get) - Get Registration By Id
+* [update_registration_v1_registrations_registration_id_put](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/registrations/README.md#update_registration_v1_registrations_registration_id_put) - Update Registration
+* [deregister_registration_v1_registrations_registration_id_deregister_post](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/registrations/README.md#deregister_registration_v1_registrations_registration_id_deregister_post) - Deregister Registration
 
 
 ### [tax_estimation](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/taxestimation/README.md)
 
-* [estimate_tax](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/taxestimation/README.md#estimate_tax) - Estimate Tax
+* [estimate_tax_v1_tax_estimate_post](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/taxestimation/README.md#estimate_tax_v1_tax_estimate_post) - Estimate Tax
 
 ### [transactions](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/transactions/README.md)
 
-* [list](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/transactions/README.md#list) - Get Transactions
-* [create](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/transactions/README.md#create) - Create Transaction
-* [get_by_external_id](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/transactions/README.md#get_by_external_id) - Get Transaction By External Id
-* [update](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/transactions/README.md#update) - Update Transaction
-* [get_by_id](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/transactions/README.md#get_by_id) - Get Transaction By Id
-* [get_by_filing_id](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/transactions/README.md#get_by_filing_id) - Get Transactions By Filing Id
-* [create_credit_note](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/transactions/README.md#create_credit_note) - Create Credit Note By Transaction Id
-* [update_credit_note](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/transactions/README.md#update_credit_note) - Update Credit Note By Transaction Id
+* [get_transactions_v1_transactions_get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/transactions/README.md#get_transactions_v1_transactions_get) - Get Transactions
+* [create_transaction_v1_transactions_post](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/transactions/README.md#create_transaction_v1_transactions_post) - Create Transaction
+* [get_transaction_by_external_id_v1_transactions_external_external_id_get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/transactions/README.md#get_transaction_by_external_id_v1_transactions_external_external_id_get) - Get Transaction By External Id
+* [update_transaction_v1_transactions_transaction_id_put](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/transactions/README.md#update_transaction_v1_transactions_transaction_id_put) - Update Transaction
+* [get_transaction_by_id_v1_transactions_transaction_id_get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/transactions/README.md#get_transaction_by_id_v1_transactions_transaction_id_get) - Get Transaction By Id
+* [get_transactions_by_filing_id_v1_transactions_filings_filing_id_get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/transactions/README.md#get_transactions_by_filing_id_v1_transactions_filings_filing_id_get) - Get Transactions By Filing Id
+* [post_create_credit_note_by_transaction_id](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/transactions/README.md#post_create_credit_note_by_transaction_id) - Create Credit Note By Transaction Id
+* [put_update_credit_note_by_transaction_id](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/transactions/README.md#put_update_credit_note_by_transaction_id) - Update Credit Note By Transaction Id
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -284,7 +302,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.exemptions.upload_certificate(exemption_id="<id>", file={
+    res = sdk.exemptions.upload_exemption_certificate_v1_exemptions_exemption_id_attachments_post(exemption_id="<id>", file={
         "file_name": "example.file",
         "content": open("example.file", "rb"),
     })
@@ -308,7 +326,7 @@ from kintsugi_tax_platform_sdk.utils import BackoffStrategy, RetryConfig
 
 with SDK() as sdk:
 
-    res = sdk.address_validation.search(security=models.SearchV1AddressValidationSearchPostSecurity(
+    res = sdk.address_validation.search_v1_address_validation_search_post(security=models.SearchV1AddressValidationSearchPostSecurity(
         api_key_header="<YOUR_API_KEY_HERE>",
     ), phone="555-123-4567", street_1="1600 Amphitheatre Parkway", street_2="Building 40", city="Mountain View", county="Santa Clara", state="CA", postal_code="94043", country=models.CountryCodeEnum.US, full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043",
         RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
@@ -328,7 +346,7 @@ with SDK(
     retry_config=RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False),
 ) as sdk:
 
-    res = sdk.address_validation.search(security=models.SearchV1AddressValidationSearchPostSecurity(
+    res = sdk.address_validation.search_v1_address_validation_search_post(security=models.SearchV1AddressValidationSearchPostSecurity(
         api_key_header="<YOUR_API_KEY_HERE>",
     ), phone="555-123-4567", street_1="1600 Amphitheatre Parkway", street_2="Building 40", city="Mountain View", county="Santa Clara", state="CA", postal_code="94043", country=models.CountryCodeEnum.US, full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043")
 
@@ -361,7 +379,7 @@ with SDK() as sdk:
     res = None
     try:
 
-        res = sdk.address_validation.search(security=models.SearchV1AddressValidationSearchPostSecurity(
+        res = sdk.address_validation.search_v1_address_validation_search_post(security=models.SearchV1AddressValidationSearchPostSecurity(
             api_key_header="<YOUR_API_KEY_HERE>",
         ), phone="555-123-4567", street_1="1600 Amphitheatre Parkway", street_2="Building 40", city="Mountain View", county="Santa Clara", state="CA", postal_code="94043", country=models.CountryCodeEnum.US, full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043")
 
@@ -386,7 +404,7 @@ with SDK() as sdk:
 **Primary error:**
 * [`SDKError`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/sdkerror.py): The base class for HTTP error responses.
 
-<details><summary>Less common errors (13)</summary>
+<details><summary>Less common errors (16)</summary>
 
 <br />
 
@@ -397,14 +415,17 @@ with SDK() as sdk:
 
 
 **Inherit from [`SDKError`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/sdkerror.py)**:
-* [`ErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/errorresponse.py): Applicable to 20 of 29 methods.*
-* [`HTTPValidationError`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/httpvalidationerror.py): Validation Error. Status code `422`. Applicable to 9 of 29 methods.*
-* [`BackendSrcExemptionsResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrcexemptionsresponsesvalidationerrorresponse.py): Validation issues, such as missing required fields or invalid field values. Status code `422`. Applicable to 5 of 29 methods.*
-* [`BackendSrcTransactionsResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrctransactionsresponsesvalidationerrorresponse.py): Status code `422`. Applicable to 5 of 29 methods.*
-* [`BackendSrcProductsResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrcproductsresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 4 of 29 methods.*
-* [`BackendSrcCustomersResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrccustomersresponsesvalidationerrorresponse.py): Query parameters failed validation, such as an out-of-range page number. Status code `422`. Applicable to 3 of 29 methods.*
-* [`BackendSrcAddressValidationResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrcaddressvalidationresponsesvalidationerrorresponse.py): Validation error - Address fields failed validation or are incomplete. Status code `422`. Applicable to 2 of 29 methods.*
-* [`BackendSrcTaxEstimationResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrctaxestimationresponsesvalidationerrorresponse.py): Validation Error. Status code `422`. Applicable to 1 of 29 methods.*
+* [`ErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/errorresponse.py): Applicable to 32 of 41 methods.*
+* [`HTTPValidationError`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/httpvalidationerror.py): Validation Error. Status code `422`. Applicable to 9 of 41 methods.*
+* [`BackendSrcExemptionsResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrcexemptionsresponsesvalidationerrorresponse.py): Validation issues, such as missing required fields or invalid field values. Status code `422`. Applicable to 5 of 41 methods.*
+* [`BackendSrcRegistrationsResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrcregistrationsresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 5 of 41 methods.*
+* [`BackendSrcTransactionsResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrctransactionsresponsesvalidationerrorresponse.py): Status code `422`. Applicable to 5 of 41 methods.*
+* [`BackendSrcNexusResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrcnexusresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 4 of 41 methods.*
+* [`BackendSrcProductsResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrcproductsresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 4 of 41 methods.*
+* [`BackendSrcCustomersResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrccustomersresponsesvalidationerrorresponse.py): Query parameters failed validation, such as an out-of-range page number. Status code `422`. Applicable to 3 of 41 methods.*
+* [`BackendSrcFilingsResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrcfilingsresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 3 of 41 methods.*
+* [`BackendSrcAddressValidationResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrcaddressvalidationresponsesvalidationerrorresponse.py): Validation error - Address fields failed validation or are incomplete. Status code `422`. Applicable to 2 of 41 methods.*
+* [`BackendSrcTaxEstimationResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrctaxestimationresponsesvalidationerrorresponse.py): Validation Error. Status code `422`. Applicable to 1 of 41 methods.*
 * [`ResponseValidationError`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/responsevalidationerror.py): Type mismatch between the response data and the expected Pydantic model. Provides access to the Pydantic validation error via the `cause` attribute.
 
 </details>
@@ -426,7 +447,7 @@ with SDK(
     server_url="https://api.trykintsugi.com",
 ) as sdk:
 
-    res = sdk.address_validation.search(security=models.SearchV1AddressValidationSearchPostSecurity(
+    res = sdk.address_validation.search_v1_address_validation_search_post(security=models.SearchV1AddressValidationSearchPostSecurity(
         api_key_header="<YOUR_API_KEY_HERE>",
     ), phone="555-123-4567", street_1="1600 Amphitheatre Parkway", street_2="Building 40", city="Mountain View", county="Santa Clara", state="CA", postal_code="94043", country=models.CountryCodeEnum.US, full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043")
 

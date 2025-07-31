@@ -12,7 +12,7 @@ from typing import Any, List, Mapping, Optional, Union
 
 
 class Exemptions(BaseSDK):
-    def list(
+    def get_exemptions_v1_exemptions_get(
         self,
         *,
         search_query: Optional[str] = None,
@@ -140,7 +140,7 @@ class Exemptions(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def list_async(
+    async def get_exemptions_v1_exemptions_get_async(
         self,
         *,
         search_query: Optional[str] = None,
@@ -268,7 +268,7 @@ class Exemptions(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    def create(
+    def create_exemption_v1_exemptions_post(
         self,
         *,
         exemption_type: models.ExemptionType,
@@ -401,7 +401,7 @@ class Exemptions(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def create_async(
+    async def create_exemption_v1_exemptions_post_async(
         self,
         *,
         exemption_type: models.ExemptionType,
@@ -534,7 +534,7 @@ class Exemptions(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    def get(
+    def get_exemption_by_id_v1_exemptions_exemption_id_get(
         self,
         *,
         exemption_id: str,
@@ -635,7 +635,7 @@ class Exemptions(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def get_async(
+    async def get_exemption_by_id_v1_exemptions_exemption_id_get_async(
         self,
         *,
         exemption_id: str,
@@ -736,7 +736,7 @@ class Exemptions(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    def upload_certificate(
+    def upload_exemption_certificate_v1_exemptions_exemption_id_attachments_post(
         self,
         *,
         exemption_id: str,
@@ -847,7 +847,7 @@ class Exemptions(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def upload_certificate_async(
+    async def upload_exemption_certificate_v1_exemptions_exemption_id_attachments_post_async(
         self,
         *,
         exemption_id: str,
@@ -958,7 +958,7 @@ class Exemptions(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    def get_attachments(
+    def get_attachments_for_exemption_v1_exemptions_exemption_id_attachments_get(
         self,
         *,
         exemption_id: str,
@@ -1054,7 +1054,7 @@ class Exemptions(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def get_attachments_async(
+    async def get_attachments_for_exemption_v1_exemptions_exemption_id_attachments_get_async(
         self,
         *,
         exemption_id: str,

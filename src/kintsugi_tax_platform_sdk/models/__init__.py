@@ -38,9 +38,21 @@ if TYPE_CHECKING:
         BackendSrcExemptionsSerializersExemptionRead,
         BackendSrcExemptionsSerializersExemptionReadTypedDict,
     )
+    from .backend_src_filings_responses_validationerroritem import (
+        BackendSrcFilingsResponsesValidationErrorItem,
+        BackendSrcFilingsResponsesValidationErrorItemTypedDict,
+    )
+    from .backend_src_nexus_responses_validationerroritem import (
+        BackendSrcNexusResponsesValidationErrorItem,
+        BackendSrcNexusResponsesValidationErrorItemTypedDict,
+    )
     from .backend_src_products_responses_validationerroritem import (
         BackendSrcProductsResponsesValidationErrorItem,
         BackendSrcProductsResponsesValidationErrorItemTypedDict,
+    )
+    from .backend_src_registrations_responses_validationerroritem import (
+        BackendSrcRegistrationsResponsesValidationErrorItem,
+        BackendSrcRegistrationsResponsesValidationErrorItemTypedDict,
     )
     from .backend_src_tax_estimation_responses_validationerroritem import (
         BackendSrcTaxEstimationResponsesValidationErrorItem,
@@ -56,7 +68,12 @@ if TYPE_CHECKING:
         File,
         FileTypedDict,
     )
+    from .changeregimestatusenum import ChangeRegimeStatusEnum
     from .countrycodeenum import CountryCodeEnum
+    from .create_registration_v1_registrations_postop import (
+        CreateRegistration,
+        CreateRegistrationTypedDict,
+    )
     from .create_transaction_by_customer_id_v1_customers_customer_id_transactions_postop import (
         CreateTransactionByCustomerIDV1CustomersCustomerIDTransactionsPostRequest,
         CreateTransactionByCustomerIDV1CustomersCustomerIDTransactionsPostRequestTypedDict,
@@ -73,6 +90,14 @@ if TYPE_CHECKING:
     from .customercreate import CustomerCreate, CustomerCreateTypedDict
     from .customerread import CustomerRead, CustomerReadTypedDict
     from .customerupdate import CustomerUpdate, CustomerUpdateTypedDict
+    from .delete_physical_nexus_v1_nexus_physical_nexus_physical_nexus_id_deleteop import (
+        DeletePhysicalNexusV1NexusPhysicalNexusPhysicalNexusIDDeleteRequest,
+        DeletePhysicalNexusV1NexusPhysicalNexusPhysicalNexusIDDeleteRequestTypedDict,
+    )
+    from .deregister_registration_v1_registrations_registration_id_deregister_postop import (
+        DeregisterRegistrationV1RegistrationsRegistrationIDDeregisterPostRequest,
+        DeregisterRegistrationV1RegistrationsRegistrationIDDeregisterPostRequestTypedDict,
+    )
     from .discountbuilder import DiscountBuilder, DiscountBuilderTypedDict
     from .estimate_tax_v1_tax_estimate_postop import (
         EstimateTaxV1TaxEstimatePostRequest,
@@ -87,6 +112,15 @@ if TYPE_CHECKING:
         FastapiPaginationDefaultPageExemptionRead2,
         FastapiPaginationDefaultPageExemptionRead2TypedDict,
     )
+    from .filingdetailsread import (
+        Attachments,
+        AttachmentsTypedDict,
+        FilingDetailsRead,
+        FilingDetailsReadTypedDict,
+    )
+    from .filingfrequencyenum import FilingFrequencyEnum
+    from .filingread import FilingRead, FilingReadTypedDict
+    from .filingstatusenum import FilingStatusEnum
     from .get_attachments_for_exemption_v1_exemptions_exemption_id_attachments_getop import (
         GetAttachmentsForExemptionV1ExemptionsExemptionIDAttachmentsGetRequest,
         GetAttachmentsForExemptionV1ExemptionsExemptionIDAttachmentsGetRequestTypedDict,
@@ -111,9 +145,25 @@ if TYPE_CHECKING:
         GetExemptionsV1ExemptionsGetRequest,
         GetExemptionsV1ExemptionsGetRequestTypedDict,
     )
+    from .get_filing_by_id_v1_filings_filing_id_getop import (
+        GetFilingByIDV1FilingsFilingIDGetRequest,
+        GetFilingByIDV1FilingsFilingIDGetRequestTypedDict,
+    )
+    from .get_filings_by_registration_id_v1_filings_registration_registration_id_getop import (
+        GetFilingsByRegistrationIDV1FilingsRegistrationRegistrationIDGetRequest,
+        GetFilingsByRegistrationIDV1FilingsRegistrationRegistrationIDGetRequestTypedDict,
+    )
+    from .get_filings_v1_filings_getop import (
+        GetFilingsV1FilingsGetRequest,
+        GetFilingsV1FilingsGetRequestTypedDict,
+    )
     from .get_nexus_for_org_v1_nexus_getop import (
         GetNexusForOrgV1NexusGetRequest,
         GetNexusForOrgV1NexusGetRequestTypedDict,
+    )
+    from .get_physical_nexus_v1_nexus_physical_nexus_getop import (
+        GetPhysicalNexusV1NexusPhysicalNexusGetRequest,
+        GetPhysicalNexusV1NexusPhysicalNexusGetRequestTypedDict,
     )
     from .get_product_by_id_v1_products_product_id_getop import (
         GetProductByIDV1ProductsProductIDGetRequest,
@@ -122,6 +172,14 @@ if TYPE_CHECKING:
     from .get_products_v1_products_getop import (
         GetProductsV1ProductsGetRequest,
         GetProductsV1ProductsGetRequestTypedDict,
+    )
+    from .get_registration_by_id_v1_registrations_registration_id_getop import (
+        GetRegistrationByIDV1RegistrationsRegistrationIDGetRequest,
+        GetRegistrationByIDV1RegistrationsRegistrationIDGetRequestTypedDict,
+    )
+    from .get_registrations_v1_registrations_getop import (
+        GetRegistrationsV1RegistrationsGetRequest,
+        GetRegistrationsV1RegistrationsGetRequestTypedDict,
     )
     from .get_transaction_by_external_id_v1_transactions_external_external_id_getop import (
         GetTransactionByExternalIDV1TransactionsExternalExternalIDGetRequest,
@@ -153,15 +211,33 @@ if TYPE_CHECKING:
     from .nexusstateenum import NexusStateEnum
     from .nexusstatusenum import NexusStatusEnum
     from .nexustypeenum import NexusTypeEnum
+    from .ossregistrationcreatepayload import (
+        OSSRegistrationCreatePayload,
+        OSSRegistrationCreatePayloadTypedDict,
+    )
+    from .osstypeenum import OssTypeEnum
     from .page_customerread_ import PageCustomerRead, PageCustomerReadTypedDict
+    from .page_filingread_ import PageFilingRead, PageFilingReadTypedDict
     from .page_nexusresponse_ import PageNexusResponse, PageNexusResponseTypedDict
+    from .page_physicalnexusread_ import (
+        PagePhysicalNexusRead,
+        PagePhysicalNexusReadTypedDict,
+    )
     from .page_productread_ import PageProductRead, PageProductReadTypedDict
+    from .page_registrationreadwithpassword_ import (
+        PageRegistrationReadWithPassword,
+        PageRegistrationReadWithPasswordTypedDict,
+    )
     from .page_transactionestimateresponse_ import (
         PageTransactionEstimateResponse,
         PageTransactionEstimateResponseTypedDict,
     )
     from .page_transactionread_ import PageTransactionRead, PageTransactionReadTypedDict
     from .periodmodelenum import PeriodModelEnum
+    from .physicalnexuscategory import PhysicalNexusCategory
+    from .physicalnexuscreate import PhysicalNexusCreate, PhysicalNexusCreateTypedDict
+    from .physicalnexusread import PhysicalNexusRead, PhysicalNexusReadTypedDict
+    from .physicalnexusupdate import PhysicalNexusUpdate, PhysicalNexusUpdateTypedDict
     from .post_create_credit_note_by_transaction_idop import (
         POSTCreateCreditNoteByTransactionIDRequest,
         POSTCreateCreditNoteByTransactionIDRequestTypedDict,
@@ -180,7 +256,22 @@ if TYPE_CHECKING:
         PUTUpdateCreditNoteByTransactionIDRequest,
         PUTUpdateCreditNoteByTransactionIDRequestTypedDict,
     )
+    from .registrationcreatepayload import (
+        RegistrationCreatePayload,
+        RegistrationCreatePayloadTypedDict,
+    )
+    from .registrationread import RegistrationRead, RegistrationReadTypedDict
+    from .registrationreadwithpassword import (
+        RegistrationReadWithPassword,
+        RegistrationReadWithPasswordTypedDict,
+    )
     from .registrationsregimeenum import RegistrationsRegimeEnum
+    from .registrationstatusenum import RegistrationStatusEnum
+    from .registrationtypeenum import RegistrationTypeEnum
+    from .registrationupdateapi import (
+        RegistrationUpdateAPI,
+        RegistrationUpdateAPITypedDict,
+    )
     from .relatedentitytype import RelatedEntityType
     from .salesortransactionsenum import SalesOrTransactionsEnum
     from .search_v1_address_validation_search_postop import (
@@ -189,6 +280,10 @@ if TYPE_CHECKING:
     )
     from .security import Security, SecurityTypedDict
     from .sourceenum import SourceEnum
+    from .sstregistrationcreatepayload import (
+        SSTRegistrationCreatePayload,
+        SSTRegistrationCreatePayloadTypedDict,
+    )
     from .statusenum import StatusEnum
     from .taxexemptionenum import TaxExemptionEnum
     from .taxitembuilder import TaxItemBuilder, TaxItemBuilderTypedDict
@@ -256,9 +351,17 @@ if TYPE_CHECKING:
         UpdateCustomerV1CustomersCustomerIDPutRequest,
         UpdateCustomerV1CustomersCustomerIDPutRequestTypedDict,
     )
+    from .update_physical_nexus_v1_nexus_physical_nexus_physical_nexus_id_putop import (
+        UpdatePhysicalNexusV1NexusPhysicalNexusPhysicalNexusIDPutRequest,
+        UpdatePhysicalNexusV1NexusPhysicalNexusPhysicalNexusIDPutRequestTypedDict,
+    )
     from .update_product_v1_products_product_id_putop import (
         UpdateProductV1ProductsProductIDPutRequest,
         UpdateProductV1ProductsProductIDPutRequestTypedDict,
+    )
+    from .update_registration_v1_registrations_registration_id_putop import (
+        UpdateRegistrationV1RegistrationsRegistrationIDPutRequest,
+        UpdateRegistrationV1RegistrationsRegistrationIDPutRequestTypedDict,
     )
     from .update_transaction_v1_transactions_transaction_id_putop import (
         UpdateTransactionV1TransactionsTransactionIDPutRequest,
@@ -285,6 +388,8 @@ __all__ = [
     "AppliedTo",
     "AttachmentRead",
     "AttachmentReadTypedDict",
+    "Attachments",
+    "AttachmentsTypedDict",
     "BackendSrcAddressValidationResponsesValidationErrorItem",
     "BackendSrcAddressValidationResponsesValidationErrorItemTypedDict",
     "BackendSrcCustomersResponsesValidationErrorItem",
@@ -295,15 +400,24 @@ __all__ = [
     "BackendSrcExemptionsResponsesValidationErrorItemTypedDict",
     "BackendSrcExemptionsSerializersExemptionRead",
     "BackendSrcExemptionsSerializersExemptionReadTypedDict",
+    "BackendSrcFilingsResponsesValidationErrorItem",
+    "BackendSrcFilingsResponsesValidationErrorItemTypedDict",
+    "BackendSrcNexusResponsesValidationErrorItem",
+    "BackendSrcNexusResponsesValidationErrorItemTypedDict",
     "BackendSrcProductsResponsesValidationErrorItem",
     "BackendSrcProductsResponsesValidationErrorItemTypedDict",
+    "BackendSrcRegistrationsResponsesValidationErrorItem",
+    "BackendSrcRegistrationsResponsesValidationErrorItemTypedDict",
     "BackendSrcTaxEstimationResponsesValidationErrorItem",
     "BackendSrcTaxEstimationResponsesValidationErrorItemTypedDict",
     "BackendSrcTransactionsResponsesValidationErrorItem",
     "BackendSrcTransactionsResponsesValidationErrorItemTypedDict",
     "BodyUploadExemptionCertificateV1ExemptionsExemptionIDAttachmentsPost",
     "BodyUploadExemptionCertificateV1ExemptionsExemptionIDAttachmentsPostTypedDict",
+    "ChangeRegimeStatusEnum",
     "CountryCodeEnum",
+    "CreateRegistration",
+    "CreateRegistrationTypedDict",
     "CreateTransactionByCustomerIDV1CustomersCustomerIDTransactionsPostRequest",
     "CreateTransactionByCustomerIDV1CustomersCustomerIDTransactionsPostRequestTypedDict",
     "CreditNoteCreate",
@@ -323,6 +437,10 @@ __all__ = [
     "CustomerReadTypedDict",
     "CustomerUpdate",
     "CustomerUpdateTypedDict",
+    "DeletePhysicalNexusV1NexusPhysicalNexusPhysicalNexusIDDeleteRequest",
+    "DeletePhysicalNexusV1NexusPhysicalNexusPhysicalNexusIDDeleteRequestTypedDict",
+    "DeregisterRegistrationV1RegistrationsRegistrationIDDeregisterPostRequest",
+    "DeregisterRegistrationV1RegistrationsRegistrationIDDeregisterPostRequestTypedDict",
     "DiscountBuilder",
     "DiscountBuilderTypedDict",
     "EstimateTaxV1TaxEstimatePostRequest",
@@ -339,6 +457,12 @@ __all__ = [
     "FastapiPaginationDefaultPageExemptionRead2TypedDict",
     "File",
     "FileTypedDict",
+    "FilingDetailsRead",
+    "FilingDetailsReadTypedDict",
+    "FilingFrequencyEnum",
+    "FilingRead",
+    "FilingReadTypedDict",
+    "FilingStatusEnum",
     "GetAttachmentsForExemptionV1ExemptionsExemptionIDAttachmentsGetRequest",
     "GetAttachmentsForExemptionV1ExemptionsExemptionIDAttachmentsGetRequestTypedDict",
     "GetCustomerByExternalIDV1CustomersExternalExternalIDGetRequest",
@@ -351,12 +475,24 @@ __all__ = [
     "GetExemptionByIDV1ExemptionsExemptionIDGetRequestTypedDict",
     "GetExemptionsV1ExemptionsGetRequest",
     "GetExemptionsV1ExemptionsGetRequestTypedDict",
+    "GetFilingByIDV1FilingsFilingIDGetRequest",
+    "GetFilingByIDV1FilingsFilingIDGetRequestTypedDict",
+    "GetFilingsByRegistrationIDV1FilingsRegistrationRegistrationIDGetRequest",
+    "GetFilingsByRegistrationIDV1FilingsRegistrationRegistrationIDGetRequestTypedDict",
+    "GetFilingsV1FilingsGetRequest",
+    "GetFilingsV1FilingsGetRequestTypedDict",
     "GetNexusForOrgV1NexusGetRequest",
     "GetNexusForOrgV1NexusGetRequestTypedDict",
+    "GetPhysicalNexusV1NexusPhysicalNexusGetRequest",
+    "GetPhysicalNexusV1NexusPhysicalNexusGetRequestTypedDict",
     "GetProductByIDV1ProductsProductIDGetRequest",
     "GetProductByIDV1ProductsProductIDGetRequestTypedDict",
     "GetProductsV1ProductsGetRequest",
     "GetProductsV1ProductsGetRequestTypedDict",
+    "GetRegistrationByIDV1RegistrationsRegistrationIDGetRequest",
+    "GetRegistrationByIDV1RegistrationsRegistrationIDGetRequestTypedDict",
+    "GetRegistrationsV1RegistrationsGetRequest",
+    "GetRegistrationsV1RegistrationsGetRequestTypedDict",
     "GetTransactionByExternalIDV1TransactionsExternalExternalIDGetRequest",
     "GetTransactionByExternalIDV1TransactionsExternalExternalIDGetRequestTypedDict",
     "GetTransactionByIDV1TransactionsTransactionIDGetRequest",
@@ -373,21 +509,37 @@ __all__ = [
     "NexusStateEnum",
     "NexusStatusEnum",
     "NexusTypeEnum",
+    "OSSRegistrationCreatePayload",
+    "OSSRegistrationCreatePayloadTypedDict",
+    "OssTypeEnum",
     "POSTCreateCreditNoteByTransactionIDRequest",
     "POSTCreateCreditNoteByTransactionIDRequestTypedDict",
     "PUTUpdateCreditNoteByTransactionIDRequest",
     "PUTUpdateCreditNoteByTransactionIDRequestTypedDict",
     "PageCustomerRead",
     "PageCustomerReadTypedDict",
+    "PageFilingRead",
+    "PageFilingReadTypedDict",
     "PageNexusResponse",
     "PageNexusResponseTypedDict",
+    "PagePhysicalNexusRead",
+    "PagePhysicalNexusReadTypedDict",
     "PageProductRead",
     "PageProductReadTypedDict",
+    "PageRegistrationReadWithPassword",
+    "PageRegistrationReadWithPasswordTypedDict",
     "PageTransactionEstimateResponse",
     "PageTransactionEstimateResponseTypedDict",
     "PageTransactionRead",
     "PageTransactionReadTypedDict",
     "PeriodModelEnum",
+    "PhysicalNexusCategory",
+    "PhysicalNexusCreate",
+    "PhysicalNexusCreateTypedDict",
+    "PhysicalNexusRead",
+    "PhysicalNexusReadTypedDict",
+    "PhysicalNexusUpdate",
+    "PhysicalNexusUpdateTypedDict",
     "ProcessingStatusEnum",
     "ProductCategories",
     "ProductCategoriesTypedDict",
@@ -404,9 +556,21 @@ __all__ = [
     "ProductUpdate",
     "ProductUpdateTypedDict",
     "Registration",
+    "RegistrationCreatePayload",
+    "RegistrationCreatePayloadTypedDict",
+    "RegistrationRead",
+    "RegistrationReadTypedDict",
+    "RegistrationReadWithPassword",
+    "RegistrationReadWithPasswordTypedDict",
+    "RegistrationStatusEnum",
+    "RegistrationTypeEnum",
     "RegistrationTypedDict",
+    "RegistrationUpdateAPI",
+    "RegistrationUpdateAPITypedDict",
     "RegistrationsRegimeEnum",
     "RelatedEntityType",
+    "SSTRegistrationCreatePayload",
+    "SSTRegistrationCreatePayloadTypedDict",
     "SalesOrTransactionsEnum",
     "SearchV1AddressValidationSearchPostSecurity",
     "SearchV1AddressValidationSearchPostSecurityTypedDict",
@@ -466,8 +630,12 @@ __all__ = [
     "TreatmentEnum",
     "UpdateCustomerV1CustomersCustomerIDPutRequest",
     "UpdateCustomerV1CustomersCustomerIDPutRequestTypedDict",
+    "UpdatePhysicalNexusV1NexusPhysicalNexusPhysicalNexusIDPutRequest",
+    "UpdatePhysicalNexusV1NexusPhysicalNexusPhysicalNexusIDPutRequestTypedDict",
     "UpdateProductV1ProductsProductIDPutRequest",
     "UpdateProductV1ProductsProductIDPutRequestTypedDict",
+    "UpdateRegistrationV1RegistrationsRegistrationIDPutRequest",
+    "UpdateRegistrationV1RegistrationsRegistrationIDPutRequestTypedDict",
     "UpdateTransactionV1TransactionsTransactionIDPutRequest",
     "UpdateTransactionV1TransactionsTransactionIDPutRequestTypedDict",
     "UploadExemptionCertificateV1ExemptionsExemptionIDAttachmentsPostRequest",
@@ -502,8 +670,14 @@ _dynamic_imports: dict[str, str] = {
     "BackendSrcExemptionsResponsesValidationErrorItemTypedDict": ".backend_src_exemptions_responses_validationerroritem",
     "BackendSrcExemptionsSerializersExemptionRead": ".backend_src_exemptions_serializers_exemptionread",
     "BackendSrcExemptionsSerializersExemptionReadTypedDict": ".backend_src_exemptions_serializers_exemptionread",
+    "BackendSrcFilingsResponsesValidationErrorItem": ".backend_src_filings_responses_validationerroritem",
+    "BackendSrcFilingsResponsesValidationErrorItemTypedDict": ".backend_src_filings_responses_validationerroritem",
+    "BackendSrcNexusResponsesValidationErrorItem": ".backend_src_nexus_responses_validationerroritem",
+    "BackendSrcNexusResponsesValidationErrorItemTypedDict": ".backend_src_nexus_responses_validationerroritem",
     "BackendSrcProductsResponsesValidationErrorItem": ".backend_src_products_responses_validationerroritem",
     "BackendSrcProductsResponsesValidationErrorItemTypedDict": ".backend_src_products_responses_validationerroritem",
+    "BackendSrcRegistrationsResponsesValidationErrorItem": ".backend_src_registrations_responses_validationerroritem",
+    "BackendSrcRegistrationsResponsesValidationErrorItemTypedDict": ".backend_src_registrations_responses_validationerroritem",
     "BackendSrcTaxEstimationResponsesValidationErrorItem": ".backend_src_tax_estimation_responses_validationerroritem",
     "BackendSrcTaxEstimationResponsesValidationErrorItemTypedDict": ".backend_src_tax_estimation_responses_validationerroritem",
     "BackendSrcTransactionsResponsesValidationErrorItem": ".backend_src_transactions_responses_validationerroritem",
@@ -512,7 +686,10 @@ _dynamic_imports: dict[str, str] = {
     "BodyUploadExemptionCertificateV1ExemptionsExemptionIDAttachmentsPostTypedDict": ".body_upload_exemption_certificate_v1_exemptions_exemption_id_attachments_post",
     "File": ".body_upload_exemption_certificate_v1_exemptions_exemption_id_attachments_post",
     "FileTypedDict": ".body_upload_exemption_certificate_v1_exemptions_exemption_id_attachments_post",
+    "ChangeRegimeStatusEnum": ".changeregimestatusenum",
     "CountryCodeEnum": ".countrycodeenum",
+    "CreateRegistration": ".create_registration_v1_registrations_postop",
+    "CreateRegistrationTypedDict": ".create_registration_v1_registrations_postop",
     "CreateTransactionByCustomerIDV1CustomersCustomerIDTransactionsPostRequest": ".create_transaction_by_customer_id_v1_customers_customer_id_transactions_postop",
     "CreateTransactionByCustomerIDV1CustomersCustomerIDTransactionsPostRequestTypedDict": ".create_transaction_by_customer_id_v1_customers_customer_id_transactions_postop",
     "CreditNoteCreate": ".creditnotecreate",
@@ -533,6 +710,10 @@ _dynamic_imports: dict[str, str] = {
     "CustomerReadTypedDict": ".customerread",
     "CustomerUpdate": ".customerupdate",
     "CustomerUpdateTypedDict": ".customerupdate",
+    "DeletePhysicalNexusV1NexusPhysicalNexusPhysicalNexusIDDeleteRequest": ".delete_physical_nexus_v1_nexus_physical_nexus_physical_nexus_id_deleteop",
+    "DeletePhysicalNexusV1NexusPhysicalNexusPhysicalNexusIDDeleteRequestTypedDict": ".delete_physical_nexus_v1_nexus_physical_nexus_physical_nexus_id_deleteop",
+    "DeregisterRegistrationV1RegistrationsRegistrationIDDeregisterPostRequest": ".deregister_registration_v1_registrations_registration_id_deregister_postop",
+    "DeregisterRegistrationV1RegistrationsRegistrationIDDeregisterPostRequestTypedDict": ".deregister_registration_v1_registrations_registration_id_deregister_postop",
     "DiscountBuilder": ".discountbuilder",
     "DiscountBuilderTypedDict": ".discountbuilder",
     "EstimateTaxV1TaxEstimatePostRequest": ".estimate_tax_v1_tax_estimate_postop",
@@ -547,6 +728,14 @@ _dynamic_imports: dict[str, str] = {
     "ExemptionType": ".exemptiontype",
     "FastapiPaginationDefaultPageExemptionRead2": ".fastapi_pagination_default_page_exemptionread_2",
     "FastapiPaginationDefaultPageExemptionRead2TypedDict": ".fastapi_pagination_default_page_exemptionread_2",
+    "Attachments": ".filingdetailsread",
+    "AttachmentsTypedDict": ".filingdetailsread",
+    "FilingDetailsRead": ".filingdetailsread",
+    "FilingDetailsReadTypedDict": ".filingdetailsread",
+    "FilingFrequencyEnum": ".filingfrequencyenum",
+    "FilingRead": ".filingread",
+    "FilingReadTypedDict": ".filingread",
+    "FilingStatusEnum": ".filingstatusenum",
     "GetAttachmentsForExemptionV1ExemptionsExemptionIDAttachmentsGetRequest": ".get_attachments_for_exemption_v1_exemptions_exemption_id_attachments_getop",
     "GetAttachmentsForExemptionV1ExemptionsExemptionIDAttachmentsGetRequestTypedDict": ".get_attachments_for_exemption_v1_exemptions_exemption_id_attachments_getop",
     "GetCustomerByExternalIDV1CustomersExternalExternalIDGetRequest": ".get_customer_by_external_id_v1_customers_external_external_id_getop",
@@ -559,12 +748,24 @@ _dynamic_imports: dict[str, str] = {
     "GetExemptionByIDV1ExemptionsExemptionIDGetRequestTypedDict": ".get_exemption_by_id_v1_exemptions_exemption_id_getop",
     "GetExemptionsV1ExemptionsGetRequest": ".get_exemptions_v1_exemptions_getop",
     "GetExemptionsV1ExemptionsGetRequestTypedDict": ".get_exemptions_v1_exemptions_getop",
+    "GetFilingByIDV1FilingsFilingIDGetRequest": ".get_filing_by_id_v1_filings_filing_id_getop",
+    "GetFilingByIDV1FilingsFilingIDGetRequestTypedDict": ".get_filing_by_id_v1_filings_filing_id_getop",
+    "GetFilingsByRegistrationIDV1FilingsRegistrationRegistrationIDGetRequest": ".get_filings_by_registration_id_v1_filings_registration_registration_id_getop",
+    "GetFilingsByRegistrationIDV1FilingsRegistrationRegistrationIDGetRequestTypedDict": ".get_filings_by_registration_id_v1_filings_registration_registration_id_getop",
+    "GetFilingsV1FilingsGetRequest": ".get_filings_v1_filings_getop",
+    "GetFilingsV1FilingsGetRequestTypedDict": ".get_filings_v1_filings_getop",
     "GetNexusForOrgV1NexusGetRequest": ".get_nexus_for_org_v1_nexus_getop",
     "GetNexusForOrgV1NexusGetRequestTypedDict": ".get_nexus_for_org_v1_nexus_getop",
+    "GetPhysicalNexusV1NexusPhysicalNexusGetRequest": ".get_physical_nexus_v1_nexus_physical_nexus_getop",
+    "GetPhysicalNexusV1NexusPhysicalNexusGetRequestTypedDict": ".get_physical_nexus_v1_nexus_physical_nexus_getop",
     "GetProductByIDV1ProductsProductIDGetRequest": ".get_product_by_id_v1_products_product_id_getop",
     "GetProductByIDV1ProductsProductIDGetRequestTypedDict": ".get_product_by_id_v1_products_product_id_getop",
     "GetProductsV1ProductsGetRequest": ".get_products_v1_products_getop",
     "GetProductsV1ProductsGetRequestTypedDict": ".get_products_v1_products_getop",
+    "GetRegistrationByIDV1RegistrationsRegistrationIDGetRequest": ".get_registration_by_id_v1_registrations_registration_id_getop",
+    "GetRegistrationByIDV1RegistrationsRegistrationIDGetRequestTypedDict": ".get_registration_by_id_v1_registrations_registration_id_getop",
+    "GetRegistrationsV1RegistrationsGetRequest": ".get_registrations_v1_registrations_getop",
+    "GetRegistrationsV1RegistrationsGetRequestTypedDict": ".get_registrations_v1_registrations_getop",
     "GetTransactionByExternalIDV1TransactionsExternalExternalIDGetRequest": ".get_transaction_by_external_id_v1_transactions_external_external_id_getop",
     "GetTransactionByExternalIDV1TransactionsExternalExternalIDGetRequestTypedDict": ".get_transaction_by_external_id_v1_transactions_external_external_id_getop",
     "GetTransactionByIDV1TransactionsTransactionIDGetRequest": ".get_transaction_by_id_v1_transactions_transaction_id_getop",
@@ -583,17 +784,33 @@ _dynamic_imports: dict[str, str] = {
     "NexusStateEnum": ".nexusstateenum",
     "NexusStatusEnum": ".nexusstatusenum",
     "NexusTypeEnum": ".nexustypeenum",
+    "OSSRegistrationCreatePayload": ".ossregistrationcreatepayload",
+    "OSSRegistrationCreatePayloadTypedDict": ".ossregistrationcreatepayload",
+    "OssTypeEnum": ".osstypeenum",
     "PageCustomerRead": ".page_customerread_",
     "PageCustomerReadTypedDict": ".page_customerread_",
+    "PageFilingRead": ".page_filingread_",
+    "PageFilingReadTypedDict": ".page_filingread_",
     "PageNexusResponse": ".page_nexusresponse_",
     "PageNexusResponseTypedDict": ".page_nexusresponse_",
+    "PagePhysicalNexusRead": ".page_physicalnexusread_",
+    "PagePhysicalNexusReadTypedDict": ".page_physicalnexusread_",
     "PageProductRead": ".page_productread_",
     "PageProductReadTypedDict": ".page_productread_",
+    "PageRegistrationReadWithPassword": ".page_registrationreadwithpassword_",
+    "PageRegistrationReadWithPasswordTypedDict": ".page_registrationreadwithpassword_",
     "PageTransactionEstimateResponse": ".page_transactionestimateresponse_",
     "PageTransactionEstimateResponseTypedDict": ".page_transactionestimateresponse_",
     "PageTransactionRead": ".page_transactionread_",
     "PageTransactionReadTypedDict": ".page_transactionread_",
     "PeriodModelEnum": ".periodmodelenum",
+    "PhysicalNexusCategory": ".physicalnexuscategory",
+    "PhysicalNexusCreate": ".physicalnexuscreate",
+    "PhysicalNexusCreateTypedDict": ".physicalnexuscreate",
+    "PhysicalNexusRead": ".physicalnexusread",
+    "PhysicalNexusReadTypedDict": ".physicalnexusread",
+    "PhysicalNexusUpdate": ".physicalnexusupdate",
+    "PhysicalNexusUpdateTypedDict": ".physicalnexusupdate",
     "POSTCreateCreditNoteByTransactionIDRequest": ".post_create_credit_note_by_transaction_idop",
     "POSTCreateCreditNoteByTransactionIDRequestTypedDict": ".post_create_credit_note_by_transaction_idop",
     "ProcessingStatusEnum": ".processingstatusenum",
@@ -613,7 +830,17 @@ _dynamic_imports: dict[str, str] = {
     "ProductUpdateTypedDict": ".productupdate",
     "PUTUpdateCreditNoteByTransactionIDRequest": ".put_update_credit_note_by_transaction_idop",
     "PUTUpdateCreditNoteByTransactionIDRequestTypedDict": ".put_update_credit_note_by_transaction_idop",
+    "RegistrationCreatePayload": ".registrationcreatepayload",
+    "RegistrationCreatePayloadTypedDict": ".registrationcreatepayload",
+    "RegistrationRead": ".registrationread",
+    "RegistrationReadTypedDict": ".registrationread",
+    "RegistrationReadWithPassword": ".registrationreadwithpassword",
+    "RegistrationReadWithPasswordTypedDict": ".registrationreadwithpassword",
     "RegistrationsRegimeEnum": ".registrationsregimeenum",
+    "RegistrationStatusEnum": ".registrationstatusenum",
+    "RegistrationTypeEnum": ".registrationtypeenum",
+    "RegistrationUpdateAPI": ".registrationupdateapi",
+    "RegistrationUpdateAPITypedDict": ".registrationupdateapi",
     "RelatedEntityType": ".relatedentitytype",
     "SalesOrTransactionsEnum": ".salesortransactionsenum",
     "SearchV1AddressValidationSearchPostSecurity": ".search_v1_address_validation_search_postop",
@@ -621,6 +848,8 @@ _dynamic_imports: dict[str, str] = {
     "Security": ".security",
     "SecurityTypedDict": ".security",
     "SourceEnum": ".sourceenum",
+    "SSTRegistrationCreatePayload": ".sstregistrationcreatepayload",
+    "SSTRegistrationCreatePayloadTypedDict": ".sstregistrationcreatepayload",
     "StatusEnum": ".statusenum",
     "TaxExemptionEnum": ".taxexemptionenum",
     "TaxItemBuilder": ".taxitembuilder",
@@ -673,8 +902,12 @@ _dynamic_imports: dict[str, str] = {
     "TreatmentEnum": ".treatmentenum",
     "UpdateCustomerV1CustomersCustomerIDPutRequest": ".update_customer_v1_customers_customer_id_putop",
     "UpdateCustomerV1CustomersCustomerIDPutRequestTypedDict": ".update_customer_v1_customers_customer_id_putop",
+    "UpdatePhysicalNexusV1NexusPhysicalNexusPhysicalNexusIDPutRequest": ".update_physical_nexus_v1_nexus_physical_nexus_physical_nexus_id_putop",
+    "UpdatePhysicalNexusV1NexusPhysicalNexusPhysicalNexusIDPutRequestTypedDict": ".update_physical_nexus_v1_nexus_physical_nexus_physical_nexus_id_putop",
     "UpdateProductV1ProductsProductIDPutRequest": ".update_product_v1_products_product_id_putop",
     "UpdateProductV1ProductsProductIDPutRequestTypedDict": ".update_product_v1_products_product_id_putop",
+    "UpdateRegistrationV1RegistrationsRegistrationIDPutRequest": ".update_registration_v1_registrations_registration_id_putop",
+    "UpdateRegistrationV1RegistrationsRegistrationIDPutRequestTypedDict": ".update_registration_v1_registrations_registration_id_putop",
     "UpdateTransactionV1TransactionsTransactionIDPutRequest": ".update_transaction_v1_transactions_transaction_id_putop",
     "UpdateTransactionV1TransactionsTransactionIDPutRequestTypedDict": ".update_transaction_v1_transactions_transaction_id_putop",
     "UploadExemptionCertificateV1ExemptionsExemptionIDAttachmentsPostRequest": ".upload_exemption_certificate_v1_exemptions_exemption_id_attachments_postop",
