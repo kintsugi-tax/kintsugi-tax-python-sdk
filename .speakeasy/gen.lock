@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: a3b5f8df-3e69-405c-9eb8-40a21cc5faba
 management:
-  docChecksum: 3b7599d4823043c763a96752a57b54f0
+  docChecksum: 4ebbfa5f8918df3dc6d3c257fa84050a
   docVersion: 1.0.0
-  speakeasyVersion: 1.592.1
-  generationVersion: 2.667.0
-  releaseVersion: 0.5.10
-  configChecksum: a0fc7410d72034ee525d264d75c69a87
+  speakeasyVersion: 1.592.2
+  generationVersion: 2.668.4
+  releaseVersion: 0.5.11
+  configChecksum: f8733e73099aa15d8048623479c21136
   repoURL: https://github.com/kintsugi-tax/kintsugi-tax-python-sdk.git
   installationURL: https://github.com/kintsugi-tax/kintsugi-tax-python-sdk.git
   published: true
