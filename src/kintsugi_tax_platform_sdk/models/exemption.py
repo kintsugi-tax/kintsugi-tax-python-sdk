@@ -5,15 +5,8 @@ from .countrycodeenum import CountryCodeEnum
 from .exemptionstatus import ExemptionStatus
 from .exemptiontype import ExemptionType
 from datetime import date, datetime
-from kintsugi_tax_platform_sdk.types import (
-    BaseModel,
-    Nullable,
-    OptionalNullable,
-    UNSET,
-    UNSET_SENTINEL,
-)
+from kintsugi_tax_platform_sdk.types import BaseModel
 import pydantic
-from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -26,32 +19,28 @@ class ExemptionTypedDict(TypedDict):
     r"""Unique identifier for the exemption"""
     created_at: NotRequired[datetime]
     r"""Timestamp when transaction was created in Kintsugi."""
-    updated_at: NotRequired[Nullable[datetime]]
+    updated_at: NotRequired[str]
     r"""Timestamp when transaction was last updated."""
-    jurisdiction: NotRequired[Nullable[str]]
+    jurisdiction: NotRequired[str]
     r"""The jurisdiction identifier for the exemption"""
-    country_code: NotRequired[Nullable[CountryCodeEnum]]
-    r"""Country code in ISO 3166-1 alpha-2 format (e.g., 'US')"""
-    end_date: NotRequired[Nullable[date]]
+    country_code: NotRequired[CountryCodeEnum]
+    end_date: NotRequired[str]
     r"""End date for the exemption validity period (YYYY-MM-DD format)"""
-    customer_id: NotRequired[Nullable[str]]
+    customer_id: NotRequired[str]
     r"""Unique identifier for the customer associated with the exemption"""
-    transaction_id: NotRequired[Nullable[str]]
+    transaction_id: NotRequired[str]
     r"""Unique identifier for the transaction
     associated with the exemption, if applicable.
     """
     reseller: NotRequired[bool]
     r"""Indicates whether the exemption is for a reseller"""
-    fein: NotRequired[Nullable[str]]
+    fein: NotRequired[str]
     r"""Federal Employer Identification Number
     associated with the exemption.
     """
-    sales_tax_id: NotRequired[Nullable[str]]
+    sales_tax_id: NotRequired[str]
     r"""Sales tax ID for the exemption"""
-    status: NotRequired[Nullable[ExemptionStatus]]
-    r"""The status of the exemption.
-    Defaults to ACTIVE if not provided.
-    """
+    status: NotRequired[ExemptionStatus]
     organization_id: NotRequired[str]
 
 
@@ -67,22 +56,21 @@ class Exemption(BaseModel):
     created_at: Optional[datetime] = None
     r"""Timestamp when transaction was created in Kintsugi."""
 
-    updated_at: OptionalNullable[datetime] = UNSET
+    updated_at: Optional[str] = None
     r"""Timestamp when transaction was last updated."""
 
-    jurisdiction: OptionalNullable[str] = UNSET
+    jurisdiction: Optional[str] = None
     r"""The jurisdiction identifier for the exemption"""
 
-    country_code: OptionalNullable[CountryCodeEnum] = UNSET
-    r"""Country code in ISO 3166-1 alpha-2 format (e.g., 'US')"""
+    country_code: Optional[CountryCodeEnum] = None
 
-    end_date: OptionalNullable[date] = UNSET
+    end_date: Optional[str] = None
     r"""End date for the exemption validity period (YYYY-MM-DD format)"""
 
-    customer_id: OptionalNullable[str] = UNSET
+    customer_id: Optional[str] = None
     r"""Unique identifier for the customer associated with the exemption"""
 
-    transaction_id: OptionalNullable[str] = UNSET
+    transaction_id: Optional[str] = None
     r"""Unique identifier for the transaction
     associated with the exemption, if applicable.
     """
@@ -90,71 +78,14 @@ class Exemption(BaseModel):
     reseller: Optional[bool] = False
     r"""Indicates whether the exemption is for a reseller"""
 
-    fein: Annotated[OptionalNullable[str], pydantic.Field(alias="FEIN")] = UNSET
+    fein: Annotated[Optional[str], pydantic.Field(alias="FEIN")] = None
     r"""Federal Employer Identification Number
     associated with the exemption.
     """
 
-    sales_tax_id: OptionalNullable[str] = UNSET
+    sales_tax_id: Optional[str] = None
     r"""Sales tax ID for the exemption"""
 
-    status: OptionalNullable[ExemptionStatus] = UNSET
-    r"""The status of the exemption.
-    Defaults to ACTIVE if not provided.
-    """
+    status: Optional[ExemptionStatus] = None
 
     organization_id: Optional[str] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = [
-            "id",
-            "created_at",
-            "updated_at",
-            "jurisdiction",
-            "country_code",
-            "end_date",
-            "customer_id",
-            "transaction_id",
-            "reseller",
-            "FEIN",
-            "sales_tax_id",
-            "status",
-            "organization_id",
-        ]
-        nullable_fields = [
-            "updated_at",
-            "jurisdiction",
-            "country_code",
-            "end_date",
-            "customer_id",
-            "transaction_id",
-            "FEIN",
-            "sales_tax_id",
-            "status",
-        ]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m

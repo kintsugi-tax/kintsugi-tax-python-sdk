@@ -4,9 +4,7 @@
 from kintsugi_tax_platform_sdk import SDK, models
 
 
-with SDK(
-    server_url="https://api.example.com",
-) as sdk:
+with SDK() as sdk:
 
     res = sdk.address_validation.search(security=models.SearchV1AddressValidationSearchPostSecurity(
         api_key_header="<YOUR_API_KEY_HERE>",
@@ -26,9 +24,7 @@ from kintsugi_tax_platform_sdk import SDK, models
 
 async def main():
 
-    async with SDK(
-        server_url="https://api.example.com",
-    ) as sdk:
+    async with SDK() as sdk:
 
         res = await sdk.address_validation.search_async(security=models.SearchV1AddressValidationSearchPostSecurity(
             api_key_header="<YOUR_API_KEY_HERE>",

@@ -4,7 +4,7 @@ from .basesdk import BaseSDK
 from datetime import date
 from kintsugi_tax_platform_sdk import errors, models, utils
 from kintsugi_tax_platform_sdk._hooks import HookContext
-from kintsugi_tax_platform_sdk.types import Nullable, OptionalNullable, UNSET
+from kintsugi_tax_platform_sdk.types import OptionalNullable, UNSET
 from kintsugi_tax_platform_sdk.utils.unmarshal_json_response import (
     unmarshal_json_response,
 )
@@ -15,22 +15,15 @@ class Exemptions(BaseSDK):
     def list(
         self,
         *,
-        security: Union[
-            models.GetExemptionsV1ExemptionsGetSecurity,
-            models.GetExemptionsV1ExemptionsGetSecurityTypedDict,
-        ],
-        x_organization_id: Nullable[str],
-        search_query: OptionalNullable[str] = UNSET,
-        status_in: OptionalNullable[str] = UNSET,
-        country_code: OptionalNullable[
-            Union[List[models.CountryCode], List[models.CountryCodeTypedDict]]
-        ] = UNSET,
-        jurisdiction: OptionalNullable[str] = UNSET,
-        start_date: OptionalNullable[date] = UNSET,
-        end_date: OptionalNullable[date] = UNSET,
-        customer_id: OptionalNullable[str] = UNSET,
-        transaction_id: OptionalNullable[str] = UNSET,
-        order_by: OptionalNullable[str] = UNSET,
+        search_query: Optional[str] = None,
+        status_in: Optional[str] = "ACTIVE,INACTIVE,EXPIRED",
+        country_code: Optional[List[models.CountryCodeEnum]] = None,
+        jurisdiction: Optional[str] = None,
+        start_date: Optional[str] = None,
+        end_date: Optional[str] = None,
+        customer_id: Optional[str] = None,
+        transaction_id: Optional[str] = None,
+        order_by: Optional[str] = "end_date,FEIN,sales_tax_id,status",
         page: Optional[int] = 1,
         size: Optional[int] = 50,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -42,8 +35,6 @@ class Exemptions(BaseSDK):
 
         Retrieve a list of exemptions based on filters.
 
-        :param security:
-        :param x_organization_id: The unique identifier for the organization making the request
         :param search_query: Search term to filter exemptions by exemption ID, customer name, or customer email
         :param status_in: Filter exemptions by their status
         :param country_code: Country code in ISO 3166-1 alpha-2 format
@@ -82,7 +73,6 @@ class Exemptions(BaseSDK):
             order_by=order_by,
             page=page,
             size=size,
-            x_organization_id=x_organization_id,
         )
 
         req = self._build_request(
@@ -97,9 +87,7 @@ class Exemptions(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            security=utils.get_pydantic_model(
-                security, models.GetExemptionsV1ExemptionsGetSecurity
-            ),
+            security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
 
@@ -116,8 +104,8 @@ class Exemptions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_exemptions_v1_exemptions_get",
-                oauth2_scopes=None,
-                security_source=security,
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["401", "422", "4XX", "500", "5XX"],
@@ -155,22 +143,15 @@ class Exemptions(BaseSDK):
     async def list_async(
         self,
         *,
-        security: Union[
-            models.GetExemptionsV1ExemptionsGetSecurity,
-            models.GetExemptionsV1ExemptionsGetSecurityTypedDict,
-        ],
-        x_organization_id: Nullable[str],
-        search_query: OptionalNullable[str] = UNSET,
-        status_in: OptionalNullable[str] = UNSET,
-        country_code: OptionalNullable[
-            Union[List[models.CountryCode], List[models.CountryCodeTypedDict]]
-        ] = UNSET,
-        jurisdiction: OptionalNullable[str] = UNSET,
-        start_date: OptionalNullable[date] = UNSET,
-        end_date: OptionalNullable[date] = UNSET,
-        customer_id: OptionalNullable[str] = UNSET,
-        transaction_id: OptionalNullable[str] = UNSET,
-        order_by: OptionalNullable[str] = UNSET,
+        search_query: Optional[str] = None,
+        status_in: Optional[str] = "ACTIVE,INACTIVE,EXPIRED",
+        country_code: Optional[List[models.CountryCodeEnum]] = None,
+        jurisdiction: Optional[str] = None,
+        start_date: Optional[str] = None,
+        end_date: Optional[str] = None,
+        customer_id: Optional[str] = None,
+        transaction_id: Optional[str] = None,
+        order_by: Optional[str] = "end_date,FEIN,sales_tax_id,status",
         page: Optional[int] = 1,
         size: Optional[int] = 50,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -182,8 +163,6 @@ class Exemptions(BaseSDK):
 
         Retrieve a list of exemptions based on filters.
 
-        :param security:
-        :param x_organization_id: The unique identifier for the organization making the request
         :param search_query: Search term to filter exemptions by exemption ID, customer name, or customer email
         :param status_in: Filter exemptions by their status
         :param country_code: Country code in ISO 3166-1 alpha-2 format
@@ -222,7 +201,6 @@ class Exemptions(BaseSDK):
             order_by=order_by,
             page=page,
             size=size,
-            x_organization_id=x_organization_id,
         )
 
         req = self._build_request_async(
@@ -237,9 +215,7 @@ class Exemptions(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            security=utils.get_pydantic_model(
-                security, models.GetExemptionsV1ExemptionsGetSecurity
-            ),
+            security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
 
@@ -256,8 +232,8 @@ class Exemptions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_exemptions_v1_exemptions_get",
-                oauth2_scopes=None,
-                security_source=security,
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["401", "422", "4XX", "500", "5XX"],
@@ -295,21 +271,16 @@ class Exemptions(BaseSDK):
     def create(
         self,
         *,
-        security: Union[
-            models.CreateExemptionV1ExemptionsPostSecurity,
-            models.CreateExemptionV1ExemptionsPostSecurityTypedDict,
-        ],
-        x_organization_id: Nullable[str],
         exemption_type: models.ExemptionType,
         start_date: date,
         customer_id: str,
         fein: str,
         sales_tax_id: str,
         status: models.ExemptionStatus,
-        jurisdiction: OptionalNullable[str] = UNSET,
-        country_code: OptionalNullable[models.CountryCodeEnum] = UNSET,
-        end_date: OptionalNullable[date] = UNSET,
-        transaction_id: OptionalNullable[str] = UNSET,
+        jurisdiction: Optional[str] = None,
+        country_code: Optional[models.CountryCodeEnum] = None,
+        end_date: Optional[str] = None,
+        transaction_id: Optional[str] = None,
         reseller: Optional[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -322,8 +293,6 @@ class Exemptions(BaseSDK):
         This includes defining details such as exemption type, jurisdiction,
         Country, State, validity dates, etc.
 
-        :param security:
-        :param x_organization_id: The unique identifier for the organization making the request
         :param exemption_type:
         :param start_date: Start date for the exemption validity period (YYYY-MM-DD format)
         :param customer_id: Unique identifier for the customer associated with the exemption
@@ -331,7 +300,7 @@ class Exemptions(BaseSDK):
         :param sales_tax_id: Sales tax ID for the exemption
         :param status:
         :param jurisdiction: The jurisdiction identifier for the exemption
-        :param country_code: Country code in ISO 3166-1 alpha-2 format (e.g., 'US')
+        :param country_code:
         :param end_date: End date for the exemption validity period (YYYY-MM-DD format)
         :param transaction_id: Unique identifier for the transaction, if applicable
         :param reseller: Indicates whether the exemption is for a reseller
@@ -350,21 +319,18 @@ class Exemptions(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateExemptionV1ExemptionsPostRequest(
-            x_organization_id=x_organization_id,
-            exemption_create=models.ExemptionCreate(
-                exemption_type=exemption_type,
-                jurisdiction=jurisdiction,
-                country_code=country_code,
-                start_date=start_date,
-                end_date=end_date,
-                customer_id=customer_id,
-                transaction_id=transaction_id,
-                reseller=reseller,
-                fein=fein,
-                sales_tax_id=sales_tax_id,
-                status=status,
-            ),
+        request = models.ExemptionCreate(
+            exemption_type=exemption_type,
+            jurisdiction=jurisdiction,
+            country_code=country_code,
+            start_date=start_date,
+            end_date=end_date,
+            customer_id=customer_id,
+            transaction_id=transaction_id,
+            reseller=reseller,
+            fein=fein,
+            sales_tax_id=sales_tax_id,
+            status=status,
         )
 
         req = self._build_request(
@@ -379,11 +345,9 @@ class Exemptions(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            security=utils.get_pydantic_model(
-                security, models.CreateExemptionV1ExemptionsPostSecurity
-            ),
+            security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.exemption_create, False, False, "json", models.ExemptionCreate
+                request, False, False, "json", models.ExemptionCreate
             ),
             timeout_ms=timeout_ms,
         )
@@ -401,8 +365,8 @@ class Exemptions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_exemption_v1_exemptions_post",
-                oauth2_scopes=None,
-                security_source=security,
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["401", "422", "4XX", "500", "5XX"],
@@ -440,21 +404,16 @@ class Exemptions(BaseSDK):
     async def create_async(
         self,
         *,
-        security: Union[
-            models.CreateExemptionV1ExemptionsPostSecurity,
-            models.CreateExemptionV1ExemptionsPostSecurityTypedDict,
-        ],
-        x_organization_id: Nullable[str],
         exemption_type: models.ExemptionType,
         start_date: date,
         customer_id: str,
         fein: str,
         sales_tax_id: str,
         status: models.ExemptionStatus,
-        jurisdiction: OptionalNullable[str] = UNSET,
-        country_code: OptionalNullable[models.CountryCodeEnum] = UNSET,
-        end_date: OptionalNullable[date] = UNSET,
-        transaction_id: OptionalNullable[str] = UNSET,
+        jurisdiction: Optional[str] = None,
+        country_code: Optional[models.CountryCodeEnum] = None,
+        end_date: Optional[str] = None,
+        transaction_id: Optional[str] = None,
         reseller: Optional[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -467,8 +426,6 @@ class Exemptions(BaseSDK):
         This includes defining details such as exemption type, jurisdiction,
         Country, State, validity dates, etc.
 
-        :param security:
-        :param x_organization_id: The unique identifier for the organization making the request
         :param exemption_type:
         :param start_date: Start date for the exemption validity period (YYYY-MM-DD format)
         :param customer_id: Unique identifier for the customer associated with the exemption
@@ -476,7 +433,7 @@ class Exemptions(BaseSDK):
         :param sales_tax_id: Sales tax ID for the exemption
         :param status:
         :param jurisdiction: The jurisdiction identifier for the exemption
-        :param country_code: Country code in ISO 3166-1 alpha-2 format (e.g., 'US')
+        :param country_code:
         :param end_date: End date for the exemption validity period (YYYY-MM-DD format)
         :param transaction_id: Unique identifier for the transaction, if applicable
         :param reseller: Indicates whether the exemption is for a reseller
@@ -495,21 +452,18 @@ class Exemptions(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateExemptionV1ExemptionsPostRequest(
-            x_organization_id=x_organization_id,
-            exemption_create=models.ExemptionCreate(
-                exemption_type=exemption_type,
-                jurisdiction=jurisdiction,
-                country_code=country_code,
-                start_date=start_date,
-                end_date=end_date,
-                customer_id=customer_id,
-                transaction_id=transaction_id,
-                reseller=reseller,
-                fein=fein,
-                sales_tax_id=sales_tax_id,
-                status=status,
-            ),
+        request = models.ExemptionCreate(
+            exemption_type=exemption_type,
+            jurisdiction=jurisdiction,
+            country_code=country_code,
+            start_date=start_date,
+            end_date=end_date,
+            customer_id=customer_id,
+            transaction_id=transaction_id,
+            reseller=reseller,
+            fein=fein,
+            sales_tax_id=sales_tax_id,
+            status=status,
         )
 
         req = self._build_request_async(
@@ -524,11 +478,9 @@ class Exemptions(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            security=utils.get_pydantic_model(
-                security, models.CreateExemptionV1ExemptionsPostSecurity
-            ),
+            security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.exemption_create, False, False, "json", models.ExemptionCreate
+                request, False, False, "json", models.ExemptionCreate
             ),
             timeout_ms=timeout_ms,
         )
@@ -546,8 +498,8 @@ class Exemptions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_exemption_v1_exemptions_post",
-                oauth2_scopes=None,
-                security_source=security,
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["401", "422", "4XX", "500", "5XX"],
@@ -585,12 +537,7 @@ class Exemptions(BaseSDK):
     def get(
         self,
         *,
-        security: Union[
-            models.GetExemptionByIDV1ExemptionsExemptionIDGetSecurity,
-            models.GetExemptionByIDV1ExemptionsExemptionIDGetSecurityTypedDict,
-        ],
         exemption_id: str,
-        x_organization_id: Nullable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -603,9 +550,7 @@ class Exemptions(BaseSDK):
         about a particular exemption, including its associated
         customer, organisation id, status, etc.
 
-        :param security:
         :param exemption_id: The unique identifier for the exemption being retrieved.
-        :param x_organization_id: The unique identifier for the organization making the request
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -623,7 +568,6 @@ class Exemptions(BaseSDK):
 
         request = models.GetExemptionByIDV1ExemptionsExemptionIDGetRequest(
             exemption_id=exemption_id,
-            x_organization_id=x_organization_id,
         )
 
         req = self._build_request(
@@ -638,9 +582,7 @@ class Exemptions(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            security=utils.get_pydantic_model(
-                security, models.GetExemptionByIDV1ExemptionsExemptionIDGetSecurity
-            ),
+            security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
 
@@ -657,8 +599,8 @@ class Exemptions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_exemption_by_id_v1_exemptions__exemption_id__get",
-                oauth2_scopes=None,
-                security_source=security,
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["404", "422", "4XX", "500", "5XX"],
@@ -696,12 +638,7 @@ class Exemptions(BaseSDK):
     async def get_async(
         self,
         *,
-        security: Union[
-            models.GetExemptionByIDV1ExemptionsExemptionIDGetSecurity,
-            models.GetExemptionByIDV1ExemptionsExemptionIDGetSecurityTypedDict,
-        ],
         exemption_id: str,
-        x_organization_id: Nullable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -714,9 +651,7 @@ class Exemptions(BaseSDK):
         about a particular exemption, including its associated
         customer, organisation id, status, etc.
 
-        :param security:
         :param exemption_id: The unique identifier for the exemption being retrieved.
-        :param x_organization_id: The unique identifier for the organization making the request
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -734,7 +669,6 @@ class Exemptions(BaseSDK):
 
         request = models.GetExemptionByIDV1ExemptionsExemptionIDGetRequest(
             exemption_id=exemption_id,
-            x_organization_id=x_organization_id,
         )
 
         req = self._build_request_async(
@@ -749,9 +683,7 @@ class Exemptions(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            security=utils.get_pydantic_model(
-                security, models.GetExemptionByIDV1ExemptionsExemptionIDGetSecurity
-            ),
+            security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
 
@@ -768,8 +700,8 @@ class Exemptions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_exemption_by_id_v1_exemptions__exemption_id__get",
-                oauth2_scopes=None,
-                security_source=security,
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["404", "422", "4XX", "500", "5XX"],
@@ -807,12 +739,7 @@ class Exemptions(BaseSDK):
     def upload_certificate(
         self,
         *,
-        security: Union[
-            models.UploadExemptionCertificateV1ExemptionsExemptionIDAttachmentsPostSecurity,
-            models.UploadExemptionCertificateV1ExemptionsExemptionIDAttachmentsPostSecurityTypedDict,
-        ],
         exemption_id: str,
-        x_organization_id: Nullable[str],
         file: Union[models.File, models.FileTypedDict],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -826,9 +753,7 @@ class Exemptions(BaseSDK):
         This is primarily used to associate supporting documents with an exemption record
         to ensure compliance and facilitate verification.
 
-        :param security:
         :param exemption_id: The unique identifier for the exemption to which the attachment will be associated.
-        :param x_organization_id: The unique identifier for the organization making the request
         :param file: The file to be uploaded. Supported format: PDF. Max size: 10 MB.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -847,7 +772,6 @@ class Exemptions(BaseSDK):
 
         request = models.UploadExemptionCertificateV1ExemptionsExemptionIDAttachmentsPostRequest(
             exemption_id=exemption_id,
-            x_organization_id=x_organization_id,
             body_upload_exemption_certificate_v1_exemptions_exemption_id_attachments_post=models.BodyUploadExemptionCertificateV1ExemptionsExemptionIDAttachmentsPost(
                 file=utils.get_pydantic_model(file, models.File),
             ),
@@ -865,10 +789,7 @@ class Exemptions(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            security=utils.get_pydantic_model(
-                security,
-                models.UploadExemptionCertificateV1ExemptionsExemptionIDAttachmentsPostSecurity,
-            ),
+            security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.body_upload_exemption_certificate_v1_exemptions_exemption_id_attachments_post,
                 False,
@@ -892,8 +813,8 @@ class Exemptions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="upload_exemption_certificate_v1_exemptions__exemption_id__attachments_post",
-                oauth2_scopes=None,
-                security_source=security,
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["401", "422", "4XX", "500", "5XX"],
@@ -929,12 +850,7 @@ class Exemptions(BaseSDK):
     async def upload_certificate_async(
         self,
         *,
-        security: Union[
-            models.UploadExemptionCertificateV1ExemptionsExemptionIDAttachmentsPostSecurity,
-            models.UploadExemptionCertificateV1ExemptionsExemptionIDAttachmentsPostSecurityTypedDict,
-        ],
         exemption_id: str,
-        x_organization_id: Nullable[str],
         file: Union[models.File, models.FileTypedDict],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -948,9 +864,7 @@ class Exemptions(BaseSDK):
         This is primarily used to associate supporting documents with an exemption record
         to ensure compliance and facilitate verification.
 
-        :param security:
         :param exemption_id: The unique identifier for the exemption to which the attachment will be associated.
-        :param x_organization_id: The unique identifier for the organization making the request
         :param file: The file to be uploaded. Supported format: PDF. Max size: 10 MB.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -969,7 +883,6 @@ class Exemptions(BaseSDK):
 
         request = models.UploadExemptionCertificateV1ExemptionsExemptionIDAttachmentsPostRequest(
             exemption_id=exemption_id,
-            x_organization_id=x_organization_id,
             body_upload_exemption_certificate_v1_exemptions_exemption_id_attachments_post=models.BodyUploadExemptionCertificateV1ExemptionsExemptionIDAttachmentsPost(
                 file=utils.get_pydantic_model(file, models.File),
             ),
@@ -987,10 +900,7 @@ class Exemptions(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            security=utils.get_pydantic_model(
-                security,
-                models.UploadExemptionCertificateV1ExemptionsExemptionIDAttachmentsPostSecurity,
-            ),
+            security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.body_upload_exemption_certificate_v1_exemptions_exemption_id_attachments_post,
                 False,
@@ -1014,8 +924,8 @@ class Exemptions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="upload_exemption_certificate_v1_exemptions__exemption_id__attachments_post",
-                oauth2_scopes=None,
-                security_source=security,
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["401", "422", "4XX", "500", "5XX"],
@@ -1051,12 +961,7 @@ class Exemptions(BaseSDK):
     def get_attachments(
         self,
         *,
-        security: Union[
-            models.GetAttachmentsForExemptionV1ExemptionsExemptionIDAttachmentsGetSecurity,
-            models.GetAttachmentsForExemptionV1ExemptionsExemptionIDAttachmentsGetSecurityTypedDict,
-        ],
         exemption_id: str,
-        x_organization_id: Nullable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1069,9 +974,7 @@ class Exemptions(BaseSDK):
         This is used to view and manage supporting documents
         like exemption certificates uploaded for a particular exemption record.
 
-        :param security:
         :param exemption_id: The unique identifier for the exemption         whose attachments are being retrieved.
-        :param x_organization_id: The unique identifier for the organization making the request
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1089,7 +992,6 @@ class Exemptions(BaseSDK):
 
         request = models.GetAttachmentsForExemptionV1ExemptionsExemptionIDAttachmentsGetRequest(
             exemption_id=exemption_id,
-            x_organization_id=x_organization_id,
         )
 
         req = self._build_request(
@@ -1104,10 +1006,7 @@ class Exemptions(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            security=utils.get_pydantic_model(
-                security,
-                models.GetAttachmentsForExemptionV1ExemptionsExemptionIDAttachmentsGetSecurity,
-            ),
+            security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
 
@@ -1124,8 +1023,8 @@ class Exemptions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_attachments_for_exemption_v1_exemptions__exemption_id__attachments_get",
-                oauth2_scopes=None,
-                security_source=security,
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["401", "422", "4XX", "5XX"],
@@ -1158,12 +1057,7 @@ class Exemptions(BaseSDK):
     async def get_attachments_async(
         self,
         *,
-        security: Union[
-            models.GetAttachmentsForExemptionV1ExemptionsExemptionIDAttachmentsGetSecurity,
-            models.GetAttachmentsForExemptionV1ExemptionsExemptionIDAttachmentsGetSecurityTypedDict,
-        ],
         exemption_id: str,
-        x_organization_id: Nullable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1176,9 +1070,7 @@ class Exemptions(BaseSDK):
         This is used to view and manage supporting documents
         like exemption certificates uploaded for a particular exemption record.
 
-        :param security:
         :param exemption_id: The unique identifier for the exemption         whose attachments are being retrieved.
-        :param x_organization_id: The unique identifier for the organization making the request
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1196,7 +1088,6 @@ class Exemptions(BaseSDK):
 
         request = models.GetAttachmentsForExemptionV1ExemptionsExemptionIDAttachmentsGetRequest(
             exemption_id=exemption_id,
-            x_organization_id=x_organization_id,
         )
 
         req = self._build_request_async(
@@ -1211,10 +1102,7 @@ class Exemptions(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            security=utils.get_pydantic_model(
-                security,
-                models.GetAttachmentsForExemptionV1ExemptionsExemptionIDAttachmentsGetSecurity,
-            ),
+            security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
 
@@ -1231,8 +1119,8 @@ class Exemptions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_attachments_for_exemption_v1_exemptions__exemption_id__attachments_get",
-                oauth2_scopes=None,
-                security_source=security,
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["401", "422", "4XX", "5XX"],

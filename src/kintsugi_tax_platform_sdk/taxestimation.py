@@ -4,7 +4,7 @@ from .basesdk import BaseSDK
 from datetime import datetime
 from kintsugi_tax_platform_sdk import errors, models, utils
 from kintsugi_tax_platform_sdk._hooks import HookContext
-from kintsugi_tax_platform_sdk.types import Nullable, OptionalNullable, UNSET
+from kintsugi_tax_platform_sdk.types import OptionalNullable, UNSET
 from kintsugi_tax_platform_sdk.utils.unmarshal_json_response import (
     unmarshal_json_response,
 )
@@ -15,11 +15,6 @@ class TaxEstimation(BaseSDK):
     def estimate_tax(
         self,
         *,
-        security: Union[
-            models.EstimateTaxV1TaxEstimatePostSecurity,
-            models.EstimateTaxV1TaxEstimatePostSecurityTypedDict,
-        ],
-        x_organization_id: Nullable[str],
         date_: datetime,
         external_id: str,
         currency: models.CurrencyEnum,
@@ -32,18 +27,13 @@ class TaxEstimation(BaseSDK):
             List[models.TransactionEstimatePublicRequestAddressTypedDict],
         ],
         simulate_nexus_met: Optional[bool] = None,
-        total_amount: Optional[
-            Union[
-                models.TotalAmountOfTheTransactionAfterDiscounts,
-                models.TotalAmountOfTheTransactionAfterDiscountsTypedDict,
-            ]
-        ] = None,
-        description: OptionalNullable[str] = UNSET,
-        source: OptionalNullable[models.SourceEnum] = UNSET,
-        marketplace: OptionalNullable[bool] = UNSET,
-        customer: OptionalNullable[
+        total_amount: Optional[float] = 0.0,
+        description: Optional[str] = None,
+        source: Optional[models.SourceEnum] = None,
+        marketplace: Optional[bool] = False,
+        customer: Optional[
             Union[models.CustomerBasePublic, models.CustomerBasePublicTypedDict]
-        ] = UNSET,
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -55,8 +45,6 @@ class TaxEstimation(BaseSDK):
         transaction based on the provided details, including organization nexus,
         transaction details, customer details, and addresses. Optionally simulates nexus being met for tax calculation purposes. The `simulate_nexus_met` parameter is deprecated and will be removed in future releases.
 
-        :param security:
-        :param x_organization_id: The unique identifier for the organization making the request
         :param date_: The date of the transaction in ISO 8601 format (e.g., 2025-01-25T12:00:00Z).
         :param external_id: Unique identifier of this transaction in the source system.
         :param currency:
@@ -65,9 +53,9 @@ class TaxEstimation(BaseSDK):
         :param simulate_nexus_met: **Deprecated:** Use `simulate_active_registration` in the request body instead.
         :param total_amount: Total amount of the transaction.
         :param description: An optional description of the transaction.
-        :param source: While currently not used, it may be used in the future to determine taxability. The source of the transaction (e.g., OTHER).
+        :param source:
         :param marketplace: Indicates if the transaction involves a marketplace.
-        :param customer: Details about the customer. If the customer is not found, it will be ignored.
+        :param customer:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -85,7 +73,6 @@ class TaxEstimation(BaseSDK):
 
         request = models.EstimateTaxV1TaxEstimatePostRequest(
             simulate_nexus_met=simulate_nexus_met,
-            x_organization_id=x_organization_id,
             transaction_estimate_public_request=models.TransactionEstimatePublicRequest(
                 date_=date_,
                 external_id=external_id,
@@ -98,7 +85,7 @@ class TaxEstimation(BaseSDK):
                     transaction_items, List[models.TransactionItemEstimateBase]
                 ),
                 customer=utils.get_pydantic_model(
-                    customer, OptionalNullable[models.CustomerBasePublic]
+                    customer, Optional[models.CustomerBasePublic]
                 ),
                 addresses=utils.get_pydantic_model(
                     addresses, List[models.TransactionEstimatePublicRequestAddress]
@@ -118,9 +105,7 @@ class TaxEstimation(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            security=utils.get_pydantic_model(
-                security, models.EstimateTaxV1TaxEstimatePostSecurity
-            ),
+            security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.transaction_estimate_public_request,
                 False,
@@ -144,8 +129,8 @@ class TaxEstimation(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="estimate_tax_v1_tax_estimate_post",
-                oauth2_scopes=None,
-                security_source=security,
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
@@ -183,11 +168,6 @@ class TaxEstimation(BaseSDK):
     async def estimate_tax_async(
         self,
         *,
-        security: Union[
-            models.EstimateTaxV1TaxEstimatePostSecurity,
-            models.EstimateTaxV1TaxEstimatePostSecurityTypedDict,
-        ],
-        x_organization_id: Nullable[str],
         date_: datetime,
         external_id: str,
         currency: models.CurrencyEnum,
@@ -200,18 +180,13 @@ class TaxEstimation(BaseSDK):
             List[models.TransactionEstimatePublicRequestAddressTypedDict],
         ],
         simulate_nexus_met: Optional[bool] = None,
-        total_amount: Optional[
-            Union[
-                models.TotalAmountOfTheTransactionAfterDiscounts,
-                models.TotalAmountOfTheTransactionAfterDiscountsTypedDict,
-            ]
-        ] = None,
-        description: OptionalNullable[str] = UNSET,
-        source: OptionalNullable[models.SourceEnum] = UNSET,
-        marketplace: OptionalNullable[bool] = UNSET,
-        customer: OptionalNullable[
+        total_amount: Optional[float] = 0.0,
+        description: Optional[str] = None,
+        source: Optional[models.SourceEnum] = None,
+        marketplace: Optional[bool] = False,
+        customer: Optional[
             Union[models.CustomerBasePublic, models.CustomerBasePublicTypedDict]
-        ] = UNSET,
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -223,8 +198,6 @@ class TaxEstimation(BaseSDK):
         transaction based on the provided details, including organization nexus,
         transaction details, customer details, and addresses. Optionally simulates nexus being met for tax calculation purposes. The `simulate_nexus_met` parameter is deprecated and will be removed in future releases.
 
-        :param security:
-        :param x_organization_id: The unique identifier for the organization making the request
         :param date_: The date of the transaction in ISO 8601 format (e.g., 2025-01-25T12:00:00Z).
         :param external_id: Unique identifier of this transaction in the source system.
         :param currency:
@@ -233,9 +206,9 @@ class TaxEstimation(BaseSDK):
         :param simulate_nexus_met: **Deprecated:** Use `simulate_active_registration` in the request body instead.
         :param total_amount: Total amount of the transaction.
         :param description: An optional description of the transaction.
-        :param source: While currently not used, it may be used in the future to determine taxability. The source of the transaction (e.g., OTHER).
+        :param source:
         :param marketplace: Indicates if the transaction involves a marketplace.
-        :param customer: Details about the customer. If the customer is not found, it will be ignored.
+        :param customer:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -253,7 +226,6 @@ class TaxEstimation(BaseSDK):
 
         request = models.EstimateTaxV1TaxEstimatePostRequest(
             simulate_nexus_met=simulate_nexus_met,
-            x_organization_id=x_organization_id,
             transaction_estimate_public_request=models.TransactionEstimatePublicRequest(
                 date_=date_,
                 external_id=external_id,
@@ -266,7 +238,7 @@ class TaxEstimation(BaseSDK):
                     transaction_items, List[models.TransactionItemEstimateBase]
                 ),
                 customer=utils.get_pydantic_model(
-                    customer, OptionalNullable[models.CustomerBasePublic]
+                    customer, Optional[models.CustomerBasePublic]
                 ),
                 addresses=utils.get_pydantic_model(
                     addresses, List[models.TransactionEstimatePublicRequestAddress]
@@ -286,9 +258,7 @@ class TaxEstimation(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            security=utils.get_pydantic_model(
-                security, models.EstimateTaxV1TaxEstimatePostSecurity
-            ),
+            security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.transaction_estimate_public_request,
                 False,
@@ -312,8 +282,8 @@ class TaxEstimation(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="estimate_tax_v1_tax_estimate_post",
-                oauth2_scopes=None,
-                security_source=security,
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],

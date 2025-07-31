@@ -2,24 +2,18 @@
 
 from __future__ import annotations
 from kintsugi_tax_platform_sdk.types import BaseModel
-from typing import List, Union
-from typing_extensions import TypeAliasType, TypedDict
-
-
-LocTypedDict = TypeAliasType("LocTypedDict", Union[str, int])
-
-
-Loc = TypeAliasType("Loc", Union[str, int])
+from typing import List
+from typing_extensions import TypedDict
 
 
 class ValidationErrorTypedDict(TypedDict):
-    loc: List[LocTypedDict]
+    loc: List[str]
     msg: str
     type: str
 
 
 class ValidationError(BaseModel):
-    loc: List[Loc]
+    loc: List[str]
 
     msg: str
 

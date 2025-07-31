@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: a3b5f8df-3e69-405c-9eb8-40a21cc5faba
 management:
-  docChecksum: 3b7599d4823043c763a96752a57b54f0
+  docChecksum: 05be7a6ce0f40d1f7e41b1dd0493dbfd
   docVersion: 1.0.0
-  speakeasyVersion: 1.592.1
-  generationVersion: 2.667.0
-  releaseVersion: 0.5.10
-  configChecksum: a0fc7410d72034ee525d264d75c69a87
+  speakeasyVersion: 1.594.0
+  generationVersion: 2.670.1
+  releaseVersion: 0.6.0
+  configChecksum: 5b52112802970b308ad3a951e30b22f0
   repoURL: https://github.com/kintsugi-tax/kintsugi-tax-python-sdk.git
   installationURL: https://github.com/kintsugi-tax/kintsugi-tax-python-sdk.git
   published: true
@@ -23,18 +23,15 @@ features:
     flattening: 3.1.1
     globalSecurity: 3.0.3
     globalSecurityCallbacks: 1.0.0
-    globalSecurityFlattening: 1.0.0
     globalServerURLs: 3.1.1
     groups: 3.0.0
     methodArguments: 1.0.2
     methodSecurity: 3.0.1
     multipartFileContentType: 1.0.0
     nameOverrides: 3.0.1
-    nullables: 1.0.1
     responseFormat: 1.0.1
     retries: 3.0.2
     sdkHooks: 1.1.0
-    unions: 3.0.4
     uploadStreams: 1.0.0
 generatedFiles:
   - .gitattributes
@@ -49,7 +46,6 @@ generatedFiles:
   - docs/errors/errorresponse.md
   - docs/errors/httpvalidationerror.md
   - docs/models/addressbase.md
-  - docs/models/addressinput.md
   - docs/models/addressresponsedata.md
   - docs/models/addresssearchresponse.md
   - docs/models/addressstatus.md
@@ -66,42 +62,19 @@ generatedFiles:
   - docs/models/backendsrctaxestimationresponsesvalidationerroritem.md
   - docs/models/backendsrctransactionsresponsesvalidationerroritem.md
   - docs/models/bodyuploadexemptioncertificatev1exemptionsexemptionidattachmentspost.md
-  - docs/models/code.md
-  - docs/models/countrycode.md
   - docs/models/countrycodeenum.md
-  - docs/models/createcustomerv1customerspostrequest.md
-  - docs/models/createcustomerv1customerspostsecurity.md
-  - docs/models/createexemptionv1exemptionspostrequest.md
-  - docs/models/createexemptionv1exemptionspostsecurity.md
-  - docs/models/createproductv1productspostrequest.md
-  - docs/models/createproductv1productspostsecurity.md
   - docs/models/createtransactionbycustomeridv1customerscustomeridtransactionspostrequest.md
-  - docs/models/createtransactionbycustomeridv1customerscustomeridtransactionspostsecurity.md
-  - docs/models/createtransactionv1transactionspostrequest.md
-  - docs/models/createtransactionv1transactionspostsecurity.md
   - docs/models/creditnotecreate.md
-  - docs/models/creditnotecreatetaxableamount.md
-  - docs/models/creditnotecreatetaxamountimported.md
-  - docs/models/creditnotecreatetaxrateimported.md
-  - docs/models/creditnotecreatetotalamount.md
   - docs/models/creditnoteitemcreateupdate.md
-  - docs/models/creditnoteitemcreateupdateamount.md
-  - docs/models/creditnoteitemcreateupdatequantity.md
-  - docs/models/creditnoteitemcreateupdatetaxableamount.md
-  - docs/models/creditnoteitemcreateupdatetaxamountimported.md
-  - docs/models/creditnoteitemcreateupdatetaxrateimported.md
   - docs/models/currencyenum.md
-  - docs/models/customer.md
   - docs/models/customerbase.md
   - docs/models/customerbasebase.md
   - docs/models/customerbasepublic.md
   - docs/models/customercreate.md
   - docs/models/customerread.md
   - docs/models/customerupdate.md
-  - docs/models/discountamount.md
   - docs/models/discountbuilder.md
   - docs/models/estimatetaxv1taxestimatepostrequest.md
-  - docs/models/estimatetaxv1taxestimatepostsecurity.md
   - docs/models/exemption.md
   - docs/models/exemptioncreate.md
   - docs/models/exemptionrequired.md
@@ -110,39 +83,20 @@ generatedFiles:
   - docs/models/fastapipaginationdefaultpageexemptionread2.md
   - docs/models/file.md
   - docs/models/getattachmentsforexemptionv1exemptionsexemptionidattachmentsgetrequest.md
-  - docs/models/getattachmentsforexemptionv1exemptionsexemptionidattachmentsgetsecurity.md
   - docs/models/getcustomerbyexternalidv1customersexternalexternalidgetrequest.md
-  - docs/models/getcustomerbyexternalidv1customersexternalexternalidgetsecurity.md
   - docs/models/getcustomerbyidv1customerscustomeridgetrequest.md
-  - docs/models/getcustomerbyidv1customerscustomeridgetsecurity.md
-  - docs/models/getcustomersv1country.md
   - docs/models/getcustomersv1request.md
-  - docs/models/getcustomersv1security.md
   - docs/models/getexemptionbyidv1exemptionsexemptionidgetrequest.md
-  - docs/models/getexemptionbyidv1exemptionsexemptionidgetsecurity.md
   - docs/models/getexemptionsv1exemptionsgetrequest.md
-  - docs/models/getexemptionsv1exemptionsgetsecurity.md
   - docs/models/getnexusfororgv1nexusgetrequest.md
-  - docs/models/getnexusfororgv1nexusgetsecurity.md
   - docs/models/getproductbyidv1productsproductidgetrequest.md
-  - docs/models/getproductbyidv1productsproductidgetsecurity.md
-  - docs/models/getproductcategoriesv1productscategoriesgetrequest.md
-  - docs/models/getproductcategoriesv1productscategoriesgetsecurity.md
   - docs/models/getproductsv1productsgetrequest.md
-  - docs/models/getproductsv1productsgetsecurity.md
   - docs/models/gettransactionbyexternalidv1transactionsexternalexternalidgetrequest.md
-  - docs/models/gettransactionbyexternalidv1transactionsexternalexternalidgetsecurity.md
   - docs/models/gettransactionbyidv1transactionstransactionidgetrequest.md
-  - docs/models/gettransactionbyidv1transactionstransactionidgetsecurity.md
   - docs/models/gettransactionsbycustomeridv1customerscustomeridtransactionsgetrequest.md
-  - docs/models/gettransactionsbycustomeridv1customerscustomeridtransactionsgetsecurity.md
   - docs/models/gettransactionsbyfilingidv1transactionsfilingsfilingidgetrequest.md
-  - docs/models/gettransactionsbyfilingidv1transactionsfilingsfilingidgetsecurity.md
-  - docs/models/gettransactionsv1transactionsgetcountry.md
   - docs/models/gettransactionsv1transactionsgetrequest.md
-  - docs/models/gettransactionsv1transactionsgetsecurity.md
   - docs/models/jurisdictiontype.md
-  - docs/models/loc.md
   - docs/models/nexusresponse.md
   - docs/models/nexusstateenum.md
   - docs/models/nexusstatusenum.md
@@ -154,27 +108,18 @@ generatedFiles:
   - docs/models/pagetransactionread.md
   - docs/models/periodmodelenum.md
   - docs/models/postcreatecreditnotebytransactionidrequest.md
-  - docs/models/postcreatecreditnotebytransactionidsecurity.md
   - docs/models/processingstatusenum.md
-  - docs/models/product.md
   - docs/models/productcategories.md
   - docs/models/productcategoryenum.md
   - docs/models/productcodeenum.md
   - docs/models/productcreatemanual.md
-  - docs/models/productcreatemanualproductcategory.md
-  - docs/models/productcreatemanualproductsubcategory.md
   - docs/models/productread.md
-  - docs/models/productreadproductcategory.md
-  - docs/models/productreadproductsubcategory.md
   - docs/models/productstatusenum.md
   - docs/models/productsubcategory.md
   - docs/models/productsubcategoryenum.md
   - docs/models/productupdate.md
-  - docs/models/productupdatev2.md
   - docs/models/putupdatecreditnotebytransactionidrequest.md
-  - docs/models/putupdatecreditnotebytransactionidsecurity.md
-  - docs/models/quantityoftheproduct.md
-  - docs/models/rate.md
+  - docs/models/registration.md
   - docs/models/registrationsregimeenum.md
   - docs/models/relatedentitytype.md
   - docs/models/salesortransactionsenum.md
@@ -183,39 +128,17 @@ generatedFiles:
   - docs/models/sourceenum.md
   - docs/models/status.md
   - docs/models/statusenum.md
-  - docs/models/suggestionsv1addressvalidationsuggestionspostrequest.md
-  - docs/models/suggestionsv1addressvalidationsuggestionspostsecurity.md
   - docs/models/taxexemptionenum.md
   - docs/models/taxitembuilder.md
-  - docs/models/taxitembuilderamount.md
-  - docs/models/taxitembuilderconvertedamount.md
   - docs/models/taxitemestimate.md
   - docs/models/taxitemread.md
   - docs/models/taxitemreturnreasonenum.md
   - docs/models/taxitemtypeenum.md
   - docs/models/taxliabilitysourceenum.md
-  - docs/models/totalamountofthetransactionafterdiscounts.md
-  - docs/models/totalamountofthistransactionitemafterdiscounts.md
   - docs/models/transactionaddressbuilder.md
   - docs/models/transactionaddresspublic.md
   - docs/models/transactionaddressreadoutput.md
   - docs/models/transactioncreate.md
-  - docs/models/transactioncreateaddresses.md
-  - docs/models/transactioncreateconversionrate.md
-  - docs/models/transactioncreateconvertedsubtotal.md
-  - docs/models/transactioncreateconvertedtaxableamount.md
-  - docs/models/transactioncreateconvertedtotalamount.md
-  - docs/models/transactioncreateconvertedtotaldiscount.md
-  - docs/models/transactioncreateconvertedtotaltaxamountcalculated.md
-  - docs/models/transactioncreateconvertedtotaltaxamountimported.md
-  - docs/models/transactioncreateconvertedtotaltaxliabilityamount.md
-  - docs/models/transactioncreatetaxableamount.md
-  - docs/models/transactioncreatetaxratecalculated.md
-  - docs/models/transactioncreatetaxrateimported.md
-  - docs/models/transactioncreatetotalamount.md
-  - docs/models/transactioncreatetotaltaxamountcalculated.md
-  - docs/models/transactioncreatetotaltaxamountimported.md
-  - docs/models/transactioncreatetotaltaxliabilityamount.md
   - docs/models/transactionestimatepublicrequest.md
   - docs/models/transactionestimatepublicrequestaddress.md
   - docs/models/transactionestimatepublicrequesttype.md
@@ -223,76 +146,22 @@ generatedFiles:
   - docs/models/transactionestimateresponseaddress.md
   - docs/models/transactionestimateresponsetype.md
   - docs/models/transactionexemptstatusenum.md
-  - docs/models/transactionimportcustomer.md
   - docs/models/transactionitembuilder.md
-  - docs/models/transactionitembuilderamount.md
-  - docs/models/transactionitembuilderconvertedamount.md
-  - docs/models/transactionitembuilderconvertedsubtotal.md
-  - docs/models/transactionitembuilderconvertedtaxableamount.md
-  - docs/models/transactionitembuilderconvertedtaxamountcalculated.md
-  - docs/models/transactionitembuilderconvertedtaxamountimported.md
-  - docs/models/transactionitembuilderconvertedtotaldiscount.md
-  - docs/models/transactionitembuilderquantity.md
-  - docs/models/transactionitembuildertaxableamount.md
-  - docs/models/transactionitembuildertaxamountcalculated.md
-  - docs/models/transactionitembuildertaxamountimported.md
-  - docs/models/transactionitembuildertaxratecalculated.md
-  - docs/models/transactionitembuildertaxrateimported.md
   - docs/models/transactionitemcreateupdate.md
-  - docs/models/transactionitemcreateupdateamount.md
-  - docs/models/transactionitemcreateupdateconvertedamount.md
-  - docs/models/transactionitemcreateupdateconvertedsubtotal.md
-  - docs/models/transactionitemcreateupdateconvertedtaxableamount.md
-  - docs/models/transactionitemcreateupdateconvertedtaxamountcalculated.md
-  - docs/models/transactionitemcreateupdateconvertedtaxamountimported.md
-  - docs/models/transactionitemcreateupdateconvertedtotaldiscount.md
-  - docs/models/transactionitemcreateupdatequantity.md
-  - docs/models/transactionitemcreateupdatetaxableamount.md
-  - docs/models/transactionitemcreateupdatetaxamountcalculated.md
-  - docs/models/transactionitemcreateupdatetaxamountimported.md
-  - docs/models/transactionitemcreateupdatetaxratecalculated.md
-  - docs/models/transactionitemcreateupdatetaxrateimported.md
   - docs/models/transactionitemestimatebase.md
   - docs/models/transactionitemestimateresponse.md
   - docs/models/transactionitemread.md
   - docs/models/transactionpublicrequest.md
-  - docs/models/transactionpublicrequesttaxableamount.md
-  - docs/models/transactionpublicrequesttaxratecalculated.md
-  - docs/models/transactionpublicrequesttaxrateimported.md
-  - docs/models/transactionpublicrequesttotalamount.md
-  - docs/models/transactionpublicrequesttotaltaxamountcalculated.md
-  - docs/models/transactionpublicrequesttotaltaxamountimported.md
-  - docs/models/transactionpublicrequesttotaltaxliabilityamount.md
   - docs/models/transactionread.md
   - docs/models/transactionrefundstatus.md
   - docs/models/transactionstatusenum.md
   - docs/models/transactiontypeenum.md
   - docs/models/transactionupdate.md
-  - docs/models/transactionupdateaddresses.md
-  - docs/models/transactionupdateconversionrate.md
-  - docs/models/transactionupdateconvertedsubtotal.md
-  - docs/models/transactionupdateconvertedtaxableamount.md
-  - docs/models/transactionupdateconvertedtotalamount.md
-  - docs/models/transactionupdateconvertedtotaldiscount.md
-  - docs/models/transactionupdateconvertedtotaltaxamountcalculated.md
-  - docs/models/transactionupdateconvertedtotaltaxamountimported.md
-  - docs/models/transactionupdateconvertedtotaltaxliabilityamount.md
-  - docs/models/transactionupdatetaxableamount.md
-  - docs/models/transactionupdatetaxratecalculated.md
-  - docs/models/transactionupdatetaxrateimported.md
-  - docs/models/transactionupdatetotalamount.md
-  - docs/models/transactionupdatetotaltaxamountcalculated.md
-  - docs/models/transactionupdatetotaltaxamountimported.md
-  - docs/models/transactionupdatetotaltaxliabilityamount.md
   - docs/models/treatmentenum.md
   - docs/models/updatecustomerv1customerscustomeridputrequest.md
-  - docs/models/updatecustomerv1customerscustomeridputsecurity.md
   - docs/models/updateproductv1productsproductidputrequest.md
-  - docs/models/updateproductv1productsproductidputsecurity.md
   - docs/models/updatetransactionv1transactionstransactionidputrequest.md
-  - docs/models/updatetransactionv1transactionstransactionidputsecurity.md
   - docs/models/uploadexemptioncertificatev1exemptionsexemptionidattachmentspostrequest.md
-  - docs/models/uploadexemptioncertificatev1exemptionsexemptionidattachmentspostsecurity.md
   - docs/models/utils/retryconfig.md
   - docs/models/validationaddress.md
   - docs/models/validationerror.md
@@ -334,7 +203,6 @@ generatedFiles:
   - src/kintsugi_tax_platform_sdk/exemptions.py
   - src/kintsugi_tax_platform_sdk/httpclient.py
   - src/kintsugi_tax_platform_sdk/models/__init__.py
-  - src/kintsugi_tax_platform_sdk/models/address_input.py
   - src/kintsugi_tax_platform_sdk/models/addressbase.py
   - src/kintsugi_tax_platform_sdk/models/addressresponsedata.py
   - src/kintsugi_tax_platform_sdk/models/addresssearchresponse.py
@@ -353,11 +221,7 @@ generatedFiles:
   - src/kintsugi_tax_platform_sdk/models/backend_src_transactions_responses_validationerroritem.py
   - src/kintsugi_tax_platform_sdk/models/body_upload_exemption_certificate_v1_exemptions_exemption_id_attachments_post.py
   - src/kintsugi_tax_platform_sdk/models/countrycodeenum.py
-  - src/kintsugi_tax_platform_sdk/models/create_customer_v1_customers_postop.py
-  - src/kintsugi_tax_platform_sdk/models/create_exemption_v1_exemptions_postop.py
-  - src/kintsugi_tax_platform_sdk/models/create_product_v1_products_postop.py
   - src/kintsugi_tax_platform_sdk/models/create_transaction_by_customer_id_v1_customers_customer_id_transactions_postop.py
-  - src/kintsugi_tax_platform_sdk/models/create_transaction_v1_transactions_postop.py
   - src/kintsugi_tax_platform_sdk/models/creditnotecreate.py
   - src/kintsugi_tax_platform_sdk/models/creditnoteitemcreateupdate.py
   - src/kintsugi_tax_platform_sdk/models/currencyenum.py
@@ -383,7 +247,6 @@ generatedFiles:
   - src/kintsugi_tax_platform_sdk/models/get_exemptions_v1_exemptions_getop.py
   - src/kintsugi_tax_platform_sdk/models/get_nexus_for_org_v1_nexus_getop.py
   - src/kintsugi_tax_platform_sdk/models/get_product_by_id_v1_products_product_id_getop.py
-  - src/kintsugi_tax_platform_sdk/models/get_product_categories_v1_products_categories_getop.py
   - src/kintsugi_tax_platform_sdk/models/get_products_v1_products_getop.py
   - src/kintsugi_tax_platform_sdk/models/get_transaction_by_external_id_v1_transactions_external_external_id_getop.py
   - src/kintsugi_tax_platform_sdk/models/get_transaction_by_id_v1_transactions_transaction_id_getop.py
@@ -412,7 +275,6 @@ generatedFiles:
   - src/kintsugi_tax_platform_sdk/models/productsubcategory.py
   - src/kintsugi_tax_platform_sdk/models/productsubcategoryenum.py
   - src/kintsugi_tax_platform_sdk/models/productupdate.py
-  - src/kintsugi_tax_platform_sdk/models/productupdatev2.py
   - src/kintsugi_tax_platform_sdk/models/put_update_credit_note_by_transaction_idop.py
   - src/kintsugi_tax_platform_sdk/models/registrationsregimeenum.py
   - src/kintsugi_tax_platform_sdk/models/relatedentitytype.py
@@ -421,7 +283,6 @@ generatedFiles:
   - src/kintsugi_tax_platform_sdk/models/security.py
   - src/kintsugi_tax_platform_sdk/models/sourceenum.py
   - src/kintsugi_tax_platform_sdk/models/statusenum.py
-  - src/kintsugi_tax_platform_sdk/models/suggestions_v1_address_validation_suggestions_postop.py
   - src/kintsugi_tax_platform_sdk/models/taxexemptionenum.py
   - src/kintsugi_tax_platform_sdk/models/taxitembuilder.py
   - src/kintsugi_tax_platform_sdk/models/taxitemestimate.py
@@ -436,7 +297,6 @@ generatedFiles:
   - src/kintsugi_tax_platform_sdk/models/transactionestimatepublicrequest.py
   - src/kintsugi_tax_platform_sdk/models/transactionestimateresponse.py
   - src/kintsugi_tax_platform_sdk/models/transactionexemptstatusenum.py
-  - src/kintsugi_tax_platform_sdk/models/transactionimportcustomer.py
   - src/kintsugi_tax_platform_sdk/models/transactionitembuilder.py
   - src/kintsugi_tax_platform_sdk/models/transactionitemcreateupdate.py
   - src/kintsugi_tax_platform_sdk/models/transactionitemestimatebase.py
@@ -501,7 +361,7 @@ examples:
         header:
           x-organization-id: "org_12345"
       requestBody:
-        application/json: {}
+        application/json: {"country": "US", "postalCode": ""}
       responses:
         "200":
           application/json: "<value>"
@@ -600,7 +460,7 @@ examples:
           x-organization-id: "org_12345"
       responses:
         "200":
-          application/json: [{"organization_id": "<id>", "external_id": "<id>", "date": "2023-02-17T13:13:59.050Z", "total_amount": "0.00", "total_tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "total_tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "total_tax_liability_amount": "0.00", "taxable_amount": "0.00", "locked": false, "id": "<id>", "addresses": [{"type": "SHIP_TO"}], "transaction_items": [{"organization_id": "<id>", "date": "2024-01-20T22:07:20.889Z", "external_product_id": "<id>", "quantity": "1.0", "amount": "0.00", "tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "taxable_amount": "0.00", "exempt": false, "id": "<id>", "tax_items": [{"rule_id": "0000", "rate": "<value>", "amount": "954.69", "name": "<value>"}]}], "type": "ARCHIVE"}]
+          application/json: [{"organization_id": "<id>", "external_id": "<id>", "date": "2023-02-17T13:13:59.050Z", "total_amount": "0.00", "marketplace": false, "total_tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "total_tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "total_tax_liability_amount": "0.00", "taxable_amount": "0.00", "locked": false, "id": "<id>", "addresses": [{"type": "SHIP_TO"}], "transaction_items": [{"organization_id": "<id>", "date": "2024-01-20T22:07:20.889Z", "external_product_id": "<id>", "quantity": "1.0", "amount": "0.00", "tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "taxable_amount": "0.00", "exempt": false, "id": "<id>", "tax_items": [{"rule_id": "0000", "rate": "<value>", "amount": "954.69", "name": "<value>"}]}], "type": "ARCHIVE"}]
         "422":
           application/json: {}
   create_transaction_by_customer_id_v1_customers__customer_id__transactions_post:
@@ -611,10 +471,10 @@ examples:
         header:
           x-organization-id: "org_12345"
       requestBody:
-        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2023-02-16T04:36:50.697Z", "locked": false, "addresses": [], "transaction_items": [{"organization_id": "<id>", "date": "2024-05-13T04:49:24.946Z", "external_product_id": "<id>", "exempt": false}]}
+        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2023-02-16T04:36:50.697Z", "total_amount": 0, "marketplace": false, "total_tax_amount_imported": 0, "tax_rate_imported": 0, "total_tax_amount_calculated": 0, "tax_rate_calculated": 0, "total_tax_liability_amount": 0, "taxable_amount": 0, "locked": false, "addresses": [], "transaction_items": [{"organization_id": "<id>", "date": "2024-05-13T04:49:24.946Z", "external_product_id": "<id>", "quantity": 1, "amount": 0, "tax_amount_imported": 0, "tax_rate_imported": 0, "tax_amount_calculated": 0, "tax_rate_calculated": 0, "taxable_amount": 0, "exempt": false}]}
       responses:
         "200":
-          application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2024-03-26T21:54:40.067Z", "total_amount": "0.00", "total_tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "total_tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "total_tax_liability_amount": "0.00", "taxable_amount": "0.00", "locked": false, "id": "<id>", "addresses": [], "transaction_items": [{"organization_id": "<id>", "date": "2025-07-02T12:31:43.127Z", "external_product_id": "<id>", "quantity": "1.0", "amount": "0.00", "tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "taxable_amount": "0.00", "exempt": false, "id": "<id>", "tax_items": [{"rule_id": "0000", "rate": "<value>", "amount": "817.28", "name": "<value>"}]}], "type": "PARTIAL_CREDIT_NOTE"}
+          application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2024-03-26T21:54:40.067Z", "total_amount": "0.00", "marketplace": false, "total_tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "total_tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "total_tax_liability_amount": "0.00", "taxable_amount": "0.00", "locked": false, "id": "<id>", "addresses": [], "transaction_items": [{"organization_id": "<id>", "date": "2025-07-02T12:31:43.127Z", "external_product_id": "<id>", "quantity": "1.0", "amount": "0.00", "tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "taxable_amount": "0.00", "exempt": false, "id": "<id>", "tax_items": [{"rule_id": "0000", "rate": "<value>", "amount": "817.28", "name": "<value>"}]}], "type": "PARTIAL_CREDIT_NOTE"}
         "422":
           application/json: {}
   get_exemptions_v1_exemptions_get:
@@ -630,11 +490,13 @@ examples:
           transaction_id: "trans_1234"
           page: 1
           size: 50
+          status__in: "ACTIVE,INACTIVE,EXPIRED"
+          order_by: "end_date,FEIN,sales_tax_id,status"
         header:
           x-organization-id: "org_12345"
       responses:
         "200":
-          application/json: {"items": [], "total": 809509, "page": 948427, "size": null}
+          application/json: {"items": [], "total": 809509, "page": 948427, "size": 281800}
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -711,11 +573,13 @@ examples:
         query:
           page: 1
           size: 50
+          status__in: "APPROACHING,NOT_EXPOSED,PENDING_REGISTRATION,EXPOSED,APPROACHING,REGISTERED"
+          order_by: "state_code,country_code"
         header:
           x-organization-id: "org_12345"
       responses:
         "200":
-          application/json: {"items": [{"country_code": "CN", "state_code": "<value>", "state_name": "<value>", "treatment_of_exempt_transactions": "YES_SALES_NO_TRANSACTIONS", "trigger": "<value>", "sales_or_transactions": "SALES", "threshold_sales": 476092, "threshold_transactions": 144398, "start_date": "2025-03-09", "transaction_count": 0, "transactions_amount": "0.00", "previous_transaction_count": 0, "previous_transactions_amount": "0.00", "tax_liability": "0.00", "nexus_met": false, "economic_nexus_met": false, "physical_nexus_met": false, "collected_tax_enabled": false, "period_model": "PRECEDING_YEAR_QUARTERLY_OFFSET", "period_start_date": "2024-12-20", "period_end_date": "2023-10-25", "previous_period_start_date": "2023-02-23", "previous_period_end_date": "2023-05-08", "earliest_collected_date": "2018-01-01T00:00:00", "id": "<id>", "created_at": "2025-07-27T10:58:50.049Z", "updated_at": "2024-12-31T08:38:28.993Z", "organization_id": "<id>", "is_vda_eligible": false, "nexus_type": "STATE", "total_transactions": 218796, "total_transactions_included": 800733, "total_transactions_exempted": 990975, "total_transactions_marketplace": 980208, "marketplace_included": true}], "total": null, "page": 886833, "size": 272984}
+          application/json: {"items": [{"country_code": "CN", "state_code": "<value>", "state_name": "<value>", "treatment_of_exempt_transactions": "YES_SALES_NO_TRANSACTIONS", "trigger": "<value>", "sales_or_transactions": "SALES", "threshold_sales": 476092, "threshold_transactions": 144398, "start_date": "2025-03-09", "transaction_count": 0, "transactions_amount": "0.00", "previous_transaction_count": 0, "previous_transactions_amount": "0.00", "calculated_tax_liability": "0.00", "imported_tax_liability": "0.00", "tax_liability": "0.00", "nexus_met": false, "economic_nexus_met": false, "physical_nexus_met": false, "collected_tax_nexus_met": false, "collected_tax_enabled": false, "period_model": "PRECEDING_YEAR_QUARTERLY_OFFSET", "period_start_date": "2024-12-20", "period_end_date": "2023-10-25", "previous_period_start_date": "2023-02-23", "previous_period_end_date": "2023-05-08", "earliest_collected_date": "2018-01-01T00:00:00", "vda_eligible": false, "id": "<id>", "created_at": "2025-07-27T10:58:50.049Z", "updated_at": "2024-12-31T08:38:28.993Z", "organization_id": "<id>", "is_vda_eligible": false, "nexus_type": "STATE", "total_transactions": 218796, "total_transactions_included": 800733, "total_transactions_exempted": 990975, "total_transactions_marketplace": 980208, "marketplace_included": true}], "total": 825206, "page": 886833, "size": 272984}
         "422":
           application/json: {}
   get_products_v1_products__get:
@@ -728,7 +592,7 @@ examples:
           x-organization-id: "org_12345"
       responses:
         "200":
-          application/json: {"items": [{"id": "<id>", "external_id": "<id>", "sku": ["<value 1>"], "code": "CODE_3006", "name": "<value>", "description": "furthermore suckle whose", "status": "APPROVED", "product_category": "MISCELLANEOUS", "product_subcategory": "COMMERCIAL_CONSTRUCTION_EXISTING_BUILDINGS_LABOR", "tax_exempt": true, "source": "RECURLY", "connection_id": "<id>", "classification_failed": true}], "total": 158694, "page": null, "size": 727379}
+          application/json: {"items": [{"id": "<id>", "external_id": "<id>", "sku": ["<value 1>"], "code": "CODE_3006", "name": "<value>", "description": "furthermore suckle whose", "status": "APPROVED", "product_category": "MISCELLANEOUS", "product_subcategory": "COMMERCIAL_CONSTRUCTION_EXISTING_BUILDINGS_LABOR", "tax_exempt": true, "source": "RECURLY", "connection_id": "<id>", "classification_failed": true}], "total": 158694, "page": 578852, "size": 727379}
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -741,10 +605,10 @@ examples:
         header:
           x-organization-id: "org_12345"
       requestBody:
-        application/json: {"external_id": "<id>", "name": "<value>", "product_category": "<value>", "product_subcategory": "<value>", "tax_exempt": true}
+        application/json: {"external_id": "<id>", "name": "<value>", "product_category": "UNKNOWN", "product_subcategory": "MERCHANDISE_VENDING_MACHINE", "tax_exempt": true}
       responses:
         "200":
-          application/json: {"id": "<id>", "external_id": "<id>", "sku": ["<value 1>", "<value 2>"], "code": "CODE_3009", "name": "<value>", "description": "huzzah incidentally below pfft under stitcher", "status": "PARTIALLY_APPROVED", "product_category": "<value>", "product_subcategory": "FOOD_VENDING_MACHINE", "tax_exempt": true, "source": "OTHER", "connection_id": "<id>", "classification_failed": null}
+          application/json: {"id": "<id>", "external_id": "<id>", "sku": ["<value 1>", "<value 2>"], "code": "CODE_3009", "name": "<value>", "description": "huzzah incidentally below pfft under stitcher", "status": "PARTIALLY_APPROVED", "product_category": "DIGITAL", "product_subcategory": "FOOD_VENDING_MACHINE", "tax_exempt": true, "source": "OTHER", "connection_id": "<id>", "classification_failed": false}
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -760,7 +624,7 @@ examples:
           x-organization-id: "org_12345"
       responses:
         "200":
-          application/json: {"id": "<id>", "external_id": "<id>", "sku": null, "code": "<value>", "name": "<value>", "description": "once unnaturally unlike pulverize", "status": "PARTIALLY_APPROVED", "product_category": "SERVICE", "product_subcategory": "CATERING", "tax_exempt": false, "source": "DEEL", "connection_id": "<id>", "classification_failed": false}
+          application/json: {"id": "<id>", "external_id": "<id>", "sku": [], "code": "CODE_3012", "name": "<value>", "description": "once unnaturally unlike pulverize", "status": "PARTIALLY_APPROVED", "product_category": "SERVICE", "product_subcategory": "CATERING", "tax_exempt": false, "source": "DEEL", "connection_id": "<id>", "classification_failed": false}
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -775,10 +639,10 @@ examples:
         header:
           x-organization-id: "org_12345"
       requestBody:
-        application/json: {"name": "<value>", "product_category": "SERVICE", "product_subcategory": "CUSTOMIZATION_OF_SOFTWARE", "tax_exempt": true}
+        application/json: {"name": "<value>", "product_category": "SERVICE", "product_subcategory": "CUSTOMIZATION_OF_SOFTWARE", "tax_exempt": true, "classification_failed": false}
       responses:
         "200":
-          application/json: {"id": "<id>", "external_id": "<id>", "sku": ["<value 1>", "<value 2>"], "code": "<value>", "name": "<value>", "description": "pfft clearly before evince hmph", "status": "PARTIALLY_APPROVED", "product_category": "<value>", "product_subcategory": "<value>", "tax_exempt": true, "source": "POS", "connection_id": "<id>", "classification_failed": false}
+          application/json: {"id": "<id>", "external_id": "<id>", "sku": ["<value 1>", "<value 2>"], "code": "CODE_1005", "name": "<value>", "description": "pfft clearly before evince hmph", "status": "PARTIALLY_APPROVED", "product_category": "SERVICE", "product_subcategory": "CUSTOMIZATION_OF_SOFTWARE", "tax_exempt": true, "source": "POS", "connection_id": "<id>", "classification_failed": false}
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -801,11 +665,13 @@ examples:
         query:
           page: 1
           size: 50
+          address_status__in: "UNVERIFIED,INVALID,PARTIALLY_VERIFIED,VERIFIED,UNVERIFIABLE"
+          order_by: "date,state,customer_name,status"
         header:
           x-organization-id: "org_12345"
       responses:
         "200":
-          application/json: {"items": [], "total": null, "page": 659955, "size": 969694}
+          application/json: {"items": [], "total": 416441, "page": 659955, "size": 969694}
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -818,10 +684,10 @@ examples:
         header:
           x-organization-id: "org_12345"
       requestBody:
-        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-11-05T23:48:53.053Z", "locked": false, "addresses": [], "transaction_items": [], "customer": {}, "type": "ARCHIVE"}
+        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-11-05T23:48:53.053Z", "total_amount": 0, "marketplace": false, "total_tax_amount_imported": 0, "tax_rate_imported": 0, "total_tax_amount_calculated": 0, "tax_rate_calculated": 0, "total_tax_liability_amount": 0, "taxable_amount": 0, "locked": false, "addresses": [], "transaction_items": [], "customer": {"organization_id": "<id>", "is_test_data": false}, "type": "ARCHIVE"}
       responses:
         "202":
-          application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-09-02T23:33:30.843Z", "total_amount": "0.00", "total_tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "total_tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "total_tax_liability_amount": "0.00", "taxable_amount": "0.00", "locked": false, "id": "<id>", "addresses": [{"type": "SHIP_FROM"}], "transaction_items": [{"organization_id": "<id>", "date": "2023-08-29T15:50:05.795Z", "external_product_id": "<id>", "quantity": "1.0", "amount": "0.00", "tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "taxable_amount": "0.00", "exempt": false, "id": "<id>", "tax_items": []}], "type": "FULL_CREDIT_NOTE"}
+          application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-09-02T23:33:30.843Z", "total_amount": "0.00", "marketplace": false, "total_tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "total_tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "total_tax_liability_amount": "0.00", "taxable_amount": "0.00", "locked": false, "id": "<id>", "addresses": [{"type": "SHIP_FROM"}], "transaction_items": [{"organization_id": "<id>", "date": "2023-08-29T15:50:05.795Z", "external_product_id": "<id>", "quantity": "1.0", "amount": "0.00", "tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "taxable_amount": "0.00", "exempt": false, "id": "<id>", "tax_items": []}], "type": "FULL_CREDIT_NOTE"}
         "400":
           application/json: {"detail": "<value>"}
         "422":
@@ -833,7 +699,7 @@ examples:
         header:
           x-organization-id: "org_12345"
       requestBody:
-        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-11-05T23:48:53.053Z", "locked": false, "addresses": [], "transaction_items": [], "customer": {}, "type": "ARCHIVE"}
+        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-11-05T23:48:53.053Z", "total_amount": 0, "marketplace": false, "total_tax_amount_imported": 0, "tax_rate_imported": 0, "total_tax_amount_calculated": 0, "tax_rate_calculated": 0, "total_tax_liability_amount": 0, "taxable_amount": 0, "locked": false, "addresses": [], "transaction_items": [], "customer": {"organization_id": "<id>", "is_test_data": false}, "type": "ARCHIVE"}
       responses:
         "400":
           application/json: {"detail": "Duplicate external id (ORDER_XYZ_789) for the given transaction not allowed."}
@@ -844,7 +710,7 @@ examples:
         header:
           x-organization-id: "org_12345"
       requestBody:
-        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-11-05T23:48:53.053Z", "locked": false, "addresses": [], "transaction_items": [], "customer": {}, "type": "ARCHIVE"}
+        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-11-05T23:48:53.053Z", "total_amount": 0, "marketplace": false, "total_tax_amount_imported": 0, "tax_rate_imported": 0, "total_tax_amount_calculated": 0, "tax_rate_calculated": 0, "total_tax_liability_amount": 0, "taxable_amount": 0, "locked": false, "addresses": [], "transaction_items": [], "customer": {"organization_id": "<id>", "is_test_data": false}, "type": "ARCHIVE"}
       responses:
         "400":
           application/json: {"detail": "[orgn_YourOrgIdHere] Product does not have an external id"}
@@ -855,7 +721,7 @@ examples:
         header:
           x-organization-id: "org_12345"
       requestBody:
-        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-11-05T23:48:53.053Z", "locked": false, "addresses": [], "transaction_items": [], "customer": {}, "type": "ARCHIVE"}
+        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-11-05T23:48:53.053Z", "total_amount": 0, "marketplace": false, "total_tax_amount_imported": 0, "tax_rate_imported": 0, "total_tax_amount_calculated": 0, "tax_rate_calculated": 0, "total_tax_liability_amount": 0, "taxable_amount": 0, "locked": false, "addresses": [], "transaction_items": [], "customer": {"organization_id": "<id>", "is_test_data": false}, "type": "ARCHIVE"}
       responses:
         "400":
           application/json: {"detail": "Connection mismatch between transaction and customer"}
@@ -866,7 +732,7 @@ examples:
         header:
           x-organization-id: "org_12345"
       requestBody:
-        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-11-05T23:48:53.053Z", "locked": false, "addresses": [], "transaction_items": [], "customer": {}, "type": "ARCHIVE"}
+        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-11-05T23:48:53.053Z", "total_amount": 0, "marketplace": false, "total_tax_amount_imported": 0, "tax_rate_imported": 0, "total_tax_amount_calculated": 0, "tax_rate_calculated": 0, "total_tax_liability_amount": 0, "taxable_amount": 0, "locked": false, "addresses": [], "transaction_items": [], "customer": {"organization_id": "<id>", "is_test_data": false}, "type": "ARCHIVE"}
       responses:
         "400":
           application/json: {"detail": "Address validation failed: missing required fields"}
@@ -877,7 +743,7 @@ examples:
         header:
           x-organization-id: "org_12345"
       requestBody:
-        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-11-05T23:48:53.053Z", "locked": false, "addresses": [], "transaction_items": [], "customer": {}, "type": "ARCHIVE"}
+        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-11-05T23:48:53.053Z", "total_amount": 0, "marketplace": false, "total_tax_amount_imported": 0, "tax_rate_imported": 0, "total_tax_amount_calculated": 0, "tax_rate_calculated": 0, "total_tax_liability_amount": 0, "taxable_amount": 0, "locked": false, "addresses": [], "transaction_items": [], "customer": {"organization_id": "<id>", "is_test_data": false}, "type": "ARCHIVE"}
       responses:
         "422":
           application/json: {"detail": [{"type": "missing", "loc": ["header", "x-organization-id"], "msg": "Field required", "input": "<value>", "ctx": {"key": "<value>"}}]}
@@ -886,7 +752,7 @@ examples:
         header:
           x-organization-id: "org_12345"
       requestBody:
-        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-11-05T23:48:53.053Z", "locked": false, "addresses": [], "transaction_items": [], "customer": {}, "type": "ARCHIVE"}
+        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-11-05T23:48:53.053Z", "total_amount": 0, "marketplace": false, "total_tax_amount_imported": 0, "tax_rate_imported": 0, "total_tax_amount_calculated": 0, "tax_rate_calculated": 0, "total_tax_liability_amount": 0, "taxable_amount": 0, "locked": false, "addresses": [], "transaction_items": [], "customer": {"organization_id": "<id>", "is_test_data": false}, "type": "ARCHIVE"}
       responses:
         "422":
           application/json: {"detail": [{"type": "missing", "loc": ["body", "external_id"], "msg": "Field required", "input": "<value>", "ctx": {"key": "<value>", "key1": "<value>", "key2": "<value>"}}]}
@@ -895,7 +761,7 @@ examples:
         header:
           x-organization-id: "org_12345"
       requestBody:
-        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-11-05T23:48:53.053Z", "locked": false, "addresses": [], "transaction_items": [], "customer": {}, "type": "ARCHIVE"}
+        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-11-05T23:48:53.053Z", "total_amount": 0, "marketplace": false, "total_tax_amount_imported": 0, "tax_rate_imported": 0, "total_tax_amount_calculated": 0, "tax_rate_calculated": 0, "total_tax_liability_amount": 0, "taxable_amount": 0, "locked": false, "addresses": [], "transaction_items": [], "customer": {"organization_id": "<id>", "is_test_data": false}, "type": "ARCHIVE"}
       responses:
         "422":
           application/json: {"detail": [{"type": "enum", "loc": ["body", "currency"], "msg": "Input should be 'USD', 'CAD', 'EUR'...", "input": "INVALID", "ctx": {"expected": "one of USD, CAD, EUR..."}}]}
@@ -904,7 +770,7 @@ examples:
         header:
           x-organization-id: "org_12345"
       requestBody:
-        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-11-05T23:48:53.053Z", "locked": false, "addresses": [], "transaction_items": [], "customer": {}, "type": "ARCHIVE"}
+        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2025-11-05T23:48:53.053Z", "total_amount": 0, "marketplace": false, "total_tax_amount_imported": 0, "tax_rate_imported": 0, "total_tax_amount_calculated": 0, "tax_rate_calculated": 0, "total_tax_liability_amount": 0, "taxable_amount": 0, "locked": false, "addresses": [], "transaction_items": [], "customer": {"organization_id": "<id>", "is_test_data": false}, "type": "ARCHIVE"}
       responses:
         "422":
           application/json: {"detail": [{"type": "datetime_parsing", "loc": ["body", "date"], "msg": "Input should be a valid datetime, invalid format", "input": "2023-13-45", "ctx": {}}]}
@@ -917,7 +783,7 @@ examples:
           x-organization-id: "org_12345"
       responses:
         "200":
-          application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2024-07-02T09:59:25.499Z", "total_amount": "0.00", "total_tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "total_tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "total_tax_liability_amount": "0.00", "taxable_amount": "0.00", "locked": false, "id": "<id>", "addresses": [], "transaction_items": [{"organization_id": "<id>", "date": "2025-02-10T16:56:41.984Z", "external_product_id": "<id>", "quantity": "1.0", "amount": "0.00", "tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "taxable_amount": "0.00", "exempt": false, "id": "<id>", "tax_items": [{"rule_id": "0000", "rate": "<value>", "amount": "530.73", "name": "<value>"}]}], "type": "PARTIAL_CREDIT_NOTE"}
+          application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2024-07-02T09:59:25.499Z", "total_amount": "0.00", "marketplace": false, "total_tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "total_tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "total_tax_liability_amount": "0.00", "taxable_amount": "0.00", "locked": false, "id": "<id>", "addresses": [], "transaction_items": [{"organization_id": "<id>", "date": "2025-02-10T16:56:41.984Z", "external_product_id": "<id>", "quantity": "1.0", "amount": "0.00", "tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "taxable_amount": "0.00", "exempt": false, "id": "<id>", "tax_items": [{"rule_id": "0000", "rate": "<value>", "amount": "530.73", "name": "<value>"}]}], "type": "PARTIAL_CREDIT_NOTE"}
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -932,10 +798,10 @@ examples:
         header:
           x-organization-id: "org_12345"
       requestBody:
-        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2024-09-25T05:56:56.167Z", "locked": false, "addresses": [], "transaction_items": [{"organization_id": "<id>", "date": "2024-12-29T19:13:48.302Z", "external_product_id": "<id>", "exempt": false}], "customer": {}}
+        application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2024-09-25T05:56:56.167Z", "total_amount": 0, "marketplace": false, "total_tax_amount_imported": 0, "tax_rate_imported": 0, "total_tax_amount_calculated": 0, "tax_rate_calculated": 0, "total_tax_liability_amount": 0, "taxable_amount": 0, "locked": false, "addresses": [], "transaction_items": [{"organization_id": "<id>", "date": "2024-12-29T19:13:48.302Z", "external_product_id": "<id>", "quantity": 1, "amount": 0, "tax_amount_imported": 0, "tax_rate_imported": 0, "tax_amount_calculated": 0, "tax_rate_calculated": 0, "taxable_amount": 0, "exempt": false}], "customer": {}}
       responses:
         "200":
-          application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2024-09-25T16:52:09.866Z", "total_amount": "0.00", "total_tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "total_tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "total_tax_liability_amount": "0.00", "taxable_amount": "0.00", "locked": false, "id": "<id>", "addresses": [{"type": "SHIP_FROM"}], "transaction_items": [{"organization_id": "<id>", "date": "2025-08-27T16:42:02.917Z", "external_product_id": "<id>", "quantity": "1.0", "amount": "0.00", "tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "taxable_amount": "0.00", "exempt": false, "id": "<id>", "tax_items": [{"rule_id": "0000", "rate": "<value>", "amount": "391.29", "name": "<value>"}]}], "type": "FULL_CREDIT_NOTE"}
+          application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2024-09-25T16:52:09.866Z", "total_amount": "0.00", "marketplace": false, "total_tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "total_tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "total_tax_liability_amount": "0.00", "taxable_amount": "0.00", "locked": false, "id": "<id>", "addresses": [{"type": "SHIP_FROM"}], "transaction_items": [{"organization_id": "<id>", "date": "2025-08-27T16:42:02.917Z", "external_product_id": "<id>", "quantity": "1.0", "amount": "0.00", "tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "taxable_amount": "0.00", "exempt": false, "id": "<id>", "tax_items": [{"rule_id": "0000", "rate": "<value>", "amount": "391.29", "name": "<value>"}]}], "type": "FULL_CREDIT_NOTE"}
         "422":
           application/json: {}
   get_transaction_by_id_v1_transactions__transaction_id__get:
@@ -947,7 +813,7 @@ examples:
           x-organization-id: "org_12345"
       responses:
         "200":
-          application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2024-08-13T05:12:45.031Z", "total_amount": "0.00", "total_tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "total_tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "total_tax_liability_amount": "0.00", "taxable_amount": "0.00", "locked": false, "id": "<id>", "addresses": [{"type": "BILL_TO"}], "transaction_items": [], "type": "ARCHIVE"}
+          application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2024-08-13T05:12:45.031Z", "total_amount": "0.00", "marketplace": false, "total_tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "total_tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "total_tax_liability_amount": "0.00", "taxable_amount": "0.00", "locked": false, "id": "<id>", "addresses": [{"type": "BILL_TO"}], "transaction_items": [], "type": "ARCHIVE"}
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -963,7 +829,7 @@ examples:
           x-organization-id: "org_12345"
       responses:
         "200":
-          application/json: [{"organization_id": "<id>", "external_id": "<id>", "date": "2023-04-06T23:55:54.854Z", "total_amount": "0.00", "total_tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "total_tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "total_tax_liability_amount": "0.00", "taxable_amount": "0.00", "locked": false, "id": "<id>", "addresses": [{"type": "SHIP_FROM"}], "transaction_items": [], "type": "SALE"}]
+          application/json: [{"organization_id": "<id>", "external_id": "<id>", "date": "2023-04-06T23:55:54.854Z", "total_amount": "0.00", "marketplace": false, "total_tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "total_tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "total_tax_liability_amount": "0.00", "taxable_amount": "0.00", "locked": false, "id": "<id>", "addresses": [{"type": "SHIP_FROM"}], "transaction_items": [], "type": "SALE"}]
         "401":
           application/json: {"detail": "<value>"}
         "422":
@@ -1005,7 +871,7 @@ examples:
         header:
           x-organization-id: "org_12345"
       requestBody:
-        application/json: {"date": "2025-10-15T06:09:56.760Z", "external_id": "<id>", "currency": "WST", "transaction_items": [{"date": "2023-10-09T10:49:19.753Z", "amount": "612.37", "exempt": false}], "addresses": [{"type": "BILL_TO", "state": "Virginia", "postal_code": "53776-2466", "country": "Wallis and Futuna"}]}
+        application/json: {"date": "2025-10-15T06:09:56.760Z", "external_id": "<id>", "total_amount": 0, "currency": "WST", "marketplace": false, "transaction_items": [{"date": "2023-10-09T10:49:19.753Z", "quantity": 1, "amount": 612.37, "exempt": false}], "addresses": [{"type": "BILL_TO", "state": "Virginia", "postal_code": "53776-2466", "country": "Wallis and Futuna"}]}
       responses:
         "200":
           application/json: {"items": [], "total": 610767, "page": 61497, "size": 435684}
@@ -1024,7 +890,7 @@ examples:
         header:
           x-organization-id: "org_12345"
       requestBody:
-        application/json: {"external_id": "<id>", "date": "2023-07-25T11:01:44.924Z", "status": "CANCELLED", "currency": "SPL", "transaction_items": [{"external_id": "<id>", "date": "2024-09-15T23:01:02.880Z", "external_product_id": "<id>"}]}
+        application/json: {"external_id": "<id>", "date": "2023-07-25T11:01:44.924Z", "status": "CANCELLED", "total_amount": 0, "marketplace": false, "currency": "SPL", "transaction_items": [{"external_id": "<id>", "date": "2024-09-15T23:01:02.880Z", "external_product_id": "<id>", "quantity": 1, "amount": 0}]}
       responses:
         "200":
           application/json: "<value>"
@@ -1038,10 +904,10 @@ examples:
         header:
           x-organization-id: "org_12345"
       requestBody:
-        application/json: {"external_id": "<id>", "date": "2024-01-17T09:54:06.459Z", "status": "PENDING", "currency": "GEL", "transaction_items": [{"external_id": "<id>", "date": "2023-07-11T07:57:04.867Z", "external_product_id": "<id>"}]}
+        application/json: {"external_id": "<id>", "date": "2024-01-17T09:54:06.459Z", "status": "PENDING", "total_amount": 0, "marketplace": false, "currency": "GEL", "transaction_items": [{"external_id": "<id>", "date": "2023-07-11T07:57:04.867Z", "external_product_id": "<id>", "quantity": 1, "amount": 0}]}
       responses:
         "200":
-          application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2024-03-08T14:51:43.874Z", "total_amount": "0.00", "total_tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "total_tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "total_tax_liability_amount": "0.00", "taxable_amount": "0.00", "locked": false, "id": "<id>", "addresses": [], "transaction_items": [{"organization_id": "<id>", "date": "2025-04-01T04:49:49.945Z", "external_product_id": "<id>", "quantity": "1.0", "amount": "0.00", "tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "taxable_amount": "0.00", "exempt": false, "id": "<id>", "tax_items": []}], "type": "SALE"}
+          application/json: {"organization_id": "<id>", "external_id": "<id>", "date": "2024-03-08T14:51:43.874Z", "total_amount": "0.00", "marketplace": false, "total_tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "total_tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "total_tax_liability_amount": "0.00", "taxable_amount": "0.00", "locked": false, "id": "<id>", "addresses": [], "transaction_items": [{"organization_id": "<id>", "date": "2025-04-01T04:49:49.945Z", "external_product_id": "<id>", "quantity": "1.0", "amount": "0.00", "tax_amount_imported": "0.00", "tax_rate_imported": "0.00", "tax_amount_calculated": "0.00", "tax_rate_calculated": "0.00", "taxable_amount": "0.00", "exempt": false, "id": "<id>", "tax_items": []}], "type": "SALE"}
         "422":
           application/json: {}
 examplesVersion: 1.0.2

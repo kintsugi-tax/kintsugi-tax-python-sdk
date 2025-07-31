@@ -4,141 +4,75 @@ from __future__ import annotations
 from .addressstatus import AddressStatus
 from .addresstype import AddressType
 from .countrycodeenum import CountryCodeEnum
-from kintsugi_tax_platform_sdk.types import (
-    BaseModel,
-    Nullable,
-    OptionalNullable,
-    UNSET,
-    UNSET_SENTINEL,
-)
-from pydantic import model_serializer
+from kintsugi_tax_platform_sdk.types import BaseModel
 from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
 
 class TransactionAddressReadOutputTypedDict(TypedDict):
     type: AddressType
-    phone: NotRequired[Nullable[str]]
+    phone: NotRequired[str]
     r"""Phone number associated with the address."""
-    street_1: NotRequired[Nullable[str]]
+    street_1: NotRequired[str]
     r"""Primary street address."""
-    street_2: NotRequired[Nullable[str]]
+    street_2: NotRequired[str]
     r"""Additional street address details, such as an apartment or suite number."""
-    city: NotRequired[Nullable[str]]
+    city: NotRequired[str]
     r"""City where the customer resides."""
-    county: NotRequired[Nullable[str]]
+    county: NotRequired[str]
     r"""County or district of the customer."""
-    state: NotRequired[Nullable[str]]
+    state: NotRequired[str]
     r"""State or province of the customer."""
-    postal_code: NotRequired[Nullable[str]]
+    postal_code: NotRequired[str]
     r"""ZIP or Postal code of the customer."""
-    country: NotRequired[Nullable[CountryCodeEnum]]
-    r"""Country code in ISO 3166-1 alpha-2 format"""
-    full_address: NotRequired[Nullable[str]]
+    country: NotRequired[CountryCodeEnum]
+    full_address: NotRequired[str]
     r"""Complete address string of the customer, which can be used as an alternative to individual fields."""
     status: NotRequired[AddressStatus]
-    id: NotRequired[Nullable[str]]
+    id: NotRequired[str]
     r"""Unique identifier of the address being updated."""
-    transaction_id: NotRequired[Nullable[str]]
+    transaction_id: NotRequired[str]
     r"""ID of the transaction associated with the address."""
-    connection_id: NotRequired[Nullable[str]]
+    connection_id: NotRequired[str]
     r"""ID of the connection associated with the address."""
 
 
 class TransactionAddressReadOutput(BaseModel):
     type: AddressType
 
-    phone: OptionalNullable[str] = UNSET
+    phone: Optional[str] = None
     r"""Phone number associated with the address."""
 
-    street_1: OptionalNullable[str] = UNSET
+    street_1: Optional[str] = None
     r"""Primary street address."""
 
-    street_2: OptionalNullable[str] = UNSET
+    street_2: Optional[str] = None
     r"""Additional street address details, such as an apartment or suite number."""
 
-    city: OptionalNullable[str] = UNSET
+    city: Optional[str] = None
     r"""City where the customer resides."""
 
-    county: OptionalNullable[str] = UNSET
+    county: Optional[str] = None
     r"""County or district of the customer."""
 
-    state: OptionalNullable[str] = UNSET
+    state: Optional[str] = None
     r"""State or province of the customer."""
 
-    postal_code: OptionalNullable[str] = UNSET
+    postal_code: Optional[str] = None
     r"""ZIP or Postal code of the customer."""
 
-    country: OptionalNullable[CountryCodeEnum] = UNSET
-    r"""Country code in ISO 3166-1 alpha-2 format"""
+    country: Optional[CountryCodeEnum] = None
 
-    full_address: OptionalNullable[str] = UNSET
+    full_address: Optional[str] = None
     r"""Complete address string of the customer, which can be used as an alternative to individual fields."""
 
     status: Optional[AddressStatus] = None
 
-    id: OptionalNullable[str] = UNSET
+    id: Optional[str] = None
     r"""Unique identifier of the address being updated."""
 
-    transaction_id: OptionalNullable[str] = UNSET
+    transaction_id: Optional[str] = None
     r"""ID of the transaction associated with the address."""
 
-    connection_id: OptionalNullable[str] = UNSET
+    connection_id: Optional[str] = None
     r"""ID of the connection associated with the address."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = [
-            "phone",
-            "street_1",
-            "street_2",
-            "city",
-            "county",
-            "state",
-            "postal_code",
-            "country",
-            "full_address",
-            "status",
-            "id",
-            "transaction_id",
-            "connection_id",
-        ]
-        nullable_fields = [
-            "phone",
-            "street_1",
-            "street_2",
-            "city",
-            "county",
-            "state",
-            "postal_code",
-            "country",
-            "full_address",
-            "id",
-            "transaction_id",
-            "connection_id",
-        ]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m

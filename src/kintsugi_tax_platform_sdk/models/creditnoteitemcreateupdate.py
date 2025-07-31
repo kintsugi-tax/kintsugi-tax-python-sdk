@@ -4,77 +4,10 @@ from __future__ import annotations
 from .taxexemptionenum import TaxExemptionEnum
 from .taxitembuilder import TaxItemBuilder, TaxItemBuilderTypedDict
 from datetime import datetime
-from kintsugi_tax_platform_sdk.types import (
-    BaseModel,
-    Nullable,
-    OptionalNullable,
-    UNSET,
-    UNSET_SENTINEL,
-)
+from kintsugi_tax_platform_sdk.types import BaseModel
 import pydantic
-from pydantic import model_serializer
-from typing import List, Optional, Union
-from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
-
-
-CreditNoteItemCreateUpdateQuantityTypedDict = TypeAliasType(
-    "CreditNoteItemCreateUpdateQuantityTypedDict", Union[float, str]
-)
-r"""Number of units or amount of the product being credited."""
-
-
-CreditNoteItemCreateUpdateQuantity = TypeAliasType(
-    "CreditNoteItemCreateUpdateQuantity", Union[float, str]
-)
-r"""Number of units or amount of the product being credited."""
-
-
-CreditNoteItemCreateUpdateAmountTypedDict = TypeAliasType(
-    "CreditNoteItemCreateUpdateAmountTypedDict", Union[float, str]
-)
-r"""Total monetary value of the credit note item before taxes."""
-
-
-CreditNoteItemCreateUpdateAmount = TypeAliasType(
-    "CreditNoteItemCreateUpdateAmount", Union[float, str]
-)
-r"""Total monetary value of the credit note item before taxes."""
-
-
-CreditNoteItemCreateUpdateTaxAmountImportedTypedDict = TypeAliasType(
-    "CreditNoteItemCreateUpdateTaxAmountImportedTypedDict", Union[float, str]
-)
-r"""Pre-calculated tax amount for the item, if provided by the external system."""
-
-
-CreditNoteItemCreateUpdateTaxAmountImported = TypeAliasType(
-    "CreditNoteItemCreateUpdateTaxAmountImported", Union[float, str]
-)
-r"""Pre-calculated tax amount for the item, if provided by the external system."""
-
-
-CreditNoteItemCreateUpdateTaxRateImportedTypedDict = TypeAliasType(
-    "CreditNoteItemCreateUpdateTaxRateImportedTypedDict", Union[float, str]
-)
-r"""Pre-calculated tax rate for the item, if provided by the external system."""
-
-
-CreditNoteItemCreateUpdateTaxRateImported = TypeAliasType(
-    "CreditNoteItemCreateUpdateTaxRateImported", Union[float, str]
-)
-r"""Pre-calculated tax rate for the item, if provided by the external system."""
-
-
-CreditNoteItemCreateUpdateTaxableAmountTypedDict = TypeAliasType(
-    "CreditNoteItemCreateUpdateTaxableAmountTypedDict", Union[float, str]
-)
-r"""Portion of the item amount subject to taxation."""
-
-
-CreditNoteItemCreateUpdateTaxableAmount = TypeAliasType(
-    "CreditNoteItemCreateUpdateTaxableAmount", Union[float, str]
-)
-r"""Portion of the item amount subject to taxation."""
+from typing import List, Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class CreditNoteItemCreateUpdateTypedDict(TypedDict):
@@ -84,26 +17,20 @@ class CreditNoteItemCreateUpdateTypedDict(TypedDict):
     r"""Date when the credit note item was issued or created."""
     external_product_id: str
     r"""Unique identifier for the associated product in the external system."""
-    description: NotRequired[Nullable[str]]
+    description: NotRequired[str]
     r"""Brief explanation or details about the credit note item."""
-    quantity: NotRequired[CreditNoteItemCreateUpdateQuantityTypedDict]
+    quantity: NotRequired[float]
     r"""Number of units or amount of the product being credited."""
-    amount: NotRequired[CreditNoteItemCreateUpdateAmountTypedDict]
+    amount: NotRequired[float]
     r"""Total monetary value of the credit note item before taxes."""
-    tax_amount_imported: NotRequired[
-        Nullable[CreditNoteItemCreateUpdateTaxAmountImportedTypedDict]
-    ]
+    tax_amount_imported: NotRequired[float]
     r"""Pre-calculated tax amount for the item, if provided by the external system."""
-    tax_rate_imported: NotRequired[
-        Nullable[CreditNoteItemCreateUpdateTaxRateImportedTypedDict]
-    ]
+    tax_rate_imported: NotRequired[float]
     r"""Pre-calculated tax rate for the item, if provided by the external system."""
-    taxable_amount: NotRequired[
-        Nullable[CreditNoteItemCreateUpdateTaxableAmountTypedDict]
-    ]
+    taxable_amount: NotRequired[float]
     r"""Portion of the item amount subject to taxation."""
-    tax_exemption: NotRequired[Nullable[TaxExemptionEnum]]
-    r"""Specific tax exemption status applied to this item, if any."""
+    tax_exemption: NotRequired[TaxExemptionEnum]
+    r"""This enum is used to determine if a transaction is exempt from tax."""
     tax_items: NotRequired[List[TaxItemBuilderTypedDict]]
     r"""Detailed breakdown of individual tax components applied to this item."""
 
@@ -118,75 +45,26 @@ class CreditNoteItemCreateUpdate(BaseModel):
     external_product_id: str
     r"""Unique identifier for the associated product in the external system."""
 
-    description: OptionalNullable[str] = UNSET
+    description: Optional[str] = None
     r"""Brief explanation or details about the credit note item."""
 
-    quantity: Optional[CreditNoteItemCreateUpdateQuantity] = None
+    quantity: Optional[float] = 1.0
     r"""Number of units or amount of the product being credited."""
 
-    amount: Optional[CreditNoteItemCreateUpdateAmount] = None
+    amount: Optional[float] = 0.00
     r"""Total monetary value of the credit note item before taxes."""
 
-    tax_amount_imported: OptionalNullable[
-        CreditNoteItemCreateUpdateTaxAmountImported
-    ] = UNSET
+    tax_amount_imported: Optional[float] = None
     r"""Pre-calculated tax amount for the item, if provided by the external system."""
 
-    tax_rate_imported: OptionalNullable[CreditNoteItemCreateUpdateTaxRateImported] = (
-        UNSET
-    )
+    tax_rate_imported: Optional[float] = None
     r"""Pre-calculated tax rate for the item, if provided by the external system."""
 
-    taxable_amount: OptionalNullable[CreditNoteItemCreateUpdateTaxableAmount] = UNSET
+    taxable_amount: Optional[float] = None
     r"""Portion of the item amount subject to taxation."""
 
-    tax_exemption: OptionalNullable[TaxExemptionEnum] = UNSET
-    r"""Specific tax exemption status applied to this item, if any."""
+    tax_exemption: Optional[TaxExemptionEnum] = None
+    r"""This enum is used to determine if a transaction is exempt from tax."""
 
     tax_items: Optional[List[TaxItemBuilder]] = None
     r"""Detailed breakdown of individual tax components applied to this item."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = [
-            "description",
-            "quantity",
-            "amount",
-            "tax_amount_imported",
-            "tax_rate_imported",
-            "taxable_amount",
-            "tax_exemption",
-            "tax_items",
-        ]
-        nullable_fields = [
-            "description",
-            "tax_amount_imported",
-            "tax_rate_imported",
-            "taxable_amount",
-            "tax_exemption",
-        ]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m

@@ -3,28 +3,23 @@
 from .basesdk import BaseSDK
 from kintsugi_tax_platform_sdk import errors, models, utils
 from kintsugi_tax_platform_sdk._hooks import HookContext
-from kintsugi_tax_platform_sdk.types import Nullable, OptionalNullable, UNSET
+from kintsugi_tax_platform_sdk.types import OptionalNullable, UNSET
 from kintsugi_tax_platform_sdk.utils.unmarshal_json_response import (
     unmarshal_json_response,
 )
-from typing import Any, List, Mapping, Optional, Union
+from typing import Any, List, Mapping, Optional
 
 
 class Products(BaseSDK):
     def list(
         self,
         *,
-        security: Union[
-            models.GetProductsV1ProductsGetSecurity,
-            models.GetProductsV1ProductsGetSecurityTypedDict,
-        ],
-        x_organization_id: Nullable[str],
-        query: OptionalNullable[str] = UNSET,
-        status_in: OptionalNullable[str] = UNSET,
-        product_category_in: OptionalNullable[str] = UNSET,
-        product_subcategory_in: OptionalNullable[str] = UNSET,
-        source_in: OptionalNullable[str] = UNSET,
-        order_by: OptionalNullable[str] = UNSET,
+        query: Optional[str] = None,
+        status_in: Optional[str] = None,
+        product_category_in: Optional[str] = None,
+        product_subcategory_in: Optional[str] = None,
+        source_in: Optional[str] = None,
+        order_by: Optional[str] = None,
         page: Optional[int] = 1,
         size: Optional[int] = 50,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -36,8 +31,6 @@ class Products(BaseSDK):
 
         Retrieve a paginated list of products based on filters and search query.
 
-        :param security:
-        :param x_organization_id: The unique identifier for the organization making the request
         :param query: Search term to filter products by name or other details.
         :param status_in: Filter products by status (comma-separated)
         :param product_category_in: Filter products by category (comma-separated)
@@ -70,7 +63,6 @@ class Products(BaseSDK):
             order_by=order_by,
             page=page,
             size=size,
-            x_organization_id=x_organization_id,
         )
 
         req = self._build_request(
@@ -85,9 +77,7 @@ class Products(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            security=utils.get_pydantic_model(
-                security, models.GetProductsV1ProductsGetSecurity
-            ),
+            security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
 
@@ -104,8 +94,8 @@ class Products(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_products_v1_products__get",
-                oauth2_scopes=None,
-                security_source=security,
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
@@ -140,17 +130,12 @@ class Products(BaseSDK):
     async def list_async(
         self,
         *,
-        security: Union[
-            models.GetProductsV1ProductsGetSecurity,
-            models.GetProductsV1ProductsGetSecurityTypedDict,
-        ],
-        x_organization_id: Nullable[str],
-        query: OptionalNullable[str] = UNSET,
-        status_in: OptionalNullable[str] = UNSET,
-        product_category_in: OptionalNullable[str] = UNSET,
-        product_subcategory_in: OptionalNullable[str] = UNSET,
-        source_in: OptionalNullable[str] = UNSET,
-        order_by: OptionalNullable[str] = UNSET,
+        query: Optional[str] = None,
+        status_in: Optional[str] = None,
+        product_category_in: Optional[str] = None,
+        product_subcategory_in: Optional[str] = None,
+        source_in: Optional[str] = None,
+        order_by: Optional[str] = None,
         page: Optional[int] = 1,
         size: Optional[int] = 50,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -162,8 +147,6 @@ class Products(BaseSDK):
 
         Retrieve a paginated list of products based on filters and search query.
 
-        :param security:
-        :param x_organization_id: The unique identifier for the organization making the request
         :param query: Search term to filter products by name or other details.
         :param status_in: Filter products by status (comma-separated)
         :param product_category_in: Filter products by category (comma-separated)
@@ -196,7 +179,6 @@ class Products(BaseSDK):
             order_by=order_by,
             page=page,
             size=size,
-            x_organization_id=x_organization_id,
         )
 
         req = self._build_request_async(
@@ -211,9 +193,7 @@ class Products(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            security=utils.get_pydantic_model(
-                security, models.GetProductsV1ProductsGetSecurity
-            ),
+            security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
 
@@ -230,8 +210,8 @@ class Products(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_products_v1_products__get",
-                oauth2_scopes=None,
-                security_source=security,
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
@@ -266,23 +246,12 @@ class Products(BaseSDK):
     def create(
         self,
         *,
-        security: Union[
-            models.CreateProductV1ProductsPostSecurity,
-            models.CreateProductV1ProductsPostSecurityTypedDict,
-        ],
-        x_organization_id: Nullable[str],
         external_id: str,
         name: str,
-        product_category: Union[
-            models.ProductCreateManualProductCategory,
-            models.ProductCreateManualProductCategoryTypedDict,
-        ],
-        product_subcategory: Union[
-            models.ProductCreateManualProductSubcategory,
-            models.ProductCreateManualProductSubcategoryTypedDict,
-        ],
+        product_category: models.ProductCategoryEnum,
+        product_subcategory: models.ProductSubCategoryEnum,
         tax_exempt: bool,
-        description: OptionalNullable[str] = UNSET,
+        description: Optional[str] = None,
         status: Optional[models.ProductStatusEnum] = None,
         source: Optional[models.SourceEnum] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -296,12 +265,10 @@ class Products(BaseSDK):
         in the system. This includes specifying product details such as category,
         subcategory, and tax exemption status, etc.
 
-        :param security:
-        :param x_organization_id: The unique identifier for the organization making the request
         :param external_id: A unique external identifier for the product.
         :param name: The name of the product.
-        :param product_category: The high-level category of the product.
-        :param product_subcategory: The subcategory of the product.
+        :param product_category:
+        :param product_subcategory:
         :param tax_exempt: Specifies whether the product is tax-exempt.
         :param description: A description of the product.
         :param status:
@@ -321,18 +288,15 @@ class Products(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateProductV1ProductsPostRequest(
-            x_organization_id=x_organization_id,
-            product_create_manual=models.ProductCreateManual(
-                external_id=external_id,
-                name=name,
-                description=description,
-                status=status,
-                product_category=product_category,
-                product_subcategory=product_subcategory,
-                tax_exempt=tax_exempt,
-                source=source,
-            ),
+        request = models.ProductCreateManual(
+            external_id=external_id,
+            name=name,
+            description=description,
+            status=status,
+            product_category=product_category,
+            product_subcategory=product_subcategory,
+            tax_exempt=tax_exempt,
+            source=source,
         )
 
         req = self._build_request(
@@ -347,15 +311,9 @@ class Products(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            security=utils.get_pydantic_model(
-                security, models.CreateProductV1ProductsPostSecurity
-            ),
+            security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.product_create_manual,
-                False,
-                False,
-                "json",
-                models.ProductCreateManual,
+                request, False, False, "json", models.ProductCreateManual
             ),
             timeout_ms=timeout_ms,
         )
@@ -373,8 +331,8 @@ class Products(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_product_v1_products__post",
-                oauth2_scopes=None,
-                security_source=security,
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["401", "422", "4XX", "500", "5XX"],
@@ -409,23 +367,12 @@ class Products(BaseSDK):
     async def create_async(
         self,
         *,
-        security: Union[
-            models.CreateProductV1ProductsPostSecurity,
-            models.CreateProductV1ProductsPostSecurityTypedDict,
-        ],
-        x_organization_id: Nullable[str],
         external_id: str,
         name: str,
-        product_category: Union[
-            models.ProductCreateManualProductCategory,
-            models.ProductCreateManualProductCategoryTypedDict,
-        ],
-        product_subcategory: Union[
-            models.ProductCreateManualProductSubcategory,
-            models.ProductCreateManualProductSubcategoryTypedDict,
-        ],
+        product_category: models.ProductCategoryEnum,
+        product_subcategory: models.ProductSubCategoryEnum,
         tax_exempt: bool,
-        description: OptionalNullable[str] = UNSET,
+        description: Optional[str] = None,
         status: Optional[models.ProductStatusEnum] = None,
         source: Optional[models.SourceEnum] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -439,12 +386,10 @@ class Products(BaseSDK):
         in the system. This includes specifying product details such as category,
         subcategory, and tax exemption status, etc.
 
-        :param security:
-        :param x_organization_id: The unique identifier for the organization making the request
         :param external_id: A unique external identifier for the product.
         :param name: The name of the product.
-        :param product_category: The high-level category of the product.
-        :param product_subcategory: The subcategory of the product.
+        :param product_category:
+        :param product_subcategory:
         :param tax_exempt: Specifies whether the product is tax-exempt.
         :param description: A description of the product.
         :param status:
@@ -464,18 +409,15 @@ class Products(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateProductV1ProductsPostRequest(
-            x_organization_id=x_organization_id,
-            product_create_manual=models.ProductCreateManual(
-                external_id=external_id,
-                name=name,
-                description=description,
-                status=status,
-                product_category=product_category,
-                product_subcategory=product_subcategory,
-                tax_exempt=tax_exempt,
-                source=source,
-            ),
+        request = models.ProductCreateManual(
+            external_id=external_id,
+            name=name,
+            description=description,
+            status=status,
+            product_category=product_category,
+            product_subcategory=product_subcategory,
+            tax_exempt=tax_exempt,
+            source=source,
         )
 
         req = self._build_request_async(
@@ -490,15 +432,9 @@ class Products(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            security=utils.get_pydantic_model(
-                security, models.CreateProductV1ProductsPostSecurity
-            ),
+            security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.product_create_manual,
-                False,
-                False,
-                "json",
-                models.ProductCreateManual,
+                request, False, False, "json", models.ProductCreateManual
             ),
             timeout_ms=timeout_ms,
         )
@@ -516,8 +452,8 @@ class Products(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_product_v1_products__post",
-                oauth2_scopes=None,
-                security_source=security,
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["401", "422", "4XX", "500", "5XX"],
@@ -552,12 +488,7 @@ class Products(BaseSDK):
     def get(
         self,
         *,
-        security: Union[
-            models.GetProductByIDV1ProductsProductIDGetSecurity,
-            models.GetProductByIDV1ProductsProductIDGetSecurityTypedDict,
-        ],
         product_id: str,
-        x_organization_id: Nullable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -569,9 +500,7 @@ class Products(BaseSDK):
         a single product by its unique ID. This API helps in viewing the specific details
         of a product, including its attributes, status, and categorization.
 
-        :param security:
         :param product_id: The unique identifier for the product you want to retrieve.
-        :param x_organization_id: The unique identifier for the organization making the request
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -589,7 +518,6 @@ class Products(BaseSDK):
 
         request = models.GetProductByIDV1ProductsProductIDGetRequest(
             product_id=product_id,
-            x_organization_id=x_organization_id,
         )
 
         req = self._build_request(
@@ -604,9 +532,7 @@ class Products(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            security=utils.get_pydantic_model(
-                security, models.GetProductByIDV1ProductsProductIDGetSecurity
-            ),
+            security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
 
@@ -623,8 +549,8 @@ class Products(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_product_by_id_v1_products__product_id__get",
-                oauth2_scopes=None,
-                security_source=security,
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
@@ -659,12 +585,7 @@ class Products(BaseSDK):
     async def get_async(
         self,
         *,
-        security: Union[
-            models.GetProductByIDV1ProductsProductIDGetSecurity,
-            models.GetProductByIDV1ProductsProductIDGetSecurityTypedDict,
-        ],
         product_id: str,
-        x_organization_id: Nullable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -676,9 +597,7 @@ class Products(BaseSDK):
         a single product by its unique ID. This API helps in viewing the specific details
         of a product, including its attributes, status, and categorization.
 
-        :param security:
         :param product_id: The unique identifier for the product you want to retrieve.
-        :param x_organization_id: The unique identifier for the organization making the request
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -696,7 +615,6 @@ class Products(BaseSDK):
 
         request = models.GetProductByIDV1ProductsProductIDGetRequest(
             product_id=product_id,
-            x_organization_id=x_organization_id,
         )
 
         req = self._build_request_async(
@@ -711,9 +629,7 @@ class Products(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            security=utils.get_pydantic_model(
-                security, models.GetProductByIDV1ProductsProductIDGetSecurity
-            ),
+            security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
 
@@ -730,8 +646,8 @@ class Products(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_product_by_id_v1_products__product_id__get",
-                oauth2_scopes=None,
-                security_source=security,
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
@@ -766,13 +682,17 @@ class Products(BaseSDK):
     def update(
         self,
         *,
-        security: Union[
-            models.UpdateProductV1ProductsProductIDPutSecurity,
-            models.UpdateProductV1ProductsProductIDPutSecurityTypedDict,
-        ],
         product_id: str,
-        x_organization_id: Nullable[str],
-        request_body: Union[models.Product, models.ProductTypedDict],
+        name: str,
+        product_category: models.ProductCategoryEnum,
+        product_subcategory: models.ProductSubCategoryEnum,
+        tax_exempt: bool,
+        id: Optional[str] = None,
+        external_id: Optional[str] = None,
+        sku: Optional[List[str]] = None,
+        description: Optional[str] = None,
+        status: Optional[models.ProductStatusEnum] = None,
+        classification_failed: Optional[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -783,10 +703,17 @@ class Products(BaseSDK):
         The Update Product API allows users to modify the details of
         an existing product identified by its unique product_id
 
-        :param security:
         :param product_id: Unique identifier of the product to be updated.
-        :param x_organization_id: The unique identifier for the organization making the request
-        :param request_body:
+        :param name: Name of the product.
+        :param product_category:
+        :param product_subcategory:
+        :param tax_exempt: Indicates whether the product is tax-exempt.
+        :param id: The unique identifier of the product to be updated.
+        :param external_id: External identifier provided for the product,         typically by the source system.
+        :param sku:
+        :param description: Description of the product.
+        :param status:
+        :param classification_failed: Indicates if the product classification failed.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -804,8 +731,18 @@ class Products(BaseSDK):
 
         request = models.UpdateProductV1ProductsProductIDPutRequest(
             product_id=product_id,
-            x_organization_id=x_organization_id,
-            request_body=utils.get_pydantic_model(request_body, models.Product),
+            product_update=models.ProductUpdate(
+                id=id,
+                external_id=external_id,
+                sku=sku,
+                name=name,
+                description=description,
+                status=status,
+                product_category=product_category,
+                product_subcategory=product_subcategory,
+                tax_exempt=tax_exempt,
+                classification_failed=classification_failed,
+            ),
         )
 
         req = self._build_request(
@@ -820,11 +757,9 @@ class Products(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            security=utils.get_pydantic_model(
-                security, models.UpdateProductV1ProductsProductIDPutSecurity
-            ),
+            security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body, False, False, "json", models.Product
+                request.product_update, False, False, "json", models.ProductUpdate
             ),
             timeout_ms=timeout_ms,
         )
@@ -842,8 +777,8 @@ class Products(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="update_product_v1_products__product_id__put",
-                oauth2_scopes=None,
-                security_source=security,
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
@@ -878,13 +813,17 @@ class Products(BaseSDK):
     async def update_async(
         self,
         *,
-        security: Union[
-            models.UpdateProductV1ProductsProductIDPutSecurity,
-            models.UpdateProductV1ProductsProductIDPutSecurityTypedDict,
-        ],
         product_id: str,
-        x_organization_id: Nullable[str],
-        request_body: Union[models.Product, models.ProductTypedDict],
+        name: str,
+        product_category: models.ProductCategoryEnum,
+        product_subcategory: models.ProductSubCategoryEnum,
+        tax_exempt: bool,
+        id: Optional[str] = None,
+        external_id: Optional[str] = None,
+        sku: Optional[List[str]] = None,
+        description: Optional[str] = None,
+        status: Optional[models.ProductStatusEnum] = None,
+        classification_failed: Optional[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -895,10 +834,17 @@ class Products(BaseSDK):
         The Update Product API allows users to modify the details of
         an existing product identified by its unique product_id
 
-        :param security:
         :param product_id: Unique identifier of the product to be updated.
-        :param x_organization_id: The unique identifier for the organization making the request
-        :param request_body:
+        :param name: Name of the product.
+        :param product_category:
+        :param product_subcategory:
+        :param tax_exempt: Indicates whether the product is tax-exempt.
+        :param id: The unique identifier of the product to be updated.
+        :param external_id: External identifier provided for the product,         typically by the source system.
+        :param sku:
+        :param description: Description of the product.
+        :param status:
+        :param classification_failed: Indicates if the product classification failed.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -916,8 +862,18 @@ class Products(BaseSDK):
 
         request = models.UpdateProductV1ProductsProductIDPutRequest(
             product_id=product_id,
-            x_organization_id=x_organization_id,
-            request_body=utils.get_pydantic_model(request_body, models.Product),
+            product_update=models.ProductUpdate(
+                id=id,
+                external_id=external_id,
+                sku=sku,
+                name=name,
+                description=description,
+                status=status,
+                product_category=product_category,
+                product_subcategory=product_subcategory,
+                tax_exempt=tax_exempt,
+                classification_failed=classification_failed,
+            ),
         )
 
         req = self._build_request_async(
@@ -932,11 +888,9 @@ class Products(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            security=utils.get_pydantic_model(
-                security, models.UpdateProductV1ProductsProductIDPutSecurity
-            ),
+            security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body, False, False, "json", models.Product
+                request.product_update, False, False, "json", models.ProductUpdate
             ),
             timeout_ms=timeout_ms,
         )
@@ -954,8 +908,8 @@ class Products(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="update_product_v1_products__product_id__put",
-                oauth2_scopes=None,
-                security_source=security,
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
@@ -990,11 +944,6 @@ class Products(BaseSDK):
     def list_categories(
         self,
         *,
-        security: Union[
-            models.GetProductCategoriesV1ProductsCategoriesGetSecurity,
-            models.GetProductCategoriesV1ProductsCategoriesGetSecurityTypedDict,
-        ],
-        x_organization_id: Nullable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1006,8 +955,6 @@ class Products(BaseSDK):
         product categories.  This endpoint helps users understand and select the
         appropriate categories for their products.
 
-        :param security:
-        :param x_organization_id: The unique identifier for the organization making the request
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1022,26 +969,19 @@ class Products(BaseSDK):
             base_url = server_url
         else:
             base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetProductCategoriesV1ProductsCategoriesGetRequest(
-            x_organization_id=x_organization_id,
-        )
-
         req = self._build_request(
             method="GET",
             path="/v1/products/categories/",
             base_url=base_url,
             url_variables=url_variables,
-            request=request,
+            request=None,
             request_body_required=False,
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            security=utils.get_pydantic_model(
-                security, models.GetProductCategoriesV1ProductsCategoriesGetSecurity
-            ),
+            security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
 
@@ -1058,8 +998,8 @@ class Products(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_product_categories_v1_products_categories__get",
-                oauth2_scopes=None,
-                security_source=security,
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["422", "4XX", "5XX"],
@@ -1086,11 +1026,6 @@ class Products(BaseSDK):
     async def list_categories_async(
         self,
         *,
-        security: Union[
-            models.GetProductCategoriesV1ProductsCategoriesGetSecurity,
-            models.GetProductCategoriesV1ProductsCategoriesGetSecurityTypedDict,
-        ],
-        x_organization_id: Nullable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1102,8 +1037,6 @@ class Products(BaseSDK):
         product categories.  This endpoint helps users understand and select the
         appropriate categories for their products.
 
-        :param security:
-        :param x_organization_id: The unique identifier for the organization making the request
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1118,26 +1051,19 @@ class Products(BaseSDK):
             base_url = server_url
         else:
             base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetProductCategoriesV1ProductsCategoriesGetRequest(
-            x_organization_id=x_organization_id,
-        )
-
         req = self._build_request_async(
             method="GET",
             path="/v1/products/categories/",
             base_url=base_url,
             url_variables=url_variables,
-            request=request,
+            request=None,
             request_body_required=False,
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            security=utils.get_pydantic_model(
-                security, models.GetProductCategoriesV1ProductsCategoriesGetSecurity
-            ),
+            security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
 
@@ -1154,8 +1080,8 @@ class Products(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_product_categories_v1_products_categories__get",
-                oauth2_scopes=None,
-                security_source=security,
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
             ),
             request=req,
             error_status_codes=["422", "4XX", "5XX"],

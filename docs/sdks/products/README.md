@@ -23,12 +23,13 @@ from kintsugi_tax_platform_sdk import SDK, models
 
 
 with SDK(
-    server_url="https://api.example.com",
+    security=models.Security(
+        api_key_header="<YOUR_API_KEY_HERE>",
+        custom_header="<YOUR_API_KEY_HERE>",
+    ),
 ) as sdk:
 
-    res = sdk.products.list(security=models.GetProductsV1ProductsGetSecurity(
-        api_key_header="<YOUR_API_KEY_HERE>",
-    ), x_organization_id="org_12345", page=1, size=50)
+    res = sdk.products.list(page=1, size=50)
 
     # Handle response
     print(res)
@@ -37,19 +38,17 @@ with SDK(
 
 ### Parameters
 
-| Parameter                                                                                   | Type                                                                                        | Required                                                                                    | Description                                                                                 | Example                                                                                     |
-| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `security`                                                                                  | [models.GetProductsV1ProductsGetSecurity](../../models/getproductsv1productsgetsecurity.md) | :heavy_check_mark:                                                                          | N/A                                                                                         |                                                                                             |
-| `x_organization_id`                                                                         | *Nullable[str]*                                                                             | :heavy_check_mark:                                                                          | The unique identifier for the organization making the request                               | org_12345                                                                                   |
-| `query`                                                                                     | *OptionalNullable[str]*                                                                     | :heavy_minus_sign:                                                                          | Search term to filter products by name or other details.                                    |                                                                                             |
-| `status_in`                                                                                 | *OptionalNullable[str]*                                                                     | :heavy_minus_sign:                                                                          | Filter products by status (comma-separated)                                                 |                                                                                             |
-| `product_category_in`                                                                       | *OptionalNullable[str]*                                                                     | :heavy_minus_sign:                                                                          | Filter products by category (comma-separated)                                               |                                                                                             |
-| `product_subcategory_in`                                                                    | *OptionalNullable[str]*                                                                     | :heavy_minus_sign:                                                                          | Filter products by subcategory (comma-separated)                                            |                                                                                             |
-| `source_in`                                                                                 | *OptionalNullable[str]*                                                                     | :heavy_minus_sign:                                                                          | Filter products by source (comma-separated)                                                 |                                                                                             |
-| `order_by`                                                                                  | *OptionalNullable[str]*                                                                     | :heavy_minus_sign:                                                                          | Order results by specified fields (comma-separated)                                         |                                                                                             |
-| `page`                                                                                      | *Optional[int]*                                                                             | :heavy_minus_sign:                                                                          | Page number                                                                                 |                                                                                             |
-| `size`                                                                                      | *Optional[int]*                                                                             | :heavy_minus_sign:                                                                          | Page size                                                                                   |                                                                                             |
-| `retries`                                                                                   | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                            | :heavy_minus_sign:                                                                          | Configuration to override the default retry behavior of the client.                         |                                                                                             |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `query`                                                             | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Search term to filter products by name or other details.            |
+| `status_in`                                                         | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Filter products by status (comma-separated)                         |
+| `product_category_in`                                               | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Filter products by category (comma-separated)                       |
+| `product_subcategory_in`                                            | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Filter products by subcategory (comma-separated)                    |
+| `source_in`                                                         | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Filter products by source (comma-separated)                         |
+| `order_by`                                                          | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Order results by specified fields (comma-separated)                 |
+| `page`                                                              | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | Page number                                                         |
+| `size`                                                              | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | Page size                                                           |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
@@ -78,12 +77,13 @@ from kintsugi_tax_platform_sdk import SDK, models
 
 
 with SDK(
-    server_url="https://api.example.com",
+    security=models.Security(
+        api_key_header="<YOUR_API_KEY_HERE>",
+        custom_header="<YOUR_API_KEY_HERE>",
+    ),
 ) as sdk:
 
-    res = sdk.products.create(security=models.CreateProductV1ProductsPostSecurity(
-        api_key_header="<YOUR_API_KEY_HERE>",
-    ), x_organization_id="org_12345", external_id="prod_001", name="Sample Product", product_category=models.ProductCategoryEnum.PHYSICAL, product_subcategory=models.ProductSubCategoryEnum.GENERAL_CLOTHING, tax_exempt=False, description="A description of the product", status=models.ProductStatusEnum.APPROVED, source=models.SourceEnum.BIGCOMMERCE)
+    res = sdk.products.create(external_id="prod_001", name="Sample Product", product_category=models.ProductCategoryEnum.PHYSICAL, product_subcategory=models.ProductSubCategoryEnum.GENERAL_CLOTHING, tax_exempt=False, description="A description of the product", status=models.ProductStatusEnum.APPROVED, source=models.SourceEnum.BIGCOMMERCE)
 
     # Handle response
     print(res)
@@ -92,19 +92,17 @@ with SDK(
 
 ### Parameters
 
-| Parameter                                                                                             | Type                                                                                                  | Required                                                                                              | Description                                                                                           | Example                                                                                               |
-| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `security`                                                                                            | [models.CreateProductV1ProductsPostSecurity](../../models/createproductv1productspostsecurity.md)     | :heavy_check_mark:                                                                                    | N/A                                                                                                   |                                                                                                       |
-| `x_organization_id`                                                                                   | *Nullable[str]*                                                                                       | :heavy_check_mark:                                                                                    | The unique identifier for the organization making the request                                         | org_12345                                                                                             |
-| `external_id`                                                                                         | *str*                                                                                                 | :heavy_check_mark:                                                                                    | A unique external identifier for the product.                                                         |                                                                                                       |
-| `name`                                                                                                | *str*                                                                                                 | :heavy_check_mark:                                                                                    | The name of the product.                                                                              |                                                                                                       |
-| `product_category`                                                                                    | [models.ProductCreateManualProductCategory](../../models/productcreatemanualproductcategory.md)       | :heavy_check_mark:                                                                                    | The high-level category of the product.                                                               |                                                                                                       |
-| `product_subcategory`                                                                                 | [models.ProductCreateManualProductSubcategory](../../models/productcreatemanualproductsubcategory.md) | :heavy_check_mark:                                                                                    | The subcategory of the product.                                                                       |                                                                                                       |
-| `tax_exempt`                                                                                          | *bool*                                                                                                | :heavy_check_mark:                                                                                    | Specifies whether the product is tax-exempt.                                                          |                                                                                                       |
-| `description`                                                                                         | *OptionalNullable[str]*                                                                               | :heavy_minus_sign:                                                                                    | A description of the product.                                                                         |                                                                                                       |
-| `status`                                                                                              | [Optional[models.ProductStatusEnum]](../../models/productstatusenum.md)                               | :heavy_minus_sign:                                                                                    | N/A                                                                                                   |                                                                                                       |
-| `source`                                                                                              | [Optional[models.SourceEnum]](../../models/sourceenum.md)                                             | :heavy_minus_sign:                                                                                    | N/A                                                                                                   |                                                                                                       |
-| `retries`                                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                      | :heavy_minus_sign:                                                                                    | Configuration to override the default retry behavior of the client.                                   |                                                                                                       |
+| Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `external_id`                                                           | *str*                                                                   | :heavy_check_mark:                                                      | A unique external identifier for the product.                           |
+| `name`                                                                  | *str*                                                                   | :heavy_check_mark:                                                      | The name of the product.                                                |
+| `product_category`                                                      | [models.ProductCategoryEnum](../../models/productcategoryenum.md)       | :heavy_check_mark:                                                      | N/A                                                                     |
+| `product_subcategory`                                                   | [models.ProductSubCategoryEnum](../../models/productsubcategoryenum.md) | :heavy_check_mark:                                                      | N/A                                                                     |
+| `tax_exempt`                                                            | *bool*                                                                  | :heavy_check_mark:                                                      | Specifies whether the product is tax-exempt.                            |
+| `description`                                                           | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | A description of the product.                                           |
+| `status`                                                                | [Optional[models.ProductStatusEnum]](../../models/productstatusenum.md) | :heavy_minus_sign:                                                      | N/A                                                                     |
+| `source`                                                                | [Optional[models.SourceEnum]](../../models/sourceenum.md)               | :heavy_minus_sign:                                                      | N/A                                                                     |
+| `retries`                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)        | :heavy_minus_sign:                                                      | Configuration to override the default retry behavior of the client.     |
 
 ### Response
 
@@ -133,12 +131,13 @@ from kintsugi_tax_platform_sdk import SDK, models
 
 
 with SDK(
-    server_url="https://api.example.com",
+    security=models.Security(
+        api_key_header="<YOUR_API_KEY_HERE>",
+        custom_header="<YOUR_API_KEY_HERE>",
+    ),
 ) as sdk:
 
-    res = sdk.products.get(security=models.GetProductByIDV1ProductsProductIDGetSecurity(
-        api_key_header="<YOUR_API_KEY_HERE>",
-    ), product_id="<id>", x_organization_id="org_12345")
+    res = sdk.products.get(product_id="<id>")
 
     # Handle response
     print(res)
@@ -147,12 +146,10 @@ with SDK(
 
 ### Parameters
 
-| Parameter                                                                                                           | Type                                                                                                                | Required                                                                                                            | Description                                                                                                         | Example                                                                                                             |
-| ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `security`                                                                                                          | [models.GetProductByIDV1ProductsProductIDGetSecurity](../../models/getproductbyidv1productsproductidgetsecurity.md) | :heavy_check_mark:                                                                                                  | N/A                                                                                                                 |                                                                                                                     |
-| `product_id`                                                                                                        | *str*                                                                                                               | :heavy_check_mark:                                                                                                  | The unique identifier for the product you want to retrieve.                                                         |                                                                                                                     |
-| `x_organization_id`                                                                                                 | *Nullable[str]*                                                                                                     | :heavy_check_mark:                                                                                                  | The unique identifier for the organization making the request                                                       | org_12345                                                                                                           |
-| `retries`                                                                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                    | :heavy_minus_sign:                                                                                                  | Configuration to override the default retry behavior of the client.                                                 |                                                                                                                     |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `product_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier for the product you want to retrieve.         |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
@@ -180,21 +177,13 @@ from kintsugi_tax_platform_sdk import SDK, models
 
 
 with SDK(
-    server_url="https://api.example.com",
+    security=models.Security(
+        api_key_header="<YOUR_API_KEY_HERE>",
+        custom_header="<YOUR_API_KEY_HERE>",
+    ),
 ) as sdk:
 
-    res = sdk.products.update(security=models.UpdateProductV1ProductsProductIDPutSecurity(
-        api_key_header="<YOUR_API_KEY_HERE>",
-    ), product_id="<id>", x_organization_id="org_12345", request_body={
-        "name": "Updated Product Name",
-        "status": models.ProductStatusEnum.APPROVED,
-        "product_category": "PHYSICAL",
-        "product_subcategory": "GENERAL_CLOTHING",
-        "tax_exempt": False,
-        "external_id": "prod_001",
-        "description": "An updated description for the product",
-        "classification_failed": False,
-    })
+    res = sdk.products.update(product_id="<id>", name="Updated Product Name", product_category=models.ProductCategoryEnum.PHYSICAL, product_subcategory=models.ProductSubCategoryEnum.GENERAL_CLOTHING, tax_exempt=False, external_id="prod_001", description="An updated description for the product", status=models.ProductStatusEnum.APPROVED, classification_failed=False)
 
     # Handle response
     print(res)
@@ -203,13 +192,20 @@ with SDK(
 
 ### Parameters
 
-| Parameter                                                                                                         | Type                                                                                                              | Required                                                                                                          | Description                                                                                                       | Example                                                                                                           |
-| ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `security`                                                                                                        | [models.UpdateProductV1ProductsProductIDPutSecurity](../../models/updateproductv1productsproductidputsecurity.md) | :heavy_check_mark:                                                                                                | N/A                                                                                                               |                                                                                                                   |
-| `product_id`                                                                                                      | *str*                                                                                                             | :heavy_check_mark:                                                                                                | Unique identifier of the product to be updated.                                                                   |                                                                                                                   |
-| `x_organization_id`                                                                                               | *Nullable[str]*                                                                                                   | :heavy_check_mark:                                                                                                | The unique identifier for the organization making the request                                                     | org_12345                                                                                                         |
-| `request_body`                                                                                                    | [models.Product](../../models/product.md)                                                                         | :heavy_check_mark:                                                                                                | N/A                                                                                                               |                                                                                                                   |
-| `retries`                                                                                                         | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                  | :heavy_minus_sign:                                                                                                | Configuration to override the default retry behavior of the client.                                               |                                                                                                                   |
+| Parameter                                                                             | Type                                                                                  | Required                                                                              | Description                                                                           |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `product_id`                                                                          | *str*                                                                                 | :heavy_check_mark:                                                                    | Unique identifier of the product to be updated.                                       |
+| `name`                                                                                | *str*                                                                                 | :heavy_check_mark:                                                                    | Name of the product.                                                                  |
+| `product_category`                                                                    | [models.ProductCategoryEnum](../../models/productcategoryenum.md)                     | :heavy_check_mark:                                                                    | N/A                                                                                   |
+| `product_subcategory`                                                                 | [models.ProductSubCategoryEnum](../../models/productsubcategoryenum.md)               | :heavy_check_mark:                                                                    | N/A                                                                                   |
+| `tax_exempt`                                                                          | *bool*                                                                                | :heavy_check_mark:                                                                    | Indicates whether the product is tax-exempt.                                          |
+| `id`                                                                                  | *Optional[str]*                                                                       | :heavy_minus_sign:                                                                    | The unique identifier of the product to be updated.                                   |
+| `external_id`                                                                         | *Optional[str]*                                                                       | :heavy_minus_sign:                                                                    | External identifier provided for the product,<br/>        typically by the source system. |
+| `sku`                                                                                 | List[*str*]                                                                           | :heavy_minus_sign:                                                                    | N/A                                                                                   |
+| `description`                                                                         | *Optional[str]*                                                                       | :heavy_minus_sign:                                                                    | Description of the product.                                                           |
+| `status`                                                                              | [Optional[models.ProductStatusEnum]](../../models/productstatusenum.md)               | :heavy_minus_sign:                                                                    | N/A                                                                                   |
+| `classification_failed`                                                               | *Optional[bool]*                                                                      | :heavy_minus_sign:                                                                    | Indicates if the product classification failed.                                       |
+| `retries`                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                      | :heavy_minus_sign:                                                                    | Configuration to override the default retry behavior of the client.                   |
 
 ### Response
 
@@ -238,12 +234,13 @@ from kintsugi_tax_platform_sdk import SDK, models
 
 
 with SDK(
-    server_url="https://api.example.com",
+    security=models.Security(
+        api_key_header="<YOUR_API_KEY_HERE>",
+        custom_header="<YOUR_API_KEY_HERE>",
+    ),
 ) as sdk:
 
-    res = sdk.products.list_categories(security=models.GetProductCategoriesV1ProductsCategoriesGetSecurity(
-        api_key_header="<YOUR_API_KEY_HERE>",
-    ), x_organization_id="org_12345")
+    res = sdk.products.list_categories()
 
     # Handle response
     print(res)
@@ -252,11 +249,9 @@ with SDK(
 
 ### Parameters
 
-| Parameter                                                                                                                         | Type                                                                                                                              | Required                                                                                                                          | Description                                                                                                                       | Example                                                                                                                           |
-| --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `security`                                                                                                                        | [models.GetProductCategoriesV1ProductsCategoriesGetSecurity](../../models/getproductcategoriesv1productscategoriesgetsecurity.md) | :heavy_check_mark:                                                                                                                | N/A                                                                                                                               |                                                                                                                                   |
-| `x_organization_id`                                                                                                               | *Nullable[str]*                                                                                                                   | :heavy_check_mark:                                                                                                                | The unique identifier for the organization making the request                                                                     | org_12345                                                                                                                         |
-| `retries`                                                                                                                         | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                  | :heavy_minus_sign:                                                                                                                | Configuration to override the default retry behavior of the client.                                                               |                                                                                                                                   |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 

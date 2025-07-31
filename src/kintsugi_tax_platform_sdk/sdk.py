@@ -7,10 +7,10 @@ from .utils.logger import Logger, get_default_logger
 from .utils.retries import RetryConfig
 import httpx
 import importlib
-from kintsugi_tax_platform_sdk import models
+from kintsugi_tax_platform_sdk import models, utils
 from kintsugi_tax_platform_sdk._hooks import SDKHooks
 from kintsugi_tax_platform_sdk.types import OptionalNullable, UNSET
-from typing import Any, Callable, Optional, TYPE_CHECKING, Union, cast
+from typing import Callable, Dict, Optional, TYPE_CHECKING, Union, cast
 import weakref
 
 if TYPE_CHECKING:
@@ -46,10 +46,10 @@ class SDK(BaseSDK):
 
     def __init__(
         self,
-        server_url: str,
-        api_key_header: Optional[
-            Union[Optional[str], Callable[[], Optional[str]]]
-        ] = None,
+        security: Union[models.Security, Callable[[], models.Security]],
+        server_idx: Optional[int] = None,
+        server_url: Optional[str] = None,
+        url_params: Optional[Dict[str, str]] = None,
         client: Optional[HttpClient] = None,
         async_client: Optional[AsyncHttpClient] = None,
         retry_config: OptionalNullable[RetryConfig] = UNSET,
@@ -58,7 +58,7 @@ class SDK(BaseSDK):
     ) -> None:
         r"""Instantiates the SDK configuring it with the provided parameters.
 
-        :param api_key_header: The api_key_header required for authentication
+        :param security: The security details required for authentication
         :param server_idx: The index of the server to use for all methods
         :param server_url: The server URL to use for all methods
         :param url_params: Parameters to optionally template the server URL with
@@ -88,12 +88,9 @@ class SDK(BaseSDK):
             type(async_client), AsyncHttpClient
         ), "The provided async_client must implement the AsyncHttpClient protocol."
 
-        security: Any = None
-        if callable(api_key_header):
-            # pylint: disable=unnecessary-lambda-assignment
-            security = lambda: models.Security(api_key_header=api_key_header())
-        else:
-            security = models.Security(api_key_header=api_key_header)
+        if server_url is not None:
+            if url_params is not None:
+                server_url = utils.template_url(server_url, url_params)
 
         BaseSDK.__init__(
             self,
@@ -104,6 +101,7 @@ class SDK(BaseSDK):
                 async_client_supplied=async_client_supplied,
                 security=security,
                 server_url=server_url,
+                server_idx=server_idx,
                 retry_config=retry_config,
                 timeout_ms=timeout_ms,
                 debug_logger=debug_logger,
