@@ -5,15 +5,15 @@
 
 ### Available Operations
 
-* [list](#list) - Get Customers
-* [create](#create) - Create Customer
-* [get](#get) - Get Customer By Id
-* [update](#update) - Update Customer
-* [get_by_external_id](#get_by_external_id) - Get Customer By External Id
-* [get_transactions](#get_transactions) - Get Transactions By Customer Id
-* [create_transaction](#create_transaction) - Create Transaction By Customer Id
+* [get_customers_v1](#get_customers_v1) - Get Customers
+* [create_customer_v1_customers_post](#create_customer_v1_customers_post) - Create Customer
+* [get_customer_by_id_v1_customers_customer_id_get](#get_customer_by_id_v1_customers_customer_id_get) - Get Customer By Id
+* [update_customer_v1_customers_customer_id_put](#update_customer_v1_customers_customer_id_put) - Update Customer
+* [get_customer_by_external_id_v1_customers_external_external_id_get](#get_customer_by_external_id_v1_customers_external_external_id_get) - Get Customer By External Id
+* [get_transactions_by_customer_id_v1_customers_customer_id_transactions_get](#get_transactions_by_customer_id_v1_customers_customer_id_transactions_get) - Get Transactions By Customer Id
+* [create_transaction_by_customer_id_v1_customers_customer_id_transactions_post](#create_transaction_by_customer_id_v1_customers_customer_id_transactions_post) - Create Transaction By Customer Id
 
-## list
+## get_customers_v1
 
 The Get Customers API retrieves
     a paginated list of customers based on specified filters.
@@ -33,7 +33,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.customers.list(search_query="John", country=[
+    res = sdk.customers.get_customers_v1(search_query="John", country=[
 
     ], state="CA", source_in="SHOPIFY,API", order_by="created_at,street_1,street_2,city,state,postal_code,country,status", page=1, size=50)
 
@@ -68,7 +68,7 @@ with SDK(
 | errors.ErrorResponse                                       | 500                                                        | application/json                                           |
 | errors.APIError                                            | 4XX, 5XX                                                   | \*/\*                                                      |
 
-## create
+## create_customer_v1_customers_post
 
 The Create Customer API enables the creation of a new customer record with essential
 details like name, contact information, and address, along with optional metadata.
@@ -87,7 +87,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.customers.create(phone="987-654-3210", street_1="456 Elm St", street_2="Suite 202", city="Metropolis", county="Wayne", state="NY", postal_code="10001", country=models.CountryCodeEnum.US, name="Jane Smith", external_id="cust_002", status=models.StatusEnum.ARCHIVED, email="jane.smith@example.com", source=models.SourceEnum.SHOPIFY, address_status=models.AddressStatus.PARTIALLY_VERIFIED)
+    res = sdk.customers.create_customer_v1_customers_post(phone="987-654-3210", street_1="456 Elm St", street_2="Suite 202", city="Metropolis", county="Wayne", state="NY", postal_code="10001", country=models.CountryCodeEnum.US, name="Jane Smith", external_id="cust_002", status=models.StatusEnum.ARCHIVED, email="jane.smith@example.com", source=models.SourceEnum.SHOPIFY, address_status=models.AddressStatus.PARTIALLY_VERIFIED)
 
     # Handle response
     print(res)
@@ -130,7 +130,7 @@ with SDK(
 | errors.ErrorResponse                                       | 500                                                        | application/json                                           |
 | errors.APIError                                            | 4XX, 5XX                                                   | \*/\*                                                      |
 
-## get
+## get_customer_by_id_v1_customers_customer_id_get
 
 The Get Customer By ID API retrieves the details of a single customer
     using their unique identifier. It returns customer-specific data,
@@ -150,7 +150,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.customers.get(customer_id="cust_abc123")
+    res = sdk.customers.get_customer_by_id_v1_customers_customer_id_get(customer_id="cust_abc123")
 
     # Handle response
     print(res)
@@ -175,7 +175,7 @@ with SDK(
 | errors.HTTPValidationError | 422                        | application/json           |
 | errors.APIError            | 4XX, 5XX                   | \*/\*                      |
 
-## update
+## update_customer_v1_customers_customer_id_put
 
 The Update Customer API allows you to modify an existing customer's
     information using their unique identifier,
@@ -195,7 +195,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.customers.update(customer_id="<id>", phone="987-654-3210", street_1="456 Elm St", street_2="Suite 202", city="Metropolis", county="Wayne", state="NY", postal_code="10001", country=models.CountryCodeEnum.US, full_address="456 Elm St, Suite 202, Metropolis, NY 10001, US", name="Jane Smith", status=models.StatusEnum.ACTIVE, email="john.doe@example.com", source=models.SourceEnum.SHOPIFY, address_status=models.AddressStatus.VERIFIED, external_id="cust_002")
+    res = sdk.customers.update_customer_v1_customers_customer_id_put(customer_id="<id>", phone="987-654-3210", street_1="456 Elm St", street_2="Suite 202", city="Metropolis", county="Wayne", state="NY", postal_code="10001", country=models.CountryCodeEnum.US, full_address="456 Elm St, Suite 202, Metropolis, NY 10001, US", name="Jane Smith", status=models.StatusEnum.ACTIVE, email="john.doe@example.com", source=models.SourceEnum.SHOPIFY, address_status=models.AddressStatus.VERIFIED, external_id="cust_002")
 
     # Handle response
     print(res)
@@ -237,7 +237,7 @@ with SDK(
 | errors.ErrorResponse                                       | 500                                                        | application/json                                           |
 | errors.APIError                                            | 4XX, 5XX                                                   | \*/\*                                                      |
 
-## get_by_external_id
+## get_customer_by_external_id_v1_customers_external_external_id_get
 
 The Get Customer By External ID API retrieves the details of a single customer using
 their external identifier. This endpoint is useful for accessing customer data when only
@@ -257,7 +257,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.customers.get_by_external_id(external_id="external_12345")
+    res = sdk.customers.get_customer_by_external_id_v1_customers_external_external_id_get(external_id="external_12345")
 
     # Handle response
     print(res)
@@ -282,7 +282,7 @@ with SDK(
 | errors.HTTPValidationError | 422                        | application/json           |
 | errors.APIError            | 4XX, 5XX                   | \*/\*                      |
 
-## get_transactions
+## get_transactions_by_customer_id_v1_customers_customer_id_transactions_get
 
 Get a list of transactions for a customer by their unique ID.
 
@@ -300,7 +300,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.customers.get_transactions(customer_id="<id>")
+    res = sdk.customers.get_transactions_by_customer_id_v1_customers_customer_id_transactions_get(customer_id="<id>")
 
     # Handle response
     print(res)
@@ -325,7 +325,7 @@ with SDK(
 | errors.HTTPValidationError | 422                        | application/json           |
 | errors.APIError            | 4XX, 5XX                   | \*/\*                      |
 
-## create_transaction
+## create_transaction_by_customer_id_v1_customers_customer_id_transactions_post
 
 Create a new transaction for a specific customer.
 
@@ -344,7 +344,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.customers.create_transaction(customer_id_param="<value>", organization_id="<id>", external_id="<id>", date_=parse_datetime("2023-02-16T04:36:50.697Z"), addresses=[], transaction_items=[
+    res = sdk.customers.create_transaction_by_customer_id_v1_customers_customer_id_transactions_post(customer_id_param="<value>", organization_id="<id>", external_id="<id>", date_=parse_datetime("2023-02-16T04:36:50.697Z"), addresses=[], transaction_items=[
         models.TransactionItemCreateUpdate(
             organization_id="<id>",
             date_=parse_datetime("2024-05-13T04:49:24.946Z"),

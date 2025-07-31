@@ -11,7 +11,7 @@ from typing import Any, List, Mapping, Optional
 
 
 class Products(BaseSDK):
-    def list(
+    def get_products_v1_products_get(
         self,
         *,
         query: Optional[str] = None,
@@ -127,7 +127,7 @@ class Products(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def list_async(
+    async def get_products_v1_products_get_async(
         self,
         *,
         query: Optional[str] = None,
@@ -243,7 +243,7 @@ class Products(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    def create(
+    def create_product_v1_products_post(
         self,
         *,
         external_id: str,
@@ -364,7 +364,7 @@ class Products(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def create_async(
+    async def create_product_v1_products_post_async(
         self,
         *,
         external_id: str,
@@ -485,7 +485,7 @@ class Products(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    def get(
+    def get_product_by_id_v1_products_product_id_get(
         self,
         *,
         product_id: str,
@@ -582,7 +582,7 @@ class Products(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def get_async(
+    async def get_product_by_id_v1_products_product_id_get_async(
         self,
         *,
         product_id: str,
@@ -679,7 +679,7 @@ class Products(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    def update(
+    def update_product_v1_products_product_id_put(
         self,
         *,
         product_id: str,
@@ -810,7 +810,7 @@ class Products(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def update_async(
+    async def update_product_v1_products_product_id_put_async(
         self,
         *,
         product_id: str,
@@ -941,7 +941,7 @@ class Products(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    def list_categories(
+    def get_product_categories_v1_products_categories_get(
         self,
         *,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1023,7 +1023,7 @@ class Products(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def list_categories_async(
+    async def get_product_categories_v1_products_categories_get_async(
         self,
         *,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,

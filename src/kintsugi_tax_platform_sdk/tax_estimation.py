@@ -12,7 +12,7 @@ from typing import Any, List, Mapping, Optional, Union
 
 
 class TaxEstimation(BaseSDK):
-    def estimate_tax(
+    def estimate_tax_v1_tax_estimate_post(
         self,
         *,
         date_: datetime,
@@ -165,7 +165,7 @@ class TaxEstimation(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def estimate_tax_async(
+    async def estimate_tax_v1_tax_estimate_post_async(
         self,
         *,
         date_: datetime,

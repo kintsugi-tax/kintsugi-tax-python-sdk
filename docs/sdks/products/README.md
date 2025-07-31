@@ -5,13 +5,13 @@
 
 ### Available Operations
 
-* [list](#list) - Get Products
-* [create](#create) - Create Product
-* [get](#get) - Get Product By Id
-* [update](#update) - Update Product
-* [list_categories](#list_categories) - Get Product Categories
+* [get_products_v1_products_get](#get_products_v1_products_get) - Get Products
+* [create_product_v1_products_post](#create_product_v1_products_post) - Create Product
+* [get_product_by_id_v1_products_product_id_get](#get_product_by_id_v1_products_product_id_get) - Get Product By Id
+* [update_product_v1_products_product_id_put](#update_product_v1_products_product_id_put) - Update Product
+* [get_product_categories_v1_products_categories_get](#get_product_categories_v1_products_categories_get) - Get Product Categories
 
-## list
+## get_products_v1_products_get
 
 Retrieve a paginated list of products based on filters and search query.
 
@@ -29,7 +29,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.products.list(page=1, size=50)
+    res = sdk.products.get_products_v1_products_get(page=1, size=50)
 
     # Handle response
     print(res)
@@ -63,7 +63,7 @@ with SDK(
 | errors.ErrorResponse                                      | 500                                                       | application/json                                          |
 | errors.APIError                                           | 4XX, 5XX                                                  | \*/\*                                                     |
 
-## create
+## create_product_v1_products_post
 
 The Create Product API allows users to manually create a new product
     in the system. This includes specifying product details such as category,
@@ -83,7 +83,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.products.create(external_id="prod_001", name="Sample Product", product_category=models.ProductCategoryEnum.PHYSICAL, product_subcategory=models.ProductSubCategoryEnum.GENERAL_CLOTHING, tax_exempt=False, description="A description of the product", status=models.ProductStatusEnum.APPROVED, source=models.SourceEnum.BIGCOMMERCE)
+    res = sdk.products.create_product_v1_products_post(external_id="prod_001", name="Sample Product", product_category=models.ProductCategoryEnum.PHYSICAL, product_subcategory=models.ProductSubCategoryEnum.GENERAL_CLOTHING, tax_exempt=False, description="A description of the product", status=models.ProductStatusEnum.APPROVED, source=models.SourceEnum.BIGCOMMERCE)
 
     # Handle response
     print(res)
@@ -117,7 +117,7 @@ with SDK(
 | errors.ErrorResponse                                      | 500                                                       | application/json                                          |
 | errors.APIError                                           | 4XX, 5XX                                                  | \*/\*                                                     |
 
-## get
+## get_product_by_id_v1_products_product_id_get
 
 The Get Product By ID API retrieves detailed information about
     a single product by its unique ID. This API helps in viewing the specific details
@@ -137,7 +137,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.products.get(product_id="<id>")
+    res = sdk.products.get_product_by_id_v1_products_product_id_get(product_id="<id>")
 
     # Handle response
     print(res)
@@ -164,7 +164,7 @@ with SDK(
 | errors.ErrorResponse                                      | 500                                                       | application/json                                          |
 | errors.APIError                                           | 4XX, 5XX                                                  | \*/\*                                                     |
 
-## update
+## update_product_v1_products_product_id_put
 
 The Update Product API allows users to modify the details of
     an existing product identified by its unique product_id
@@ -183,7 +183,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.products.update(product_id="<id>", name="Updated Product Name", product_category=models.ProductCategoryEnum.PHYSICAL, product_subcategory=models.ProductSubCategoryEnum.GENERAL_CLOTHING, tax_exempt=False, external_id="prod_001", description="An updated description for the product", status=models.ProductStatusEnum.APPROVED, classification_failed=False)
+    res = sdk.products.update_product_v1_products_product_id_put(product_id="<id>", name="Updated Product Name", product_category=models.ProductCategoryEnum.PHYSICAL, product_subcategory=models.ProductSubCategoryEnum.GENERAL_CLOTHING, tax_exempt=False, external_id="prod_001", description="An updated description for the product", status=models.ProductStatusEnum.APPROVED, classification_failed=False)
 
     # Handle response
     print(res)
@@ -220,7 +220,7 @@ with SDK(
 | errors.ErrorResponse                                      | 500                                                       | application/json                                          |
 | errors.APIError                                           | 4XX, 5XX                                                  | \*/\*                                                     |
 
-## list_categories
+## get_product_categories_v1_products_categories_get
 
 The Get Product Categories API retrieves all
     product categories.  This endpoint helps users understand and select the
@@ -240,7 +240,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.products.list_categories()
+    res = sdk.products.get_product_categories_v1_products_categories_get()
 
     # Handle response
     print(res)

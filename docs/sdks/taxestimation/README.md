@@ -5,9 +5,9 @@
 
 ### Available Operations
 
-* [estimate_tax](#estimate_tax) - Estimate Tax
+* [estimate_tax_v1_tax_estimate_post](#estimate_tax_v1_tax_estimate_post) - Estimate Tax
 
-## estimate_tax
+## estimate_tax_v1_tax_estimate_post
 
 The Estimate Tax API calculates the estimated tax for a specific
     transaction based on the provided details, including organization nexus,
@@ -28,7 +28,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.tax_estimation.estimate_tax(date_=parse_datetime("2025-01-23T13:01:29.949Z"), external_id="txn_12345", currency=models.CurrencyEnum.USD, transaction_items=[
+    res = sdk.tax_estimation.estimate_tax_v1_tax_estimate_post(date_=parse_datetime("2025-01-23T13:01:29.949Z"), external_id="txn_12345", currency=models.CurrencyEnum.USD, transaction_items=[
         {
             "external_id": "item_A",
             "date_": parse_datetime("2024-10-28T10:00:00Z"),
