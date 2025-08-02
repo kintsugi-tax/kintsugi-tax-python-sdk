@@ -8,3 +8,4 @@ class FilingStatusEnum(str, Enum):
     UNFILED = "UNFILED"
     FILED = "FILED"
     FILING = "FILING"
+    PAUSED = "PAUSED"
