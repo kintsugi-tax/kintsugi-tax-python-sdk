@@ -2778,6 +2778,9 @@ components:
           description: "Indicates if the filing can be approved."
           type: "boolean"
         "currency": {"description": "Currency code for the filing (e.g., USD, CAD).", "$ref": "#/components/schemas/CurrencyEnum"}
+        "paused_until_date":
+          description: "Indicates the date when filing will be unpaused."
+          type: "string"
         "id":
           type: "string"
           title: "Id"
@@ -5865,6 +5868,9 @@ components:
           description: "Indicates if the filing can be approved."
           type: "boolean"
         "currency": {"description": "Currency code for the filing (e.g., USD, CAD).", "$ref": "#/components/schemas/CurrencyEnum"}
+        "paused_until_date":
+          description: "Indicates the date when filing will be unpaused."
+          type: "string"
         "id":
           type: "string"
           title: "Id"
@@ -6051,6 +6057,9 @@ components:
           description: "Indicates if the filing can be approved."
           type: "boolean"
         "currency": {"description": "Currency code for the filing (e.g., USD, CAD).", "$ref": "#/components/schemas/CurrencyEnum"}
+        "paused_until_date":
+          description: "Indicates the date when filing will be unpaused."
+          type: "string"
         "id":
           type: "string"
           title: "Id"
@@ -6217,6 +6226,9 @@ components:
           description: "Indicates if the filing can be approved."
           type: "boolean"
         "currency": {"description": "Currency code for the filing (e.g., USD, CAD).", "$ref": "#/components/schemas/CurrencyEnum"}
+        "paused_until_date":
+          description: "Indicates the date when filing will be unpaused."
+          type: "string"
         "id":
           type: "string"
           title: "Id"
@@ -6239,6 +6251,7 @@ components:
         - "UNFILED"
         - "FILED"
         - "FILING"
+        - "PAUSED"
       title: "FilingStatusEnum"
     "FilingUpdateInternal":
       properties:
@@ -6344,6 +6357,9 @@ components:
           description: "Indicates if the filing can be approved."
           type: "boolean"
         "currency": {"description": "Currency code for the filing (e.g., USD, CAD).", "$ref": "#/components/schemas/CurrencyEnum"}
+        "paused_until_date":
+          description: "Indicates the date when filing will be unpaused."
+          type: "string"
       type: "object"
       required:
         - "start_date"
@@ -8565,13 +8581,11 @@ components:
       properties:
         "disable_onboarding":
           type: "boolean"
-          title: "Disable Onboarding"
         "enable_eu_registration":
           type: "boolean"
+        "prefer_collected_tax_amounts":
+          type: "boolean"
       type: "object"
-      required:
-        - "disable_onboarding"
-        - "enable_eu_registration"
       title: "OrganizationSettingsReadUpdate"
     "OrganizationSettingsResponse":
       properties:
@@ -8587,6 +8601,9 @@ components:
         "enable_new_auto_filing_experience":
           type: "boolean"
           title: "Enable New Auto Filing Experience"
+        "prefer_collected_tax_amounts":
+          type: "boolean"
+          title: "Prefer Collected Tax Amounts"
       type: "object"
       required:
         - "disable_onboarding"
@@ -8594,6 +8611,7 @@ components:
         - "product_category_version"
         - "oss_scheme"
         - "enable_new_auto_filing_experience"
+        - "prefer_collected_tax_amounts"
       title: "OrganizationSettingsResponse"
     "OrganizationSourceEnum":
       type: "string"
