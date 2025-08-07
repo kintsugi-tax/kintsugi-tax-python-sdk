@@ -73,6 +73,8 @@ class FilingReadTypedDict(TypedDict):
     block_approval: NotRequired[bool]
     r"""Indicates if the filing can be approved."""
     currency: NotRequired[CurrencyEnum]
+    paused_until_date: NotRequired[str]
+    r"""Indicates the date when filing will be unpaused."""
 
 
 class FilingRead(BaseModel):
@@ -168,3 +170,6 @@ class FilingRead(BaseModel):
     r"""Indicates if the filing can be approved."""
 
     currency: Optional[CurrencyEnum] = None
+
+    paused_until_date: Optional[str] = None
+    r"""Indicates the date when filing will be unpaused."""
