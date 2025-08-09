@@ -61,6 +61,10 @@ class GetTransactionsV1TransactionsGetRequestTypedDict(TypedDict):
     r"""Filter transactions by exemption status.
     Multiple values can be passed as a comma-separated list (e.g., EXEMPT,TAXABLE).
     """
+    type: NotRequired[str]
+    r"""Filter transactions by type (e.g., SALE, FULL_CREDIT_NOTE,
+    PARTIAL_CREDIT_NOTE, ARCHIVE etc.).
+    """
     page: NotRequired[int]
     r"""Page number"""
     size: NotRequired[int]
@@ -181,6 +185,14 @@ class GetTransactionsV1TransactionsGetRequest(BaseModel):
     ] = None
     r"""Filter transactions by exemption status.
     Multiple values can be passed as a comma-separated list (e.g., EXEMPT,TAXABLE).
+    """
+
+    type: Annotated[
+        Optional[str],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""Filter transactions by type (e.g., SALE, FULL_CREDIT_NOTE,
+    PARTIAL_CREDIT_NOTE, ARCHIVE etc.).
     """
 
     page: Annotated[
