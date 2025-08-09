@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: a3b5f8df-3e69-405c-9eb8-40a21cc5faba
 management:
-  docChecksum: b3539522b75dcfdc35d039c1eae230d9
+  docChecksum: bf51821af7073284881d5c7f36b1ebec
   docVersion: 1.0.0
-  speakeasyVersion: 1.598.3
-  generationVersion: 2.674.3
-  releaseVersion: 0.8.2
-  configChecksum: 67a57f4fdbfe9b6a8b89ba60dd856641
+  speakeasyVersion: 1.600.2
+  generationVersion: 2.677.3
+  releaseVersion: 0.8.3
+  configChecksum: bc0d05b7809ca7b576c47bb987de955e
   repoURL: https://github.com/kintsugi-tax/kintsugi-tax-python-sdk.git
   installationURL: https://github.com/kintsugi-tax/kintsugi-tax-python-sdk.git
   published: true
@@ -996,7 +996,7 @@ examples:
     speakeasy-default-get-filings-v1-filings-get:
       parameters:
         query:
-          status__in: "FILED,FILING,UNFILED"
+          status__in: "FILED,FILING,UNFILED,PAUSED"
           start_date: "2024-01-01"
           end_date: "2024-12-31"
           date_filed__gte: "2024-01-01"
