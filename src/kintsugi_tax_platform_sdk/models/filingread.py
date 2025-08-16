@@ -39,6 +39,8 @@ class FilingReadTypedDict(TypedDict):
     """
     auto_approved: NotRequired[bool]
     r"""Indicates if the filing was auto-approved. Defaults to false."""
+    paused_until_date: NotRequired[str]
+    r"""Indicates the date when filing will be unpaused."""
     amount_calculated: NotRequired[str]
     r"""The calculated amount for the filing. Defaults to 0.00."""
     amount_adjusted: NotRequired[str]
@@ -73,8 +75,6 @@ class FilingReadTypedDict(TypedDict):
     block_approval: NotRequired[bool]
     r"""Indicates if the filing can be approved."""
     currency: NotRequired[CurrencyEnum]
-    paused_until_date: NotRequired[str]
-    r"""Indicates the date when filing will be unpaused."""
 
 
 class FilingRead(BaseModel):
@@ -118,6 +118,9 @@ class FilingRead(BaseModel):
 
     auto_approved: Optional[bool] = False
     r"""Indicates if the filing was auto-approved. Defaults to false."""
+
+    paused_until_date: Optional[str] = None
+    r"""Indicates the date when filing will be unpaused."""
 
     amount_calculated: Optional[str] = "0.00"
     r"""The calculated amount for the filing. Defaults to 0.00."""
@@ -170,6 +173,3 @@ class FilingRead(BaseModel):
     r"""Indicates if the filing can be approved."""
 
     currency: Optional[CurrencyEnum] = None
-
-    paused_until_date: Optional[str] = None
-    r"""Indicates the date when filing will be unpaused."""

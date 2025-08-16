@@ -22,7 +22,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 python:
-  version: 0.8.2
+  version: 0.8.3
   additionalDependencies:
     dev: {}
     main: {}
@@ -52,6 +52,7 @@ python:
   methodArguments: infer-optional-args
   moduleName: ""
   outputModelSuffix: output
+  packageManager: poetry
   packageName: kintsugi-tax-platform-sdk
   pytestFilterWarnings: []
   pytestTimeout: 0
