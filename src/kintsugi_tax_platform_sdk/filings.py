@@ -14,7 +14,7 @@ class Filings(BaseSDK):
     def get_all(
         self,
         *,
-        status_in: Optional[str] = "FILED,FILING,UNFILED",
+        status_in: Optional[str] = "FILED,FILING,UNFILED,PAUSED",
         start_date: Optional[str] = None,
         end_date: Optional[str] = None,
         date_filed_gte: Optional[str] = None,
@@ -138,7 +138,7 @@ class Filings(BaseSDK):
     async def get_all_async(
         self,
         *,
-        status_in: Optional[str] = "FILED,FILING,UNFILED",
+        status_in: Optional[str] = "FILED,FILING,UNFILED,PAUSED",
         start_date: Optional[str] = None,
         end_date: Optional[str] = None,
         date_filed_gte: Optional[str] = None,
