@@ -5,5 +5,6 @@ from enum import Enum
 
 
 class TaxItemTypeEnum(str, Enum):
+    IMPORTED_ORIGINAL = "IMPORTED_ORIGINAL"
     IMPORTED = "IMPORTED"
     CALCULATED = "CALCULATED"

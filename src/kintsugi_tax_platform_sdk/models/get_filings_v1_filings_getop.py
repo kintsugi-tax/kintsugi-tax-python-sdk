@@ -37,7 +37,7 @@ class GetFilingsV1FilingsGetRequest(BaseModel):
         Optional[str],
         pydantic.Field(alias="status__in"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = "FILED,FILING,UNFILED"
+    ] = "FILED,FILING,UNFILED,PAUSED"
     r"""Filter filings by status"""
 
     start_date: Annotated[

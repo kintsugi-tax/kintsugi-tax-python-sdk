@@ -129,3 +129,13 @@ Based on:
 - [python v0.8.2] .
 ### Releases
 - [PyPI v0.8.2] https://pypi.org/project/kintsugi-tax-platform-sdk/0.8.2 - .
+
+## 2025-08-26 00:11:11
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.606.5 (2.687.1) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v0.8.3] .
+### Releases
+- [PyPI v0.8.3] https://pypi.org/project/kintsugi-tax-platform-sdk/0.8.3 - .
