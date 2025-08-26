@@ -47,6 +47,12 @@ class FilingDetailsReadTypedDict(TypedDict):
     """
     auto_approved: NotRequired[bool]
     r"""Indicates if the filing was auto-approved. Defaults to false."""
+    paused_until_date: NotRequired[str]
+    r"""Indicates the date when filing will be unpaused."""
+    approved_by: NotRequired[str]
+    r"""User ID of who approved the filing."""
+    approved_at: NotRequired[str]
+    r"""Timestamp when the filing was approved."""
     amount_calculated: NotRequired[str]
     r"""The calculated amount for the filing. Defaults to 0.00."""
     amount_adjusted: NotRequired[str]
@@ -81,8 +87,6 @@ class FilingDetailsReadTypedDict(TypedDict):
     block_approval: NotRequired[bool]
     r"""Indicates if the filing can be approved."""
     currency: NotRequired[CurrencyEnum]
-    paused_until_date: NotRequired[str]
-    r"""Indicates the date when filing will be unpaused."""
     attachments: NotRequired[AttachmentsTypedDict]
     r"""List of attachments associated with the filing, if any."""
     credits_utilized: NotRequired[str]
@@ -129,6 +133,15 @@ class FilingDetailsRead(BaseModel):
 
     auto_approved: Optional[bool] = False
     r"""Indicates if the filing was auto-approved. Defaults to false."""
+
+    paused_until_date: Optional[str] = None
+    r"""Indicates the date when filing will be unpaused."""
+
+    approved_by: Optional[str] = None
+    r"""User ID of who approved the filing."""
+
+    approved_at: Optional[str] = None
+    r"""Timestamp when the filing was approved."""
 
     amount_calculated: Optional[str] = "0.00"
     r"""The calculated amount for the filing. Defaults to 0.00."""
@@ -181,9 +194,6 @@ class FilingDetailsRead(BaseModel):
     r"""Indicates if the filing can be approved."""
 
     currency: Optional[CurrencyEnum] = None
-
-    paused_until_date: Optional[str] = None
-    r"""Indicates the date when filing will be unpaused."""
 
     attachments: Optional[Attachments] = None
     r"""List of attachments associated with the filing, if any."""

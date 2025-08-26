@@ -183,7 +183,7 @@ class NexusResponse(BaseModel):
 
     collected_tax_nexus_met_date: Optional[str] = None
 
-    collected_tax_enabled: Optional[bool] = False
+    collected_tax_enabled: Optional[bool] = True
 
     earliest_transaction_date: Optional[str] = None
 

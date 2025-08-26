@@ -29,7 +29,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.filings.get_all(status_in="FILED,FILING,UNFILED", start_date="2024-01-01", end_date="2024-12-31", date_filed_gte="2024-01-01", date_filed_lte="2024-12-31", order_by="status,start_date,end_date,amount", state_code="CA", country_code=[
+    res = sdk.filings.get_all(status_in="FILED,FILING,UNFILED,PAUSED", start_date="2024-01-01", end_date="2024-12-31", date_filed_gte="2024-01-01", date_filed_lte="2024-12-31", order_by="status,start_date,end_date,amount", state_code="CA", country_code=[
 
     ], page=1, size=50)
 
@@ -42,7 +42,7 @@ with SDK(
 
 | Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             | Example                                                                 |
 | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `status_in`                                                             | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | Filter filings by status                                                | FILED,FILING,UNFILED                                                    |
+| `status_in`                                                             | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | Filter filings by status                                                | FILED,FILING,UNFILED,PAUSED                                             |
 | `start_date`                                                            | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | Filter filings with a start date greater than or equal to this date.    | 2024-01-01                                                              |
 | `end_date`                                                              | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | Filter filings with an end date less than or equal to this date.        | 2024-12-31                                                              |
 | `date_filed_gte`                                                        | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | Filter filings filed on or after this date.                             | 2024-01-01                                                              |
