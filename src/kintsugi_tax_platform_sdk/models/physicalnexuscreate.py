@@ -3,6 +3,7 @@
 from __future__ import annotations
 from .countrycodeenum import CountryCodeEnum
 from .physicalnexuscategory import PhysicalNexusCategory
+from .physicalnexussource import PhysicalNexusSource
 from datetime import date
 from kintsugi_tax_platform_sdk.types import BaseModel
 from typing import Optional
@@ -28,6 +29,7 @@ class PhysicalNexusCreateTypedDict(TypedDict):
     r"""Optional
     external identifier for the nexus.
     """
+    source: NotRequired[PhysicalNexusSource]
 
 
 class PhysicalNexusCreate(BaseModel):
@@ -54,3 +56,5 @@ class PhysicalNexusCreate(BaseModel):
     r"""Optional
     external identifier for the nexus.
     """
+
+    source: Optional[PhysicalNexusSource] = None

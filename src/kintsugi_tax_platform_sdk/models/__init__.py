@@ -3,6 +3,7 @@
 from typing import TYPE_CHECKING
 from importlib import import_module
 import builtins
+import sys
 
 if TYPE_CHECKING:
     from .addressbase import AddressBase, AddressBaseTypedDict
@@ -238,6 +239,7 @@ if TYPE_CHECKING:
     from .physicalnexuscategory import PhysicalNexusCategory
     from .physicalnexuscreate import PhysicalNexusCreate, PhysicalNexusCreateTypedDict
     from .physicalnexusread import PhysicalNexusRead, PhysicalNexusReadTypedDict
+    from .physicalnexussource import PhysicalNexusSource
     from .physicalnexusupdate import PhysicalNexusUpdate, PhysicalNexusUpdateTypedDict
     from .post_create_credit_note_by_transaction_idop import (
         POSTCreateCreditNoteByTransactionIDRequest,
@@ -539,6 +541,7 @@ __all__ = [
     "PhysicalNexusCreateTypedDict",
     "PhysicalNexusRead",
     "PhysicalNexusReadTypedDict",
+    "PhysicalNexusSource",
     "PhysicalNexusUpdate",
     "PhysicalNexusUpdateTypedDict",
     "ProcessingStatusEnum",
@@ -810,6 +813,7 @@ _dynamic_imports: dict[str, str] = {
     "PhysicalNexusCreateTypedDict": ".physicalnexuscreate",
     "PhysicalNexusRead": ".physicalnexusread",
     "PhysicalNexusReadTypedDict": ".physicalnexusread",
+    "PhysicalNexusSource": ".physicalnexussource",
     "PhysicalNexusUpdate": ".physicalnexusupdate",
     "PhysicalNexusUpdateTypedDict": ".physicalnexusupdate",
     "POSTCreateCreditNoteByTransactionIDRequest": ".post_create_credit_note_by_transaction_idop",
@@ -920,6 +924,18 @@ _dynamic_imports: dict[str, str] = {
 }
 
 
+def dynamic_import(modname, retries=3):
+    for attempt in range(retries):
+        try:
+            return import_module(modname, __package__)
+        except KeyError:
+            # Clear any half-initialized module and retry
+            sys.modules.pop(modname, None)
+            if attempt == retries - 1:
+                break
+    raise KeyError(f"Failed to import module '{modname}' after {retries} attempts")
+
+
 def __getattr__(attr_name: str) -> object:
     module_name = _dynamic_imports.get(attr_name)
     if module_name is None:
@@ -928,7 +944,7 @@ def __getattr__(attr_name: str) -> object:
         )
 
     try:
-        module = import_module(module_name, __package__)
+        module = dynamic_import(module_name)
         result = getattr(module, attr_name)
         return result
     except ImportError as e:

@@ -105,6 +105,7 @@ GetPhysicalNexusV1NexusPhysicalNexusGetRequest (country_code: string, state_code
 PagePhysicalNexusRead (items: array, total: integer, page: integer ...)
   PhysicalNexusRead (country_code: CountryCodeEnum, state_code: string, start_date: date ...)
    PhysicalNexusCategory (enum: PHYSICAL_BUSINESS_LOCATION, TELECOMMUTING_OR_REMOTE_EMPLOYEE, WARRANTY_AND_REPAIR_SERVICES ...)
+   PhysicalNexusSource (enum: USER, DEEL)
 BackendSrcNexusResponsesValidationErrorResponse (error)
   BackendSrcNexusResponsesValidationErrorItem (type: string, loc: array, msg: string ...)
 PhysicalNexusCreate (country_code: CountryCodeEnum, state_code: string, start_date: date ...)

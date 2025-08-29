@@ -82,7 +82,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.nexus.create_physical(country_code=models.CountryCodeEnum.US, state_code="CA", start_date=date.fromisoformat("2024-01-01"), category=models.PhysicalNexusCategory.PHYSICAL_BUSINESS_LOCATION, end_date="2025-01-01", external_id="ext_ABC123")
+    res = sdk.nexus.create_physical(country_code=models.CountryCodeEnum.US, state_code="CA", start_date=date.fromisoformat("2024-01-01"), category=models.PhysicalNexusCategory.PHYSICAL_BUSINESS_LOCATION, end_date="2025-01-01", external_id="ext_ABC123", source=models.PhysicalNexusSource.USER)
 
     # Handle response
     print(res)
@@ -99,6 +99,7 @@ with SDK(
 | `category`                                                                              | [models.PhysicalNexusCategory](../../models/physicalnexuscategory.md)                   | :heavy_check_mark:                                                                      | N/A                                                                                     |
 | `end_date`                                                                              | *Optional[str]*                                                                         | :heavy_minus_sign:                                                                      | The date when the<br/>                                        nexus ended, if applicable. |
 | `external_id`                                                                           | *Optional[str]*                                                                         | :heavy_minus_sign:                                                                      | Optional<br/>                                        external identifier for the nexus. |
+| `source`                                                                                | [Optional[models.PhysicalNexusSource]](../../models/physicalnexussource.md)             | :heavy_minus_sign:                                                                      | N/A                                                                                     |
 | `retries`                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                        | :heavy_minus_sign:                                                                      | Configuration to override the default retry behavior of the client.                     |
 
 ### Response
