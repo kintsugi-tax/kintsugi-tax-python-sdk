@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: a3b5f8df-3e69-405c-9eb8-40a21cc5faba
 management:
-  docChecksum: 77fd3b4c42ed7e29988f6b8bedd65bac
+  docChecksum: fcd7a317879ea8aa863477447f2f9b7a
   docVersion: 1.0.0
-  speakeasyVersion: 1.606.5
-  generationVersion: 2.687.1
-  releaseVersion: 0.8.3
-  configChecksum: 5a71e6d843fe0bd1cff3cf6e932f7ca9
+  speakeasyVersion: 1.606.8
+  generationVersion: 2.687.13
+  releaseVersion: 0.9.0
+  configChecksum: a6145bf01b7f37819b343373243f4456
   repoURL: https://github.com/kintsugi-tax/kintsugi-tax-python-sdk.git
   installationURL: https://github.com/kintsugi-tax/kintsugi-tax-python-sdk.git
   published: true
@@ -14,7 +14,7 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.19.9
+    core: 5.20.1
     defaultEnabledRetries: 0.2.0
     deprecations: 3.0.2
     enumUnions: 0.1.0
@@ -137,6 +137,7 @@ generatedFiles:
   - docs/models/physicalnexuscategory.md
   - docs/models/physicalnexuscreate.md
   - docs/models/physicalnexusread.md
+  - docs/models/physicalnexussource.md
   - docs/models/physicalnexusupdate.md
   - docs/models/postcreatecreditnotebytransactionidrequest.md
   - docs/models/processingstatusenum.md
@@ -335,6 +336,7 @@ generatedFiles:
   - src/kintsugi_tax_platform_sdk/models/physicalnexuscategory.py
   - src/kintsugi_tax_platform_sdk/models/physicalnexuscreate.py
   - src/kintsugi_tax_platform_sdk/models/physicalnexusread.py
+  - src/kintsugi_tax_platform_sdk/models/physicalnexussource.py
   - src/kintsugi_tax_platform_sdk/models/physicalnexusupdate.py
   - src/kintsugi_tax_platform_sdk/models/post_create_credit_note_by_transaction_idop.py
   - src/kintsugi_tax_platform_sdk/models/processingstatusenum.py
@@ -1227,4 +1229,4 @@ examples:
         "500":
           application/json: {"detail": "<value>"}
 examplesVersion: 1.0.2
-releaseNotes: "## SDK Changes Detected:\n* `sdk.tax_estimation.estimate()`: \n  *  `request.transaction_items.[]` **Changed** **Breaking** :warning:\n  *  `response.items.[].transaction_items.[]` **Changed** **Breaking** :warning:\n* `sdk.filings.get_all()`:  `response.items.[]` **Changed**\n* `sdk.filings.get()`:  `response` **Changed**\n* `sdk.filings.get_by_registration_id()`:  `response.items.[]` **Changed**\n"
+releaseNotes: "## SDK Changes Detected:\n* `sdk.nexus.get_physical()`:  `response.items.[].source` **Added**\n* `sdk.nexus.create_physical()`: \n  *  `request.source` **Added**\n  *  `response.source` **Added**\n* `sdk.nexus.update_physical_nexus()`:  `response.source` **Added**\n"

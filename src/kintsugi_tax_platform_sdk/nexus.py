@@ -237,6 +237,7 @@ class Nexus(BaseSDK):
         category: models.PhysicalNexusCategory,
         end_date: Optional[str] = None,
         external_id: Optional[str] = None,
+        source: Optional[models.PhysicalNexusSource] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -254,6 +255,7 @@ class Nexus(BaseSDK):
         :param category:
         :param end_date: The date when the                                         nexus ended, if applicable.
         :param external_id: Optional                                         external identifier for the nexus.
+        :param source:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -276,6 +278,7 @@ class Nexus(BaseSDK):
             end_date=end_date,
             category=category,
             external_id=external_id,
+            source=source,
         )
 
         req = self._build_request(
@@ -352,6 +355,7 @@ class Nexus(BaseSDK):
         category: models.PhysicalNexusCategory,
         end_date: Optional[str] = None,
         external_id: Optional[str] = None,
+        source: Optional[models.PhysicalNexusSource] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -369,6 +373,7 @@ class Nexus(BaseSDK):
         :param category:
         :param end_date: The date when the                                         nexus ended, if applicable.
         :param external_id: Optional                                         external identifier for the nexus.
+        :param source:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -391,6 +396,7 @@ class Nexus(BaseSDK):
             end_date=end_date,
             category=category,
             external_id=external_id,
+            source=source,
         )
 
         req = self._build_request_async(
