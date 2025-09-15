@@ -71,7 +71,6 @@ class NexusResponseTypedDict(TypedDict):
     physical_nexus_met_date: NotRequired[str]
     collected_tax_nexus_met: NotRequired[bool]
     collected_tax_nexus_met_date: NotRequired[str]
-    collected_tax_enabled: NotRequired[bool]
     earliest_transaction_date: NotRequired[str]
     most_recent_transaction_date: NotRequired[str]
     earliest_collected_date: NotRequired[datetime]
@@ -182,8 +181,6 @@ class NexusResponse(BaseModel):
     collected_tax_nexus_met: Optional[bool] = False
 
     collected_tax_nexus_met_date: Optional[str] = None
-
-    collected_tax_enabled: Optional[bool] = True
 
     earliest_transaction_date: Optional[str] = None
 

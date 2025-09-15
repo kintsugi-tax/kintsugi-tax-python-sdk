@@ -1025,17 +1025,6 @@ class Transactions(BaseSDK):
         country: Optional[models.CountryCodeEnum] = None,
         postal_code: Optional[str] = None,
         tax_id: Optional[str] = None,
-        address_status: Optional[models.AddressStatus] = None,
-        processing_status: Optional[models.ProcessingStatusEnum] = None,
-        destination_currency: Optional[models.CurrencyEnum] = None,
-        converted_total_amount: Optional[float] = None,
-        converted_total_tax_amount_imported: Optional[float] = None,
-        converted_total_tax_amount_calculated: Optional[float] = None,
-        conversion_rate: Optional[float] = None,
-        converted_taxable_amount: Optional[float] = None,
-        converted_total_discount: Optional[float] = None,
-        converted_subtotal: Optional[float] = None,
-        converted_total_tax_liability_amount: Optional[float] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1085,17 +1074,6 @@ class Transactions(BaseSDK):
         :param country:
         :param postal_code: Postal code of the transaction.
         :param tax_id: Tax ID associated with the transaction
-        :param address_status:
-        :param processing_status: Our transaction state, used to determine when/if a transaction needs additional processing.
-        :param destination_currency:
-        :param converted_total_amount: Converted total amount.
-        :param converted_total_tax_amount_imported: Converted imported tax amount.
-        :param converted_total_tax_amount_calculated: Converted calculated tax amount.
-        :param conversion_rate: Currency conversion rate.
-        :param converted_taxable_amount: Converted taxable amount.
-        :param converted_total_discount: Converted total discount amount.
-        :param converted_subtotal: Converted subtotal amount.
-        :param converted_total_tax_liability_amount: Converted total tax liability amount.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1154,17 +1132,6 @@ class Transactions(BaseSDK):
                 country=country,
                 postal_code=postal_code,
                 tax_id=tax_id,
-                address_status=address_status,
-                processing_status=processing_status,
-                destination_currency=destination_currency,
-                converted_total_amount=converted_total_amount,
-                converted_total_tax_amount_imported=converted_total_tax_amount_imported,
-                converted_total_tax_amount_calculated=converted_total_tax_amount_calculated,
-                conversion_rate=conversion_rate,
-                converted_taxable_amount=converted_taxable_amount,
-                converted_total_discount=converted_total_discount,
-                converted_subtotal=converted_subtotal,
-                converted_total_tax_liability_amount=converted_total_tax_liability_amount,
                 addresses=utils.get_pydantic_model(
                     addresses, List[models.TransactionAddressBuilder]
                 ),
@@ -1289,17 +1256,6 @@ class Transactions(BaseSDK):
         country: Optional[models.CountryCodeEnum] = None,
         postal_code: Optional[str] = None,
         tax_id: Optional[str] = None,
-        address_status: Optional[models.AddressStatus] = None,
-        processing_status: Optional[models.ProcessingStatusEnum] = None,
-        destination_currency: Optional[models.CurrencyEnum] = None,
-        converted_total_amount: Optional[float] = None,
-        converted_total_tax_amount_imported: Optional[float] = None,
-        converted_total_tax_amount_calculated: Optional[float] = None,
-        conversion_rate: Optional[float] = None,
-        converted_taxable_amount: Optional[float] = None,
-        converted_total_discount: Optional[float] = None,
-        converted_subtotal: Optional[float] = None,
-        converted_total_tax_liability_amount: Optional[float] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1349,17 +1305,6 @@ class Transactions(BaseSDK):
         :param country:
         :param postal_code: Postal code of the transaction.
         :param tax_id: Tax ID associated with the transaction
-        :param address_status:
-        :param processing_status: Our transaction state, used to determine when/if a transaction needs additional processing.
-        :param destination_currency:
-        :param converted_total_amount: Converted total amount.
-        :param converted_total_tax_amount_imported: Converted imported tax amount.
-        :param converted_total_tax_amount_calculated: Converted calculated tax amount.
-        :param conversion_rate: Currency conversion rate.
-        :param converted_taxable_amount: Converted taxable amount.
-        :param converted_total_discount: Converted total discount amount.
-        :param converted_subtotal: Converted subtotal amount.
-        :param converted_total_tax_liability_amount: Converted total tax liability amount.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1418,17 +1363,6 @@ class Transactions(BaseSDK):
                 country=country,
                 postal_code=postal_code,
                 tax_id=tax_id,
-                address_status=address_status,
-                processing_status=processing_status,
-                destination_currency=destination_currency,
-                converted_total_amount=converted_total_amount,
-                converted_total_tax_amount_imported=converted_total_tax_amount_imported,
-                converted_total_tax_amount_calculated=converted_total_tax_amount_calculated,
-                conversion_rate=conversion_rate,
-                converted_taxable_amount=converted_taxable_amount,
-                converted_total_discount=converted_total_discount,
-                converted_subtotal=converted_subtotal,
-                converted_total_tax_liability_amount=converted_total_tax_liability_amount,
                 addresses=utils.get_pydantic_model(
                     addresses, List[models.TransactionAddressBuilder]
                 ),

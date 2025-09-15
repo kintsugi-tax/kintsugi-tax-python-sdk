@@ -2,10 +2,12 @@
 
 import httpx
 from typing import Optional
+from dataclasses import dataclass
 
 from kintsugi_tax_platform_sdk.errors import SDKError
 
 
+@dataclass(frozen=True)
 class ResponseValidationError(SDKError):
     """Error raised when there is a type mismatch between the response data and the expected Pydantic model."""
 
