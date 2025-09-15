@@ -262,6 +262,7 @@ class Customers(BaseSDK):
         connection_id: Optional[str] = None,
         address_status: Optional[models.AddressStatus] = None,
         registration_number: Optional[str] = None,
+        external_friendly_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -289,6 +290,7 @@ class Customers(BaseSDK):
         :param connection_id: Identifier for the connection source, if applicable.
         :param address_status:
         :param registration_number: Registration number of the customer.
+        :param external_friendly_id: External friendly identifier associated with the customer. We need it for netsuite.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -322,6 +324,7 @@ class Customers(BaseSDK):
             connection_id=connection_id,
             address_status=address_status,
             registration_number=registration_number,
+            external_friendly_id=external_friendly_id,
         )
 
         req = self._build_request(
@@ -409,6 +412,7 @@ class Customers(BaseSDK):
         connection_id: Optional[str] = None,
         address_status: Optional[models.AddressStatus] = None,
         registration_number: Optional[str] = None,
+        external_friendly_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -436,6 +440,7 @@ class Customers(BaseSDK):
         :param connection_id: Identifier for the connection source, if applicable.
         :param address_status:
         :param registration_number: Registration number of the customer.
+        :param external_friendly_id: External friendly identifier associated with the customer. We need it for netsuite.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -469,6 +474,7 @@ class Customers(BaseSDK):
             connection_id=connection_id,
             address_status=address_status,
             registration_number=registration_number,
+            external_friendly_id=external_friendly_id,
         )
 
         req = self._build_request_async(
@@ -733,6 +739,7 @@ class Customers(BaseSDK):
         source: Optional[models.SourceEnum] = None,
         address_status: Optional[models.AddressStatus] = None,
         external_id: Optional[str] = None,
+        external_friendly_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -760,6 +767,7 @@ class Customers(BaseSDK):
         :param source:
         :param address_status:
         :param external_id: External identifier associated with the customer
+        :param external_friendly_id: External friendly identifier associated with the customer. We need it for netsuite.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -793,6 +801,7 @@ class Customers(BaseSDK):
                 source=source,
                 address_status=address_status,
                 external_id=external_id,
+                external_friendly_id=external_friendly_id,
             ),
         )
 
@@ -880,6 +889,7 @@ class Customers(BaseSDK):
         source: Optional[models.SourceEnum] = None,
         address_status: Optional[models.AddressStatus] = None,
         external_id: Optional[str] = None,
+        external_friendly_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -907,6 +917,7 @@ class Customers(BaseSDK):
         :param source:
         :param address_status:
         :param external_id: External identifier associated with the customer
+        :param external_friendly_id: External friendly identifier associated with the customer. We need it for netsuite.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -940,6 +951,7 @@ class Customers(BaseSDK):
                 source=source,
                 address_status=address_status,
                 external_id=external_id,
+                external_friendly_id=external_friendly_id,
             ),
         )
 

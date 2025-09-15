@@ -37,6 +37,8 @@ class CustomerUpdateTypedDict(TypedDict):
     address_status: NotRequired[AddressStatus]
     external_id: NotRequired[str]
     r"""External identifier associated with the customer"""
+    external_friendly_id: NotRequired[str]
+    r"""External friendly identifier associated with the customer. We need it for netsuite."""
 
 
 class CustomerUpdate(BaseModel):
@@ -80,3 +82,6 @@ class CustomerUpdate(BaseModel):
 
     external_id: Optional[str] = None
     r"""External identifier associated with the customer"""
+
+    external_friendly_id: Optional[str] = None
+    r"""External friendly identifier associated with the customer. We need it for netsuite."""

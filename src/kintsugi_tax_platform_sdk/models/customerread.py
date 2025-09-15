@@ -45,6 +45,8 @@ class CustomerReadTypedDict(TypedDict):
     address_status: NotRequired[AddressStatus]
     registration_number: NotRequired[str]
     r"""Registration number of the customer."""
+    external_friendly_id: NotRequired[str]
+    r"""External friendly identifier associated with the customer. We need it for netsuite."""
 
 
 class CustomerRead(BaseModel):
@@ -100,3 +102,6 @@ class CustomerRead(BaseModel):
 
     registration_number: Optional[str] = None
     r"""Registration number of the customer."""
+
+    external_friendly_id: Optional[str] = None
+    r"""External friendly identifier associated with the customer. We need it for netsuite."""

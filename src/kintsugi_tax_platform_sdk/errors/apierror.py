@@ -2,12 +2,14 @@
 
 import httpx
 from typing import Optional
+from dataclasses import dataclass
 
 from kintsugi_tax_platform_sdk.errors import SDKError
 
 MAX_MESSAGE_LEN = 10_000
 
 
+@dataclass(frozen=True)
 class APIError(SDKError):
     """The fallback error class if no more specific error class is matched."""
 
