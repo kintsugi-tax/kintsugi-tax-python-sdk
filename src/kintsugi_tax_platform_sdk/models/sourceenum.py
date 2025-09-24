@@ -6,6 +6,7 @@ from enum import Enum
 
 class SourceEnum(str, Enum):
     BIGCOMMERCE = "BIGCOMMERCE"
+    BUNNY = "BUNNY"
     CHARGEBEE = "CHARGEBEE"
     SHOPIFY = "SHOPIFY"
     STRIPE = "STRIPE"

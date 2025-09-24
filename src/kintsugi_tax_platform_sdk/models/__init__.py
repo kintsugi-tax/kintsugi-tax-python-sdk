@@ -91,6 +91,11 @@ if TYPE_CHECKING:
     from .customerbasepublic import CustomerBasePublic, CustomerBasePublicTypedDict
     from .customercreate import CustomerCreate, CustomerCreateTypedDict
     from .customerread import CustomerRead, CustomerReadTypedDict
+    from .customertaxregistrationread import (
+        CustomerTaxRegistrationRead,
+        CustomerTaxRegistrationReadTypedDict,
+    )
+    from .customertaxtypeenum import CustomerTaxTypeEnum
     from .customerupdate import CustomerUpdate, CustomerUpdateTypedDict
     from .delete_physical_nexus_v1_nexus_physical_nexus_physical_nexus_id_deleteop import (
         DeletePhysicalNexusV1NexusPhysicalNexusPhysicalNexusIDDeleteRequest,
@@ -438,6 +443,9 @@ __all__ = [
     "CustomerCreateTypedDict",
     "CustomerRead",
     "CustomerReadTypedDict",
+    "CustomerTaxRegistrationRead",
+    "CustomerTaxRegistrationReadTypedDict",
+    "CustomerTaxTypeEnum",
     "CustomerUpdate",
     "CustomerUpdateTypedDict",
     "DeletePhysicalNexusV1NexusPhysicalNexusPhysicalNexusIDDeleteRequest",
@@ -712,6 +720,9 @@ _dynamic_imports: dict[str, str] = {
     "CustomerCreateTypedDict": ".customercreate",
     "CustomerRead": ".customerread",
     "CustomerReadTypedDict": ".customerread",
+    "CustomerTaxRegistrationRead": ".customertaxregistrationread",
+    "CustomerTaxRegistrationReadTypedDict": ".customertaxregistrationread",
+    "CustomerTaxTypeEnum": ".customertaxtypeenum",
     "CustomerUpdate": ".customerupdate",
     "CustomerUpdateTypedDict": ".customerupdate",
     "DeletePhysicalNexusV1NexusPhysicalNexusPhysicalNexusIDDeleteRequest": ".delete_physical_nexus_v1_nexus_physical_nexus_physical_nexus_id_deleteop",
