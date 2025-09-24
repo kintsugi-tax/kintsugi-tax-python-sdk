@@ -3,10 +3,14 @@
 from __future__ import annotations
 from .addressstatus import AddressStatus
 from .countrycodeenum import CountryCodeEnum
+from .customertaxregistrationread import (
+    CustomerTaxRegistrationRead,
+    CustomerTaxRegistrationReadTypedDict,
+)
 from .sourceenum import SourceEnum
 from .statusenum import StatusEnum
 from kintsugi_tax_platform_sdk.types import BaseModel
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -47,6 +51,8 @@ class CustomerReadTypedDict(TypedDict):
     r"""Registration number of the customer."""
     external_friendly_id: NotRequired[str]
     r"""External friendly identifier associated with the customer. We need it for netsuite."""
+    customer_tax_registrations: NotRequired[List[CustomerTaxRegistrationReadTypedDict]]
+    r"""Customer tax registrations associated with the customer."""
 
 
 class CustomerRead(BaseModel):
@@ -105,3 +111,6 @@ class CustomerRead(BaseModel):
 
     external_friendly_id: Optional[str] = None
     r"""External friendly identifier associated with the customer. We need it for netsuite."""
+
+    customer_tax_registrations: Optional[List[CustomerTaxRegistrationRead]] = None
+    r"""Customer tax registrations associated with the customer."""

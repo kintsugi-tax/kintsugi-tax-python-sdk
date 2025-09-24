@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: a3b5f8df-3e69-405c-9eb8-40a21cc5faba
 management:
-  docChecksum: 04433ed8312b5bec02c34fb1fd00a01c
+  docChecksum: f00495227119bac0da2597ea39d90e27
   docVersion: 1.0.0
-  speakeasyVersion: 1.615.2
-  generationVersion: 2.698.4
-  releaseVersion: 0.9.1
-  configChecksum: caa54e4f7949c8fd3dfa96f26a7e1121
+  speakeasyVersion: 1.623.0
+  generationVersion: 2.713.0
+  releaseVersion: 0.10.0
+  configChecksum: c744a747f2fa8fa1b3d8dee474303d2a
   repoURL: https://github.com/kintsugi-tax/kintsugi-tax-python-sdk.git
   installationURL: https://github.com/kintsugi-tax/kintsugi-tax-python-sdk.git
   published: true
@@ -14,7 +14,7 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.20.4
+    core: 5.21.1
     defaultEnabledRetries: 0.2.0
     deprecations: 3.0.2
     enumUnions: 0.1.0
@@ -82,6 +82,8 @@ generatedFiles:
   - docs/models/customerbasepublic.md
   - docs/models/customercreate.md
   - docs/models/customerread.md
+  - docs/models/customertaxregistrationread.md
+  - docs/models/customertaxtypeenum.md
   - docs/models/customerupdate.md
   - docs/models/deletephysicalnexusv1nexusphysicalnexusphysicalnexusiddeleterequest.md
   - docs/models/deregisterregistrationv1registrationsregistrationidderegisterpostrequest.md
@@ -282,6 +284,8 @@ generatedFiles:
   - src/kintsugi_tax_platform_sdk/models/customerbasepublic.py
   - src/kintsugi_tax_platform_sdk/models/customercreate.py
   - src/kintsugi_tax_platform_sdk/models/customerread.py
+  - src/kintsugi_tax_platform_sdk/models/customertaxregistrationread.py
+  - src/kintsugi_tax_platform_sdk/models/customertaxtypeenum.py
   - src/kintsugi_tax_platform_sdk/models/customerupdate.py
   - src/kintsugi_tax_platform_sdk/models/delete_physical_nexus_v1_nexus_physical_nexus_physical_nexus_id_deleteop.py
   - src/kintsugi_tax_platform_sdk/models/deregister_registration_v1_registrations_registration_id_deregister_postop.py
@@ -1229,4 +1233,4 @@ examples:
         "500":
           application/json: {"detail": "<value>"}
 examplesVersion: 1.0.2
-releaseNotes: "## Python SDK Changes Detected:\n* `sdk.transactions.update()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.customer.external_friendly_id` **Added**\n* `sdk.nexus.get_all()`:  `response.items.[].collected_tax_enabled` **Removed** **Breaking** :warning:\n* `sdk.transactions.list()`:  `response.items.[].customer.external_friendly_id` **Added**\n* `sdk.exemptions.create()`:  `response.customer.external_friendly_id` **Added**\n* `sdk.customers.get_by_external_id()`:  `response.external_friendly_id` **Added**\n* `sdk.customers.get_transactions()`:  `response.[].customer.external_friendly_id` **Added**\n* `sdk.customers.create()`: \n  *  `request.external_friendly_id` **Added**\n  *  `response.external_friendly_id` **Added**\n* `sdk.customers.create_transaction()`: \n  *  `request.customer.external_friendly_id` **Added**\n  *  `response.customer.external_friendly_id` **Added**\n* `sdk.customers.get()`:  `response.external_friendly_id` **Added**\n* `sdk.customers.update()`: \n  *  `request.external_friendly_id` **Added**\n  *  `response.external_friendly_id` **Added**\n* `sdk.transactions.create()`:  `response.customer.external_friendly_id` **Added**\n* `sdk.transactions.get_by_external_id()`:  `response.customer.external_friendly_id` **Added**\n* `sdk.customers.list()`:  `response.items.[].external_friendly_id` **Added**\n* `sdk.transactions.get_by_id()`:  `response.customer.external_friendly_id` **Added**\n* `sdk.transactions.get_by_filing_id()`:  `response.[].customer.external_friendly_id` **Added**\n* `sdk.transactions.create_credit_note()`:  `response.customer.external_friendly_id` **Added**\n"
+releaseNotes: "## Python SDK Changes Detected:\n* `sdk.customers.list()`:  `response.items.[].customer_tax_registrations` **Added**\n* `sdk.customers.create()`: \n  *  `request.customer_tax_registrations` **Added**\n  *  `response.customer_tax_registrations` **Added**\n* `sdk.customers.get()`:  `response.customer_tax_registrations` **Added**\n* `sdk.customers.update()`:  `response.customer_tax_registrations` **Added**\n* `sdk.customers.get_by_external_id()`:  `response.customer_tax_registrations` **Added**\n* `sdk.customers.get_transactions()`:  `response.[].customer.customer_tax_registrations` **Added**\n* `sdk.customers.create_transaction()`: \n  *  `request.customer.customer_tax_registrations` **Added**\n  *  `response.customer.customer_tax_registrations` **Added**\n* `sdk.exemptions.create()`:  `response.customer.customer_tax_registrations` **Added**\n* `sdk.transactions.list()`:  `response.items.[].customer.customer_tax_registrations` **Added**\n* `sdk.transactions.create()`:  `response.customer.customer_tax_registrations` **Added**\n* `sdk.transactions.get_by_external_id()`:  `response.customer.customer_tax_registrations` **Added**\n* `sdk.transactions.update()`:  `response.customer.customer_tax_registrations` **Added**\n* `sdk.transactions.get_by_id()`:  `response.customer.customer_tax_registrations` **Added**\n* `sdk.transactions.get_by_filing_id()`:  `response.[].customer.customer_tax_registrations` **Added**\n* `sdk.transactions.create_credit_note()`:  `response.customer.customer_tax_registrations` **Added**\n"
