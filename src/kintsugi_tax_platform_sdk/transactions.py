@@ -125,7 +125,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_transactions_v1_transactions_get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -272,7 +272,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_transactions_v1_transactions_get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -327,7 +327,6 @@ class Transactions(BaseSDK):
         ] = None,
         shop_date: Optional[str] = None,
         shop_date_tz: Optional[str] = None,
-        status: Optional[models.TransactionStatusEnum] = None,
         description: Optional[str] = None,
         refund_status: Optional[models.TransactionRefundStatus] = None,
         total_amount: Optional[float] = 0.00,
@@ -378,7 +377,6 @@ class Transactions(BaseSDK):
         :param requires_exemption:
         :param shop_date: Transaction date in the shop's local timezone
         :param shop_date_tz: Timezone of the shop
-        :param status:
         :param description: Description of the transaction.
         :param refund_status: Shopify has 2 order statuses for refund case: refunded and partially_refunded If the given order has different status from these 2, we will set the transaction's refund_status to PARTIALLY_REFUNDED by default.
         :param total_amount: Total amount of the transaction.
@@ -432,7 +430,6 @@ class Transactions(BaseSDK):
             date_=date_,
             shop_date=shop_date,
             shop_date_tz=shop_date_tz,
-            status=status,
             description=description,
             refund_status=refund_status,
             total_amount=total_amount,
@@ -506,7 +503,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_transaction_v1_transactions_post",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -561,7 +558,6 @@ class Transactions(BaseSDK):
         ] = None,
         shop_date: Optional[str] = None,
         shop_date_tz: Optional[str] = None,
-        status: Optional[models.TransactionStatusEnum] = None,
         description: Optional[str] = None,
         refund_status: Optional[models.TransactionRefundStatus] = None,
         total_amount: Optional[float] = 0.00,
@@ -612,7 +608,6 @@ class Transactions(BaseSDK):
         :param requires_exemption:
         :param shop_date: Transaction date in the shop's local timezone
         :param shop_date_tz: Timezone of the shop
-        :param status:
         :param description: Description of the transaction.
         :param refund_status: Shopify has 2 order statuses for refund case: refunded and partially_refunded If the given order has different status from these 2, we will set the transaction's refund_status to PARTIALLY_REFUNDED by default.
         :param total_amount: Total amount of the transaction.
@@ -666,7 +661,6 @@ class Transactions(BaseSDK):
             date_=date_,
             shop_date=shop_date,
             shop_date_tz=shop_date_tz,
-            status=status,
             description=description,
             refund_status=refund_status,
             total_amount=total_amount,
@@ -740,7 +734,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_transaction_v1_transactions_post",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -839,7 +833,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_transaction_by_external_id_v1_transactions_external__external_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -938,7 +932,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_transaction_by_external_id_v1_transactions_external__external_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -993,7 +987,6 @@ class Transactions(BaseSDK):
         ] = None,
         shop_date: Optional[str] = None,
         shop_date_tz: Optional[str] = None,
-        status: Optional[models.TransactionStatusEnum] = None,
         description: Optional[str] = None,
         refund_status: Optional[models.TransactionRefundStatus] = None,
         total_amount: Optional[float] = 0.00,
@@ -1044,7 +1037,6 @@ class Transactions(BaseSDK):
         :param requires_exemption:
         :param shop_date: Transaction date in the shop's local timezone
         :param shop_date_tz: Timezone of the shop
-        :param status:
         :param description: Description of the transaction.
         :param refund_status: Shopify has 2 order statuses for refund case: refunded and partially_refunded If the given order has different status from these 2, we will set the transaction's refund_status to PARTIALLY_REFUNDED by default.
         :param total_amount: Total amount of the transaction.
@@ -1100,7 +1092,6 @@ class Transactions(BaseSDK):
                 date_=date_,
                 shop_date=shop_date,
                 shop_date_tz=shop_date_tz,
-                status=status,
                 description=description,
                 refund_status=refund_status,
                 total_amount=total_amount,
@@ -1178,7 +1169,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="update_transaction_v1_transactions__transaction_id__put",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1224,7 +1215,6 @@ class Transactions(BaseSDK):
         ] = None,
         shop_date: Optional[str] = None,
         shop_date_tz: Optional[str] = None,
-        status: Optional[models.TransactionStatusEnum] = None,
         description: Optional[str] = None,
         refund_status: Optional[models.TransactionRefundStatus] = None,
         total_amount: Optional[float] = 0.00,
@@ -1275,7 +1265,6 @@ class Transactions(BaseSDK):
         :param requires_exemption:
         :param shop_date: Transaction date in the shop's local timezone
         :param shop_date_tz: Timezone of the shop
-        :param status:
         :param description: Description of the transaction.
         :param refund_status: Shopify has 2 order statuses for refund case: refunded and partially_refunded If the given order has different status from these 2, we will set the transaction's refund_status to PARTIALLY_REFUNDED by default.
         :param total_amount: Total amount of the transaction.
@@ -1331,7 +1320,6 @@ class Transactions(BaseSDK):
                 date_=date_,
                 shop_date=shop_date,
                 shop_date_tz=shop_date_tz,
-                status=status,
                 description=description,
                 refund_status=refund_status,
                 total_amount=total_amount,
@@ -1409,7 +1397,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="update_transaction_v1_transactions__transaction_id__put",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1497,7 +1485,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_transaction_by_id_v1_transactions__transaction_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1594,7 +1582,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_transaction_by_id_v1_transactions__transaction_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1692,7 +1680,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_transactions_by_filing_id_v1_transactions_filings__filing_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1790,7 +1778,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_transactions_by_filing_id_v1_transactions_filings__filing_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1943,7 +1931,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="POST_create_credit_note_by_transaction_id",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -2087,7 +2075,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="POST_create_credit_note_by_transaction_id",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -2234,7 +2222,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="PUT_update_credit_note_by_transaction_id",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -2381,7 +2369,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="PUT_update_credit_note_by_transaction_id",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,

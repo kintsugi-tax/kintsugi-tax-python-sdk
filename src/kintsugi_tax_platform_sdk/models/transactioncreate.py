@@ -42,7 +42,6 @@ class TransactionCreateTypedDict(TypedDict):
     r"""Transaction date in the shop's local timezone"""
     shop_date_tz: NotRequired[str]
     r"""Timezone of the shop"""
-    status: NotRequired[TransactionStatusEnum]
     description: NotRequired[str]
     r"""Description of the transaction."""
     refund_status: NotRequired[TransactionRefundStatus]
@@ -126,6 +125,7 @@ class TransactionCreateTypedDict(TypedDict):
     r"""Converted subtotal amount."""
     converted_total_tax_liability_amount: NotRequired[float]
     r"""Converted total tax liability amount."""
+    status: NotRequired[TransactionStatusEnum]
     customer: NotRequired[CustomerCreateTypedDict]
 
 
@@ -150,8 +150,6 @@ class TransactionCreate(BaseModel):
 
     shop_date_tz: Optional[str] = None
     r"""Timezone of the shop"""
-
-    status: Optional[TransactionStatusEnum] = None
 
     description: Optional[str] = None
     r"""Description of the transaction."""
@@ -275,5 +273,7 @@ class TransactionCreate(BaseModel):
 
     converted_total_tax_liability_amount: Optional[float] = None
     r"""Converted total tax liability amount."""
+
+    status: Optional[TransactionStatusEnum] = None
 
     customer: Optional[CustomerCreate] = None

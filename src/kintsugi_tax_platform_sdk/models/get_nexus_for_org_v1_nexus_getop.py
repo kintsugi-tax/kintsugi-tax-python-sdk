@@ -9,18 +9,24 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class GetNexusForOrgV1NexusGetRequestTypedDict(TypedDict):
+    without_pagination: NotRequired[bool]
+    r"""Return all results without pagination"""
     status_in: NotRequired[str]
     state_code: NotRequired[str]
     country_code_in: NotRequired[str]
     order_by: NotRequired[str]
     collected_tax_nexus_met: NotRequired[bool]
     page: NotRequired[int]
-    r"""Page number"""
     size: NotRequired[int]
-    r"""Page size"""
 
 
 class GetNexusForOrgV1NexusGetRequest(BaseModel):
+    without_pagination: Annotated[
+        Optional[bool],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = False
+    r"""Return all results without pagination"""
+
     status_in: Annotated[
         Optional[str],
         pydantic.Field(alias="status__in"),
@@ -52,10 +58,8 @@ class GetNexusForOrgV1NexusGetRequest(BaseModel):
         Optional[int],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = 1
-    r"""Page number"""
 
     size: Annotated[
         Optional[int],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = 50
-    r"""Page size"""

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: a3b5f8df-3e69-405c-9eb8-40a21cc5faba
 management:
-  docChecksum: f00495227119bac0da2597ea39d90e27
+  docChecksum: 72689ca7f0bdb8ed55289530420e6aa5
   docVersion: 1.0.0
-  speakeasyVersion: 1.623.0
-  generationVersion: 2.713.0
-  releaseVersion: 0.10.0
-  configChecksum: c744a747f2fa8fa1b3d8dee474303d2a
+  speakeasyVersion: 1.636.0
+  generationVersion: 2.723.2
+  releaseVersion: 0.11.0
+  configChecksum: 7b7757a40f05cd661708b7ab336769b8
   repoURL: https://github.com/kintsugi-tax/kintsugi-tax-python-sdk.git
   installationURL: https://github.com/kintsugi-tax/kintsugi-tax-python-sdk.git
   published: true
@@ -14,7 +14,7 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.21.1
+    core: 5.22.1
     defaultEnabledRetries: 0.2.0
     deprecations: 3.0.2
     enumUnions: 0.1.0
@@ -24,7 +24,7 @@ features:
     globalSecurity: 3.0.4
     globalSecurityCallbacks: 1.0.0
     globalServerURLs: 3.1.1
-    groups: 3.0.0
+    groups: 3.0.1
     methodArguments: 1.0.2
     methodSecurity: 3.0.1
     multipartFileContentType: 1.0.0
@@ -32,7 +32,7 @@ features:
     responseFormat: 1.0.1
     retries: 3.0.2
     sdkHooks: 1.1.0
-    unions: 3.0.4
+    unions: 3.1.0
     uploadStreams: 1.0.0
 generatedFiles:
   - .gitattributes
@@ -145,7 +145,6 @@ generatedFiles:
   - docs/models/processingstatusenum.md
   - docs/models/productcategories.md
   - docs/models/productcategoryenum.md
-  - docs/models/productcodeenum.md
   - docs/models/productcreatemanual.md
   - docs/models/productread.md
   - docs/models/productstatusenum.md
@@ -215,7 +214,6 @@ generatedFiles:
   - docs/sdks/nexus/README.md
   - docs/sdks/products/README.md
   - docs/sdks/registrations/README.md
-  - docs/sdks/sdk/README.md
   - docs/sdks/taxestimation/README.md
   - docs/sdks/transactions/README.md
   - poetry.toml
@@ -346,7 +344,6 @@ generatedFiles:
   - src/kintsugi_tax_platform_sdk/models/processingstatusenum.py
   - src/kintsugi_tax_platform_sdk/models/productcategories.py
   - src/kintsugi_tax_platform_sdk/models/productcategoryenum.py
-  - src/kintsugi_tax_platform_sdk/models/productcodeenum.py
   - src/kintsugi_tax_platform_sdk/models/productcreatemanual.py
   - src/kintsugi_tax_platform_sdk/models/productread.py
   - src/kintsugi_tax_platform_sdk/models/productstatusenum.py
@@ -663,6 +660,7 @@ examples:
           size: 50
           status__in: "APPROACHING,NOT_EXPOSED,PENDING_REGISTRATION,EXPOSED,APPROACHING,REGISTERED"
           order_by: "state_code,country_code"
+          without_pagination: false
         header:
           x-organization-id: "org_12345"
       responses:
@@ -1233,4 +1231,12 @@ examples:
         "500":
           application/json: {"detail": "<value>"}
 examplesVersion: 1.0.2
-releaseNotes: "## Python SDK Changes Detected:\n* `sdk.customers.list()`:  `response.items.[].customer_tax_registrations` **Added**\n* `sdk.customers.create()`: \n  *  `request.customer_tax_registrations` **Added**\n  *  `response.customer_tax_registrations` **Added**\n* `sdk.customers.get()`:  `response.customer_tax_registrations` **Added**\n* `sdk.customers.update()`:  `response.customer_tax_registrations` **Added**\n* `sdk.customers.get_by_external_id()`:  `response.customer_tax_registrations` **Added**\n* `sdk.customers.get_transactions()`:  `response.[].customer.customer_tax_registrations` **Added**\n* `sdk.customers.create_transaction()`: \n  *  `request.customer.customer_tax_registrations` **Added**\n  *  `response.customer.customer_tax_registrations` **Added**\n* `sdk.exemptions.create()`:  `response.customer.customer_tax_registrations` **Added**\n* `sdk.transactions.list()`:  `response.items.[].customer.customer_tax_registrations` **Added**\n* `sdk.transactions.create()`:  `response.customer.customer_tax_registrations` **Added**\n* `sdk.transactions.get_by_external_id()`:  `response.customer.customer_tax_registrations` **Added**\n* `sdk.transactions.update()`:  `response.customer.customer_tax_registrations` **Added**\n* `sdk.transactions.get_by_id()`:  `response.customer.customer_tax_registrations` **Added**\n* `sdk.transactions.get_by_filing_id()`:  `response.[].customer.customer_tax_registrations` **Added**\n* `sdk.transactions.create_credit_note()`:  `response.customer.customer_tax_registrations` **Added**\n"
+releaseNotes: |
+  ## Python SDK Changes Detected:
+  * `sdk.products.get()`:  `response.items.[]` **Changed** **Breaking** :warning:
+  * `sdk.products.create()`:  `response` **Changed** **Breaking** :warning:
+  * `sdk.products.retrieve()`:  `response` **Changed** **Breaking** :warning:
+  * `sdk.products.update()`:  `response` **Changed** **Breaking** :warning:
+  * `sdk.transactions.create()`:  `request.status` **Removed** **Breaking** :warning:
+  * `sdk.transactions.update()`:  `request.status` **Removed** **Breaking** :warning:
+  * `sdk.nexus.get_all()`:  `request.without_pagination` **Added**

@@ -141,6 +141,7 @@ with SDK() as sdk:
 </br>
 
 The same SDK client can also be used to make asynchronous requests by importing asyncio.
+
 ```python
 # Asynchronous Example
 import asyncio
@@ -269,7 +270,6 @@ with SDK() as sdk:
 * [get](docs/sdks/registrations/README.md#get) - Get Registration By Id
 * [update](docs/sdks/registrations/README.md#update) - Update Registration
 * [deregister](docs/sdks/registrations/README.md#deregister) - Deregister Registration
-
 
 ### [tax_estimation](docs/sdks/taxestimation/README.md)
 

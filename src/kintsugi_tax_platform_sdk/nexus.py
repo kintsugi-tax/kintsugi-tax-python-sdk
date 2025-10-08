@@ -87,7 +87,7 @@ class Nexus(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_physical_nexus_v1_nexus_physical_nexus_get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -195,7 +195,7 @@ class Nexus(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_physical_nexus_v1_nexus_physical_nexus_get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -313,7 +313,7 @@ class Nexus(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_physical_nexus_v1_nexus_physical_nexus_post",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -431,7 +431,7 @@ class Nexus(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_physical_nexus_v1_nexus_physical_nexus_post",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -547,7 +547,7 @@ class Nexus(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="update_physical_nexus_v1_nexus_physical_nexus__physical_nexus_id__put",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -663,7 +663,7 @@ class Nexus(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="update_physical_nexus_v1_nexus_physical_nexus__physical_nexus_id__put",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -761,7 +761,7 @@ class Nexus(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="delete_physical_nexus_v1_nexus_physical_nexus__physical_nexus_id__delete",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -859,7 +859,7 @@ class Nexus(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="delete_physical_nexus_v1_nexus_physical_nexus__physical_nexus_id__delete",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -895,6 +895,7 @@ class Nexus(BaseSDK):
     def get_all(
         self,
         *,
+        without_pagination: Optional[bool] = False,
         status_in: Optional[
             str
         ] = "APPROACHING,NOT_EXPOSED,PENDING_REGISTRATION,EXPOSED,APPROACHING,REGISTERED",
@@ -913,13 +914,14 @@ class Nexus(BaseSDK):
 
         Get a list of all nexuses for the organization.
 
+        :param without_pagination: Return all results without pagination
         :param status_in:
         :param state_code:
         :param country_code_in:
         :param order_by:
         :param collected_tax_nexus_met:
-        :param page: Page number
-        :param size: Page size
+        :param page:
+        :param size:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -936,6 +938,7 @@ class Nexus(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetNexusForOrgV1NexusGetRequest(
+            without_pagination=without_pagination,
             status_in=status_in,
             state_code=state_code,
             country_code_in=country_code_in,
@@ -974,7 +977,7 @@ class Nexus(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_nexus_for_org_v1_nexus_get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1002,6 +1005,7 @@ class Nexus(BaseSDK):
     async def get_all_async(
         self,
         *,
+        without_pagination: Optional[bool] = False,
         status_in: Optional[
             str
         ] = "APPROACHING,NOT_EXPOSED,PENDING_REGISTRATION,EXPOSED,APPROACHING,REGISTERED",
@@ -1020,13 +1024,14 @@ class Nexus(BaseSDK):
 
         Get a list of all nexuses for the organization.
 
+        :param without_pagination: Return all results without pagination
         :param status_in:
         :param state_code:
         :param country_code_in:
         :param order_by:
         :param collected_tax_nexus_met:
-        :param page: Page number
-        :param size: Page size
+        :param page:
+        :param size:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1043,6 +1048,7 @@ class Nexus(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetNexusForOrgV1NexusGetRequest(
+            without_pagination=without_pagination,
             status_in=status_in,
             state_code=state_code,
             country_code_in=country_code_in,
@@ -1081,7 +1087,7 @@ class Nexus(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_nexus_for_org_v1_nexus_get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,

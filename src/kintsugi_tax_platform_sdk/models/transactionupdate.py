@@ -18,7 +18,6 @@ from .transactionitemcreateupdate import (
     TransactionItemCreateUpdateTypedDict,
 )
 from .transactionrefundstatus import TransactionRefundStatus
-from .transactionstatusenum import TransactionStatusEnum
 from datetime import datetime
 from kintsugi_tax_platform_sdk.types import BaseModel
 import pydantic
@@ -41,7 +40,6 @@ class TransactionUpdateTypedDict(TypedDict):
     r"""Transaction date in the shop's local timezone"""
     shop_date_tz: NotRequired[str]
     r"""Timezone of the shop"""
-    status: NotRequired[TransactionStatusEnum]
     description: NotRequired[str]
     r"""Description of the transaction."""
     refund_status: NotRequired[TransactionRefundStatus]
@@ -128,8 +126,6 @@ class TransactionUpdate(BaseModel):
 
     shop_date_tz: Optional[str] = None
     r"""Timezone of the shop"""
-
-    status: Optional[TransactionStatusEnum] = None
 
     description: Optional[str] = None
     r"""Description of the transaction."""

@@ -45,7 +45,6 @@ class TransactionReadTypedDict(TypedDict):
     r"""Transaction date in the shop's local timezone"""
     shop_date_tz: NotRequired[str]
     r"""Timezone of the shop"""
-    status: NotRequired[TransactionStatusEnum]
     description: NotRequired[str]
     r"""Description of the transaction."""
     refund_status: NotRequired[TransactionRefundStatus]
@@ -129,6 +128,7 @@ class TransactionReadTypedDict(TypedDict):
     r"""Converted subtotal amount."""
     converted_total_tax_liability_amount: NotRequired[str]
     r"""Converted total tax liability amount."""
+    status: NotRequired[TransactionStatusEnum]
     customer: NotRequired[CustomerReadTypedDict]
     total_discount: NotRequired[str]
     r"""Total amount of all discounts applied to the transaction."""
@@ -168,8 +168,6 @@ class TransactionRead(BaseModel):
 
     shop_date_tz: Optional[str] = None
     r"""Timezone of the shop"""
-
-    status: Optional[TransactionStatusEnum] = None
 
     description: Optional[str] = None
     r"""Description of the transaction."""
@@ -293,6 +291,8 @@ class TransactionRead(BaseModel):
 
     converted_total_tax_liability_amount: Optional[str] = None
     r"""Converted total tax liability amount."""
+
+    status: Optional[TransactionStatusEnum] = None
 
     customer: Optional[CustomerRead] = None
 

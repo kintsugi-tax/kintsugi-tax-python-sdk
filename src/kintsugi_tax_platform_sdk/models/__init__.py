@@ -253,7 +253,6 @@ if TYPE_CHECKING:
     from .processingstatusenum import ProcessingStatusEnum
     from .productcategories import ProductCategories, ProductCategoriesTypedDict
     from .productcategoryenum import ProductCategoryEnum
-    from .productcodeenum import ProductCodeEnum
     from .productcreatemanual import ProductCreateManual, ProductCreateManualTypedDict
     from .productread import ProductRead, ProductReadTypedDict
     from .productstatusenum import ProductStatusEnum
@@ -556,7 +555,6 @@ __all__ = [
     "ProductCategories",
     "ProductCategoriesTypedDict",
     "ProductCategoryEnum",
-    "ProductCodeEnum",
     "ProductCreateManual",
     "ProductCreateManualTypedDict",
     "ProductRead",
@@ -833,7 +831,6 @@ _dynamic_imports: dict[str, str] = {
     "ProductCategories": ".productcategories",
     "ProductCategoriesTypedDict": ".productcategories",
     "ProductCategoryEnum": ".productcategoryenum",
-    "ProductCodeEnum": ".productcodeenum",
     "ProductCreateManual": ".productcreatemanual",
     "ProductCreateManualTypedDict": ".productcreatemanual",
     "ProductRead": ".productread",

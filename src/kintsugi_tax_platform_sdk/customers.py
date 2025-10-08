@@ -94,7 +94,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_customers_v1",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -209,7 +209,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_customers_v1",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -370,7 +370,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_customer_v1_customers_post",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -531,7 +531,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_customer_v1_customers_post",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -628,7 +628,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_customer_by_id_v1_customers__customer_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -717,7 +717,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_customer_by_id_v1_customers__customer_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -859,7 +859,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="update_customer_v1_customers__customer_id__put",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1009,7 +1009,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="update_customer_v1_customers__customer_id__put",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1106,7 +1106,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_customer_by_external_id_v1_customers_external__external_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1195,7 +1195,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_customer_by_external_id_v1_customers_external__external_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1282,7 +1282,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_transactions_by_customer_id_v1_customers__customer_id__transactions_get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1369,7 +1369,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_transactions_by_customer_id_v1_customers__customer_id__transactions_get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1414,7 +1414,6 @@ class Customers(BaseSDK):
         ] = None,
         shop_date: Optional[str] = None,
         shop_date_tz: Optional[str] = None,
-        status: Optional[models.TransactionStatusEnum] = None,
         description: Optional[str] = None,
         refund_status: Optional[models.TransactionRefundStatus] = None,
         total_amount: Optional[float] = 0.00,
@@ -1457,6 +1456,7 @@ class Customers(BaseSDK):
         converted_total_discount: Optional[float] = None,
         converted_subtotal: Optional[float] = None,
         converted_total_tax_liability_amount: Optional[float] = None,
+        status: Optional[models.TransactionStatusEnum] = None,
         customer: Optional[
             Union[models.CustomerCreate, models.CustomerCreateTypedDict]
         ] = None,
@@ -1478,7 +1478,6 @@ class Customers(BaseSDK):
         :param requires_exemption:
         :param shop_date: Transaction date in the shop's local timezone
         :param shop_date_tz: Timezone of the shop
-        :param status:
         :param description: Description of the transaction.
         :param refund_status: Shopify has 2 order statuses for refund case: refunded and partially_refunded If the given order has different status from these 2, we will set the transaction's refund_status to PARTIALLY_REFUNDED by default.
         :param total_amount: Total amount of the transaction.
@@ -1519,6 +1518,7 @@ class Customers(BaseSDK):
         :param converted_total_discount: Converted total discount amount.
         :param converted_subtotal: Converted subtotal amount.
         :param converted_total_tax_liability_amount: Converted total tax liability amount.
+        :param status:
         :param customer:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1546,7 +1546,6 @@ class Customers(BaseSDK):
                 date_=date_,
                 shop_date=shop_date,
                 shop_date_tz=shop_date_tz,
-                status=status,
                 description=description,
                 refund_status=refund_status,
                 total_amount=total_amount,
@@ -1589,6 +1588,7 @@ class Customers(BaseSDK):
                 converted_total_discount=converted_total_discount,
                 converted_subtotal=converted_subtotal,
                 converted_total_tax_liability_amount=converted_total_tax_liability_amount,
+                status=status,
                 addresses=utils.get_pydantic_model(
                     addresses, List[models.TransactionAddressBuilder]
                 ),
@@ -1637,7 +1637,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_transaction_by_customer_id_v1_customers__customer_id__transactions_post",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1682,7 +1682,6 @@ class Customers(BaseSDK):
         ] = None,
         shop_date: Optional[str] = None,
         shop_date_tz: Optional[str] = None,
-        status: Optional[models.TransactionStatusEnum] = None,
         description: Optional[str] = None,
         refund_status: Optional[models.TransactionRefundStatus] = None,
         total_amount: Optional[float] = 0.00,
@@ -1725,6 +1724,7 @@ class Customers(BaseSDK):
         converted_total_discount: Optional[float] = None,
         converted_subtotal: Optional[float] = None,
         converted_total_tax_liability_amount: Optional[float] = None,
+        status: Optional[models.TransactionStatusEnum] = None,
         customer: Optional[
             Union[models.CustomerCreate, models.CustomerCreateTypedDict]
         ] = None,
@@ -1746,7 +1746,6 @@ class Customers(BaseSDK):
         :param requires_exemption:
         :param shop_date: Transaction date in the shop's local timezone
         :param shop_date_tz: Timezone of the shop
-        :param status:
         :param description: Description of the transaction.
         :param refund_status: Shopify has 2 order statuses for refund case: refunded and partially_refunded If the given order has different status from these 2, we will set the transaction's refund_status to PARTIALLY_REFUNDED by default.
         :param total_amount: Total amount of the transaction.
@@ -1787,6 +1786,7 @@ class Customers(BaseSDK):
         :param converted_total_discount: Converted total discount amount.
         :param converted_subtotal: Converted subtotal amount.
         :param converted_total_tax_liability_amount: Converted total tax liability amount.
+        :param status:
         :param customer:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1814,7 +1814,6 @@ class Customers(BaseSDK):
                 date_=date_,
                 shop_date=shop_date,
                 shop_date_tz=shop_date_tz,
-                status=status,
                 description=description,
                 refund_status=refund_status,
                 total_amount=total_amount,
@@ -1857,6 +1856,7 @@ class Customers(BaseSDK):
                 converted_total_discount=converted_total_discount,
                 converted_subtotal=converted_subtotal,
                 converted_total_tax_liability_amount=converted_total_tax_liability_amount,
+                status=status,
                 addresses=utils.get_pydantic_model(
                     addresses, List[models.TransactionAddressBuilder]
                 ),
@@ -1905,7 +1905,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_transaction_by_customer_id_v1_customers__customer_id__transactions_post",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
