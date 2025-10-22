@@ -158,8 +158,9 @@ actions:
 # FIXES FOR GENERATION WARNINGS
 # =============================================================================
 
-# Note: Parameter naming conflicts and type mismatch warnings are handled by the backend API
-# The x-speakeasy-name-override above should resolve the main parameter conflict
+# Note: The total_amount parameter removal should be handled by the updated OpenAPI spec
+# If the backend API has been updated to remove total_amount, the SDK should regenerate correctly
+# Parameter naming conflicts and type mismatch warnings are handled by the backend API
 
 # =============================================================================
 # SECURITY BENEFITS:
