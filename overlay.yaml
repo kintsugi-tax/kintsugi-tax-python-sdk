@@ -50,10 +50,6 @@ actions:
     update:
       x-public: true
       x-speakeasy-name-override: "create_transaction"
-      parameters:
-        - name: customer_id
-          in: path
-          x-speakeasy-name-override: "customer_id_path"
 
   # === EXEMPTIONS ENDPOINTS ===
   - target: $.paths['/v1/exemptions'].get
@@ -162,8 +158,8 @@ actions:
 # FIXES FOR GENERATION WARNINGS
 # =============================================================================
 
-# Note: Type mismatch warnings for numeric defaults are handled by the backend API
-# The parameter naming conflict is fixed above with x-speakeasy-name-override
+# Note: Parameter naming conflicts and type mismatch warnings are handled by the backend API
+# The x-speakeasy-name-override above should resolve the main parameter conflict
 
 # =============================================================================
 # SECURITY BENEFITS:
