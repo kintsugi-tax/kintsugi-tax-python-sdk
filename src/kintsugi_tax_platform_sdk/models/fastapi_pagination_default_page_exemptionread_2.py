@@ -6,8 +6,8 @@ from .backend_src_exemptions_models_exemptionread import (
     BackendSrcExemptionsModelsExemptionReadTypedDict,
 )
 from kintsugi_tax_platform_sdk.types import BaseModel
-from typing import List, Optional
-from typing_extensions import NotRequired, TypedDict
+from typing import List
+from typing_extensions import TypedDict
 
 
 class FastapiPaginationDefaultPageExemptionRead2TypedDict(TypedDict):
@@ -15,7 +15,7 @@ class FastapiPaginationDefaultPageExemptionRead2TypedDict(TypedDict):
     total: int
     page: int
     size: int
-    pages: NotRequired[int]
+    pages: int
 
 
 class FastapiPaginationDefaultPageExemptionRead2(BaseModel):
@@ -27,4 +27,4 @@ class FastapiPaginationDefaultPageExemptionRead2(BaseModel):
 
     size: int
 
-    pages: Optional[int] = None
+    pages: int

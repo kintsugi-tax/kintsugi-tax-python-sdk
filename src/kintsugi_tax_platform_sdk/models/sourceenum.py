@@ -6,6 +6,7 @@ from enum import Enum
 
 class SourceEnum(str, Enum):
     BIGCOMMERCE = "BIGCOMMERCE"
+    BESTBUY = "BESTBUY"
     BUNNY = "BUNNY"
     CHARGEBEE = "CHARGEBEE"
     SHOPIFY = "SHOPIFY"
@@ -40,6 +41,7 @@ class SourceEnum(str, Enum):
     GUSTO = "GUSTO"
     FACEBOOK = "FACEBOOK"
     OTHER = "OTHER"
+    ORDWAY = "ORDWAY"
     INSTAGRAM = "INSTAGRAM"
     PINTEREST = "PINTEREST"
     WAYFAIR = "WAYFAIR"
@@ -58,3 +60,8 @@ class SourceEnum(str, Enum):
     ZOHO = "ZOHO"
     SAGE_INTACCT = "SAGE-INTACCT"
     AIRWALLEX = "AIRWALLEX"
+    ORB = "ORB"
+    ZENSKAR = "ZENSKAR"
+    MICROSOFT_DYNAMICS_365 = "MICROSOFT_DYNAMICS_365"
+    KICKSTARTER = "KICKSTARTER"
+    INTERNAL_ERP = "INTERNAL_ERP"

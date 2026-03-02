@@ -3,9 +3,10 @@
 from __future__ import annotations
 from .countrycodeenum import CountryCodeEnum
 from .transactionstatusenum import TransactionStatusEnum
-from kintsugi_tax_platform_sdk.types import BaseModel
+from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
 from kintsugi_tax_platform_sdk.utils import FieldMetadata, QueryParamMetadata
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -194,3 +195,39 @@ class GetTransactionsV1TransactionsGetRequest(BaseModel):
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = 50
     r"""Page size"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "state_code",
+                "transaction_type",
+                "transaction_source",
+                "search_query",
+                "country",
+                "state",
+                "address_status__in",
+                "status",
+                "filing_id",
+                "order_by",
+                "date__gte",
+                "date__lte",
+                "processing_status__in",
+                "marketplace",
+                "exempt__in",
+                "page",
+                "size",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

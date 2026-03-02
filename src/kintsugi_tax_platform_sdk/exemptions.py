@@ -88,6 +88,7 @@ class Exemptions(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -104,7 +105,7 @@ class Exemptions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_exemptions_v1_exemptions_get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -216,6 +217,7 @@ class Exemptions(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -232,7 +234,7 @@ class Exemptions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_exemptions_v1_exemptions_get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -349,6 +351,7 @@ class Exemptions(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.ExemptionCreate
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -365,7 +368,7 @@ class Exemptions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_exemption_v1_exemptions_post",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -482,6 +485,7 @@ class Exemptions(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.ExemptionCreate
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -498,7 +502,7 @@ class Exemptions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_exemption_v1_exemptions_post",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -583,6 +587,7 @@ class Exemptions(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -599,7 +604,7 @@ class Exemptions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_exemption_by_id_v1_exemptions__exemption_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -684,6 +689,7 @@ class Exemptions(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -700,7 +706,7 @@ class Exemptions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_exemption_by_id_v1_exemptions__exemption_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -797,6 +803,7 @@ class Exemptions(BaseSDK):
                 "multipart",
                 models.BodyUploadExemptionCertificateV1ExemptionsExemptionIDAttachmentsPost,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -813,7 +820,7 @@ class Exemptions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="upload_exemption_certificate_v1_exemptions__exemption_id__attachments_post",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -908,6 +915,7 @@ class Exemptions(BaseSDK):
                 "multipart",
                 models.BodyUploadExemptionCertificateV1ExemptionsExemptionIDAttachmentsPost,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -924,7 +932,7 @@ class Exemptions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="upload_exemption_certificate_v1_exemptions__exemption_id__attachments_post",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -974,7 +982,8 @@ class Exemptions(BaseSDK):
         This is used to view and manage supporting documents
         like exemption certificates uploaded for a particular exemption record.
 
-        :param exemption_id: The unique identifier for the exemption         whose attachments are being retrieved.
+        :param exemption_id: The unique identifier for the exemption
+            whose attachments are being retrieved.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1007,6 +1016,7 @@ class Exemptions(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1023,7 +1033,7 @@ class Exemptions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_attachments_for_exemption_v1_exemptions__exemption_id__attachments_get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1070,7 +1080,8 @@ class Exemptions(BaseSDK):
         This is used to view and manage supporting documents
         like exemption certificates uploaded for a particular exemption record.
 
-        :param exemption_id: The unique identifier for the exemption         whose attachments are being retrieved.
+        :param exemption_id: The unique identifier for the exemption
+            whose attachments are being retrieved.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1103,6 +1114,7 @@ class Exemptions(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1119,7 +1131,7 @@ class Exemptions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_attachments_for_exemption_v1_exemptions__exemption_id__attachments_get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,

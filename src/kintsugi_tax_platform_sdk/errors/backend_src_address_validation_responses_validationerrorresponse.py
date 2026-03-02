@@ -17,7 +17,7 @@ class BackendSrcAddressValidationResponsesValidationErrorResponseData(BaseModel)
     ]
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class BackendSrcAddressValidationResponsesValidationErrorResponse(SDKError):
     data: BackendSrcAddressValidationResponsesValidationErrorResponseData = field(
         hash=False

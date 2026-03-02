@@ -4,7 +4,8 @@ from __future__ import annotations
 from .changeregimestatusenum import ChangeRegimeStatusEnum
 from .filingfrequencyenum import FilingFrequencyEnum
 from .registrationsregimeenum import RegistrationsRegimeEnum
-from kintsugi_tax_platform_sdk.types import BaseModel
+from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,8 +33,14 @@ class RegistrationUpdateAPITypedDict(TypedDict):
     change_regime_status: NotRequired[ChangeRegimeStatusEnum]
     third_party_enabled: NotRequired[bool]
     r"""Indicates whether third-party access is enabled for this registration."""
+    do_not_file: NotRequired[bool]
+    r"""If true, do not file for this registration (treated as False by default)."""
+    two_factor_enabled: NotRequired[bool]
+    r"""Indicates whether two-factor authentication (2FA) is enabled for this registration."""
     marked_collecting: NotRequired[bool]
     r"""Indicates whether the  registration is marked as collecting in shopify"""
+    encrypted_username: NotRequired[str]
+    r"""The encrypted username for the registration."""
     username: NotRequired[str]
     r"""The username associated with the registration."""
     filing_frequency: NotRequired[FilingFrequencyEnum]
@@ -45,6 +52,8 @@ class RegistrationUpdateAPITypedDict(TypedDict):
     r"""Additional notes or comments related to the registration."""
     vda: NotRequired[bool]
     r"""Indicates if the Voluntary Disclosure Agreement (VDA) applies."""
+    tax_id: NotRequired[str]
+    r"""Organization-level tax ID (e.g., VAT number, Canada Business Number)."""
 
 
 class RegistrationUpdateAPI(BaseModel):
@@ -82,8 +91,17 @@ class RegistrationUpdateAPI(BaseModel):
     third_party_enabled: Optional[bool] = False
     r"""Indicates whether third-party access is enabled for this registration."""
 
+    do_not_file: Optional[bool] = False
+    r"""If true, do not file for this registration (treated as False by default)."""
+
+    two_factor_enabled: Optional[bool] = None
+    r"""Indicates whether two-factor authentication (2FA) is enabled for this registration."""
+
     marked_collecting: Optional[bool] = None
     r"""Indicates whether the  registration is marked as collecting in shopify"""
+
+    encrypted_username: Optional[str] = None
+    r"""The encrypted username for the registration."""
 
     username: Optional[str] = None
     r"""The username associated with the registration."""
@@ -101,3 +119,48 @@ class RegistrationUpdateAPI(BaseModel):
 
     vda: Optional[bool] = None
     r"""Indicates if the Voluntary Disclosure Agreement (VDA) applies."""
+
+    tax_id: Optional[str] = None
+    r"""Organization-level tax ID (e.g., VAT number, Canada Business Number)."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "registration_date",
+                "registration_email",
+                "registration_key",
+                "deregistration_key",
+                "registration_requested",
+                "registration_completed",
+                "deregistration_requested",
+                "deregistration_completed",
+                "auto_registered",
+                "registrations_regime",
+                "change_regime_status",
+                "third_party_enabled",
+                "do_not_file",
+                "two_factor_enabled",
+                "marked_collecting",
+                "encrypted_username",
+                "username",
+                "filing_frequency",
+                "create_filings_from",
+                "is_approaching",
+                "comment",
+                "vda",
+                "tax_id",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

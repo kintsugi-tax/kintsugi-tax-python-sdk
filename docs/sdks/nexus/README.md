@@ -1,5 +1,4 @@
 # Nexus
-(*nexus*)
 
 ## Overview
 
@@ -82,7 +81,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.nexus.create_physical(country_code=models.CountryCodeEnum.US, state_code="CA", start_date=date.fromisoformat("2024-01-01"), category=models.PhysicalNexusCategory.PHYSICAL_BUSINESS_LOCATION, end_date="2025-01-01", external_id="ext_ABC123", source=models.PhysicalNexusSource.USER)
+    res = sdk.nexus.create_physical(country_code=models.CountryCodeEnum.US, state_code="CA", start_date=date.fromisoformat("2024-01-01"), category=models.PhysicalNexusCategory.PHYSICAL_BUSINESS_LOCATION, end_date="2025-01-01", external_id="ext_ABC123", source=models.PhysicalNexusSource.USER, street_1="123 Main Street", street_2="Suite 100", city="San Francisco", postal_code="94102")
 
     # Handle response
     print(res)
@@ -100,6 +99,10 @@ with SDK(
 | `end_date`                                                                              | *Optional[str]*                                                                         | :heavy_minus_sign:                                                                      | The date when the<br/>                                        nexus ended, if applicable. |
 | `external_id`                                                                           | *Optional[str]*                                                                         | :heavy_minus_sign:                                                                      | Optional<br/>                                        external identifier for the nexus. |
 | `source`                                                                                | [Optional[models.PhysicalNexusSource]](../../models/physicalnexussource.md)             | :heavy_minus_sign:                                                                      | N/A                                                                                     |
+| `street_1`                                                                              | *Optional[str]*                                                                         | :heavy_minus_sign:                                                                      | Primary street address for the physical presence location.                              |
+| `street_2`                                                                              | *Optional[str]*                                                                         | :heavy_minus_sign:                                                                      | Additional street address details, such as suite or unit number.                        |
+| `city`                                                                                  | *Optional[str]*                                                                         | :heavy_minus_sign:                                                                      | City of the physical presence location.                                                 |
+| `postal_code`                                                                           | *Optional[str]*                                                                         | :heavy_minus_sign:                                                                      | ZIP or postal code of the physical presence location.                                   |
 | `retries`                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                        | :heavy_minus_sign:                                                                      | Configuration to override the default retry behavior of the client.                     |
 
 ### Response
@@ -135,7 +138,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.nexus.update_physical_nexus(physical_nexus_id="<id>", start_date=date.fromisoformat("2024-01-01"), category=models.PhysicalNexusCategory.PHYSICAL_BUSINESS_LOCATION, end_date="2025-01-01")
+    res = sdk.nexus.update_physical_nexus(physical_nexus_id="<id>", start_date=date.fromisoformat("2024-01-01"), category=models.PhysicalNexusCategory.PHYSICAL_BUSINESS_LOCATION, end_date="2025-01-01", street_1="123 Main Street", street_2="Suite 100", city="San Francisco", postal_code="94102")
 
     # Handle response
     print(res)
@@ -150,6 +153,10 @@ with SDK(
 | `start_date`                                                                                      | [datetime](https://docs.python.org/3/library/datetime.html#datetime-objects)                      | :heavy_check_mark:                                                                                | The date when the nexus became<br/>                                effective (YYYY-MM-DD).        |
 | `category`                                                                                        | [models.PhysicalNexusCategory](../../models/physicalnexuscategory.md)                             | :heavy_check_mark:                                                                                | N/A                                                                                               |
 | `end_date`                                                                                        | *Optional[str]*                                                                                   | :heavy_minus_sign:                                                                                | The date when the<br/>                                        nexus ends, if applicable (YYYY-MM-DD). |
+| `street_1`                                                                                        | *Optional[str]*                                                                                   | :heavy_minus_sign:                                                                                | Primary street address for the physical presence location.                                        |
+| `street_2`                                                                                        | *Optional[str]*                                                                                   | :heavy_minus_sign:                                                                                | Additional street address details, such as suite or unit number.                                  |
+| `city`                                                                                            | *Optional[str]*                                                                                   | :heavy_minus_sign:                                                                                | City of the physical presence location.                                                           |
+| `postal_code`                                                                                     | *Optional[str]*                                                                                   | :heavy_minus_sign:                                                                                | ZIP or postal code of the physical presence location.                                             |
 | `retries`                                                                                         | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                  | :heavy_minus_sign:                                                                                | Configuration to override the default retry behavior of the client.                               |
 
 ### Response
@@ -229,7 +236,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.nexus.get_all(status_in="APPROACHING,NOT_EXPOSED,PENDING_REGISTRATION,EXPOSED,APPROACHING,REGISTERED", order_by="state_code,country_code", page=1, size=50)
+    res = sdk.nexus.get_all(without_pagination=False, status_in="APPROACHING,NOT_EXPOSED,PENDING_REGISTRATION,EXPOSED,APPROACHING,REGISTERED", order_by="state_code,country_code", page=1, size=50)
 
     # Handle response
     print(res)
@@ -240,13 +247,15 @@ with SDK(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `without_pagination`                                                | *Optional[bool]*                                                    | :heavy_minus_sign:                                                  | Return all results without pagination                               |
+| `disregard_view`                                                    | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Filter nexuses by disregard view: 'exposed' or 'disregarded'        |
 | `status_in`                                                         | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
 | `state_code`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
 | `country_code_in`                                                   | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
 | `order_by`                                                          | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
 | `collected_tax_nexus_met`                                           | *Optional[bool]*                                                    | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `page`                                                              | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | Page number                                                         |
-| `size`                                                              | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | Page size                                                           |
+| `page`                                                              | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `size`                                                              | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response

@@ -17,7 +17,7 @@ class BackendSrcNexusResponsesValidationErrorResponseData(BaseModel):
     ]
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class BackendSrcNexusResponsesValidationErrorResponse(SDKError):
     data: BackendSrcNexusResponsesValidationErrorResponseData = field(hash=False)
 

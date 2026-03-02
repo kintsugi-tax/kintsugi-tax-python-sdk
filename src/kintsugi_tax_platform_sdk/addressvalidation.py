@@ -94,6 +94,7 @@ class AddressValidation(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.AddressBase
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -227,6 +228,7 @@ class AddressValidation(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.AddressBase
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -308,8 +310,12 @@ class AddressValidation(BaseSDK):
         :param line3: Additional address details for complex addresses
         :param city: The city or town name for the address
         :param state: State, province, or region of the address
-        :param country: Country code in ISO 3166-1 alpha-2 format (e.g., 'US' for the United States).         Defaults to 'US'.         should not be empty. Not validating here as the validation         structure can be different for different providers
-        :param postal_code: ZIP or postal code for the address. Can be empty for some locales.         Not validating here as the validation structure can be different for different providers
+        :param country: Country code in ISO 3166-1 alpha-2 format (e.g., 'US' for the United States).
+            Defaults to 'US'.
+            should not be empty. Not validating here as the validation
+            structure can be different for different providers
+        :param postal_code: ZIP or postal code for the address. Can be empty for some locales.
+            Not validating here as the validation structure can be different for different providers
         :param id: Unique identifier for the request, if applicable
         :param county: County or district name for the address
         :param full_address: A complete address string that can be used as an alternative to providing individual fields.
@@ -357,6 +363,7 @@ class AddressValidation(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.ValidationAddress
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -373,7 +380,7 @@ class AddressValidation(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="suggestions_v1_address_validation_suggestions_post",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -438,8 +445,12 @@ class AddressValidation(BaseSDK):
         :param line3: Additional address details for complex addresses
         :param city: The city or town name for the address
         :param state: State, province, or region of the address
-        :param country: Country code in ISO 3166-1 alpha-2 format (e.g., 'US' for the United States).         Defaults to 'US'.         should not be empty. Not validating here as the validation         structure can be different for different providers
-        :param postal_code: ZIP or postal code for the address. Can be empty for some locales.         Not validating here as the validation structure can be different for different providers
+        :param country: Country code in ISO 3166-1 alpha-2 format (e.g., 'US' for the United States).
+            Defaults to 'US'.
+            should not be empty. Not validating here as the validation
+            structure can be different for different providers
+        :param postal_code: ZIP or postal code for the address. Can be empty for some locales.
+            Not validating here as the validation structure can be different for different providers
         :param id: Unique identifier for the request, if applicable
         :param county: County or district name for the address
         :param full_address: A complete address string that can be used as an alternative to providing individual fields.
@@ -487,6 +498,7 @@ class AddressValidation(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.ValidationAddress
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -503,7 +515,7 @@ class AddressValidation(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="suggestions_v1_address_validation_suggestions_post",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,

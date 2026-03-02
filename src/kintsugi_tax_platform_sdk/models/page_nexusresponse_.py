@@ -3,8 +3,8 @@
 from __future__ import annotations
 from .nexusresponse import NexusResponse, NexusResponseTypedDict
 from kintsugi_tax_platform_sdk.types import BaseModel
-from typing import List, Optional
-from typing_extensions import NotRequired, TypedDict
+from typing import List
+from typing_extensions import TypedDict
 
 
 class PageNexusResponseTypedDict(TypedDict):
@@ -12,7 +12,7 @@ class PageNexusResponseTypedDict(TypedDict):
     total: int
     page: int
     size: int
-    pages: NotRequired[int]
+    pages: int
 
 
 class PageNexusResponse(BaseModel):
@@ -24,4 +24,4 @@ class PageNexusResponse(BaseModel):
 
     size: int
 
-    pages: Optional[int] = None
+    pages: int

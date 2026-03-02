@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 from .countrycodeenum import CountryCodeEnum
-from kintsugi_tax_platform_sdk.types import BaseModel
+from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
@@ -33,3 +34,27 @@ class OSSRegistrationCreatePayload(BaseModel):
 
     imported: Optional[bool] = False
     r"""Whether the registration was imported from another system."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "registration_import_type",
+                "password_plain_text",
+                "password_metadata_plain_text",
+                "member_state_of_identification_code",
+                "imported",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

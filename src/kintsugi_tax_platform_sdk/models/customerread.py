@@ -9,7 +9,8 @@ from .customertaxregistrationread import (
 )
 from .sourceenum import SourceEnum
 from .statusenum import StatusEnum
-from kintsugi_tax_platform_sdk.types import BaseModel
+from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
 
@@ -114,3 +115,41 @@ class CustomerRead(BaseModel):
 
     customer_tax_registrations: Optional[List[CustomerTaxRegistrationRead]] = None
     r"""Customer tax registrations associated with the customer."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "phone",
+                "street_1",
+                "street_2",
+                "city",
+                "county",
+                "state",
+                "postal_code",
+                "country",
+                "full_address",
+                "name",
+                "external_id",
+                "status",
+                "email",
+                "source",
+                "connection_id",
+                "address_status",
+                "registration_number",
+                "external_friendly_id",
+                "customer_tax_registrations",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

@@ -10,8 +10,9 @@ from .transactionitemestimateresponse import (
 )
 from datetime import datetime
 from enum import Enum
-from kintsugi_tax_platform_sdk.types import BaseModel
+from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -98,6 +99,33 @@ class TransactionEstimateResponseAddress(BaseModel):
     enriched_fields: Optional[str] = None
     r"""Additional enriched fields related to the address."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "phone",
+                "street_1",
+                "street_2",
+                "city",
+                "county",
+                "full_address",
+                "status",
+                "enriched_fields",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class TransactionEstimateResponseTypedDict(TypedDict):
     date_: datetime
@@ -108,8 +136,6 @@ class TransactionEstimateResponseTypedDict(TypedDict):
     transaction_items: List[TransactionItemEstimateResponseTypedDict]
     addresses: List[TransactionEstimateResponseAddressTypedDict]
     r"""List of addresses related to the transaction. At least one BILL_TO or SHIP_TO address must be provided. The address will be validated during estimation, and the transaction may be rejected if the address does not pass validation. The SHIP_TO will be preferred to use for determining tax liability. **Deprecated:** Use of `address.status` in estimate api is ignored and will be removed in the future status will be considered UNVERIFIED by default and always validated"""
-    total_amount: NotRequired[str]
-    r"""Total amount of the transaction."""
     description: NotRequired[str]
     r"""An optional description of the transaction."""
     source: NotRequired[SourceEnum]
@@ -142,9 +168,6 @@ class TransactionEstimateResponse(BaseModel):
     addresses: List[TransactionEstimateResponseAddress]
     r"""List of addresses related to the transaction. At least one BILL_TO or SHIP_TO address must be provided. The address will be validated during estimation, and the transaction may be rejected if the address does not pass validation. The SHIP_TO will be preferred to use for determining tax liability. **Deprecated:** Use of `address.status` in estimate api is ignored and will be removed in the future status will be considered UNVERIFIED by default and always validated"""
 
-    total_amount: Optional[str] = "0.0"
-    r"""Total amount of the transaction."""
-
     description: Optional[str] = None
     r"""An optional description of the transaction."""
 
@@ -174,3 +197,37 @@ class TransactionEstimateResponse(BaseModel):
 
     has_active_registration: Optional[bool] = False
     r"""Indicates if there is an active registration for the transaction."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "description",
+                "source",
+                "marketplace",
+                "customer",
+                "total_tax_amount_calculated",
+                "taxable_amount",
+                "tax_rate_calculated",
+                "nexus_met",
+                "has_active_registration",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+try:
+    TransactionEstimateResponse.model_rebuild()
+except NameError:
+    pass

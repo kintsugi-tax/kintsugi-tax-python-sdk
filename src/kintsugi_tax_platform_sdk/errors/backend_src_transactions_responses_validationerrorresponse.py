@@ -17,7 +17,7 @@ class BackendSrcTransactionsResponsesValidationErrorResponseData(BaseModel):
     ]
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class BackendSrcTransactionsResponsesValidationErrorResponse(SDKError):
     data: BackendSrcTransactionsResponsesValidationErrorResponseData = field(hash=False)
 

@@ -13,7 +13,7 @@ class ErrorResponseData(BaseModel):
     r"""Error message"""
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class ErrorResponse(SDKError):
     data: ErrorResponseData = field(hash=False)
 

@@ -6,15 +6,16 @@ from .discountbuilder import DiscountBuilder, DiscountBuilderTypedDict
 from .taxexemptionenum import TaxExemptionEnum
 from .taxitembuilder import TaxItemBuilder, TaxItemBuilderTypedDict
 from datetime import datetime
-from kintsugi_tax_platform_sdk.types import BaseModel
+from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class TransactionItemCreateUpdateTypedDict(TypedDict):
     organization_id: str
-    r"""Organization identifier."""
+    r"""Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header."""
     date_: datetime
     r"""Date/time of item."""
     external_product_id: str
@@ -68,8 +69,13 @@ class TransactionItemCreateUpdateTypedDict(TypedDict):
 
 
 class TransactionItemCreateUpdate(BaseModel):
-    organization_id: str
-    r"""Organization identifier."""
+    organization_id: Annotated[
+        str,
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ]
+    r"""Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header."""
 
     date_: Annotated[datetime, pydantic.Field(alias="date")]
     r"""Date/time of item."""
@@ -95,22 +101,22 @@ class TransactionItemCreateUpdate(BaseModel):
     product_description: Optional[str] = None
     r"""Product description"""
 
-    quantity: Optional[float] = 1.0
+    quantity: Optional[float] = 1
     r"""Quantity of item."""
 
-    amount: Optional[float] = 0.00
+    amount: Optional[float] = 0
     r"""Item amount."""
 
-    tax_amount_imported: Optional[float] = 0.00
+    tax_amount_imported: Optional[float] = 0
     r"""Imported tax amount for the item."""
 
-    tax_rate_imported: Optional[float] = 0.00
+    tax_rate_imported: Optional[float] = 0
     r"""Imported tax rate."""
 
-    tax_amount_calculated: Optional[float] = 0.00
+    tax_amount_calculated: Optional[float] = 0
     r"""Calculated tax amount for the item."""
 
-    tax_rate_calculated: Optional[float] = 0.00
+    tax_rate_calculated: Optional[float] = 0
     r"""Calculated tax rate."""
 
     original_currency: Optional[CurrencyEnum] = None
@@ -135,7 +141,7 @@ class TransactionItemCreateUpdate(BaseModel):
     converted_subtotal: Optional[float] = None
     r"""Converted subtotal amount."""
 
-    taxable_amount: Optional[float] = 0.00
+    taxable_amount: Optional[float] = 0
     r"""Taxable amount for the item."""
 
     tax_exemption: Optional[TaxExemptionEnum] = None
@@ -147,3 +153,53 @@ class TransactionItemCreateUpdate(BaseModel):
     tax_items: Optional[List[TaxItemBuilder]] = None
 
     discount_builder: Optional[DiscountBuilder] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "external_id",
+                "description",
+                "product",
+                "product_id",
+                "product_name",
+                "product_description",
+                "quantity",
+                "amount",
+                "tax_amount_imported",
+                "tax_rate_imported",
+                "tax_amount_calculated",
+                "tax_rate_calculated",
+                "original_currency",
+                "destination_currency",
+                "converted_amount",
+                "converted_taxable_amount",
+                "converted_tax_amount_imported",
+                "converted_tax_amount_calculated",
+                "converted_total_discount",
+                "converted_subtotal",
+                "taxable_amount",
+                "tax_exemption",
+                "exempt",
+                "tax_items",
+                "discount_builder",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+try:
+    TransactionItemCreateUpdate.model_rebuild()
+except NameError:
+    pass

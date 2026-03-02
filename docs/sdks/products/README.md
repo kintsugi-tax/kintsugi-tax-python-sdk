@@ -1,23 +1,22 @@
 # Products
-(*products*)
 
 ## Overview
 
 ### Available Operations
 
-* [get](#get) - Get Products
-* [create](#create) - Create Product
+* [get_products_v1_products_get](#get_products_v1_products_get) - Get Products
+* [create_product_v1_products_post](#create_product_v1_products_post) - Create Product
+* [get_product_categories_v1_products_categories_get](#get_product_categories_v1_products_categories_get) - Get Product Categories
 * [retrieve](#retrieve) - Get Product By Id
 * [update](#update) - Update Product
-* [get_categories](#get_categories) - Get Product Categories
 
-## get
+## get_products_v1_products_get
 
 Retrieve a paginated list of products based on filters and search query.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="get_products_v1_products__get" method="get" path="/v1/products/" -->
+<!-- UsageSnippet language="python" operationID="get_products_v1_products_get" method="get" path="/v1/products" -->
 ```python
 from kintsugi_tax_platform_sdk import SDK, models
 
@@ -29,7 +28,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.products.get(page=1, size=50)
+    res = sdk.products.get_products_v1_products_get(page=1, size=50)
 
     # Handle response
     print(res)
@@ -63,15 +62,17 @@ with SDK(
 | errors.ErrorResponse                                      | 500                                                       | application/json                                          |
 | errors.APIError                                           | 4XX, 5XX                                                  | \*/\*                                                     |
 
-## create
+## create_product_v1_products_post
 
 The Create Product API allows users to manually create a new product
     in the system. This includes specifying product details such as category,
-    subcategory, and tax exemption status, etc.
+    subcategory, and tax exemption status, etc. You can
+    retrieve supported categories and subcategories from
+    [GET /products/categories endpoint](/reference/api/products/get-product-categories)
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="create_product_v1_products__post" method="post" path="/v1/products/" -->
+<!-- UsageSnippet language="python" operationID="create_product_v1_products_post" method="post" path="/v1/products" -->
 ```python
 from kintsugi_tax_platform_sdk import SDK, models
 
@@ -83,7 +84,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.products.create(external_id="prod_001", name="Sample Product", product_category=models.ProductCategoryEnum.PHYSICAL, product_subcategory=models.ProductSubCategoryEnum.GENERAL_CLOTHING, tax_exempt=False, description="A description of the product", status=models.ProductStatusEnum.APPROVED, source=models.SourceEnum.BIGCOMMERCE)
+    res = sdk.products.create_product_v1_products_post(external_id="prod_001", name="T-shirts", tax_exempt=False, description="Common items of everyday wearing apparel designed for human use, covering a wide variety of non-specialized garments.", status=models.ProductStatusEnum.APPROVED, source=models.SourceEnum.BIGCOMMERCE)
 
     # Handle response
     print(res)
@@ -107,6 +108,52 @@ with SDK(
 ### Response
 
 **[models.ProductRead](../../models/productread.md)**
+
+### Errors
+
+| Error Type                                                | Status Code                                               | Content Type                                              |
+| --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- |
+| errors.ErrorResponse                                      | 401                                                       | application/json                                          |
+| errors.BackendSrcProductsResponsesValidationErrorResponse | 422                                                       | application/json                                          |
+| errors.ErrorResponse                                      | 500                                                       | application/json                                          |
+| errors.APIError                                           | 4XX, 5XX                                                  | \*/\*                                                     |
+
+## get_product_categories_v1_products_categories_get
+
+The Get Product Categories API retrieves all
+    product categories.  This endpoint helps users understand and select the
+    appropriate categories for their products.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="get_product_categories_v1_products_categories_get" method="get" path="/v1/products/categories" -->
+```python
+from kintsugi_tax_platform_sdk import SDK, models
+
+
+with SDK(
+    security=models.Security(
+        api_key_header="<YOUR_API_KEY_HERE>",
+        custom_header="<YOUR_API_KEY_HERE>",
+    ),
+) as sdk:
+
+    res = sdk.products.get_product_categories_v1_products_categories_get()
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.ProductCategories](../../models/productcategories.md)**
 
 ### Errors
 
@@ -167,7 +214,9 @@ with SDK(
 ## update
 
 The Update Product API allows users to modify the details of
-    an existing product identified by its unique product_id
+    an existing product identified by its unique product_id. You can
+    retrieve supported categories and subcategories from
+    [GET /products/categories endpoint](/reference/api/products/get-product-categories)
 
 ### Example Usage
 
@@ -183,7 +232,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.products.update(product_id="<id>", name="Updated Product Name", product_category=models.ProductCategoryEnum.PHYSICAL, product_subcategory=models.ProductSubCategoryEnum.GENERAL_CLOTHING, tax_exempt=False, external_id="prod_001", description="An updated description for the product", status=models.ProductStatusEnum.APPROVED, classification_failed=False)
+    res = sdk.products.update(product_id="<id>", name="Updated T-Shirt", product_category="Physical", product_subcategory="General Clothing", tax_exempt=False, external_id="prod_001", description="An updated description for the product", status=models.ProductStatusEnum.APPROVED, classification_failed=False)
 
     # Handle response
     print(res)
@@ -192,20 +241,20 @@ with SDK(
 
 ### Parameters
 
-| Parameter                                                                             | Type                                                                                  | Required                                                                              | Description                                                                           |
-| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| `product_id`                                                                          | *str*                                                                                 | :heavy_check_mark:                                                                    | Unique identifier of the product to be updated.                                       |
-| `name`                                                                                | *str*                                                                                 | :heavy_check_mark:                                                                    | Name of the product.                                                                  |
-| `product_category`                                                                    | [models.ProductCategoryEnum](../../models/productcategoryenum.md)                     | :heavy_check_mark:                                                                    | N/A                                                                                   |
-| `product_subcategory`                                                                 | [models.ProductSubCategoryEnum](../../models/productsubcategoryenum.md)               | :heavy_check_mark:                                                                    | N/A                                                                                   |
-| `tax_exempt`                                                                          | *bool*                                                                                | :heavy_check_mark:                                                                    | Indicates whether the product is tax-exempt.                                          |
-| `id`                                                                                  | *Optional[str]*                                                                       | :heavy_minus_sign:                                                                    | The unique identifier of the product to be updated.                                   |
-| `external_id`                                                                         | *Optional[str]*                                                                       | :heavy_minus_sign:                                                                    | External identifier provided for the product,<br/>        typically by the source system. |
-| `sku`                                                                                 | List[*str*]                                                                           | :heavy_minus_sign:                                                                    | N/A                                                                                   |
-| `description`                                                                         | *Optional[str]*                                                                       | :heavy_minus_sign:                                                                    | Description of the product.                                                           |
-| `status`                                                                              | [Optional[models.ProductStatusEnum]](../../models/productstatusenum.md)               | :heavy_minus_sign:                                                                    | N/A                                                                                   |
-| `classification_failed`                                                               | *Optional[bool]*                                                                      | :heavy_minus_sign:                                                                    | Indicates if the product classification failed.                                       |
-| `retries`                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                      | :heavy_minus_sign:                                                                    | Configuration to override the default retry behavior of the client.                   |
+| Parameter                                                                                                                                                                                                          | Type                                                                                                                                                                                                               | Required                                                                                                                                                                                                           | Description                                                                                                                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `product_id`                                                                                                                                                                                                       | *str*                                                                                                                                                                                                              | :heavy_check_mark:                                                                                                                                                                                                 | Unique identifier of the product to be updated.                                                                                                                                                                    |
+| `name`                                                                                                                                                                                                             | *str*                                                                                                                                                                                                              | :heavy_check_mark:                                                                                                                                                                                                 | Name of the product.                                                                                                                                                                                               |
+| `product_category`                                                                                                                                                                                                 | *str*                                                                                                                                                                                                              | :heavy_check_mark:                                                                                                                                                                                                 | Main category of the product.<br/>    For example, Physical, Digital, etc. You can<br/>    retrieve supported categories from [GET /products/categories endpoint](/reference/api/products/get-product-categories)  |
+| `product_subcategory`                                                                                                                                                                                              | *str*                                                                                                                                                                                                              | :heavy_check_mark:                                                                                                                                                                                                 | Subcategory of the product.<br/>    For example, General Clothing, UNKNOWN, etc. You can<br/>    retrieve supported subcategories from [GET /products/categories endpoint](/reference/api/products/get-product-categories) |
+| `tax_exempt`                                                                                                                                                                                                       | *bool*                                                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                 | Indicates whether the product is tax-exempt.                                                                                                                                                                       |
+| `id`                                                                                                                                                                                                               | *Optional[str]*                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                 | The unique identifier of the product to be updated.                                                                                                                                                                |
+| `external_id`                                                                                                                                                                                                      | *Optional[str]*                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                 | External identifier provided for the product,<br/>        typically by the source system.                                                                                                                          |
+| `sku`                                                                                                                                                                                                              | List[*str*]                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                 | N/A                                                                                                                                                                                                                |
+| `description`                                                                                                                                                                                                      | *Optional[str]*                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                 | Description of the product.                                                                                                                                                                                        |
+| `status`                                                                                                                                                                                                           | [Optional[models.ProductStatusEnum]](../../models/productstatusenum.md)                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                 | N/A                                                                                                                                                                                                                |
+| `classification_failed`                                                                                                                                                                                            | *Optional[bool]*                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                 | Indicates if the product classification failed.                                                                                                                                                                    |
+| `retries`                                                                                                                                                                                                          | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                 | Configuration to override the default retry behavior of the client.                                                                                                                                                |
 
 ### Response
 
@@ -219,47 +268,3 @@ with SDK(
 | errors.BackendSrcProductsResponsesValidationErrorResponse | 422                                                       | application/json                                          |
 | errors.ErrorResponse                                      | 500                                                       | application/json                                          |
 | errors.APIError                                           | 4XX, 5XX                                                  | \*/\*                                                     |
-
-## get_categories
-
-The Get Product Categories API retrieves all
-    product categories.  This endpoint helps users understand and select the
-    appropriate categories for their products.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="get_product_categories_v1_products_categories__get" method="get" path="/v1/products/categories/" -->
-```python
-from kintsugi_tax_platform_sdk import SDK, models
-
-
-with SDK(
-    security=models.Security(
-        api_key_header="<YOUR_API_KEY_HERE>",
-        custom_header="<YOUR_API_KEY_HERE>",
-    ),
-) as sdk:
-
-    res = sdk.products.get_categories()
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[List[models.ProductCategories]](../../models/.md)**
-
-### Errors
-
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.HTTPValidationError | 422                        | application/json           |
-| errors.APIError            | 4XX, 5XX                   | \*/\*                      |

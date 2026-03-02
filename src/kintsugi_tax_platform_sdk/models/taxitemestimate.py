@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 from .taxitemreturnreasonenum import TaxItemReturnReasonEnum
-from kintsugi_tax_platform_sdk.types import BaseModel
+from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
@@ -30,3 +31,19 @@ class TaxItemEstimate(BaseModel):
     r"""We use this to understand the response from get_tax_items"""
 
     rule: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["rate", "amount", "exempt", "exempt_reason", "rule"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

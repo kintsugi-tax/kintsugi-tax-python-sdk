@@ -17,7 +17,7 @@ class BackendSrcTaxEstimationResponsesValidationErrorResponseData(BaseModel):
     ]
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class BackendSrcTaxEstimationResponsesValidationErrorResponse(SDKError):
     data: BackendSrcTaxEstimationResponsesValidationErrorResponseData = field(
         hash=False

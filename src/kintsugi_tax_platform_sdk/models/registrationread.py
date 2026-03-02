@@ -5,10 +5,12 @@ from .changeregimestatusenum import ChangeRegimeStatusEnum
 from .countrycodeenum import CountryCodeEnum
 from .filingfrequencyenum import FilingFrequencyEnum
 from .osstypeenum import OssTypeEnum
+from .registrationcategoryenum import RegistrationCategoryEnum
 from .registrationsregimeenum import RegistrationsRegimeEnum
 from .registrationstatusenum import RegistrationStatusEnum
 from .registrationtypeenum import RegistrationTypeEnum
-from kintsugi_tax_platform_sdk.types import BaseModel
+from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
@@ -21,10 +23,9 @@ class RegistrationReadTypedDict(TypedDict):
     state_name: str
     r"""The name of the state/province."""
     filing_frequency: FilingFrequencyEnum
-    filing_days: int
-    r"""The number of days before the filing deadline."""
     id: str
     r"""The unique identifier for the registration."""
+    filing_days: int
     registration_type: RegistrationTypeEnum
     registration_date: NotRequired[str]
     r"""The date when the registration was created. Format: YYYY-MM-DD."""
@@ -48,6 +49,10 @@ class RegistrationReadTypedDict(TypedDict):
     change_regime_status: NotRequired[ChangeRegimeStatusEnum]
     third_party_enabled: NotRequired[bool]
     r"""Indicates whether third-party access is enabled for this registration."""
+    do_not_file: NotRequired[bool]
+    r"""If true, do not file for this registration (treated as False by default)."""
+    two_factor_enabled: NotRequired[bool]
+    r"""Indicates whether two-factor authentication (2FA) is enabled for this registration."""
     marked_collecting: NotRequired[bool]
     r"""Indicates whether the  registration is marked as collecting in shopify"""
     username: NotRequired[str]
@@ -78,6 +83,7 @@ class RegistrationReadTypedDict(TypedDict):
     needs_mark_as_collecting: NotRequired[bool]
     r"""Indicates whether the registration needs to be marked as collecting."""
     credits_total_available: NotRequired[str]
+    registration_category: NotRequired[RegistrationCategoryEnum]
 
 
 class RegistrationRead(BaseModel):
@@ -93,11 +99,10 @@ class RegistrationRead(BaseModel):
 
     filing_frequency: FilingFrequencyEnum
 
-    filing_days: int
-    r"""The number of days before the filing deadline."""
-
     id: str
     r"""The unique identifier for the registration."""
+
+    filing_days: int
 
     registration_type: RegistrationTypeEnum
 
@@ -134,6 +139,12 @@ class RegistrationRead(BaseModel):
 
     third_party_enabled: Optional[bool] = False
     r"""Indicates whether third-party access is enabled for this registration."""
+
+    do_not_file: Optional[bool] = False
+    r"""If true, do not file for this registration (treated as False by default)."""
+
+    two_factor_enabled: Optional[bool] = None
+    r"""Indicates whether two-factor authentication (2FA) is enabled for this registration."""
 
     marked_collecting: Optional[bool] = None
     r"""Indicates whether the  registration is marked as collecting in shopify"""
@@ -179,3 +190,54 @@ class RegistrationRead(BaseModel):
     r"""Indicates whether the registration needs to be marked as collecting."""
 
     credits_total_available: Optional[str] = "0.00"
+
+    registration_category: Optional[RegistrationCategoryEnum] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "registration_date",
+                "registration_email",
+                "registration_key",
+                "deregistration_key",
+                "registration_requested",
+                "registration_completed",
+                "deregistration_requested",
+                "deregistration_completed",
+                "auto_registered",
+                "registrations_regime",
+                "change_regime_status",
+                "third_party_enabled",
+                "do_not_file",
+                "two_factor_enabled",
+                "marked_collecting",
+                "username",
+                "comment",
+                "create_filings_from",
+                "initial_sync",
+                "amount_fees",
+                "vda",
+                "imported",
+                "sales_tax_id",
+                "sst_import",
+                "oss_type",
+                "oss_member_state_of_identification_code",
+                "marked_collecting_date",
+                "needs_mark_as_collecting",
+                "credits_total_available",
+                "registration_category",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

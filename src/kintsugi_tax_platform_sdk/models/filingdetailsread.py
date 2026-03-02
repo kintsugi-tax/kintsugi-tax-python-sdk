@@ -5,7 +5,8 @@ from .countrycodeenum import CountryCodeEnum
 from .currencyenum import CurrencyEnum
 from .filingstatusenum import FilingStatusEnum
 from datetime import date
-from kintsugi_tax_platform_sdk.types import BaseModel
+from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
@@ -28,6 +29,8 @@ class FilingDetailsReadTypedDict(TypedDict):
     r"""Unique identifier for the filing."""
     registration_id: str
     r"""Identifier for the registration associated with the filing."""
+    filing_website_url: str
+    r"""Get the filing website URL for this filing's jurisdiction"""
     status: NotRequired[FilingStatusEnum]
     due_date: NotRequired[str]
     r"""The due date of the filing."""
@@ -49,6 +52,13 @@ class FilingDetailsReadTypedDict(TypedDict):
     r"""Indicates if the filing was auto-approved. Defaults to false."""
     paused_until_date: NotRequired[str]
     r"""Indicates the date when filing will be unpaused."""
+    filing_category: NotRequired[str]
+    r"""Category of filing. Common values:
+    REGULAR (standard periodic filing),
+    PREPAYMENT (prepayment or estimated tax),
+    AMENDMENT (amended return).
+    Different categories can have overlapping periods.
+    """
     approved_by: NotRequired[str]
     r"""User ID of who approved the filing."""
     approved_at: NotRequired[str]
@@ -74,7 +84,9 @@ class FilingDetailsReadTypedDict(TypedDict):
     total_tax_liability: NotRequired[str]
     r"""Total tax liability for the filing."""
     transaction_count: NotRequired[int]
-    r"""Total number of transactions associated with the filing."""
+    r"""Number of non-marketplace transactions. For total, add marketplace_transaction_count."""
+    marketplace_transaction_count: NotRequired[int]
+    r"""Number of marketplace transactions associated with the filing."""
     internal_notes: NotRequired[str]
     r"""Notes or comments related to the filing."""
     recent_details_report_link: NotRequired[str]
@@ -107,6 +119,9 @@ class FilingDetailsRead(BaseModel):
     registration_id: str
     r"""Identifier for the registration associated with the filing."""
 
+    filing_website_url: str
+    r"""Get the filing website URL for this filing's jurisdiction"""
+
     status: Optional[FilingStatusEnum] = None
 
     due_date: Optional[str] = None
@@ -136,6 +151,14 @@ class FilingDetailsRead(BaseModel):
 
     paused_until_date: Optional[str] = None
     r"""Indicates the date when filing will be unpaused."""
+
+    filing_category: Optional[str] = "REGULAR"
+    r"""Category of filing. Common values:
+    REGULAR (standard periodic filing),
+    PREPAYMENT (prepayment or estimated tax),
+    AMENDMENT (amended return).
+    Different categories can have overlapping periods.
+    """
 
     approved_by: Optional[str] = None
     r"""User ID of who approved the filing."""
@@ -174,7 +197,10 @@ class FilingDetailsRead(BaseModel):
     r"""Total tax liability for the filing."""
 
     transaction_count: Optional[int] = 0
-    r"""Total number of transactions associated with the filing."""
+    r"""Number of non-marketplace transactions. For total, add marketplace_transaction_count."""
+
+    marketplace_transaction_count: Optional[int] = 0
+    r"""Number of marketplace transactions associated with the filing."""
 
     internal_notes: Optional[str] = None
     r"""Notes or comments related to the filing."""
@@ -199,3 +225,55 @@ class FilingDetailsRead(BaseModel):
     r"""List of attachments associated with the filing, if any."""
 
     credits_utilized: Optional[str] = "0.00"
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "status",
+                "due_date",
+                "date_filed",
+                "is_manual",
+                "state_code",
+                "state_name",
+                "jira_issue_key",
+                "auto_approved",
+                "paused_until_date",
+                "filing_category",
+                "approved_by",
+                "approved_at",
+                "amount_calculated",
+                "amount_adjusted",
+                "amount_discounts",
+                "amount_fees",
+                "amount_penalties",
+                "amount_tax_collected",
+                "amount_sales",
+                "total_taxable_sales",
+                "amount",
+                "total_tax_liability",
+                "transaction_count",
+                "marketplace_transaction_count",
+                "internal_notes",
+                "recent_details_report_link",
+                "tax_remitted",
+                "return_confirmation_id",
+                "payment_confirmation_id",
+                "block_approval",
+                "currency",
+                "attachments",
+                "credits_utilized",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

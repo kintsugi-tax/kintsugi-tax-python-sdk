@@ -5,7 +5,8 @@ from .addressstatus import AddressStatus
 from .countrycodeenum import CountryCodeEnum
 from .sourceenum import SourceEnum
 from .statusenum import StatusEnum
-from kintsugi_tax_platform_sdk.types import BaseModel
+from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
@@ -99,3 +100,41 @@ class CustomerBaseBase(BaseModel):
     r"""Additional enriched fields for the customer, if available."""
 
     is_test_data: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "phone",
+                "street_1",
+                "street_2",
+                "city",
+                "county",
+                "state",
+                "postal_code",
+                "country",
+                "full_address",
+                "name",
+                "external_id",
+                "status",
+                "email",
+                "address_status",
+                "source",
+                "registration_number",
+                "connection_id",
+                "enriched_fields",
+                "is_test_data",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

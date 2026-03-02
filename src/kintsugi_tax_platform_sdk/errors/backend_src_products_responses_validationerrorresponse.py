@@ -17,7 +17,7 @@ class BackendSrcProductsResponsesValidationErrorResponseData(BaseModel):
     ]
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class BackendSrcProductsResponsesValidationErrorResponse(SDKError):
     data: BackendSrcProductsResponsesValidationErrorResponseData = field(hash=False)
 
