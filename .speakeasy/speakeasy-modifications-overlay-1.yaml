@@ -380,3 +380,12 @@ actions:
       created_at: 1753996271792
       reviewed_at: 1753996273816
       type: method-name
+  # Add deprecated total_amount to TransactionEstimatePublicRequest for SDK generation consistency.
+  # The API accepts it optionally for backward compatibility; the base spec excluded it from the public schema.
+  - target: $["components"]["schemas"]["TransactionEstimatePublicRequest"]["properties"]
+    update:
+      total_amount:
+        type: number
+        format: double
+        description: "Total amount of the transaction. Deprecated - computed from transaction_items. Optional for backward compatibility."
+        deprecated: true
