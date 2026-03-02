@@ -86,6 +86,7 @@ class Filings(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -102,7 +103,7 @@ class Filings(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_filings_v1_filings_get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -210,6 +211,7 @@ class Filings(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -226,7 +228,7 @@ class Filings(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_filings_v1_filings_get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -306,6 +308,7 @@ class Filings(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -322,7 +325,7 @@ class Filings(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_filing_by_id_v1_filings__filing_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -402,6 +405,7 @@ class Filings(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -418,7 +422,7 @@ class Filings(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_filing_by_id_v1_filings__filing_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -470,7 +474,8 @@ class Filings(BaseSDK):
         filing information tied to
         a specific registration record.
 
-        :param registration_id: Unique identifier for the registration         associated with the filings.
+        :param registration_id: Unique identifier for the registration
+            associated with the filings.
         :param page: Page number
         :param size: Page size
         :param retries: Override the default retry configuration for this method
@@ -507,6 +512,7 @@ class Filings(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -523,7 +529,7 @@ class Filings(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_filings_by_registration_id_v1_filings_registration__registration_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -575,7 +581,8 @@ class Filings(BaseSDK):
         filing information tied to
         a specific registration record.
 
-        :param registration_id: Unique identifier for the registration         associated with the filings.
+        :param registration_id: Unique identifier for the registration
+            associated with the filings.
         :param page: Page number
         :param size: Page size
         :param retries: Override the default retry configuration for this method
@@ -612,6 +619,7 @@ class Filings(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -628,7 +636,7 @@ class Filings(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_filings_by_registration_id_v1_filings_registration__registration_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,

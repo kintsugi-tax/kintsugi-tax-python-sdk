@@ -3,8 +3,8 @@
 from __future__ import annotations
 from .productread import ProductRead, ProductReadTypedDict
 from kintsugi_tax_platform_sdk.types import BaseModel
-from typing import List, Optional
-from typing_extensions import NotRequired, TypedDict
+from typing import List
+from typing_extensions import TypedDict
 
 
 class PageProductReadTypedDict(TypedDict):
@@ -12,7 +12,7 @@ class PageProductReadTypedDict(TypedDict):
     total: int
     page: int
     size: int
-    pages: NotRequired[int]
+    pages: int
 
 
 class PageProductRead(BaseModel):
@@ -24,4 +24,4 @@ class PageProductRead(BaseModel):
 
     size: int
 
-    pages: Optional[int] = None
+    pages: int

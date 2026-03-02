@@ -4,8 +4,9 @@ from __future__ import annotations
 from .taxexemptionenum import TaxExemptionEnum
 from .taxitembuilder import TaxItemBuilder, TaxItemBuilderTypedDict
 from datetime import datetime
-from kintsugi_tax_platform_sdk.types import BaseModel
+from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -17,12 +18,12 @@ class CreditNoteItemCreateUpdateTypedDict(TypedDict):
     r"""Date when the credit note item was issued or created."""
     external_product_id: str
     r"""Unique identifier for the associated product in the external system."""
+    quantity: float
+    r"""Number of units or amount of the product being credited."""
+    amount: float
+    r"""Total monetary value of the credit note item before taxes."""
     description: NotRequired[str]
     r"""Brief explanation or details about the credit note item."""
-    quantity: NotRequired[float]
-    r"""Number of units or amount of the product being credited."""
-    amount: NotRequired[float]
-    r"""Total monetary value of the credit note item before taxes."""
     tax_amount_imported: NotRequired[float]
     r"""Pre-calculated tax amount for the item, if provided by the external system."""
     tax_rate_imported: NotRequired[float]
@@ -45,14 +46,14 @@ class CreditNoteItemCreateUpdate(BaseModel):
     external_product_id: str
     r"""Unique identifier for the associated product in the external system."""
 
-    description: Optional[str] = None
-    r"""Brief explanation or details about the credit note item."""
-
-    quantity: Optional[float] = 1.0
+    quantity: float
     r"""Number of units or amount of the product being credited."""
 
-    amount: Optional[float] = 0.00
+    amount: float
     r"""Total monetary value of the credit note item before taxes."""
+
+    description: Optional[str] = None
+    r"""Brief explanation or details about the credit note item."""
 
     tax_amount_imported: Optional[float] = None
     r"""Pre-calculated tax amount for the item, if provided by the external system."""
@@ -68,3 +69,34 @@ class CreditNoteItemCreateUpdate(BaseModel):
 
     tax_items: Optional[List[TaxItemBuilder]] = None
     r"""Detailed breakdown of individual tax components applied to this item."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "description",
+                "tax_amount_imported",
+                "tax_rate_imported",
+                "taxable_amount",
+                "tax_exemption",
+                "tax_items",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+try:
+    CreditNoteItemCreateUpdate.model_rebuild()
+except NameError:
+    pass

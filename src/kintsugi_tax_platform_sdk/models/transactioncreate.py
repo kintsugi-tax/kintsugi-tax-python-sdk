@@ -22,15 +22,16 @@ from .transactionitemcreateupdate import (
 from .transactionrefundstatus import TransactionRefundStatus
 from .transactionstatusenum import TransactionStatusEnum
 from datetime import datetime
-from kintsugi_tax_platform_sdk.types import BaseModel
+from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class TransactionCreateTypedDict(TypedDict):
     organization_id: str
-    r"""Unique identifier of the organization."""
+    r"""Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header."""
     external_id: str
     r"""External identifier of the transaction."""
     date_: datetime
@@ -42,7 +43,6 @@ class TransactionCreateTypedDict(TypedDict):
     r"""Transaction date in the shop's local timezone"""
     shop_date_tz: NotRequired[str]
     r"""Timezone of the shop"""
-    status: NotRequired[TransactionStatusEnum]
     description: NotRequired[str]
     r"""Description of the transaction."""
     refund_status: NotRequired[TransactionRefundStatus]
@@ -61,6 +61,7 @@ class TransactionCreateTypedDict(TypedDict):
     NOT EXEMPT: None of the items are NOT EXEMPT
     PARTIALLY EXEMPT: At least some of the items are NOT EXEMPT
     FULLY_EXEMPT: All items sold in the transaction are EXEMPT
+    ZERO_RATE_NOT_EXEMPT: All items sold in the transaction are zero-rated
     """
     exemptions: NotRequired[List[ExemptionTypedDict]]
     r"""List of exemptions applied (if any)."""
@@ -103,7 +104,8 @@ class TransactionCreateTypedDict(TypedDict):
     postal_code: NotRequired[str]
     r"""Postal code of the transaction."""
     tax_id: NotRequired[str]
-    r"""Tax ID associated with the transaction"""
+    r"""Tax ID associated with the transaction. DEPRECATED: This field is only populated for QuickBooks integrations and will be removed in a future version."""
+    status: NotRequired[TransactionStatusEnum]
     address_status: NotRequired[AddressStatus]
     processing_status: NotRequired[ProcessingStatusEnum]
     r"""Our transaction state, used to determine when/if a transaction needs additional
@@ -130,8 +132,13 @@ class TransactionCreateTypedDict(TypedDict):
 
 
 class TransactionCreate(BaseModel):
-    organization_id: str
-    r"""Unique identifier of the organization."""
+    organization_id: Annotated[
+        str,
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ]
+    r"""Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header."""
 
     external_id: str
     r"""External identifier of the transaction."""
@@ -151,8 +158,6 @@ class TransactionCreate(BaseModel):
     shop_date_tz: Optional[str] = None
     r"""Timezone of the shop"""
 
-    status: Optional[TransactionStatusEnum] = None
-
     description: Optional[str] = None
     r"""Description of the transaction."""
 
@@ -162,7 +167,7 @@ class TransactionCreate(BaseModel):
     transaction's refund_status to PARTIALLY_REFUNDED by default.
     """
 
-    total_amount: Optional[float] = 0.00
+    total_amount: Optional[float] = 0
     r"""Total amount of the transaction."""
 
     customer_id: Optional[str] = None
@@ -176,6 +181,7 @@ class TransactionCreate(BaseModel):
     NOT EXEMPT: None of the items are NOT EXEMPT
     PARTIALLY EXEMPT: At least some of the items are NOT EXEMPT
     FULLY_EXEMPT: All items sold in the transaction are EXEMPT
+    ZERO_RATE_NOT_EXEMPT: All items sold in the transaction are zero-rated
     """
 
     exemptions: Optional[List[Exemption]] = None
@@ -193,24 +199,24 @@ class TransactionCreate(BaseModel):
     external_friendly_id: Optional[str] = None
     r"""Friendly identifier of the original item."""
 
-    total_tax_amount_imported: Optional[float] = 0.00
+    total_tax_amount_imported: Optional[float] = 0
     r"""Imported tax amount."""
 
-    tax_rate_imported: Optional[float] = 0.00
+    tax_rate_imported: Optional[float] = 0
     r"""Imported tax rate."""
 
-    total_tax_amount_calculated: Optional[float] = 0.00
+    total_tax_amount_calculated: Optional[float] = 0
     r"""Calculated tax amount."""
 
-    tax_rate_calculated: Optional[float] = 0.00
+    tax_rate_calculated: Optional[float] = 0
     r"""Calculated tax rate."""
 
-    total_tax_liability_amount: Optional[float] = 0.00
+    total_tax_liability_amount: Optional[float] = 0
     r"""Total tax liability amount."""
 
     tax_liability_source: Optional[TaxLiabilitySourceEnum] = None
 
-    taxable_amount: Optional[float] = 0.00
+    taxable_amount: Optional[float] = 0
     r"""Taxable amount."""
 
     currency: Optional[CurrencyEnum] = None
@@ -240,8 +246,15 @@ class TransactionCreate(BaseModel):
     postal_code: Optional[str] = None
     r"""Postal code of the transaction."""
 
-    tax_id: Optional[str] = None
-    r"""Tax ID associated with the transaction"""
+    tax_id: Annotated[
+        Optional[str],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = None
+    r"""Tax ID associated with the transaction. DEPRECATED: This field is only populated for QuickBooks integrations and will be removed in a future version."""
+
+    status: Optional[TransactionStatusEnum] = None
 
     address_status: Optional[AddressStatus] = None
 
@@ -277,3 +290,73 @@ class TransactionCreate(BaseModel):
     r"""Converted total tax liability amount."""
 
     customer: Optional[CustomerCreate] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "requires_exemption",
+                "shop_date",
+                "shop_date_tz",
+                "description",
+                "refund_status",
+                "total_amount",
+                "customer_id",
+                "marketplace",
+                "exempt",
+                "exemptions",
+                "related_to",
+                "secondary_external_id",
+                "secondary_source",
+                "external_friendly_id",
+                "total_tax_amount_imported",
+                "tax_rate_imported",
+                "total_tax_amount_calculated",
+                "tax_rate_calculated",
+                "total_tax_liability_amount",
+                "tax_liability_source",
+                "taxable_amount",
+                "currency",
+                "locked",
+                "source",
+                "connection_id",
+                "filing_id",
+                "city",
+                "county",
+                "state",
+                "country",
+                "postal_code",
+                "tax_id",
+                "status",
+                "address_status",
+                "processing_status",
+                "destination_currency",
+                "converted_total_amount",
+                "converted_total_tax_amount_imported",
+                "converted_total_tax_amount_calculated",
+                "conversion_rate",
+                "converted_taxable_amount",
+                "converted_total_discount",
+                "converted_subtotal",
+                "converted_total_tax_liability_amount",
+                "customer",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+try:
+    TransactionCreate.model_rebuild()
+except NameError:
+    pass

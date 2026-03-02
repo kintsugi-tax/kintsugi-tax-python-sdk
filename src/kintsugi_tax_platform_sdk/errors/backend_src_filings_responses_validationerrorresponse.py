@@ -17,7 +17,7 @@ class BackendSrcFilingsResponsesValidationErrorResponseData(BaseModel):
     ]
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class BackendSrcFilingsResponsesValidationErrorResponse(SDKError):
     data: BackendSrcFilingsResponsesValidationErrorResponseData = field(hash=False)
 

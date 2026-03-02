@@ -12,8 +12,9 @@ from .transactionaddressbuilder import (
 )
 from datetime import datetime
 from enum import Enum
-from kintsugi_tax_platform_sdk.types import BaseModel
+from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -33,13 +34,13 @@ class CreditNoteCreateTypedDict(TypedDict):
     r"""Date when the credit note was issued or created."""
     status: Status
     r"""Current state of the credit note in its lifecycle."""
+    total_amount: float
+    r"""Total monetary value of the credit note, including all items and taxes."""
     currency: CurrencyEnum
     transaction_items: List[CreditNoteItemCreateUpdateTypedDict]
     r"""Detailed list of individual items included in this credit note."""
     description: NotRequired[str]
     r"""Brief explanation or reason for issuing the credit note."""
-    total_amount: NotRequired[float]
-    r"""Total monetary value of the credit note, including all items and taxes."""
     marketplace: NotRequired[bool]
     r"""Indicates whether this credit note is associated with a marketplace transaction."""
     tax_amount_imported: NotRequired[float]
@@ -62,6 +63,9 @@ class CreditNoteCreate(BaseModel):
     status: Status
     r"""Current state of the credit note in its lifecycle."""
 
+    total_amount: float
+    r"""Total monetary value of the credit note, including all items and taxes."""
+
     currency: CurrencyEnum
 
     transaction_items: List[CreditNoteItemCreateUpdate]
@@ -69,9 +73,6 @@ class CreditNoteCreate(BaseModel):
 
     description: Optional[str] = None
     r"""Brief explanation or reason for issuing the credit note."""
-
-    total_amount: Optional[float] = 0.00
-    r"""Total monetary value of the credit note, including all items and taxes."""
 
     marketplace: Optional[bool] = False
     r"""Indicates whether this credit note is associated with a marketplace transaction."""
@@ -87,3 +88,34 @@ class CreditNoteCreate(BaseModel):
 
     addresses: Optional[List[TransactionAddressBuilder]] = None
     r"""A list of TransactionAddressBuilder objects or None if no addresses are provided. This field represents the addresses associated with the transaction."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "description",
+                "marketplace",
+                "tax_amount_imported",
+                "tax_rate_imported",
+                "taxable_amount",
+                "addresses",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+try:
+    CreditNoteCreate.model_rebuild()
+except NameError:
+    pass

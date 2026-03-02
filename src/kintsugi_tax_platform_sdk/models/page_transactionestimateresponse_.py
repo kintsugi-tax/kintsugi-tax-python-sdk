@@ -6,8 +6,8 @@ from .transactionestimateresponse import (
     TransactionEstimateResponseTypedDict,
 )
 from kintsugi_tax_platform_sdk.types import BaseModel
-from typing import List, Optional
-from typing_extensions import NotRequired, TypedDict
+from typing import List
+from typing_extensions import TypedDict
 
 
 class PageTransactionEstimateResponseTypedDict(TypedDict):
@@ -15,7 +15,7 @@ class PageTransactionEstimateResponseTypedDict(TypedDict):
     total: int
     page: int
     size: int
-    pages: NotRequired[int]
+    pages: int
 
 
 class PageTransactionEstimateResponse(BaseModel):
@@ -27,4 +27,4 @@ class PageTransactionEstimateResponse(BaseModel):
 
     size: int
 
-    pages: Optional[int] = None
+    pages: int

@@ -115,6 +115,7 @@ class CountryCodeEnum(str, Enum):
     IM = "IM"
     IL = "IL"
     IT = "IT"
+    CI = "CI"
     JM = "JM"
     JP = "JP"
     JE = "JE"

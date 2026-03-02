@@ -78,6 +78,7 @@ class Customers(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -94,7 +95,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_customers_v1",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -193,6 +194,7 @@ class Customers(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -209,7 +211,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_customers_v1",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -354,6 +356,7 @@ class Customers(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.CustomerCreate
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -370,7 +373,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_customer_v1_customers_post",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -515,6 +518,7 @@ class Customers(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.CustomerCreate
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -531,7 +535,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_customer_v1_customers_post",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -612,6 +616,7 @@ class Customers(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -628,7 +633,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_customer_by_id_v1_customers__customer_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -701,6 +706,7 @@ class Customers(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -717,7 +723,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_customer_by_id_v1_customers__customer_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -843,6 +849,7 @@ class Customers(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.customer_update, False, False, "json", models.CustomerUpdate
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -859,7 +866,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="update_customer_v1_customers__customer_id__put",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -993,6 +1000,7 @@ class Customers(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.customer_update, False, False, "json", models.CustomerUpdate
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1009,7 +1017,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="update_customer_v1_customers__customer_id__put",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1090,6 +1098,7 @@ class Customers(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1106,7 +1115,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_customer_by_external_id_v1_customers_external__external_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1179,6 +1188,7 @@ class Customers(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1195,7 +1205,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_customer_by_external_id_v1_customers_external__external_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1266,6 +1276,7 @@ class Customers(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1282,7 +1293,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_transactions_by_customer_id_v1_customers__customer_id__transactions_get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1353,6 +1364,7 @@ class Customers(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1369,7 +1381,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_transactions_by_customer_id_v1_customers__customer_id__transactions_get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1414,10 +1426,9 @@ class Customers(BaseSDK):
         ] = None,
         shop_date: Optional[str] = None,
         shop_date_tz: Optional[str] = None,
-        status: Optional[models.TransactionStatusEnum] = None,
         description: Optional[str] = None,
         refund_status: Optional[models.TransactionRefundStatus] = None,
-        total_amount: Optional[float] = 0.00,
+        total_amount: Optional[float] = 0,
         customer_id: Optional[str] = None,
         marketplace: Optional[bool] = False,
         exempt: Optional[models.TransactionExemptStatusEnum] = None,
@@ -1428,13 +1439,13 @@ class Customers(BaseSDK):
         secondary_external_id: Optional[str] = None,
         secondary_source: Optional[str] = None,
         external_friendly_id: Optional[str] = None,
-        total_tax_amount_imported: Optional[float] = 0.00,
-        tax_rate_imported: Optional[float] = 0.00,
-        total_tax_amount_calculated: Optional[float] = 0.00,
-        tax_rate_calculated: Optional[float] = 0.00,
-        total_tax_liability_amount: Optional[float] = 0.00,
+        total_tax_amount_imported: Optional[float] = 0,
+        tax_rate_imported: Optional[float] = 0,
+        total_tax_amount_calculated: Optional[float] = 0,
+        tax_rate_calculated: Optional[float] = 0,
+        total_tax_liability_amount: Optional[float] = 0,
         tax_liability_source: Optional[models.TaxLiabilitySourceEnum] = None,
-        taxable_amount: Optional[float] = 0.00,
+        taxable_amount: Optional[float] = 0,
         currency: Optional[models.CurrencyEnum] = None,
         locked: Optional[bool] = False,
         source: Optional[models.SourceEnum] = None,
@@ -1446,6 +1457,7 @@ class Customers(BaseSDK):
         country: Optional[models.CountryCodeEnum] = None,
         postal_code: Optional[str] = None,
         tax_id: Optional[str] = None,
+        status: Optional[models.TransactionStatusEnum] = None,
         address_status: Optional[models.AddressStatus] = None,
         processing_status: Optional[models.ProcessingStatusEnum] = None,
         destination_currency: Optional[models.CurrencyEnum] = None,
@@ -1470,7 +1482,7 @@ class Customers(BaseSDK):
         Create a new transaction for a specific customer.
 
         :param customer_id_param:
-        :param organization_id: Unique identifier of the organization.
+        :param organization_id: Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header.
         :param external_id: External identifier of the transaction.
         :param date_: Transaction date and time
         :param addresses:
@@ -1478,13 +1490,18 @@ class Customers(BaseSDK):
         :param requires_exemption:
         :param shop_date: Transaction date in the shop's local timezone
         :param shop_date_tz: Timezone of the shop
-        :param status:
         :param description: Description of the transaction.
-        :param refund_status: Shopify has 2 order statuses for refund case: refunded and partially_refunded If the given order has different status from these 2, we will set the transaction's refund_status to PARTIALLY_REFUNDED by default.
+        :param refund_status: Shopify has 2 order statuses for refund case: refunded and partially_refunded
+            If the given order has different status from these 2, we will set the
+            transaction's refund_status to PARTIALLY_REFUNDED by default.
         :param total_amount: Total amount of the transaction.
         :param customer_id: Unique identifier of the customer.
         :param marketplace: Indicates if transaction is marketplace-based.
-        :param exempt: Based on transaction item exempt status. NOT EXEMPT: None of the items are NOT EXEMPT PARTIALLY EXEMPT: At least some of the items are NOT EXEMPT FULLY_EXEMPT: All items sold in the transaction are EXEMPT
+        :param exempt: Based on transaction item exempt status.
+            NOT EXEMPT: None of the items are NOT EXEMPT
+            PARTIALLY EXEMPT: At least some of the items are NOT EXEMPT
+            FULLY_EXEMPT: All items sold in the transaction are EXEMPT
+            ZERO_RATE_NOT_EXEMPT: All items sold in the transaction are zero-rated
         :param exemptions: List of exemptions applied (if any).
         :param related_to: Related transaction identifier.
         :param secondary_external_id: Secondary External Identifier.
@@ -1507,9 +1524,11 @@ class Customers(BaseSDK):
         :param state: State of the transaction address.
         :param country:
         :param postal_code: Postal code of the transaction.
-        :param tax_id: Tax ID associated with the transaction
+        :param tax_id: Tax ID associated with the transaction. DEPRECATED: This field is only populated for QuickBooks integrations and will be removed in a future version.
+        :param status:
         :param address_status:
-        :param processing_status: Our transaction state, used to determine when/if a transaction needs additional processing.
+        :param processing_status: Our transaction state, used to determine when/if a transaction needs additional
+            processing.
         :param destination_currency:
         :param converted_total_amount: Converted total amount.
         :param converted_total_tax_amount_imported: Converted imported tax amount.
@@ -1546,7 +1565,6 @@ class Customers(BaseSDK):
                 date_=date_,
                 shop_date=shop_date,
                 shop_date_tz=shop_date_tz,
-                status=status,
                 description=description,
                 refund_status=refund_status,
                 total_amount=total_amount,
@@ -1578,6 +1596,7 @@ class Customers(BaseSDK):
                 country=country,
                 postal_code=postal_code,
                 tax_id=tax_id,
+                status=status,
                 address_status=address_status,
                 processing_status=processing_status,
                 destination_currency=destination_currency,
@@ -1621,6 +1640,7 @@ class Customers(BaseSDK):
                 "json",
                 models.TransactionCreate,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1637,7 +1657,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_transaction_by_customer_id_v1_customers__customer_id__transactions_post",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1682,10 +1702,9 @@ class Customers(BaseSDK):
         ] = None,
         shop_date: Optional[str] = None,
         shop_date_tz: Optional[str] = None,
-        status: Optional[models.TransactionStatusEnum] = None,
         description: Optional[str] = None,
         refund_status: Optional[models.TransactionRefundStatus] = None,
-        total_amount: Optional[float] = 0.00,
+        total_amount: Optional[float] = 0,
         customer_id: Optional[str] = None,
         marketplace: Optional[bool] = False,
         exempt: Optional[models.TransactionExemptStatusEnum] = None,
@@ -1696,13 +1715,13 @@ class Customers(BaseSDK):
         secondary_external_id: Optional[str] = None,
         secondary_source: Optional[str] = None,
         external_friendly_id: Optional[str] = None,
-        total_tax_amount_imported: Optional[float] = 0.00,
-        tax_rate_imported: Optional[float] = 0.00,
-        total_tax_amount_calculated: Optional[float] = 0.00,
-        tax_rate_calculated: Optional[float] = 0.00,
-        total_tax_liability_amount: Optional[float] = 0.00,
+        total_tax_amount_imported: Optional[float] = 0,
+        tax_rate_imported: Optional[float] = 0,
+        total_tax_amount_calculated: Optional[float] = 0,
+        tax_rate_calculated: Optional[float] = 0,
+        total_tax_liability_amount: Optional[float] = 0,
         tax_liability_source: Optional[models.TaxLiabilitySourceEnum] = None,
-        taxable_amount: Optional[float] = 0.00,
+        taxable_amount: Optional[float] = 0,
         currency: Optional[models.CurrencyEnum] = None,
         locked: Optional[bool] = False,
         source: Optional[models.SourceEnum] = None,
@@ -1714,6 +1733,7 @@ class Customers(BaseSDK):
         country: Optional[models.CountryCodeEnum] = None,
         postal_code: Optional[str] = None,
         tax_id: Optional[str] = None,
+        status: Optional[models.TransactionStatusEnum] = None,
         address_status: Optional[models.AddressStatus] = None,
         processing_status: Optional[models.ProcessingStatusEnum] = None,
         destination_currency: Optional[models.CurrencyEnum] = None,
@@ -1738,7 +1758,7 @@ class Customers(BaseSDK):
         Create a new transaction for a specific customer.
 
         :param customer_id_param:
-        :param organization_id: Unique identifier of the organization.
+        :param organization_id: Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header.
         :param external_id: External identifier of the transaction.
         :param date_: Transaction date and time
         :param addresses:
@@ -1746,13 +1766,18 @@ class Customers(BaseSDK):
         :param requires_exemption:
         :param shop_date: Transaction date in the shop's local timezone
         :param shop_date_tz: Timezone of the shop
-        :param status:
         :param description: Description of the transaction.
-        :param refund_status: Shopify has 2 order statuses for refund case: refunded and partially_refunded If the given order has different status from these 2, we will set the transaction's refund_status to PARTIALLY_REFUNDED by default.
+        :param refund_status: Shopify has 2 order statuses for refund case: refunded and partially_refunded
+            If the given order has different status from these 2, we will set the
+            transaction's refund_status to PARTIALLY_REFUNDED by default.
         :param total_amount: Total amount of the transaction.
         :param customer_id: Unique identifier of the customer.
         :param marketplace: Indicates if transaction is marketplace-based.
-        :param exempt: Based on transaction item exempt status. NOT EXEMPT: None of the items are NOT EXEMPT PARTIALLY EXEMPT: At least some of the items are NOT EXEMPT FULLY_EXEMPT: All items sold in the transaction are EXEMPT
+        :param exempt: Based on transaction item exempt status.
+            NOT EXEMPT: None of the items are NOT EXEMPT
+            PARTIALLY EXEMPT: At least some of the items are NOT EXEMPT
+            FULLY_EXEMPT: All items sold in the transaction are EXEMPT
+            ZERO_RATE_NOT_EXEMPT: All items sold in the transaction are zero-rated
         :param exemptions: List of exemptions applied (if any).
         :param related_to: Related transaction identifier.
         :param secondary_external_id: Secondary External Identifier.
@@ -1775,9 +1800,11 @@ class Customers(BaseSDK):
         :param state: State of the transaction address.
         :param country:
         :param postal_code: Postal code of the transaction.
-        :param tax_id: Tax ID associated with the transaction
+        :param tax_id: Tax ID associated with the transaction. DEPRECATED: This field is only populated for QuickBooks integrations and will be removed in a future version.
+        :param status:
         :param address_status:
-        :param processing_status: Our transaction state, used to determine when/if a transaction needs additional processing.
+        :param processing_status: Our transaction state, used to determine when/if a transaction needs additional
+            processing.
         :param destination_currency:
         :param converted_total_amount: Converted total amount.
         :param converted_total_tax_amount_imported: Converted imported tax amount.
@@ -1814,7 +1841,6 @@ class Customers(BaseSDK):
                 date_=date_,
                 shop_date=shop_date,
                 shop_date_tz=shop_date_tz,
-                status=status,
                 description=description,
                 refund_status=refund_status,
                 total_amount=total_amount,
@@ -1846,6 +1872,7 @@ class Customers(BaseSDK):
                 country=country,
                 postal_code=postal_code,
                 tax_id=tax_id,
+                status=status,
                 address_status=address_status,
                 processing_status=processing_status,
                 destination_currency=destination_currency,
@@ -1889,6 +1916,7 @@ class Customers(BaseSDK):
                 "json",
                 models.TransactionCreate,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1905,7 +1933,7 @@ class Customers(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_transaction_by_customer_id_v1_customers__customer_id__transactions_post",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,

@@ -4,7 +4,8 @@ from __future__ import annotations
 from .addressstatus import AddressStatus
 from .addresstype import AddressType
 from .countrycodeenum import CountryCodeEnum
-from kintsugi_tax_platform_sdk.types import BaseModel
+from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
@@ -69,3 +70,34 @@ class TransactionAddressBuilder(BaseModel):
     status: Optional[AddressStatus] = None
 
     organization_id: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "phone",
+                "street_1",
+                "street_2",
+                "city",
+                "county",
+                "state",
+                "postal_code",
+                "country",
+                "full_address",
+                "enriched_fields",
+                "status",
+                "organization_id",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

@@ -71,6 +71,7 @@ class Nexus(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -87,7 +88,7 @@ class Nexus(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_physical_nexus_v1_nexus_physical_nexus_get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -179,6 +180,7 @@ class Nexus(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -195,7 +197,7 @@ class Nexus(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_physical_nexus_v1_nexus_physical_nexus_get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -238,6 +240,10 @@ class Nexus(BaseSDK):
         end_date: Optional[str] = None,
         external_id: Optional[str] = None,
         source: Optional[models.PhysicalNexusSource] = None,
+        street_1: Optional[str] = None,
+        street_2: Optional[str] = None,
+        city: Optional[str] = None,
+        postal_code: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -250,12 +256,20 @@ class Nexus(BaseSDK):
         start date, end date, etc.
 
         :param country_code:
-        :param state_code: The state or province code in                             ISO 3166-2 format (e.g., CA).
-        :param start_date: The date when the nexus became                             effective (YYYY-MM-DD).
+        :param state_code: The state or province code in
+            ISO 3166-2 format (e.g., CA).
+        :param start_date: The date when the nexus became
+            effective (YYYY-MM-DD).
         :param category:
-        :param end_date: The date when the                                         nexus ended, if applicable.
-        :param external_id: Optional                                         external identifier for the nexus.
+        :param end_date: The date when the
+            nexus ended, if applicable.
+        :param external_id: Optional
+            external identifier for the nexus.
         :param source:
+        :param street_1: Primary street address for the physical presence location.
+        :param street_2: Additional street address details, such as suite or unit number.
+        :param city: City of the physical presence location.
+        :param postal_code: ZIP or postal code of the physical presence location.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -279,6 +293,10 @@ class Nexus(BaseSDK):
             category=category,
             external_id=external_id,
             source=source,
+            street_1=street_1,
+            street_2=street_2,
+            city=city,
+            postal_code=postal_code,
         )
 
         req = self._build_request(
@@ -297,6 +315,7 @@ class Nexus(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.PhysicalNexusCreate
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -313,7 +332,7 @@ class Nexus(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_physical_nexus_v1_nexus_physical_nexus_post",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -356,6 +375,10 @@ class Nexus(BaseSDK):
         end_date: Optional[str] = None,
         external_id: Optional[str] = None,
         source: Optional[models.PhysicalNexusSource] = None,
+        street_1: Optional[str] = None,
+        street_2: Optional[str] = None,
+        city: Optional[str] = None,
+        postal_code: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -368,12 +391,20 @@ class Nexus(BaseSDK):
         start date, end date, etc.
 
         :param country_code:
-        :param state_code: The state or province code in                             ISO 3166-2 format (e.g., CA).
-        :param start_date: The date when the nexus became                             effective (YYYY-MM-DD).
+        :param state_code: The state or province code in
+            ISO 3166-2 format (e.g., CA).
+        :param start_date: The date when the nexus became
+            effective (YYYY-MM-DD).
         :param category:
-        :param end_date: The date when the                                         nexus ended, if applicable.
-        :param external_id: Optional                                         external identifier for the nexus.
+        :param end_date: The date when the
+            nexus ended, if applicable.
+        :param external_id: Optional
+            external identifier for the nexus.
         :param source:
+        :param street_1: Primary street address for the physical presence location.
+        :param street_2: Additional street address details, such as suite or unit number.
+        :param city: City of the physical presence location.
+        :param postal_code: ZIP or postal code of the physical presence location.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -397,6 +428,10 @@ class Nexus(BaseSDK):
             category=category,
             external_id=external_id,
             source=source,
+            street_1=street_1,
+            street_2=street_2,
+            city=city,
+            postal_code=postal_code,
         )
 
         req = self._build_request_async(
@@ -415,6 +450,7 @@ class Nexus(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.PhysicalNexusCreate
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -431,7 +467,7 @@ class Nexus(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_physical_nexus_v1_nexus_physical_nexus_post",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -471,6 +507,10 @@ class Nexus(BaseSDK):
         start_date: date,
         category: models.PhysicalNexusCategory,
         end_date: Optional[str] = None,
+        street_1: Optional[str] = None,
+        street_2: Optional[str] = None,
+        city: Optional[str] = None,
+        postal_code: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -481,10 +521,17 @@ class Nexus(BaseSDK):
         The Update Physical Nexus API allows you to modify the details of
         an existing physical nexus by its unique ID.
 
-        :param physical_nexus_id: The unique identifier of the physical                                 nexus to update.
-        :param start_date: The date when the nexus became                                 effective (YYYY-MM-DD).
+        :param physical_nexus_id: The unique identifier of the physical
+            nexus to update.
+        :param start_date: The date when the nexus became
+            effective (YYYY-MM-DD).
         :param category:
-        :param end_date: The date when the                                         nexus ends, if applicable (YYYY-MM-DD).
+        :param end_date: The date when the
+            nexus ends, if applicable (YYYY-MM-DD).
+        :param street_1: Primary street address for the physical presence location.
+        :param street_2: Additional street address details, such as suite or unit number.
+        :param city: City of the physical presence location.
+        :param postal_code: ZIP or postal code of the physical presence location.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -507,6 +554,10 @@ class Nexus(BaseSDK):
                     start_date=start_date,
                     end_date=end_date,
                     category=category,
+                    street_1=street_1,
+                    street_2=street_2,
+                    city=city,
+                    postal_code=postal_code,
                 ),
             )
         )
@@ -531,6 +582,7 @@ class Nexus(BaseSDK):
                 "json",
                 models.PhysicalNexusUpdate,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -547,7 +599,7 @@ class Nexus(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="update_physical_nexus_v1_nexus_physical_nexus__physical_nexus_id__put",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -587,6 +639,10 @@ class Nexus(BaseSDK):
         start_date: date,
         category: models.PhysicalNexusCategory,
         end_date: Optional[str] = None,
+        street_1: Optional[str] = None,
+        street_2: Optional[str] = None,
+        city: Optional[str] = None,
+        postal_code: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -597,10 +653,17 @@ class Nexus(BaseSDK):
         The Update Physical Nexus API allows you to modify the details of
         an existing physical nexus by its unique ID.
 
-        :param physical_nexus_id: The unique identifier of the physical                                 nexus to update.
-        :param start_date: The date when the nexus became                                 effective (YYYY-MM-DD).
+        :param physical_nexus_id: The unique identifier of the physical
+            nexus to update.
+        :param start_date: The date when the nexus became
+            effective (YYYY-MM-DD).
         :param category:
-        :param end_date: The date when the                                         nexus ends, if applicable (YYYY-MM-DD).
+        :param end_date: The date when the
+            nexus ends, if applicable (YYYY-MM-DD).
+        :param street_1: Primary street address for the physical presence location.
+        :param street_2: Additional street address details, such as suite or unit number.
+        :param city: City of the physical presence location.
+        :param postal_code: ZIP or postal code of the physical presence location.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -623,6 +686,10 @@ class Nexus(BaseSDK):
                     start_date=start_date,
                     end_date=end_date,
                     category=category,
+                    street_1=street_1,
+                    street_2=street_2,
+                    city=city,
+                    postal_code=postal_code,
                 ),
             )
         )
@@ -647,6 +714,7 @@ class Nexus(BaseSDK):
                 "json",
                 models.PhysicalNexusUpdate,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -663,7 +731,7 @@ class Nexus(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="update_physical_nexus_v1_nexus_physical_nexus__physical_nexus_id__put",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -710,7 +778,8 @@ class Nexus(BaseSDK):
         The Delete Physical Nexus API allows you to remove an existing
         physical nexus by its unique ID.
 
-        :param physical_nexus_id: The unique identifier of the physical                                 nexus to delete.
+        :param physical_nexus_id: The unique identifier of the physical
+            nexus to delete.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -745,6 +814,7 @@ class Nexus(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -761,7 +831,7 @@ class Nexus(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="delete_physical_nexus_v1_nexus_physical_nexus__physical_nexus_id__delete",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -808,7 +878,8 @@ class Nexus(BaseSDK):
         The Delete Physical Nexus API allows you to remove an existing
         physical nexus by its unique ID.
 
-        :param physical_nexus_id: The unique identifier of the physical                                 nexus to delete.
+        :param physical_nexus_id: The unique identifier of the physical
+            nexus to delete.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -843,6 +914,7 @@ class Nexus(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -859,7 +931,7 @@ class Nexus(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="delete_physical_nexus_v1_nexus_physical_nexus__physical_nexus_id__delete",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -895,6 +967,8 @@ class Nexus(BaseSDK):
     def get_all(
         self,
         *,
+        without_pagination: Optional[bool] = False,
+        disregard_view: Optional[str] = None,
         status_in: Optional[
             str
         ] = "APPROACHING,NOT_EXPOSED,PENDING_REGISTRATION,EXPOSED,APPROACHING,REGISTERED",
@@ -913,13 +987,15 @@ class Nexus(BaseSDK):
 
         Get a list of all nexuses for the organization.
 
+        :param without_pagination: Return all results without pagination
+        :param disregard_view: Filter nexuses by disregard view: 'exposed' or 'disregarded'
         :param status_in:
         :param state_code:
         :param country_code_in:
         :param order_by:
         :param collected_tax_nexus_met:
-        :param page: Page number
-        :param size: Page size
+        :param page:
+        :param size:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -936,6 +1012,8 @@ class Nexus(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetNexusForOrgV1NexusGetRequest(
+            without_pagination=without_pagination,
+            disregard_view=disregard_view,
             status_in=status_in,
             state_code=state_code,
             country_code_in=country_code_in,
@@ -958,6 +1036,7 @@ class Nexus(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -974,7 +1053,7 @@ class Nexus(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_nexus_for_org_v1_nexus_get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1002,6 +1081,8 @@ class Nexus(BaseSDK):
     async def get_all_async(
         self,
         *,
+        without_pagination: Optional[bool] = False,
+        disregard_view: Optional[str] = None,
         status_in: Optional[
             str
         ] = "APPROACHING,NOT_EXPOSED,PENDING_REGISTRATION,EXPOSED,APPROACHING,REGISTERED",
@@ -1020,13 +1101,15 @@ class Nexus(BaseSDK):
 
         Get a list of all nexuses for the organization.
 
+        :param without_pagination: Return all results without pagination
+        :param disregard_view: Filter nexuses by disregard view: 'exposed' or 'disregarded'
         :param status_in:
         :param state_code:
         :param country_code_in:
         :param order_by:
         :param collected_tax_nexus_met:
-        :param page: Page number
-        :param size: Page size
+        :param page:
+        :param size:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1043,6 +1126,8 @@ class Nexus(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetNexusForOrgV1NexusGetRequest(
+            without_pagination=without_pagination,
+            disregard_view=disregard_view,
             status_in=status_in,
             state_code=state_code,
             country_code_in=country_code_in,
@@ -1065,6 +1150,7 @@ class Nexus(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1081,7 +1167,7 @@ class Nexus(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_nexus_for_org_v1_nexus_get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,

@@ -84,7 +84,7 @@ It's also possible to write a standalone Python script without needing to set up
 ```python
 #!/usr/bin/env -S uv run --script
 # /// script
-# requires-python = ">=3.9"
+# requires-python = ">=3.10"
 # dependencies = [
 #     "kintsugi-tax-platform-sdk",
 # ]
@@ -136,6 +136,7 @@ with SDK() as sdk:
 </br>
 
 The same SDK client can also be used to make asynchronous requests by importing asyncio.
+
 ```python
 # Asynchronous Example
 import asyncio
@@ -212,12 +213,12 @@ with SDK() as sdk:
 <details open>
 <summary>Available methods</summary>
 
-### [address_validation](docs/sdks/addressvalidation/README.md)
+### [AddressValidation](docs/sdks/addressvalidation/README.md)
 
 * [search](docs/sdks/addressvalidation/README.md#search) - Search
 * [suggestions](docs/sdks/addressvalidation/README.md#suggestions) - Suggestions
 
-### [customers](docs/sdks/customers/README.md)
+### [Customers](docs/sdks/customers/README.md)
 
 * [list](docs/sdks/customers/README.md#list) - Get Customers
 * [create](docs/sdks/customers/README.md#create) - Create Customer
@@ -227,7 +228,7 @@ with SDK() as sdk:
 * [get_transactions](docs/sdks/customers/README.md#get_transactions) - Get Transactions By Customer Id
 * [create_transaction](docs/sdks/customers/README.md#create_transaction) - Create Transaction By Customer Id
 
-### [exemptions](docs/sdks/exemptions/README.md)
+### [Exemptions](docs/sdks/exemptions/README.md)
 
 * [list](docs/sdks/exemptions/README.md#list) - Get Exemptions
 * [create](docs/sdks/exemptions/README.md#create) - Create Exemption
@@ -235,13 +236,13 @@ with SDK() as sdk:
 * [upload_certificate](docs/sdks/exemptions/README.md#upload_certificate) - Upload Exemption Certificate
 * [list_attachments](docs/sdks/exemptions/README.md#list_attachments) - Get Attachments For Exemption
 
-### [filings](docs/sdks/filings/README.md)
+### [Filings](docs/sdks/filings/README.md)
 
 * [get_all](docs/sdks/filings/README.md#get_all) - Get Filings
 * [get](docs/sdks/filings/README.md#get) - Get Filing By Id
 * [get_by_registration_id](docs/sdks/filings/README.md#get_by_registration_id) - Get Filings By Registration Id
 
-### [nexus](docs/sdks/nexus/README.md)
+### [Nexus](docs/sdks/nexus/README.md)
 
 * [get_physical](docs/sdks/nexus/README.md#get_physical) - Get Physical Nexus
 * [create_physical](docs/sdks/nexus/README.md#create_physical) - Create Physical Nexus
@@ -249,15 +250,15 @@ with SDK() as sdk:
 * [delete_physical_nexus](docs/sdks/nexus/README.md#delete_physical_nexus) - Delete Physical Nexus
 * [get_all](docs/sdks/nexus/README.md#get_all) - Get Nexus For Org
 
-### [products](docs/sdks/products/README.md)
+### [Products](docs/sdks/products/README.md)
 
-* [get](docs/sdks/products/README.md#get) - Get Products
-* [create](docs/sdks/products/README.md#create) - Create Product
+* [get_products_v1_products_get](docs/sdks/products/README.md#get_products_v1_products_get) - Get Products
+* [create_product_v1_products_post](docs/sdks/products/README.md#create_product_v1_products_post) - Create Product
+* [get_product_categories_v1_products_categories_get](docs/sdks/products/README.md#get_product_categories_v1_products_categories_get) - Get Product Categories
 * [retrieve](docs/sdks/products/README.md#retrieve) - Get Product By Id
 * [update](docs/sdks/products/README.md#update) - Update Product
-* [get_categories](docs/sdks/products/README.md#get_categories) - Get Product Categories
 
-### [registrations](docs/sdks/registrations/README.md)
+### [Registrations](docs/sdks/registrations/README.md)
 
 * [get_all](docs/sdks/registrations/README.md#get_all) - Get Registrations
 * [create](docs/sdks/registrations/README.md#create) - Create Registration
@@ -265,12 +266,11 @@ with SDK() as sdk:
 * [update](docs/sdks/registrations/README.md#update) - Update Registration
 * [deregister](docs/sdks/registrations/README.md#deregister) - Deregister Registration
 
-
-### [tax_estimation](docs/sdks/taxestimation/README.md)
+### [TaxEstimation](docs/sdks/taxestimation/README.md)
 
 * [estimate](docs/sdks/taxestimation/README.md#estimate) - Estimate Tax
 
-### [transactions](docs/sdks/transactions/README.md)
+### [Transactions](docs/sdks/transactions/README.md)
 
 * [list](docs/sdks/transactions/README.md#list) - Get Transactions
 * [create](docs/sdks/transactions/README.md#create) - Create Transaction
@@ -404,10 +404,11 @@ with SDK() as sdk:
 ```
 
 ### Error Classes
-**Primary error:**
+**Primary errors:**
 * [`SDKError`](./src/kintsugi_tax_platform_sdk/errors/sdkerror.py): The base class for HTTP error responses.
+  * [`ErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/errorresponse.py): *
 
-<details><summary>Less common errors (16)</summary>
+<details><summary>Less common errors (15)</summary>
 
 <br />
 
@@ -418,13 +419,12 @@ with SDK() as sdk:
 
 
 **Inherit from [`SDKError`](./src/kintsugi_tax_platform_sdk/errors/sdkerror.py)**:
-* [`ErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/errorresponse.py): Applicable to 32 of 41 methods.*
-* [`HTTPValidationError`](./src/kintsugi_tax_platform_sdk/errors/httpvalidationerror.py): Validation Error. Status code `422`. Applicable to 9 of 41 methods.*
+* [`HTTPValidationError`](./src/kintsugi_tax_platform_sdk/errors/httpvalidationerror.py): Validation Error. Status code `422`. Applicable to 8 of 41 methods.*
 * [`BackendSrcExemptionsResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcexemptionsresponsesvalidationerrorresponse.py): Validation issues, such as missing required fields or invalid field values. Status code `422`. Applicable to 5 of 41 methods.*
+* [`BackendSrcProductsResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcproductsresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 5 of 41 methods.*
 * [`BackendSrcRegistrationsResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcregistrationsresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 5 of 41 methods.*
 * [`BackendSrcTransactionsResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrctransactionsresponsesvalidationerrorresponse.py): Status code `422`. Applicable to 5 of 41 methods.*
 * [`BackendSrcNexusResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcnexusresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 4 of 41 methods.*
-* [`BackendSrcProductsResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcproductsresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 4 of 41 methods.*
 * [`BackendSrcCustomersResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrccustomersresponsesvalidationerrorresponse.py): Query parameters failed validation, such as an out-of-range page number. Status code `422`. Applicable to 3 of 41 methods.*
 * [`BackendSrcFilingsResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcfilingsresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 3 of 41 methods.*
 * [`BackendSrcAddressValidationResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcaddressvalidationresponsesvalidationerrorresponse.py): Validation error - Address fields failed validation or are incomplete. Status code `422`. Applicable to 2 of 41 methods.*

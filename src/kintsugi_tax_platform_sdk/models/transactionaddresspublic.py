@@ -3,7 +3,8 @@
 from __future__ import annotations
 from .addresstype import AddressType
 from .countrycodeenum import CountryCodeEnum
-from kintsugi_tax_platform_sdk.types import BaseModel
+from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
@@ -61,3 +62,31 @@ class TransactionAddressPublic(BaseModel):
 
     full_address: Optional[str] = None
     r"""Complete address string of the customer, which can be used as an alternative to individual fields."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "phone",
+                "street_1",
+                "street_2",
+                "city",
+                "county",
+                "state",
+                "postal_code",
+                "country",
+                "full_address",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

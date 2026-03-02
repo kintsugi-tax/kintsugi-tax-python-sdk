@@ -5,8 +5,9 @@ from .countrycodeenum import CountryCodeEnum
 from .exemptionstatus import ExemptionStatus
 from .exemptiontype import ExemptionType
 from datetime import date, datetime
-from kintsugi_tax_platform_sdk.types import BaseModel
+from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -89,3 +90,41 @@ class Exemption(BaseModel):
     status: Optional[ExemptionStatus] = None
 
     organization_id: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "id",
+                "created_at",
+                "updated_at",
+                "jurisdiction",
+                "country_code",
+                "end_date",
+                "customer_id",
+                "transaction_id",
+                "reseller",
+                "FEIN",
+                "sales_tax_id",
+                "status",
+                "organization_id",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+try:
+    Exemption.model_rebuild()
+except NameError:
+    pass

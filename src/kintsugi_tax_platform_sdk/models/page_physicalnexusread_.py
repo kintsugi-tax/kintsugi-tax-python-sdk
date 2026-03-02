@@ -3,8 +3,8 @@
 from __future__ import annotations
 from .physicalnexusread import PhysicalNexusRead, PhysicalNexusReadTypedDict
 from kintsugi_tax_platform_sdk.types import BaseModel
-from typing import List, Optional
-from typing_extensions import NotRequired, TypedDict
+from typing import List
+from typing_extensions import TypedDict
 
 
 class PagePhysicalNexusReadTypedDict(TypedDict):
@@ -12,7 +12,7 @@ class PagePhysicalNexusReadTypedDict(TypedDict):
     total: int
     page: int
     size: int
-    pages: NotRequired[int]
+    pages: int
 
 
 class PagePhysicalNexusRead(BaseModel):
@@ -24,4 +24,4 @@ class PagePhysicalNexusRead(BaseModel):
 
     size: int
 
-    pages: Optional[int] = None
+    pages: int

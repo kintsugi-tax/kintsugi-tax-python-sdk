@@ -3,8 +3,8 @@
 from __future__ import annotations
 from .filingread import FilingRead, FilingReadTypedDict
 from kintsugi_tax_platform_sdk.types import BaseModel
-from typing import List, Optional
-from typing_extensions import NotRequired, TypedDict
+from typing import List
+from typing_extensions import TypedDict
 
 
 class PageFilingReadTypedDict(TypedDict):
@@ -12,7 +12,7 @@ class PageFilingReadTypedDict(TypedDict):
     total: int
     page: int
     size: int
-    pages: NotRequired[int]
+    pages: int
 
 
 class PageFilingRead(BaseModel):
@@ -24,4 +24,4 @@ class PageFilingRead(BaseModel):
 
     size: int
 
-    pages: Optional[int] = None
+    pages: int

@@ -45,20 +45,30 @@ class Transactions(BaseSDK):
         optional filtering, sorting, and pagination.
 
         :param state_code: Filter transactions by state code.
-        :param transaction_type: Filter by transaction type (e.g., SALE, FULL_CREDIT_NOTE,         PARTIAL_CREDIT_NOTE, ARCHIVE etc.).
+        :param transaction_type: Filter by transaction type (e.g., SALE, FULL_CREDIT_NOTE,
+            PARTIAL_CREDIT_NOTE, ARCHIVE etc.).
         :param transaction_source: Filter transactions based on the source.
-        :param search_query: Search for transactions using a general query         (e.g., order ID, customer name).
-        :param country: Filter transactions by country code         (ISO 3166-1 alpha-2 format, e.g., US).
+        :param search_query: Search for transactions using a general query
+            (e.g., order ID, customer name).
+        :param country: Filter transactions by country code
+            (ISO 3166-1 alpha-2 format, e.g., US).
         :param state: Filter by full state name (e.g., California).
-        :param address_status_in: Filter by address status (e.g., UNVERIFIED, INVALID,         PARTIALLY_VERIFIED, VERIFIED, UNVERIFIABLE).
-        :param status: Filter by transaction status (e.g., PENDING, COMMITTED,         CANCELLED, FULLY_REFUNDED, PARTIALLY_REFUNDED, ARCHIVED).
+        :param address_status_in: Filter by address status (e.g., UNVERIFIED, INVALID,
+            PARTIALLY_VERIFIED, VERIFIED, UNVERIFIABLE).
+        :param status: Filter by transaction status (e.g., PENDING, COMMITTED,
+            CANCELLED, FULLY_REFUNDED, PARTIALLY_REFUNDED, ARCHIVED).
         :param filing_id: Retrieve transactions linked to a specific filing ID.
-        :param order_by: Sort results based on specified fields.         Prefix with - for descending order (e.g., -date for newest first).
-        :param date_gte: Retrieve transactions with a date         greater than or equal to (YYYY-MM-DD).
-        :param date_lte: Retrieve transactions with a date         less than or equal to (YYYY-MM-DD).
-        :param processing_status_in: Filter transactions based on processing status.         Multiple values can be passed as a comma-separated list.
+        :param order_by: Sort results based on specified fields.
+            Prefix with - for descending order (e.g., -date for newest first).
+        :param date_gte: Retrieve transactions with a date
+            greater than or equal to (YYYY-MM-DD).
+        :param date_lte: Retrieve transactions with a date
+            less than or equal to (YYYY-MM-DD).
+        :param processing_status_in: Filter transactions based on processing status.
+            Multiple values can be passed as a comma-separated list.
         :param marketplace: Filter transactions by marketplace (e.g., AMAZON, EBAY).
-        :param exempt_in: Filter transactions by exemption status.         Multiple values can be passed as a comma-separated list (e.g., EXEMPT,TAXABLE).
+        :param exempt_in: Filter transactions by exemption status.
+            Multiple values can be passed as a comma-separated list (e.g., EXEMPT,TAXABLE).
         :param page: Page number
         :param size: Page size
         :param retries: Override the default retry configuration for this method
@@ -109,6 +119,7 @@ class Transactions(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -125,7 +136,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_transactions_v1_transactions_get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -192,20 +203,30 @@ class Transactions(BaseSDK):
         optional filtering, sorting, and pagination.
 
         :param state_code: Filter transactions by state code.
-        :param transaction_type: Filter by transaction type (e.g., SALE, FULL_CREDIT_NOTE,         PARTIAL_CREDIT_NOTE, ARCHIVE etc.).
+        :param transaction_type: Filter by transaction type (e.g., SALE, FULL_CREDIT_NOTE,
+            PARTIAL_CREDIT_NOTE, ARCHIVE etc.).
         :param transaction_source: Filter transactions based on the source.
-        :param search_query: Search for transactions using a general query         (e.g., order ID, customer name).
-        :param country: Filter transactions by country code         (ISO 3166-1 alpha-2 format, e.g., US).
+        :param search_query: Search for transactions using a general query
+            (e.g., order ID, customer name).
+        :param country: Filter transactions by country code
+            (ISO 3166-1 alpha-2 format, e.g., US).
         :param state: Filter by full state name (e.g., California).
-        :param address_status_in: Filter by address status (e.g., UNVERIFIED, INVALID,         PARTIALLY_VERIFIED, VERIFIED, UNVERIFIABLE).
-        :param status: Filter by transaction status (e.g., PENDING, COMMITTED,         CANCELLED, FULLY_REFUNDED, PARTIALLY_REFUNDED, ARCHIVED).
+        :param address_status_in: Filter by address status (e.g., UNVERIFIED, INVALID,
+            PARTIALLY_VERIFIED, VERIFIED, UNVERIFIABLE).
+        :param status: Filter by transaction status (e.g., PENDING, COMMITTED,
+            CANCELLED, FULLY_REFUNDED, PARTIALLY_REFUNDED, ARCHIVED).
         :param filing_id: Retrieve transactions linked to a specific filing ID.
-        :param order_by: Sort results based on specified fields.         Prefix with - for descending order (e.g., -date for newest first).
-        :param date_gte: Retrieve transactions with a date         greater than or equal to (YYYY-MM-DD).
-        :param date_lte: Retrieve transactions with a date         less than or equal to (YYYY-MM-DD).
-        :param processing_status_in: Filter transactions based on processing status.         Multiple values can be passed as a comma-separated list.
+        :param order_by: Sort results based on specified fields.
+            Prefix with - for descending order (e.g., -date for newest first).
+        :param date_gte: Retrieve transactions with a date
+            greater than or equal to (YYYY-MM-DD).
+        :param date_lte: Retrieve transactions with a date
+            less than or equal to (YYYY-MM-DD).
+        :param processing_status_in: Filter transactions based on processing status.
+            Multiple values can be passed as a comma-separated list.
         :param marketplace: Filter transactions by marketplace (e.g., AMAZON, EBAY).
-        :param exempt_in: Filter transactions by exemption status.         Multiple values can be passed as a comma-separated list (e.g., EXEMPT,TAXABLE).
+        :param exempt_in: Filter transactions by exemption status.
+            Multiple values can be passed as a comma-separated list (e.g., EXEMPT,TAXABLE).
         :param page: Page number
         :param size: Page size
         :param retries: Override the default retry configuration for this method
@@ -256,6 +277,7 @@ class Transactions(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -272,7 +294,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_transactions_v1_transactions_get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -327,10 +349,9 @@ class Transactions(BaseSDK):
         ] = None,
         shop_date: Optional[str] = None,
         shop_date_tz: Optional[str] = None,
-        status: Optional[models.TransactionStatusEnum] = None,
         description: Optional[str] = None,
         refund_status: Optional[models.TransactionRefundStatus] = None,
-        total_amount: Optional[float] = 0.00,
+        total_amount: Optional[float] = 0,
         customer_id: Optional[str] = None,
         marketplace: Optional[bool] = False,
         exempt: Optional[models.TransactionExemptStatusEnum] = None,
@@ -341,13 +362,13 @@ class Transactions(BaseSDK):
         secondary_external_id: Optional[str] = None,
         secondary_source: Optional[str] = None,
         external_friendly_id: Optional[str] = None,
-        total_tax_amount_imported: Optional[float] = 0.00,
-        tax_rate_imported: Optional[float] = 0.00,
-        total_tax_amount_calculated: Optional[float] = 0.00,
-        tax_rate_calculated: Optional[float] = 0.00,
-        total_tax_liability_amount: Optional[float] = 0.00,
+        total_tax_amount_imported: Optional[float] = 0,
+        tax_rate_imported: Optional[float] = 0,
+        total_tax_amount_calculated: Optional[float] = 0,
+        tax_rate_calculated: Optional[float] = 0,
+        total_tax_liability_amount: Optional[float] = 0,
         tax_liability_source: Optional[models.TaxLiabilitySourceEnum] = None,
-        taxable_amount: Optional[float] = 0.00,
+        taxable_amount: Optional[float] = 0,
         currency: Optional[models.CurrencyEnum] = None,
         locked: Optional[bool] = False,
         source: Optional[models.SourceEnum] = None,
@@ -359,6 +380,7 @@ class Transactions(BaseSDK):
         country: Optional[models.CountryCodeEnum] = None,
         postal_code: Optional[str] = None,
         tax_id: Optional[str] = None,
+        status: Optional[models.TransactionStatusEnum] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -368,7 +390,7 @@ class Transactions(BaseSDK):
 
         Create a transaction.
 
-        :param organization_id: Unique identifier of the organization.
+        :param organization_id: Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header.
         :param external_id: External identifier of the transaction.
         :param date_: Transaction date and time
         :param addresses:
@@ -378,13 +400,18 @@ class Transactions(BaseSDK):
         :param requires_exemption:
         :param shop_date: Transaction date in the shop's local timezone
         :param shop_date_tz: Timezone of the shop
-        :param status:
         :param description: Description of the transaction.
-        :param refund_status: Shopify has 2 order statuses for refund case: refunded and partially_refunded If the given order has different status from these 2, we will set the transaction's refund_status to PARTIALLY_REFUNDED by default.
+        :param refund_status: Shopify has 2 order statuses for refund case: refunded and partially_refunded
+            If the given order has different status from these 2, we will set the
+            transaction's refund_status to PARTIALLY_REFUNDED by default.
         :param total_amount: Total amount of the transaction.
         :param customer_id: Unique identifier of the customer.
         :param marketplace: Indicates if transaction is marketplace-based.
-        :param exempt: Based on transaction item exempt status. NOT EXEMPT: None of the items are NOT EXEMPT PARTIALLY EXEMPT: At least some of the items are NOT EXEMPT FULLY_EXEMPT: All items sold in the transaction are EXEMPT
+        :param exempt: Based on transaction item exempt status.
+            NOT EXEMPT: None of the items are NOT EXEMPT
+            PARTIALLY EXEMPT: At least some of the items are NOT EXEMPT
+            FULLY_EXEMPT: All items sold in the transaction are EXEMPT
+            ZERO_RATE_NOT_EXEMPT: All items sold in the transaction are zero-rated
         :param exemptions: List of exemptions applied (if any).
         :param related_to: Related transaction identifier.
         :param secondary_external_id: Secondary External Identifier.
@@ -407,7 +434,8 @@ class Transactions(BaseSDK):
         :param state: State of the transaction address.
         :param country:
         :param postal_code: Postal code of the transaction.
-        :param tax_id: Tax ID associated with the transaction
+        :param tax_id: Tax ID associated with the transaction. DEPRECATED: This field is only populated for QuickBooks integrations and will be removed in a future version.
+        :param status:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -432,7 +460,6 @@ class Transactions(BaseSDK):
             date_=date_,
             shop_date=shop_date,
             shop_date_tz=shop_date_tz,
-            status=status,
             description=description,
             refund_status=refund_status,
             total_amount=total_amount,
@@ -464,6 +491,7 @@ class Transactions(BaseSDK):
             country=country,
             postal_code=postal_code,
             tax_id=tax_id,
+            status=status,
             addresses=utils.get_pydantic_model(
                 addresses, List[models.TransactionAddressPublic]
             ),
@@ -490,6 +518,7 @@ class Transactions(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.TransactionPublicRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -506,7 +535,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_transaction_v1_transactions_post",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -561,10 +590,9 @@ class Transactions(BaseSDK):
         ] = None,
         shop_date: Optional[str] = None,
         shop_date_tz: Optional[str] = None,
-        status: Optional[models.TransactionStatusEnum] = None,
         description: Optional[str] = None,
         refund_status: Optional[models.TransactionRefundStatus] = None,
-        total_amount: Optional[float] = 0.00,
+        total_amount: Optional[float] = 0,
         customer_id: Optional[str] = None,
         marketplace: Optional[bool] = False,
         exempt: Optional[models.TransactionExemptStatusEnum] = None,
@@ -575,13 +603,13 @@ class Transactions(BaseSDK):
         secondary_external_id: Optional[str] = None,
         secondary_source: Optional[str] = None,
         external_friendly_id: Optional[str] = None,
-        total_tax_amount_imported: Optional[float] = 0.00,
-        tax_rate_imported: Optional[float] = 0.00,
-        total_tax_amount_calculated: Optional[float] = 0.00,
-        tax_rate_calculated: Optional[float] = 0.00,
-        total_tax_liability_amount: Optional[float] = 0.00,
+        total_tax_amount_imported: Optional[float] = 0,
+        tax_rate_imported: Optional[float] = 0,
+        total_tax_amount_calculated: Optional[float] = 0,
+        tax_rate_calculated: Optional[float] = 0,
+        total_tax_liability_amount: Optional[float] = 0,
         tax_liability_source: Optional[models.TaxLiabilitySourceEnum] = None,
-        taxable_amount: Optional[float] = 0.00,
+        taxable_amount: Optional[float] = 0,
         currency: Optional[models.CurrencyEnum] = None,
         locked: Optional[bool] = False,
         source: Optional[models.SourceEnum] = None,
@@ -593,6 +621,7 @@ class Transactions(BaseSDK):
         country: Optional[models.CountryCodeEnum] = None,
         postal_code: Optional[str] = None,
         tax_id: Optional[str] = None,
+        status: Optional[models.TransactionStatusEnum] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -602,7 +631,7 @@ class Transactions(BaseSDK):
 
         Create a transaction.
 
-        :param organization_id: Unique identifier of the organization.
+        :param organization_id: Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header.
         :param external_id: External identifier of the transaction.
         :param date_: Transaction date and time
         :param addresses:
@@ -612,13 +641,18 @@ class Transactions(BaseSDK):
         :param requires_exemption:
         :param shop_date: Transaction date in the shop's local timezone
         :param shop_date_tz: Timezone of the shop
-        :param status:
         :param description: Description of the transaction.
-        :param refund_status: Shopify has 2 order statuses for refund case: refunded and partially_refunded If the given order has different status from these 2, we will set the transaction's refund_status to PARTIALLY_REFUNDED by default.
+        :param refund_status: Shopify has 2 order statuses for refund case: refunded and partially_refunded
+            If the given order has different status from these 2, we will set the
+            transaction's refund_status to PARTIALLY_REFUNDED by default.
         :param total_amount: Total amount of the transaction.
         :param customer_id: Unique identifier of the customer.
         :param marketplace: Indicates if transaction is marketplace-based.
-        :param exempt: Based on transaction item exempt status. NOT EXEMPT: None of the items are NOT EXEMPT PARTIALLY EXEMPT: At least some of the items are NOT EXEMPT FULLY_EXEMPT: All items sold in the transaction are EXEMPT
+        :param exempt: Based on transaction item exempt status.
+            NOT EXEMPT: None of the items are NOT EXEMPT
+            PARTIALLY EXEMPT: At least some of the items are NOT EXEMPT
+            FULLY_EXEMPT: All items sold in the transaction are EXEMPT
+            ZERO_RATE_NOT_EXEMPT: All items sold in the transaction are zero-rated
         :param exemptions: List of exemptions applied (if any).
         :param related_to: Related transaction identifier.
         :param secondary_external_id: Secondary External Identifier.
@@ -641,7 +675,8 @@ class Transactions(BaseSDK):
         :param state: State of the transaction address.
         :param country:
         :param postal_code: Postal code of the transaction.
-        :param tax_id: Tax ID associated with the transaction
+        :param tax_id: Tax ID associated with the transaction. DEPRECATED: This field is only populated for QuickBooks integrations and will be removed in a future version.
+        :param status:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -666,7 +701,6 @@ class Transactions(BaseSDK):
             date_=date_,
             shop_date=shop_date,
             shop_date_tz=shop_date_tz,
-            status=status,
             description=description,
             refund_status=refund_status,
             total_amount=total_amount,
@@ -698,6 +732,7 @@ class Transactions(BaseSDK):
             country=country,
             postal_code=postal_code,
             tax_id=tax_id,
+            status=status,
             addresses=utils.get_pydantic_model(
                 addresses, List[models.TransactionAddressPublic]
             ),
@@ -724,6 +759,7 @@ class Transactions(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.TransactionPublicRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -740,7 +776,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_transaction_v1_transactions_post",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -823,6 +859,7 @@ class Transactions(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -839,7 +876,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_transaction_by_external_id_v1_transactions_external__external_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -922,6 +959,7 @@ class Transactions(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -938,7 +976,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_transaction_by_external_id_v1_transactions_external__external_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -993,10 +1031,9 @@ class Transactions(BaseSDK):
         ] = None,
         shop_date: Optional[str] = None,
         shop_date_tz: Optional[str] = None,
-        status: Optional[models.TransactionStatusEnum] = None,
         description: Optional[str] = None,
         refund_status: Optional[models.TransactionRefundStatus] = None,
-        total_amount: Optional[float] = 0.00,
+        total_amount: Optional[float] = 0,
         customer_id: Optional[str] = None,
         marketplace: Optional[bool] = False,
         exempt: Optional[models.TransactionExemptStatusEnum] = None,
@@ -1007,13 +1044,13 @@ class Transactions(BaseSDK):
         secondary_external_id: Optional[str] = None,
         secondary_source: Optional[str] = None,
         external_friendly_id: Optional[str] = None,
-        total_tax_amount_imported: Optional[float] = 0.00,
-        tax_rate_imported: Optional[float] = 0.00,
-        total_tax_amount_calculated: Optional[float] = 0.00,
-        tax_rate_calculated: Optional[float] = 0.00,
-        total_tax_liability_amount: Optional[float] = 0.00,
+        total_tax_amount_imported: Optional[float] = 0,
+        tax_rate_imported: Optional[float] = 0,
+        total_tax_amount_calculated: Optional[float] = 0,
+        tax_rate_calculated: Optional[float] = 0,
+        total_tax_liability_amount: Optional[float] = 0,
         tax_liability_source: Optional[models.TaxLiabilitySourceEnum] = None,
-        taxable_amount: Optional[float] = 0.00,
+        taxable_amount: Optional[float] = 0,
         currency: Optional[models.CurrencyEnum] = None,
         locked: Optional[bool] = False,
         source: Optional[models.SourceEnum] = None,
@@ -1025,6 +1062,7 @@ class Transactions(BaseSDK):
         country: Optional[models.CountryCodeEnum] = None,
         postal_code: Optional[str] = None,
         tax_id: Optional[str] = None,
+        status: Optional[models.TransactionStatusEnum] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1035,7 +1073,7 @@ class Transactions(BaseSDK):
         Update a specific transaction by its ID.
 
         :param transaction_id:
-        :param organization_id: Unique identifier of the organization.
+        :param organization_id: Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header.
         :param external_id: External identifier of the transaction.
         :param date_: Transaction date and time
         :param addresses:
@@ -1044,13 +1082,18 @@ class Transactions(BaseSDK):
         :param requires_exemption:
         :param shop_date: Transaction date in the shop's local timezone
         :param shop_date_tz: Timezone of the shop
-        :param status:
         :param description: Description of the transaction.
-        :param refund_status: Shopify has 2 order statuses for refund case: refunded and partially_refunded If the given order has different status from these 2, we will set the transaction's refund_status to PARTIALLY_REFUNDED by default.
+        :param refund_status: Shopify has 2 order statuses for refund case: refunded and partially_refunded
+            If the given order has different status from these 2, we will set the
+            transaction's refund_status to PARTIALLY_REFUNDED by default.
         :param total_amount: Total amount of the transaction.
         :param customer_id: Unique identifier of the customer.
         :param marketplace: Indicates if transaction is marketplace-based.
-        :param exempt: Based on transaction item exempt status. NOT EXEMPT: None of the items are NOT EXEMPT PARTIALLY EXEMPT: At least some of the items are NOT EXEMPT FULLY_EXEMPT: All items sold in the transaction are EXEMPT
+        :param exempt: Based on transaction item exempt status.
+            NOT EXEMPT: None of the items are NOT EXEMPT
+            PARTIALLY EXEMPT: At least some of the items are NOT EXEMPT
+            FULLY_EXEMPT: All items sold in the transaction are EXEMPT
+            ZERO_RATE_NOT_EXEMPT: All items sold in the transaction are zero-rated
         :param exemptions: List of exemptions applied (if any).
         :param related_to: Related transaction identifier.
         :param secondary_external_id: Secondary External Identifier.
@@ -1073,7 +1116,8 @@ class Transactions(BaseSDK):
         :param state: State of the transaction address.
         :param country:
         :param postal_code: Postal code of the transaction.
-        :param tax_id: Tax ID associated with the transaction
+        :param tax_id: Tax ID associated with the transaction. DEPRECATED: This field is only populated for QuickBooks integrations and will be removed in a future version.
+        :param status:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1100,7 +1144,6 @@ class Transactions(BaseSDK):
                 date_=date_,
                 shop_date=shop_date,
                 shop_date_tz=shop_date_tz,
-                status=status,
                 description=description,
                 refund_status=refund_status,
                 total_amount=total_amount,
@@ -1132,6 +1175,7 @@ class Transactions(BaseSDK):
                 country=country,
                 postal_code=postal_code,
                 tax_id=tax_id,
+                status=status,
                 addresses=utils.get_pydantic_model(
                     addresses, List[models.TransactionAddressBuilder]
                 ),
@@ -1162,6 +1206,7 @@ class Transactions(BaseSDK):
                 "json",
                 models.TransactionUpdate,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1178,7 +1223,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="update_transaction_v1_transactions__transaction_id__put",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1224,10 +1269,9 @@ class Transactions(BaseSDK):
         ] = None,
         shop_date: Optional[str] = None,
         shop_date_tz: Optional[str] = None,
-        status: Optional[models.TransactionStatusEnum] = None,
         description: Optional[str] = None,
         refund_status: Optional[models.TransactionRefundStatus] = None,
-        total_amount: Optional[float] = 0.00,
+        total_amount: Optional[float] = 0,
         customer_id: Optional[str] = None,
         marketplace: Optional[bool] = False,
         exempt: Optional[models.TransactionExemptStatusEnum] = None,
@@ -1238,13 +1282,13 @@ class Transactions(BaseSDK):
         secondary_external_id: Optional[str] = None,
         secondary_source: Optional[str] = None,
         external_friendly_id: Optional[str] = None,
-        total_tax_amount_imported: Optional[float] = 0.00,
-        tax_rate_imported: Optional[float] = 0.00,
-        total_tax_amount_calculated: Optional[float] = 0.00,
-        tax_rate_calculated: Optional[float] = 0.00,
-        total_tax_liability_amount: Optional[float] = 0.00,
+        total_tax_amount_imported: Optional[float] = 0,
+        tax_rate_imported: Optional[float] = 0,
+        total_tax_amount_calculated: Optional[float] = 0,
+        tax_rate_calculated: Optional[float] = 0,
+        total_tax_liability_amount: Optional[float] = 0,
         tax_liability_source: Optional[models.TaxLiabilitySourceEnum] = None,
-        taxable_amount: Optional[float] = 0.00,
+        taxable_amount: Optional[float] = 0,
         currency: Optional[models.CurrencyEnum] = None,
         locked: Optional[bool] = False,
         source: Optional[models.SourceEnum] = None,
@@ -1256,6 +1300,7 @@ class Transactions(BaseSDK):
         country: Optional[models.CountryCodeEnum] = None,
         postal_code: Optional[str] = None,
         tax_id: Optional[str] = None,
+        status: Optional[models.TransactionStatusEnum] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1266,7 +1311,7 @@ class Transactions(BaseSDK):
         Update a specific transaction by its ID.
 
         :param transaction_id:
-        :param organization_id: Unique identifier of the organization.
+        :param organization_id: Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header.
         :param external_id: External identifier of the transaction.
         :param date_: Transaction date and time
         :param addresses:
@@ -1275,13 +1320,18 @@ class Transactions(BaseSDK):
         :param requires_exemption:
         :param shop_date: Transaction date in the shop's local timezone
         :param shop_date_tz: Timezone of the shop
-        :param status:
         :param description: Description of the transaction.
-        :param refund_status: Shopify has 2 order statuses for refund case: refunded and partially_refunded If the given order has different status from these 2, we will set the transaction's refund_status to PARTIALLY_REFUNDED by default.
+        :param refund_status: Shopify has 2 order statuses for refund case: refunded and partially_refunded
+            If the given order has different status from these 2, we will set the
+            transaction's refund_status to PARTIALLY_REFUNDED by default.
         :param total_amount: Total amount of the transaction.
         :param customer_id: Unique identifier of the customer.
         :param marketplace: Indicates if transaction is marketplace-based.
-        :param exempt: Based on transaction item exempt status. NOT EXEMPT: None of the items are NOT EXEMPT PARTIALLY EXEMPT: At least some of the items are NOT EXEMPT FULLY_EXEMPT: All items sold in the transaction are EXEMPT
+        :param exempt: Based on transaction item exempt status.
+            NOT EXEMPT: None of the items are NOT EXEMPT
+            PARTIALLY EXEMPT: At least some of the items are NOT EXEMPT
+            FULLY_EXEMPT: All items sold in the transaction are EXEMPT
+            ZERO_RATE_NOT_EXEMPT: All items sold in the transaction are zero-rated
         :param exemptions: List of exemptions applied (if any).
         :param related_to: Related transaction identifier.
         :param secondary_external_id: Secondary External Identifier.
@@ -1304,7 +1354,8 @@ class Transactions(BaseSDK):
         :param state: State of the transaction address.
         :param country:
         :param postal_code: Postal code of the transaction.
-        :param tax_id: Tax ID associated with the transaction
+        :param tax_id: Tax ID associated with the transaction. DEPRECATED: This field is only populated for QuickBooks integrations and will be removed in a future version.
+        :param status:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1331,7 +1382,6 @@ class Transactions(BaseSDK):
                 date_=date_,
                 shop_date=shop_date,
                 shop_date_tz=shop_date_tz,
-                status=status,
                 description=description,
                 refund_status=refund_status,
                 total_amount=total_amount,
@@ -1363,6 +1413,7 @@ class Transactions(BaseSDK):
                 country=country,
                 postal_code=postal_code,
                 tax_id=tax_id,
+                status=status,
                 addresses=utils.get_pydantic_model(
                     addresses, List[models.TransactionAddressBuilder]
                 ),
@@ -1393,6 +1444,7 @@ class Transactions(BaseSDK):
                 "json",
                 models.TransactionUpdate,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1409,7 +1461,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="update_transaction_v1_transactions__transaction_id__put",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1481,6 +1533,7 @@ class Transactions(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1497,7 +1550,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_transaction_by_id_v1_transactions__transaction_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1578,6 +1631,7 @@ class Transactions(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1594,7 +1648,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_transaction_by_id_v1_transactions__transaction_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1641,7 +1695,9 @@ class Transactions(BaseSDK):
 
         Retrieve transactions by filing ID.
 
-        :param filing_id: The unique identifier of the filing         whose transactions you wish to retrieve.
+        :param filing_id: The unique identifier of the filing
+            whose transactions you wish to retrieve.
+
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1676,6 +1732,7 @@ class Transactions(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1692,7 +1749,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_transactions_by_filing_id_v1_transactions_filings__filing_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1739,7 +1796,9 @@ class Transactions(BaseSDK):
 
         Retrieve transactions by filing ID.
 
-        :param filing_id: The unique identifier of the filing         whose transactions you wish to retrieve.
+        :param filing_id: The unique identifier of the filing
+            whose transactions you wish to retrieve.
+
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1774,6 +1833,7 @@ class Transactions(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1790,7 +1850,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_transactions_by_filing_id_v1_transactions_filings__filing_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1831,13 +1891,13 @@ class Transactions(BaseSDK):
         external_id: str,
         date_: datetime,
         status: models.Status,
+        total_amount: float,
         currency: models.CurrencyEnum,
         transaction_items: Union[
             List[models.CreditNoteItemCreateUpdate],
             List[models.CreditNoteItemCreateUpdateTypedDict],
         ],
         description: Optional[str] = None,
-        total_amount: Optional[float] = 0.00,
         marketplace: Optional[bool] = False,
         tax_amount_imported: Optional[float] = None,
         tax_rate_imported: Optional[float] = None,
@@ -1861,10 +1921,10 @@ class Transactions(BaseSDK):
         :param external_id: Unique identifier for the credit note in the external system.
         :param date_: Date when the credit note was issued or created.
         :param status: Current state of the credit note in its lifecycle.
+        :param total_amount: Total monetary value of the credit note, including all items and taxes.
         :param currency:
         :param transaction_items: Detailed list of individual items included in this credit note.
         :param description: Brief explanation or reason for issuing the credit note.
-        :param total_amount: Total monetary value of the credit note, including all items and taxes.
         :param marketplace: Indicates whether this credit note is associated with a marketplace transaction.
         :param tax_amount_imported: Pre-calculated total tax amount for the entire credit note, if provided by the external system.
         :param tax_rate_imported: Pre-calculated overall tax rate for the credit note, if provided by the external system.
@@ -1927,6 +1987,7 @@ class Transactions(BaseSDK):
                 "json",
                 models.CreditNoteCreate,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1943,7 +2004,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="POST_create_credit_note_by_transaction_id",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1975,13 +2036,13 @@ class Transactions(BaseSDK):
         external_id: str,
         date_: datetime,
         status: models.Status,
+        total_amount: float,
         currency: models.CurrencyEnum,
         transaction_items: Union[
             List[models.CreditNoteItemCreateUpdate],
             List[models.CreditNoteItemCreateUpdateTypedDict],
         ],
         description: Optional[str] = None,
-        total_amount: Optional[float] = 0.00,
         marketplace: Optional[bool] = False,
         tax_amount_imported: Optional[float] = None,
         tax_rate_imported: Optional[float] = None,
@@ -2005,10 +2066,10 @@ class Transactions(BaseSDK):
         :param external_id: Unique identifier for the credit note in the external system.
         :param date_: Date when the credit note was issued or created.
         :param status: Current state of the credit note in its lifecycle.
+        :param total_amount: Total monetary value of the credit note, including all items and taxes.
         :param currency:
         :param transaction_items: Detailed list of individual items included in this credit note.
         :param description: Brief explanation or reason for issuing the credit note.
-        :param total_amount: Total monetary value of the credit note, including all items and taxes.
         :param marketplace: Indicates whether this credit note is associated with a marketplace transaction.
         :param tax_amount_imported: Pre-calculated total tax amount for the entire credit note, if provided by the external system.
         :param tax_rate_imported: Pre-calculated overall tax rate for the credit note, if provided by the external system.
@@ -2071,6 +2132,7 @@ class Transactions(BaseSDK):
                 "json",
                 models.CreditNoteCreate,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2087,7 +2149,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="POST_create_credit_note_by_transaction_id",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -2120,13 +2182,13 @@ class Transactions(BaseSDK):
         external_id: str,
         date_: datetime,
         status: models.Status,
+        total_amount: float,
         currency: models.CurrencyEnum,
         transaction_items: Union[
             List[models.CreditNoteItemCreateUpdate],
             List[models.CreditNoteItemCreateUpdateTypedDict],
         ],
         description: Optional[str] = None,
-        total_amount: Optional[float] = 0.00,
         marketplace: Optional[bool] = False,
         tax_amount_imported: Optional[float] = None,
         tax_rate_imported: Optional[float] = None,
@@ -2151,10 +2213,10 @@ class Transactions(BaseSDK):
         :param external_id: Unique identifier for the credit note in the external system.
         :param date_: Date when the credit note was issued or created.
         :param status: Current state of the credit note in its lifecycle.
+        :param total_amount: Total monetary value of the credit note, including all items and taxes.
         :param currency:
         :param transaction_items: Detailed list of individual items included in this credit note.
         :param description: Brief explanation or reason for issuing the credit note.
-        :param total_amount: Total monetary value of the credit note, including all items and taxes.
         :param marketplace: Indicates whether this credit note is associated with a marketplace transaction.
         :param tax_amount_imported: Pre-calculated total tax amount for the entire credit note, if provided by the external system.
         :param tax_rate_imported: Pre-calculated overall tax rate for the credit note, if provided by the external system.
@@ -2218,6 +2280,7 @@ class Transactions(BaseSDK):
                 "json",
                 models.CreditNoteCreate,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2234,7 +2297,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="PUT_update_credit_note_by_transaction_id",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -2267,13 +2330,13 @@ class Transactions(BaseSDK):
         external_id: str,
         date_: datetime,
         status: models.Status,
+        total_amount: float,
         currency: models.CurrencyEnum,
         transaction_items: Union[
             List[models.CreditNoteItemCreateUpdate],
             List[models.CreditNoteItemCreateUpdateTypedDict],
         ],
         description: Optional[str] = None,
-        total_amount: Optional[float] = 0.00,
         marketplace: Optional[bool] = False,
         tax_amount_imported: Optional[float] = None,
         tax_rate_imported: Optional[float] = None,
@@ -2298,10 +2361,10 @@ class Transactions(BaseSDK):
         :param external_id: Unique identifier for the credit note in the external system.
         :param date_: Date when the credit note was issued or created.
         :param status: Current state of the credit note in its lifecycle.
+        :param total_amount: Total monetary value of the credit note, including all items and taxes.
         :param currency:
         :param transaction_items: Detailed list of individual items included in this credit note.
         :param description: Brief explanation or reason for issuing the credit note.
-        :param total_amount: Total monetary value of the credit note, including all items and taxes.
         :param marketplace: Indicates whether this credit note is associated with a marketplace transaction.
         :param tax_amount_imported: Pre-calculated total tax amount for the entire credit note, if provided by the external system.
         :param tax_rate_imported: Pre-calculated overall tax rate for the credit note, if provided by the external system.
@@ -2365,6 +2428,7 @@ class Transactions(BaseSDK):
                 "json",
                 models.CreditNoteCreate,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2381,7 +2445,7 @@ class Transactions(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="PUT_update_credit_note_by_transaction_id",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,

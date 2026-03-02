@@ -5,13 +5,14 @@ from .transactionestimatepublicrequest import (
     TransactionEstimatePublicRequest,
     TransactionEstimatePublicRequestTypedDict,
 )
-from kintsugi_tax_platform_sdk.types import BaseModel
+from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
 from kintsugi_tax_platform_sdk.utils import (
     FieldMetadata,
     QueryParamMetadata,
     RequestMetadata,
 )
 import pydantic
+from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -36,3 +37,19 @@ class EstimateTaxV1TaxEstimatePostRequest(BaseModel):
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
     r"""**Deprecated:** Use `simulate_active_registration` in the request body instead."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["simulate_nexus_met"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

@@ -3,8 +3,9 @@
 from __future__ import annotations
 from .sourceenum import SourceEnum
 from datetime import datetime
-from kintsugi_tax_platform_sdk.types import BaseModel
+from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -77,8 +78,43 @@ class TransactionItemEstimateBase(BaseModel):
     in place of external_product_id.
     """
 
-    quantity: Optional[float] = 1.0
+    quantity: Optional[float] = 1
     r"""Defaults to 1.0. The quantity of the item."""
 
     exempt: Optional[bool] = False
     r"""Defaults to false. Indicates whether the item is exempt from tax."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "external_id",
+                "description",
+                "external_product_id",
+                "product_name",
+                "product_description",
+                "product_source",
+                "product_subcategory",
+                "product_category",
+                "quantity",
+                "exempt",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+try:
+    TransactionItemEstimateBase.model_rebuild()
+except NameError:
+    pass

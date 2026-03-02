@@ -1,5 +1,4 @@
 # Registrations
-(*registrations*)
 
 ## Overview
 
@@ -70,9 +69,35 @@ with SDK(
 The Create Registration API allows users to create a new registration
     for tracking and managing tax filings efficiently across multiple jurisdictions.
 
-### Example Usage
+### Example Usage: oss
 
-<!-- UsageSnippet language="python" operationID="create_registration_v1_registrations_post" method="post" path="/v1/registrations" -->
+<!-- UsageSnippet language="python" operationID="create_registration_v1_registrations_post" method="post" path="/v1/registrations" example="oss" -->
+```python
+from kintsugi_tax_platform_sdk import SDK, models
+
+
+with SDK(
+    security=models.Security(
+        api_key_header="<YOUR_API_KEY_HERE>",
+        custom_header="<YOUR_API_KEY_HERE>",
+    ),
+) as sdk:
+
+    res = sdk.registrations.create(request={
+        "registration_import_type": "OSS",
+        "password_plain_text": "oss_pass_fr",
+        "password_metadata_plain_text": "{\"q\":\"a\"}",
+        "member_state_of_identification_code": models.CountryCodeEnum.FR,
+        "imported": True,
+    })
+
+    # Handle response
+    print(res)
+
+```
+### Example Usage: regular_legacy
+
+<!-- UsageSnippet language="python" operationID="create_registration_v1_registrations_post" method="post" path="/v1/registrations" example="regular_legacy" -->
 ```python
 from kintsugi_tax_platform_sdk import SDK, models
 
@@ -87,6 +112,66 @@ with SDK(
     res = sdk.registrations.create(request={
         "registration_import_type": "OSS",
         "imported": False,
+    })
+
+    # Handle response
+    print(res)
+
+```
+### Example Usage: regular_new
+
+<!-- UsageSnippet language="python" operationID="create_registration_v1_registrations_post" method="post" path="/v1/registrations" example="regular_new" -->
+```python
+from kintsugi_tax_platform_sdk import SDK, models
+
+
+with SDK(
+    security=models.Security(
+        api_key_header="<YOUR_API_KEY_HERE>",
+        custom_header="<YOUR_API_KEY_HERE>",
+    ),
+) as sdk:
+
+    res = sdk.registrations.create(request={
+        "registration_import_type": "REGULAR",
+        "registration_date": "2025-02-01",
+        "registration_email": "example@domain.com",
+        "auto_registered": True,
+        "do_not_file": False,
+        "country_code": models.CountryCodeEnum.US,
+        "state_code": "TX",
+        "state_name": "Texas",
+        "filing_frequency": models.FilingFrequencyEnum.MONTHLY,
+        "comment": "Registering for monthly sales tax filings",
+        "initial_sync": False,
+        "amount_fees": 100,
+        "vda": False,
+        "sst_import": False,
+    })
+
+    # Handle response
+    print(res)
+
+```
+### Example Usage: sst
+
+<!-- UsageSnippet language="python" operationID="create_registration_v1_registrations_post" method="post" path="/v1/registrations" example="sst" -->
+```python
+from kintsugi_tax_platform_sdk import SDK, models
+
+
+with SDK(
+    security=models.Security(
+        api_key_header="<YOUR_API_KEY_HERE>",
+        custom_header="<YOUR_API_KEY_HERE>",
+    ),
+) as sdk:
+
+    res = sdk.registrations.create(request={
+        "registration_import_type": "SST",
+        "password_plain_text": "sst_pass",
+        "password_metadata_plain_text": "{\"q\":\"a\"}",
+        "username": "sst_user",
     })
 
     # Handle response
@@ -145,6 +230,7 @@ with SDK(
 | Parameter                                                                              | Type                                                                                   | Required                                                                               | Description                                                                            |
 | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
 | `registration_id`                                                                      | *str*                                                                                  | :heavy_check_mark:                                                                     | The unique identifier of the<br/>                                registration to retrieve. |
+| `reveal`                                                                               | *Optional[str]*                                                                        | :heavy_minus_sign:                                                                     | Name of field to reveal                                                                |
 | `retries`                                                                              | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                       | :heavy_minus_sign:                                                                     | Configuration to override the default retry behavior of the client.                    |
 
 ### Response
@@ -179,7 +265,7 @@ with SDK(
     ),
 ) as sdk:
 
-    res = sdk.registrations.update(registration_id="<id>", registration_date="2025-03-01", registration_email="example@domain.com", registration_key="REG-123456", registration_requested="2025-02-18T19:43:32.684802", auto_registered=True, registrations_regime=models.RegistrationsRegimeEnum.STANDARD, change_regime_status=models.ChangeRegimeStatusEnum.REQUESTED, third_party_enabled=False, username="User Name", filing_frequency=models.FilingFrequencyEnum.MONTHLY, create_filings_from="2025-03-01", is_approaching=False, comment="Updated registration for compliance", vda=False)
+    res = sdk.registrations.update(registration_id="<id>", registration_date="2025-03-01", registration_email="example@domain.com", registration_key="REG-123456", registration_requested="2025-02-18T19:43:32.684802", auto_registered=True, registrations_regime=models.RegistrationsRegimeEnum.STANDARD, change_regime_status=models.ChangeRegimeStatusEnum.REQUESTED, third_party_enabled=False, do_not_file=False, username="User Name", filing_frequency=models.FilingFrequencyEnum.MONTHLY, create_filings_from="2025-03-01", is_approaching=False, comment="Updated registration for compliance", vda=False)
 
     # Handle response
     print(res)
@@ -203,13 +289,17 @@ with SDK(
 | `registrations_regime`                                                              | [Optional[models.RegistrationsRegimeEnum]](../../models/registrationsregimeenum.md) | :heavy_minus_sign:                                                                  | N/A                                                                                 |
 | `change_regime_status`                                                              | [Optional[models.ChangeRegimeStatusEnum]](../../models/changeregimestatusenum.md)   | :heavy_minus_sign:                                                                  | N/A                                                                                 |
 | `third_party_enabled`                                                               | *Optional[bool]*                                                                    | :heavy_minus_sign:                                                                  | Indicates whether third-party access is enabled for this registration.              |
+| `do_not_file`                                                                       | *Optional[bool]*                                                                    | :heavy_minus_sign:                                                                  | If true, do not file for this registration (treated as False by default).           |
+| `two_factor_enabled`                                                                | *Optional[bool]*                                                                    | :heavy_minus_sign:                                                                  | Indicates whether two-factor authentication (2FA) is enabled for this registration. |
 | `marked_collecting`                                                                 | *Optional[bool]*                                                                    | :heavy_minus_sign:                                                                  | Indicates whether the  registration is marked as collecting in shopify              |
+| `encrypted_username`                                                                | *Optional[str]*                                                                     | :heavy_minus_sign:                                                                  | The encrypted username for the registration.                                        |
 | `username`                                                                          | *Optional[str]*                                                                     | :heavy_minus_sign:                                                                  | The username associated with the registration.                                      |
 | `filing_frequency`                                                                  | [Optional[models.FilingFrequencyEnum]](../../models/filingfrequencyenum.md)         | :heavy_minus_sign:                                                                  | N/A                                                                                 |
 | `create_filings_from`                                                               | *Optional[str]*                                                                     | :heavy_minus_sign:                                                                  | The updated date from which filings should start (YYYY-MM-DD).                      |
 | `is_approaching`                                                                    | *Optional[bool]*                                                                    | :heavy_minus_sign:                                                                  | Indicates whether the registration is approaching an action (e.g., renewal).        |
 | `comment`                                                                           | *Optional[str]*                                                                     | :heavy_minus_sign:                                                                  | Additional notes or comments related to the registration.                           |
 | `vda`                                                                               | *Optional[bool]*                                                                    | :heavy_minus_sign:                                                                  | Indicates if the Voluntary Disclosure Agreement (VDA) applies.                      |
+| `tax_id`                                                                            | *Optional[str]*                                                                     | :heavy_minus_sign:                                                                  | Organization-level tax ID (e.g., VAT number, Canada Business Number).               |
 | `retries`                                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                    | :heavy_minus_sign:                                                                  | Configuration to override the default retry behavior of the client.                 |
 
 ### Response

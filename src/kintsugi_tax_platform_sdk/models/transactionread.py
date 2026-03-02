@@ -20,15 +20,16 @@ from .transactionrefundstatus import TransactionRefundStatus
 from .transactionstatusenum import TransactionStatusEnum
 from .transactiontypeenum import TransactionTypeEnum
 from datetime import datetime
-from kintsugi_tax_platform_sdk.types import BaseModel
+from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class TransactionReadTypedDict(TypedDict):
     organization_id: str
-    r"""Unique identifier of the organization."""
+    r"""Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header."""
     external_id: str
     r"""External identifier of the transaction."""
     date_: datetime
@@ -45,7 +46,6 @@ class TransactionReadTypedDict(TypedDict):
     r"""Transaction date in the shop's local timezone"""
     shop_date_tz: NotRequired[str]
     r"""Timezone of the shop"""
-    status: NotRequired[TransactionStatusEnum]
     description: NotRequired[str]
     r"""Description of the transaction."""
     refund_status: NotRequired[TransactionRefundStatus]
@@ -64,6 +64,7 @@ class TransactionReadTypedDict(TypedDict):
     NOT EXEMPT: None of the items are NOT EXEMPT
     PARTIALLY EXEMPT: At least some of the items are NOT EXEMPT
     FULLY_EXEMPT: All items sold in the transaction are EXEMPT
+    ZERO_RATE_NOT_EXEMPT: All items sold in the transaction are zero-rated
     """
     exemptions: NotRequired[List[ExemptionTypedDict]]
     r"""List of exemptions applied (if any)."""
@@ -106,7 +107,8 @@ class TransactionReadTypedDict(TypedDict):
     postal_code: NotRequired[str]
     r"""Postal code of the transaction."""
     tax_id: NotRequired[str]
-    r"""Tax ID associated with the transaction"""
+    r"""Tax ID associated with the transaction. DEPRECATED: This field is only populated for QuickBooks integrations and will be removed in a future version."""
+    status: NotRequired[TransactionStatusEnum]
     address_status: NotRequired[AddressStatus]
     processing_status: NotRequired[ProcessingStatusEnum]
     r"""Our transaction state, used to determine when/if a transaction needs additional
@@ -141,8 +143,13 @@ class TransactionReadTypedDict(TypedDict):
 
 
 class TransactionRead(BaseModel):
-    organization_id: str
-    r"""Unique identifier of the organization."""
+    organization_id: Annotated[
+        str,
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ]
+    r"""Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header."""
 
     external_id: str
     r"""External identifier of the transaction."""
@@ -169,8 +176,6 @@ class TransactionRead(BaseModel):
     shop_date_tz: Optional[str] = None
     r"""Timezone of the shop"""
 
-    status: Optional[TransactionStatusEnum] = None
-
     description: Optional[str] = None
     r"""Description of the transaction."""
 
@@ -194,6 +199,7 @@ class TransactionRead(BaseModel):
     NOT EXEMPT: None of the items are NOT EXEMPT
     PARTIALLY EXEMPT: At least some of the items are NOT EXEMPT
     FULLY_EXEMPT: All items sold in the transaction are EXEMPT
+    ZERO_RATE_NOT_EXEMPT: All items sold in the transaction are zero-rated
     """
 
     exemptions: Optional[List[Exemption]] = None
@@ -258,8 +264,15 @@ class TransactionRead(BaseModel):
     postal_code: Optional[str] = None
     r"""Postal code of the transaction."""
 
-    tax_id: Optional[str] = None
-    r"""Tax ID associated with the transaction"""
+    tax_id: Annotated[
+        Optional[str],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = None
+    r"""Tax ID associated with the transaction. DEPRECATED: This field is only populated for QuickBooks integrations and will be removed in a future version."""
+
+    status: Optional[TransactionStatusEnum] = None
 
     address_status: Optional[AddressStatus] = None
 
@@ -307,3 +320,77 @@ class TransactionRead(BaseModel):
 
     converted_final_total_amount: Optional[str] = None
     r"""Converted final total amount including tax liability."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "requires_exemption",
+                "shop_date",
+                "shop_date_tz",
+                "description",
+                "refund_status",
+                "total_amount",
+                "customer_id",
+                "marketplace",
+                "exempt",
+                "exemptions",
+                "related_to",
+                "secondary_external_id",
+                "secondary_source",
+                "external_friendly_id",
+                "total_tax_amount_imported",
+                "tax_rate_imported",
+                "total_tax_amount_calculated",
+                "tax_rate_calculated",
+                "total_tax_liability_amount",
+                "tax_liability_source",
+                "taxable_amount",
+                "currency",
+                "locked",
+                "source",
+                "connection_id",
+                "filing_id",
+                "city",
+                "county",
+                "state",
+                "country",
+                "postal_code",
+                "tax_id",
+                "status",
+                "address_status",
+                "processing_status",
+                "destination_currency",
+                "converted_total_amount",
+                "converted_total_tax_amount_imported",
+                "converted_total_tax_amount_calculated",
+                "conversion_rate",
+                "converted_taxable_amount",
+                "converted_total_discount",
+                "converted_subtotal",
+                "converted_total_tax_liability_amount",
+                "customer",
+                "total_discount",
+                "subtotal",
+                "final_total_amount",
+                "converted_final_total_amount",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+try:
+    TransactionRead.model_rebuild()
+except NameError:
+    pass

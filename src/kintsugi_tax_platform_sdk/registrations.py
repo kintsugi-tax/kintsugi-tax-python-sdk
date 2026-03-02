@@ -35,10 +35,13 @@ class Registrations(BaseSDK):
         This API helps in tracking and managing registrations efficiently across multiple
         jurisdictions.
 
-        :param status_in: Filter registrations by status. Multiple statuses can be passed,         separated by commas.
+        :param status_in: Filter registrations by status. Multiple statuses can be passed,
+            separated by commas.
         :param state_code: Filter registrations by state code.
-        :param filing_frequency_in: Filter registrations by filing frequency. Multiple filing frequencies         can be passed, separated by commas.
-        :param country_code_in: Filter registrations by country code in ISO 3166-1 alpha-2 format         (e.g., US, CA).
+        :param filing_frequency_in: Filter registrations by filing frequency. Multiple filing frequencies
+            can be passed, separated by commas.
+        :param country_code_in: Filter registrations by country code in ISO 3166-1 alpha-2 format
+            (e.g., US, CA).
         :param order_by: Order results by specified fields (comma-separated)
         :param page: Page number
         :param size: Page size
@@ -80,6 +83,7 @@ class Registrations(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -96,7 +100,7 @@ class Registrations(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_registrations_v1_registrations_get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -156,10 +160,13 @@ class Registrations(BaseSDK):
         This API helps in tracking and managing registrations efficiently across multiple
         jurisdictions.
 
-        :param status_in: Filter registrations by status. Multiple statuses can be passed,         separated by commas.
+        :param status_in: Filter registrations by status. Multiple statuses can be passed,
+            separated by commas.
         :param state_code: Filter registrations by state code.
-        :param filing_frequency_in: Filter registrations by filing frequency. Multiple filing frequencies         can be passed, separated by commas.
-        :param country_code_in: Filter registrations by country code in ISO 3166-1 alpha-2 format         (e.g., US, CA).
+        :param filing_frequency_in: Filter registrations by filing frequency. Multiple filing frequencies
+            can be passed, separated by commas.
+        :param country_code_in: Filter registrations by country code in ISO 3166-1 alpha-2 format
+            (e.g., US, CA).
         :param order_by: Order results by specified fields (comma-separated)
         :param page: Page number
         :param size: Page size
@@ -201,6 +208,7 @@ class Registrations(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -217,7 +225,7 @@ class Registrations(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_registrations_v1_registrations_get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -303,6 +311,7 @@ class Registrations(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.CreateRegistration
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -319,7 +328,7 @@ class Registrations(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_registration_v1_registrations_post",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -403,6 +412,7 @@ class Registrations(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.CreateRegistration
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -419,7 +429,7 @@ class Registrations(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="create_registration_v1_registrations_post",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -457,6 +467,7 @@ class Registrations(BaseSDK):
         self,
         *,
         registration_id: str,
+        reveal: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -467,7 +478,9 @@ class Registrations(BaseSDK):
         The Get Registration By ID API retrieves a single registration record
         based on its unique identifier.
 
-        :param registration_id: The unique identifier of the                                 registration to retrieve.
+        :param registration_id: The unique identifier of the
+            registration to retrieve.
+        :param reveal: Name of field to reveal
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -485,6 +498,7 @@ class Registrations(BaseSDK):
 
         request = models.GetRegistrationByIDV1RegistrationsRegistrationIDGetRequest(
             registration_id=registration_id,
+            reveal=reveal,
         )
 
         req = self._build_request(
@@ -500,6 +514,7 @@ class Registrations(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -516,7 +531,7 @@ class Registrations(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_registration_by_id_v1_registrations__registration_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -554,6 +569,7 @@ class Registrations(BaseSDK):
         self,
         *,
         registration_id: str,
+        reveal: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -564,7 +580,9 @@ class Registrations(BaseSDK):
         The Get Registration By ID API retrieves a single registration record
         based on its unique identifier.
 
-        :param registration_id: The unique identifier of the                                 registration to retrieve.
+        :param registration_id: The unique identifier of the
+            registration to retrieve.
+        :param reveal: Name of field to reveal
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -582,6 +600,7 @@ class Registrations(BaseSDK):
 
         request = models.GetRegistrationByIDV1RegistrationsRegistrationIDGetRequest(
             registration_id=registration_id,
+            reveal=reveal,
         )
 
         req = self._build_request_async(
@@ -597,6 +616,7 @@ class Registrations(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -613,7 +633,7 @@ class Registrations(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get_registration_by_id_v1_registrations__registration_id__get",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -663,13 +683,17 @@ class Registrations(BaseSDK):
         registrations_regime: Optional[models.RegistrationsRegimeEnum] = None,
         change_regime_status: Optional[models.ChangeRegimeStatusEnum] = None,
         third_party_enabled: Optional[bool] = False,
+        do_not_file: Optional[bool] = False,
+        two_factor_enabled: Optional[bool] = None,
         marked_collecting: Optional[bool] = None,
+        encrypted_username: Optional[str] = None,
         username: Optional[str] = None,
         filing_frequency: Optional[models.FilingFrequencyEnum] = None,
         create_filings_from: Optional[str] = None,
         is_approaching: Optional[bool] = None,
         comment: Optional[str] = None,
         vda: Optional[bool] = None,
+        tax_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -693,13 +717,17 @@ class Registrations(BaseSDK):
         :param registrations_regime:
         :param change_regime_status:
         :param third_party_enabled: Indicates whether third-party access is enabled for this registration.
+        :param do_not_file: If true, do not file for this registration (treated as False by default).
+        :param two_factor_enabled: Indicates whether two-factor authentication (2FA) is enabled for this registration.
         :param marked_collecting: Indicates whether the  registration is marked as collecting in shopify
+        :param encrypted_username: The encrypted username for the registration.
         :param username: The username associated with the registration.
         :param filing_frequency:
         :param create_filings_from: The updated date from which filings should start (YYYY-MM-DD).
         :param is_approaching: Indicates whether the registration is approaching an action (e.g., renewal).
         :param comment: Additional notes or comments related to the registration.
         :param vda: Indicates if the Voluntary Disclosure Agreement (VDA) applies.
+        :param tax_id: Organization-level tax ID (e.g., VAT number, Canada Business Number).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -730,13 +758,17 @@ class Registrations(BaseSDK):
                 registrations_regime=registrations_regime,
                 change_regime_status=change_regime_status,
                 third_party_enabled=third_party_enabled,
+                do_not_file=do_not_file,
+                two_factor_enabled=two_factor_enabled,
                 marked_collecting=marked_collecting,
+                encrypted_username=encrypted_username,
                 username=username,
                 filing_frequency=filing_frequency,
                 create_filings_from=create_filings_from,
                 is_approaching=is_approaching,
                 comment=comment,
                 vda=vda,
+                tax_id=tax_id,
             ),
         )
 
@@ -760,6 +792,7 @@ class Registrations(BaseSDK):
                 "json",
                 models.RegistrationUpdateAPI,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -776,7 +809,7 @@ class Registrations(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="update_registration_v1_registrations__registration_id__put",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -826,13 +859,17 @@ class Registrations(BaseSDK):
         registrations_regime: Optional[models.RegistrationsRegimeEnum] = None,
         change_regime_status: Optional[models.ChangeRegimeStatusEnum] = None,
         third_party_enabled: Optional[bool] = False,
+        do_not_file: Optional[bool] = False,
+        two_factor_enabled: Optional[bool] = None,
         marked_collecting: Optional[bool] = None,
+        encrypted_username: Optional[str] = None,
         username: Optional[str] = None,
         filing_frequency: Optional[models.FilingFrequencyEnum] = None,
         create_filings_from: Optional[str] = None,
         is_approaching: Optional[bool] = None,
         comment: Optional[str] = None,
         vda: Optional[bool] = None,
+        tax_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -856,13 +893,17 @@ class Registrations(BaseSDK):
         :param registrations_regime:
         :param change_regime_status:
         :param third_party_enabled: Indicates whether third-party access is enabled for this registration.
+        :param do_not_file: If true, do not file for this registration (treated as False by default).
+        :param two_factor_enabled: Indicates whether two-factor authentication (2FA) is enabled for this registration.
         :param marked_collecting: Indicates whether the  registration is marked as collecting in shopify
+        :param encrypted_username: The encrypted username for the registration.
         :param username: The username associated with the registration.
         :param filing_frequency:
         :param create_filings_from: The updated date from which filings should start (YYYY-MM-DD).
         :param is_approaching: Indicates whether the registration is approaching an action (e.g., renewal).
         :param comment: Additional notes or comments related to the registration.
         :param vda: Indicates if the Voluntary Disclosure Agreement (VDA) applies.
+        :param tax_id: Organization-level tax ID (e.g., VAT number, Canada Business Number).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -893,13 +934,17 @@ class Registrations(BaseSDK):
                 registrations_regime=registrations_regime,
                 change_regime_status=change_regime_status,
                 third_party_enabled=third_party_enabled,
+                do_not_file=do_not_file,
+                two_factor_enabled=two_factor_enabled,
                 marked_collecting=marked_collecting,
+                encrypted_username=encrypted_username,
                 username=username,
                 filing_frequency=filing_frequency,
                 create_filings_from=create_filings_from,
                 is_approaching=is_approaching,
                 comment=comment,
                 vda=vda,
+                tax_id=tax_id,
             ),
         )
 
@@ -923,6 +968,7 @@ class Registrations(BaseSDK):
                 "json",
                 models.RegistrationUpdateAPI,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -939,7 +985,7 @@ class Registrations(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="update_registration_v1_registrations__registration_id__put",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1019,6 +1065,7 @@ class Registrations(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1035,7 +1082,7 @@ class Registrations(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="deregister_registration_v1_registrations__registration_id__deregister_post",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
@@ -1115,6 +1162,7 @@ class Registrations(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1131,7 +1179,7 @@ class Registrations(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="deregister_registration_v1_registrations__registration_id__deregister_post",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
             ),
             request=req,

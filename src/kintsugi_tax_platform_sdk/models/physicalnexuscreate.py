@@ -5,7 +5,8 @@ from .countrycodeenum import CountryCodeEnum
 from .physicalnexuscategory import PhysicalNexusCategory
 from .physicalnexussource import PhysicalNexusSource
 from datetime import date
-from kintsugi_tax_platform_sdk.types import BaseModel
+from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
@@ -30,6 +31,14 @@ class PhysicalNexusCreateTypedDict(TypedDict):
     external identifier for the nexus.
     """
     source: NotRequired[PhysicalNexusSource]
+    street_1: NotRequired[str]
+    r"""Primary street address for the physical presence location."""
+    street_2: NotRequired[str]
+    r"""Additional street address details, such as suite or unit number."""
+    city: NotRequired[str]
+    r"""City of the physical presence location."""
+    postal_code: NotRequired[str]
+    r"""ZIP or postal code of the physical presence location."""
 
 
 class PhysicalNexusCreate(BaseModel):
@@ -58,3 +67,41 @@ class PhysicalNexusCreate(BaseModel):
     """
 
     source: Optional[PhysicalNexusSource] = None
+
+    street_1: Optional[str] = None
+    r"""Primary street address for the physical presence location."""
+
+    street_2: Optional[str] = None
+    r"""Additional street address details, such as suite or unit number."""
+
+    city: Optional[str] = None
+    r"""City of the physical presence location."""
+
+    postal_code: Optional[str] = None
+    r"""ZIP or postal code of the physical presence location."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "end_date",
+                "external_id",
+                "source",
+                "street_1",
+                "street_2",
+                "city",
+                "postal_code",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

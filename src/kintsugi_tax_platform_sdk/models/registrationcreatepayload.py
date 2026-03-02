@@ -5,7 +5,8 @@ from .changeregimestatusenum import ChangeRegimeStatusEnum
 from .countrycodeenum import CountryCodeEnum
 from .filingfrequencyenum import FilingFrequencyEnum
 from .registrationsregimeenum import RegistrationsRegimeEnum
-from kintsugi_tax_platform_sdk.types import BaseModel
+from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
@@ -17,8 +18,6 @@ class RegistrationCreatePayloadTypedDict(TypedDict):
     state_name: str
     r"""The name of the state/province."""
     filing_frequency: FilingFrequencyEnum
-    filing_days: int
-    r"""The number of days before the filing deadline."""
     registration_import_type: NotRequired[str]
     r"""Specifies this is a regular jurisdiction registration import."""
     registration_date: NotRequired[str]
@@ -39,6 +38,8 @@ class RegistrationCreatePayloadTypedDict(TypedDict):
     r"""Timestamp when the deregistration was completed."""
     auto_registered: NotRequired[bool]
     r"""Indicates whether the registration was completed automatically."""
+    do_not_file: NotRequired[bool]
+    r"""If true, do not file for this registration (treated as False by default)."""
     registrations_regime: NotRequired[RegistrationsRegimeEnum]
     change_regime_status: NotRequired[ChangeRegimeStatusEnum]
     username: NotRequired[str]
@@ -59,6 +60,8 @@ class RegistrationCreatePayloadTypedDict(TypedDict):
     r"""The sales tax ID associated with the registration."""
     sst_import: NotRequired[bool]
     r"""Indicates whether the registration is an SST Import."""
+    tax_id: NotRequired[str]
+    r"""Organization-level tax ID (e.g., VAT number, Canada Business Number)."""
     password_plain_text: NotRequired[str]
     r"""The plaintext password for accessing the tax registration account."""
     password_metadata_plain_text: NotRequired[str]
@@ -75,9 +78,6 @@ class RegistrationCreatePayload(BaseModel):
     r"""The name of the state/province."""
 
     filing_frequency: FilingFrequencyEnum
-
-    filing_days: int
-    r"""The number of days before the filing deadline."""
 
     registration_import_type: Optional[str] = "REGULAR"
     r"""Specifies this is a regular jurisdiction registration import."""
@@ -109,6 +109,9 @@ class RegistrationCreatePayload(BaseModel):
     auto_registered: Optional[bool] = False
     r"""Indicates whether the registration was completed automatically."""
 
+    do_not_file: Optional[bool] = False
+    r"""If true, do not file for this registration (treated as False by default)."""
+
     registrations_regime: Optional[RegistrationsRegimeEnum] = None
 
     change_regime_status: Optional[ChangeRegimeStatusEnum] = None
@@ -125,7 +128,7 @@ class RegistrationCreatePayload(BaseModel):
     initial_sync: Optional[bool] = False
     r"""Indicates whether an initial synchronization should be performed."""
 
-    amount_fees: Optional[float] = 0.00
+    amount_fees: Optional[float] = 0
     r"""The amount of fees associated with the registration."""
 
     vda: Optional[bool] = False
@@ -140,8 +143,55 @@ class RegistrationCreatePayload(BaseModel):
     sst_import: Optional[bool] = False
     r"""Indicates whether the registration is an SST Import."""
 
+    tax_id: Optional[str] = None
+    r"""Organization-level tax ID (e.g., VAT number, Canada Business Number)."""
+
     password_plain_text: Optional[str] = None
     r"""The plaintext password for accessing the tax registration account."""
 
     password_metadata_plain_text: Optional[str] = None
     r"""Metadata related to the password."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "registration_import_type",
+                "registration_date",
+                "registration_email",
+                "registration_key",
+                "deregistration_key",
+                "registration_requested",
+                "registration_completed",
+                "deregistration_requested",
+                "deregistration_completed",
+                "auto_registered",
+                "do_not_file",
+                "registrations_regime",
+                "change_regime_status",
+                "username",
+                "comment",
+                "create_filings_from",
+                "initial_sync",
+                "amount_fees",
+                "vda",
+                "imported",
+                "sales_tax_id",
+                "sst_import",
+                "tax_id",
+                "password_plain_text",
+                "password_metadata_plain_text",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

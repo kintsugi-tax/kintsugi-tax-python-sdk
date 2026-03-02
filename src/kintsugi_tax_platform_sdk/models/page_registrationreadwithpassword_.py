@@ -6,8 +6,8 @@ from .registrationreadwithpassword import (
     RegistrationReadWithPasswordTypedDict,
 )
 from kintsugi_tax_platform_sdk.types import BaseModel
-from typing import List, Optional
-from typing_extensions import NotRequired, TypedDict
+from typing import List
+from typing_extensions import TypedDict
 
 
 class PageRegistrationReadWithPasswordTypedDict(TypedDict):
@@ -15,7 +15,7 @@ class PageRegistrationReadWithPasswordTypedDict(TypedDict):
     total: int
     page: int
     size: int
-    pages: NotRequired[int]
+    pages: int
 
 
 class PageRegistrationReadWithPassword(BaseModel):
@@ -27,4 +27,4 @@ class PageRegistrationReadWithPassword(BaseModel):
 
     size: int
 
-    pages: Optional[int] = None
+    pages: int

@@ -3,6 +3,10 @@
 from __future__ import annotations
 from .countrycodeenum import CountryCodeEnum
 from .currencyenum import CurrencyEnum
+from .findthresholdcrossingtransactionstate import (
+    FindThresholdCrossingTransactionState,
+    FindThresholdCrossingTransactionStateTypedDict,
+)
 from .nexusstateenum import NexusStateEnum
 from .nexusstatusenum import NexusStatusEnum
 from .nexustypeenum import NexusTypeEnum
@@ -11,9 +15,10 @@ from .registrationsregimeenum import RegistrationsRegimeEnum
 from .salesortransactionsenum import SalesOrTransactionsEnum
 from .treatmentenum import TreatmentEnum
 from datetime import date, datetime
-from kintsugi_tax_platform_sdk.types import BaseModel
+from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
 from kintsugi_tax_platform_sdk.utils import parse_datetime
 import pydantic
+from pydantic import model_serializer
 from typing import Any, Dict, List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -73,6 +78,9 @@ class NexusResponseTypedDict(TypedDict):
     collected_tax_nexus_met_date: NotRequired[str]
     earliest_transaction_date: NotRequired[str]
     most_recent_transaction_date: NotRequired[str]
+    find_threshold_crossing_transaction_state: NotRequired[
+        FindThresholdCrossingTransactionStateTypedDict
+    ]
     earliest_collected_date: NotRequired[datetime]
     predicted_month_from_today: NotRequired[int]
     vda_eligible: NotRequired[bool]
@@ -83,6 +91,10 @@ class NexusResponseTypedDict(TypedDict):
     currency: NotRequired[CurrencyEnum]
     registration: NotRequired[RegistrationTypedDict]
     registration_regime: NotRequired[RegistrationsRegimeEnum]
+    disregarded_at: NotRequired[str]
+    disregarded_by: NotRequired[str]
+    disregarded_nexus_types: NotRequired[List[str]]
+    is_currently_disregarded: NotRequired[bool]
 
 
 class NexusResponse(BaseModel):
@@ -186,6 +198,10 @@ class NexusResponse(BaseModel):
 
     most_recent_transaction_date: Optional[str] = None
 
+    find_threshold_crossing_transaction_state: Optional[
+        FindThresholdCrossingTransactionState
+    ] = None
+
     earliest_collected_date: Optional[datetime] = parse_datetime("2018-01-01T00:00:00")
 
     predicted_month_from_today: Optional[int] = None
@@ -205,3 +221,64 @@ class NexusResponse(BaseModel):
     registration: Optional[Registration] = None
 
     registration_regime: Optional[RegistrationsRegimeEnum] = None
+
+    disregarded_at: Optional[str] = None
+
+    disregarded_by: Optional[str] = None
+
+    disregarded_nexus_types: Optional[List[str]] = None
+
+    is_currently_disregarded: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "processing_status",
+                "status",
+                "transaction_count",
+                "transactions_amount",
+                "previous_transaction_count",
+                "previous_transactions_amount",
+                "calculated_tax_liability",
+                "imported_tax_liability",
+                "tax_liability",
+                "nexus_met",
+                "nexus_met_date",
+                "economic_nexus_met",
+                "economic_nexus_met_date",
+                "physical_nexus_met",
+                "physical_nexus_met_date",
+                "collected_tax_nexus_met",
+                "collected_tax_nexus_met_date",
+                "earliest_transaction_date",
+                "most_recent_transaction_date",
+                "find_threshold_crossing_transaction_state",
+                "earliest_collected_date",
+                "predicted_month_from_today",
+                "vda_eligible",
+                "confidence_level",
+                "last_processed_at",
+                "last_tax_liability_processed_at",
+                "periods",
+                "currency",
+                "registration",
+                "registration_regime",
+                "disregarded_at",
+                "disregarded_by",
+                "disregarded_nexus_types",
+                "is_currently_disregarded",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

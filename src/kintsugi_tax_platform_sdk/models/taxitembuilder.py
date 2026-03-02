@@ -4,7 +4,8 @@ from __future__ import annotations
 from .currencyenum import CurrencyEnum
 from .jurisdictiontype import JurisdictionType
 from .taxitemtypeenum import TaxItemTypeEnum
-from kintsugi_tax_platform_sdk.types import BaseModel
+from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
@@ -52,3 +53,30 @@ class TaxItemBuilder(BaseModel):
     jurisdiction_type: Optional[JurisdictionType] = None
 
     jurisdiction_name: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "rule_id",
+                "converted_amount",
+                "currency",
+                "destination_currency",
+                "external_id",
+                "type",
+                "jurisdiction_type",
+                "jurisdiction_name",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

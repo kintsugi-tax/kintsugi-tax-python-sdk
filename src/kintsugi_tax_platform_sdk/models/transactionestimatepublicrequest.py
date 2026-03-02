@@ -10,8 +10,9 @@ from .transactionitemestimatebase import (
 )
 from datetime import datetime
 from enum import Enum
-from kintsugi_tax_platform_sdk.types import BaseModel
+from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -93,10 +94,36 @@ class TransactionEstimatePublicRequestAddress(BaseModel):
     ] = None
     r"""Status of the address. Deprecated and ignored."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "phone",
+                "street_1",
+                "street_2",
+                "city",
+                "county",
+                "full_address",
+                "status",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class TransactionEstimatePublicRequestTypedDict(TypedDict):
     r"""Public request model for tax estimation API documentation.
-    This model excludes internal fields like enriched_fields that should not be exposed in API docs.
+    This model excludes internal fields like enriched_fields and total_amount that should not be exposed in API docs.
     """
 
     date_: datetime
@@ -108,19 +135,19 @@ class TransactionEstimatePublicRequestTypedDict(TypedDict):
     r"""List of items involved in the transaction."""
     addresses: List[TransactionEstimatePublicRequestAddressTypedDict]
     r"""List of addresses related to the transaction. At least one BILL_TO or SHIP_TO address must be provided. The address will be validated during estimation, and the transaction may be rejected if the address does not pass validation. The SHIP_TO will be preferred to use for determining tax liability."""
-    total_amount: NotRequired[float]
-    r"""Total amount of the transaction."""
     description: NotRequired[str]
     r"""An optional description of the transaction."""
     source: NotRequired[SourceEnum]
     marketplace: NotRequired[bool]
     r"""Indicates if the transaction involves a marketplace."""
     customer: NotRequired[CustomerBasePublicTypedDict]
+    total_amount: NotRequired[float]
+    r"""Total amount of the transaction. Deprecated - computed from transaction_items. Optional for backward compatibility."""
 
 
 class TransactionEstimatePublicRequest(BaseModel):
     r"""Public request model for tax estimation API documentation.
-    This model excludes internal fields like enriched_fields that should not be exposed in API docs.
+    This model excludes internal fields like enriched_fields and total_amount that should not be exposed in API docs.
     """
 
     date_: Annotated[datetime, pydantic.Field(alias="date")]
@@ -137,9 +164,6 @@ class TransactionEstimatePublicRequest(BaseModel):
     addresses: List[TransactionEstimatePublicRequestAddress]
     r"""List of addresses related to the transaction. At least one BILL_TO or SHIP_TO address must be provided. The address will be validated during estimation, and the transaction may be rejected if the address does not pass validation. The SHIP_TO will be preferred to use for determining tax liability."""
 
-    total_amount: Optional[float] = 0.0
-    r"""Total amount of the transaction."""
-
     description: Optional[str] = None
     r"""An optional description of the transaction."""
 
@@ -149,3 +173,35 @@ class TransactionEstimatePublicRequest(BaseModel):
     r"""Indicates if the transaction involves a marketplace."""
 
     customer: Optional[CustomerBasePublic] = None
+
+    total_amount: Annotated[
+        Optional[float],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = None
+    r"""Total amount of the transaction. Deprecated - computed from transaction_items. Optional for backward compatibility."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            ["description", "source", "marketplace", "customer", "total_amount"]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+try:
+    TransactionEstimatePublicRequest.model_rebuild()
+except NameError:
+    pass
