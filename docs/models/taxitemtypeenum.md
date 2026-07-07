@@ -1,5 +1,13 @@
 # TaxItemTypeEnum
 
+## Example Usage
+
+```python
+from kintsugi_tax_platform_sdk.models import TaxItemTypeEnum
+
+value = TaxItemTypeEnum.IMPORTED_ORIGINAL
+```
+
 
 ## Values
 

@@ -1,5 +1,13 @@
 # ExemptionStatus
 
+## Example Usage
+
+```python
+from kintsugi_tax_platform_sdk.models import ExemptionStatus
+
+value = ExemptionStatus.ACTIVE
+```
+
 
 ## Values
 

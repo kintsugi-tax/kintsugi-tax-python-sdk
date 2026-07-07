@@ -1,5 +1,13 @@
 # ProductSubCategoryEnum
 
+## Example Usage
+
+```python
+from kintsugi_tax_platform_sdk.models import ProductSubCategoryEnum
+
+value = ProductSubCategoryEnum.UNKNOWN
+```
+
 
 ## Values
 

@@ -7,7 +7,7 @@ from kintsugi_tax_platform_sdk.types import OptionalNullable, UNSET
 from kintsugi_tax_platform_sdk.utils.unmarshal_json_response import (
     unmarshal_json_response,
 )
-from typing import Any, List, Mapping, Optional
+from typing import Any, Iterable, List, Mapping, Optional
 
 
 class Filings(BaseSDK):
@@ -21,7 +21,7 @@ class Filings(BaseSDK):
         date_filed_lte: Optional[str] = None,
         order_by: Optional[str] = None,
         state_code: Optional[str] = None,
-        country_code: Optional[List[models.CountryCodeEnum]] = None,
+        country_code: Optional[Iterable[models.CountryCodeEnum]] = None,
         page: Optional[int] = 1,
         size: Optional[int] = 50,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -68,7 +68,9 @@ class Filings(BaseSDK):
             date_filed_lte=date_filed_lte,
             order_by=order_by,
             state_code=state_code,
-            country_code=country_code,
+            country_code=utils.unmarshal(
+                country_code, Optional[List[models.CountryCodeEnum]]
+            ),
             page=page,
             size=size,
         )
@@ -105,9 +107,11 @@ class Filings(BaseSDK):
                 operation_id="get_filings_v1_filings_get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Filings"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -146,7 +150,7 @@ class Filings(BaseSDK):
         date_filed_lte: Optional[str] = None,
         order_by: Optional[str] = None,
         state_code: Optional[str] = None,
-        country_code: Optional[List[models.CountryCodeEnum]] = None,
+        country_code: Optional[Iterable[models.CountryCodeEnum]] = None,
         page: Optional[int] = 1,
         size: Optional[int] = 50,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -193,7 +197,9 @@ class Filings(BaseSDK):
             date_filed_lte=date_filed_lte,
             order_by=order_by,
             state_code=state_code,
-            country_code=country_code,
+            country_code=utils.unmarshal(
+                country_code, Optional[List[models.CountryCodeEnum]]
+            ),
             page=page,
             size=size,
         )
@@ -230,9 +236,11 @@ class Filings(BaseSDK):
                 operation_id="get_filings_v1_filings_get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Filings"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -327,9 +335,11 @@ class Filings(BaseSDK):
                 operation_id="get_filing_by_id_v1_filings__filing_id__get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Filings"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -424,9 +434,11 @@ class Filings(BaseSDK):
                 operation_id="get_filing_by_id_v1_filings__filing_id__get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Filings"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -531,9 +543,11 @@ class Filings(BaseSDK):
                 operation_id="get_filings_by_registration_id_v1_filings_registration__registration_id__get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Filings"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -638,9 +652,11 @@ class Filings(BaseSDK):
                 operation_id="get_filings_by_registration_id_v1_filings_registration__registration_id__get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Filings"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 

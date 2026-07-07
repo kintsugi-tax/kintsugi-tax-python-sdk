@@ -1,5 +1,13 @@
 # TreatmentEnum
 
+## Example Usage
+
+```python
+from kintsugi_tax_platform_sdk.models import TreatmentEnum
+
+value = TreatmentEnum.INCLUDED
+```
+
 
 ## Values
 

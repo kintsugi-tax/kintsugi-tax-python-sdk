@@ -8,7 +8,7 @@ from kintsugi_tax_platform_sdk.types import OptionalNullable, UNSET
 from kintsugi_tax_platform_sdk.utils.unmarshal_json_response import (
     unmarshal_json_response,
 )
-from typing import Any, List, Mapping, Optional, Union
+from typing import Any, Iterable, List, Mapping, Optional, Union
 
 
 class Customers(BaseSDK):
@@ -16,7 +16,7 @@ class Customers(BaseSDK):
         self,
         *,
         search_query: Optional[str] = None,
-        country: Optional[List[models.CountryCodeEnum]] = None,
+        country: Optional[Iterable[models.CountryCodeEnum]] = None,
         state: Optional[str] = None,
         source_in: Optional[str] = None,
         order_by: Optional[str] = None,
@@ -57,7 +57,7 @@ class Customers(BaseSDK):
 
         request = models.GetCustomersV1Request(
             search_query=search_query,
-            country=country,
+            country=utils.unmarshal(country, Optional[List[models.CountryCodeEnum]]),
             state=state,
             source_in=source_in,
             order_by=order_by,
@@ -97,9 +97,11 @@ class Customers(BaseSDK):
                 operation_id="get_customers_v1",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Customers"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -132,7 +134,7 @@ class Customers(BaseSDK):
         self,
         *,
         search_query: Optional[str] = None,
-        country: Optional[List[models.CountryCodeEnum]] = None,
+        country: Optional[Iterable[models.CountryCodeEnum]] = None,
         state: Optional[str] = None,
         source_in: Optional[str] = None,
         order_by: Optional[str] = None,
@@ -173,7 +175,7 @@ class Customers(BaseSDK):
 
         request = models.GetCustomersV1Request(
             search_query=search_query,
-            country=country,
+            country=utils.unmarshal(country, Optional[List[models.CountryCodeEnum]]),
             state=state,
             source_in=source_in,
             order_by=order_by,
@@ -213,9 +215,11 @@ class Customers(BaseSDK):
                 operation_id="get_customers_v1",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Customers"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -267,8 +271,8 @@ class Customers(BaseSDK):
         external_friendly_id: Optional[str] = None,
         customer_tax_registrations: Optional[
             Union[
-                List[models.CustomerTaxRegistrationRead],
-                List[models.CustomerTaxRegistrationReadTypedDict],
+                Iterable[models.CustomerTaxRegistrationRead],
+                Iterable[models.CustomerTaxRegistrationReadTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -375,9 +379,11 @@ class Customers(BaseSDK):
                 operation_id="create_customer_v1_customers_post",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Customers"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -429,8 +435,8 @@ class Customers(BaseSDK):
         external_friendly_id: Optional[str] = None,
         customer_tax_registrations: Optional[
             Union[
-                List[models.CustomerTaxRegistrationRead],
-                List[models.CustomerTaxRegistrationReadTypedDict],
+                Iterable[models.CustomerTaxRegistrationRead],
+                Iterable[models.CustomerTaxRegistrationReadTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -537,9 +543,11 @@ class Customers(BaseSDK):
                 operation_id="create_customer_v1_customers_post",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Customers"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -635,9 +643,11 @@ class Customers(BaseSDK):
                 operation_id="get_customer_by_id_v1_customers__customer_id__get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Customers"],
+                extensions={"x-openapi-exclude-422": True},
             ),
             request=req,
-            error_status_codes=["404", "422", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -725,9 +735,11 @@ class Customers(BaseSDK):
                 operation_id="get_customer_by_id_v1_customers__customer_id__get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Customers"],
+                extensions={"x-openapi-exclude-422": True},
             ),
             request=req,
-            error_status_codes=["404", "422", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -868,9 +880,11 @@ class Customers(BaseSDK):
                 operation_id="update_customer_v1_customers__customer_id__put",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Customers"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1019,9 +1033,11 @@ class Customers(BaseSDK):
                 operation_id="update_customer_v1_customers__customer_id__put",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Customers"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1117,9 +1133,11 @@ class Customers(BaseSDK):
                 operation_id="get_customer_by_external_id_v1_customers_external__external_id__get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Customers"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["404", "422", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1207,9 +1225,11 @@ class Customers(BaseSDK):
                 operation_id="get_customer_by_external_id_v1_customers_external__external_id__get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Customers"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["404", "422", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1295,9 +1315,11 @@ class Customers(BaseSDK):
                 operation_id="get_transactions_by_customer_id_v1_customers__customer_id__transactions_get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Customers"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["422", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1383,9 +1405,11 @@ class Customers(BaseSDK):
                 operation_id="get_transactions_by_customer_id_v1_customers__customer_id__transactions_get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Customers"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["422", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1414,12 +1438,12 @@ class Customers(BaseSDK):
         external_id: str,
         date_: datetime,
         addresses: Union[
-            List[models.TransactionAddressBuilder],
-            List[models.TransactionAddressBuilderTypedDict],
+            Iterable[models.TransactionAddressBuilder],
+            Iterable[models.TransactionAddressBuilderTypedDict],
         ],
         transaction_items: Union[
-            List[models.TransactionItemCreateUpdate],
-            List[models.TransactionItemCreateUpdateTypedDict],
+            Iterable[models.TransactionItemCreateUpdate],
+            Iterable[models.TransactionItemCreateUpdateTypedDict],
         ],
         requires_exemption: Optional[
             Union[models.ExemptionRequired, models.ExemptionRequiredTypedDict]
@@ -1433,7 +1457,7 @@ class Customers(BaseSDK):
         marketplace: Optional[bool] = False,
         exempt: Optional[models.TransactionExemptStatusEnum] = None,
         exemptions: Optional[
-            Union[List[models.Exemption], List[models.ExemptionTypedDict]]
+            Union[Iterable[models.Exemption], Iterable[models.ExemptionTypedDict]]
         ] = None,
         related_to: Optional[str] = None,
         secondary_external_id: Optional[str] = None,
@@ -1659,9 +1683,11 @@ class Customers(BaseSDK):
                 operation_id="create_transaction_by_customer_id_v1_customers__customer_id__transactions_post",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Customers"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["422", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1690,12 +1716,12 @@ class Customers(BaseSDK):
         external_id: str,
         date_: datetime,
         addresses: Union[
-            List[models.TransactionAddressBuilder],
-            List[models.TransactionAddressBuilderTypedDict],
+            Iterable[models.TransactionAddressBuilder],
+            Iterable[models.TransactionAddressBuilderTypedDict],
         ],
         transaction_items: Union[
-            List[models.TransactionItemCreateUpdate],
-            List[models.TransactionItemCreateUpdateTypedDict],
+            Iterable[models.TransactionItemCreateUpdate],
+            Iterable[models.TransactionItemCreateUpdateTypedDict],
         ],
         requires_exemption: Optional[
             Union[models.ExemptionRequired, models.ExemptionRequiredTypedDict]
@@ -1709,7 +1735,7 @@ class Customers(BaseSDK):
         marketplace: Optional[bool] = False,
         exempt: Optional[models.TransactionExemptStatusEnum] = None,
         exemptions: Optional[
-            Union[List[models.Exemption], List[models.ExemptionTypedDict]]
+            Union[Iterable[models.Exemption], Iterable[models.ExemptionTypedDict]]
         ] = None,
         related_to: Optional[str] = None,
         secondary_external_id: Optional[str] = None,
@@ -1935,9 +1961,11 @@ class Customers(BaseSDK):
                 operation_id="create_transaction_by_customer_id_v1_customers__customer_id__transactions_post",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Customers"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["422", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 

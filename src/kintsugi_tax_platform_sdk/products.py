@@ -7,7 +7,7 @@ from kintsugi_tax_platform_sdk.types import OptionalNullable, UNSET
 from kintsugi_tax_platform_sdk.utils.unmarshal_json_response import (
     unmarshal_json_response,
 )
-from typing import Any, List, Mapping, Optional
+from typing import Any, Iterable, List, Mapping, Optional
 
 
 class Products(BaseSDK):
@@ -97,9 +97,11 @@ class Products(BaseSDK):
                 operation_id="get_products_v1_products_get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Products"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -214,9 +216,11 @@ class Products(BaseSDK):
                 operation_id="get_products_v1_products_get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Products"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -338,9 +342,11 @@ class Products(BaseSDK):
                 operation_id="create_product_v1_products_post",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Products"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -462,9 +468,11 @@ class Products(BaseSDK):
                 operation_id="create_product_v1_products_post",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Products"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -553,9 +561,11 @@ class Products(BaseSDK):
                 operation_id="get_product_categories_v1_products_categories_get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Products"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -644,9 +654,11 @@ class Products(BaseSDK):
                 operation_id="get_product_categories_v1_products_categories_get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Products"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -742,9 +754,11 @@ class Products(BaseSDK):
                 operation_id="get_product_by_id_v1_products__product_id__get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Products"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -840,9 +854,11 @@ class Products(BaseSDK):
                 operation_id="get_product_by_id_v1_products__product_id__get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Products"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -881,7 +897,7 @@ class Products(BaseSDK):
         tax_exempt: bool,
         id: Optional[str] = None,
         external_id: Optional[str] = None,
-        sku: Optional[List[str]] = None,
+        sku: Optional[Iterable[str]] = None,
         description: Optional[str] = None,
         status: Optional[models.ProductStatusEnum] = None,
         classification_failed: Optional[bool] = False,
@@ -933,7 +949,7 @@ class Products(BaseSDK):
             product_update=models.ProductUpdate(
                 id=id,
                 external_id=external_id,
-                sku=sku,
+                sku=utils.unmarshal(sku, Optional[List[str]]),
                 name=name,
                 description=description,
                 status=status,
@@ -979,9 +995,11 @@ class Products(BaseSDK):
                 operation_id="update_product_v1_products__product_id__put",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Products"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1020,7 +1038,7 @@ class Products(BaseSDK):
         tax_exempt: bool,
         id: Optional[str] = None,
         external_id: Optional[str] = None,
-        sku: Optional[List[str]] = None,
+        sku: Optional[Iterable[str]] = None,
         description: Optional[str] = None,
         status: Optional[models.ProductStatusEnum] = None,
         classification_failed: Optional[bool] = False,
@@ -1072,7 +1090,7 @@ class Products(BaseSDK):
             product_update=models.ProductUpdate(
                 id=id,
                 external_id=external_id,
-                sku=sku,
+                sku=utils.unmarshal(sku, Optional[List[str]]),
                 name=name,
                 description=description,
                 status=status,
@@ -1118,9 +1136,11 @@ class Products(BaseSDK):
                 operation_id="update_product_v1_products__product_id__put",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Products"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 

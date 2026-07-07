@@ -8,7 +8,7 @@ from kintsugi_tax_platform_sdk.types import OptionalNullable, UNSET
 from kintsugi_tax_platform_sdk.utils.unmarshal_json_response import (
     unmarshal_json_response,
 )
-from typing import Any, List, Mapping, Optional, Union
+from typing import Any, Iterable, List, Mapping, Optional, Union
 
 
 class Transactions(BaseSDK):
@@ -19,7 +19,7 @@ class Transactions(BaseSDK):
         transaction_type: Optional[str] = None,
         transaction_source: Optional[str] = None,
         search_query: Optional[str] = None,
-        country: Optional[List[models.CountryCodeEnum]] = None,
+        country: Optional[Iterable[models.CountryCodeEnum]] = None,
         state: Optional[str] = None,
         address_status_in: Optional[
             str
@@ -91,7 +91,7 @@ class Transactions(BaseSDK):
             transaction_type=transaction_type,
             transaction_source=transaction_source,
             search_query=search_query,
-            country=country,
+            country=utils.unmarshal(country, Optional[List[models.CountryCodeEnum]]),
             state=state,
             address_status_in=address_status_in,
             status=status,
@@ -138,9 +138,11 @@ class Transactions(BaseSDK):
                 operation_id="get_transactions_v1_transactions_get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Transactions"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -177,7 +179,7 @@ class Transactions(BaseSDK):
         transaction_type: Optional[str] = None,
         transaction_source: Optional[str] = None,
         search_query: Optional[str] = None,
-        country: Optional[List[models.CountryCodeEnum]] = None,
+        country: Optional[Iterable[models.CountryCodeEnum]] = None,
         state: Optional[str] = None,
         address_status_in: Optional[
             str
@@ -249,7 +251,7 @@ class Transactions(BaseSDK):
             transaction_type=transaction_type,
             transaction_source=transaction_source,
             search_query=search_query,
-            country=country,
+            country=utils.unmarshal(country, Optional[List[models.CountryCodeEnum]]),
             state=state,
             address_status_in=address_status_in,
             status=status,
@@ -296,9 +298,11 @@ class Transactions(BaseSDK):
                 operation_id="get_transactions_v1_transactions_get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Transactions"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -335,12 +339,12 @@ class Transactions(BaseSDK):
         external_id: str,
         date_: datetime,
         addresses: Union[
-            List[models.TransactionAddressPublic],
-            List[models.TransactionAddressPublicTypedDict],
+            Iterable[models.TransactionAddressPublic],
+            Iterable[models.TransactionAddressPublicTypedDict],
         ],
         transaction_items: Union[
-            List[models.TransactionItemBuilder],
-            List[models.TransactionItemBuilderTypedDict],
+            Iterable[models.TransactionItemBuilder],
+            Iterable[models.TransactionItemBuilderTypedDict],
         ],
         customer: Union[models.CustomerBaseBase, models.CustomerBaseBaseTypedDict],
         type_: models.TransactionTypeEnum,
@@ -356,7 +360,7 @@ class Transactions(BaseSDK):
         marketplace: Optional[bool] = False,
         exempt: Optional[models.TransactionExemptStatusEnum] = None,
         exemptions: Optional[
-            Union[List[models.Exemption], List[models.ExemptionTypedDict]]
+            Union[Iterable[models.Exemption], Iterable[models.ExemptionTypedDict]]
         ] = None,
         related_to: Optional[str] = None,
         secondary_external_id: Optional[str] = None,
@@ -537,9 +541,11 @@ class Transactions(BaseSDK):
                 operation_id="create_transaction_v1_transactions_post",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Transactions"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["400", "401", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -576,12 +582,12 @@ class Transactions(BaseSDK):
         external_id: str,
         date_: datetime,
         addresses: Union[
-            List[models.TransactionAddressPublic],
-            List[models.TransactionAddressPublicTypedDict],
+            Iterable[models.TransactionAddressPublic],
+            Iterable[models.TransactionAddressPublicTypedDict],
         ],
         transaction_items: Union[
-            List[models.TransactionItemBuilder],
-            List[models.TransactionItemBuilderTypedDict],
+            Iterable[models.TransactionItemBuilder],
+            Iterable[models.TransactionItemBuilderTypedDict],
         ],
         customer: Union[models.CustomerBaseBase, models.CustomerBaseBaseTypedDict],
         type_: models.TransactionTypeEnum,
@@ -597,7 +603,7 @@ class Transactions(BaseSDK):
         marketplace: Optional[bool] = False,
         exempt: Optional[models.TransactionExemptStatusEnum] = None,
         exemptions: Optional[
-            Union[List[models.Exemption], List[models.ExemptionTypedDict]]
+            Union[Iterable[models.Exemption], Iterable[models.ExemptionTypedDict]]
         ] = None,
         related_to: Optional[str] = None,
         secondary_external_id: Optional[str] = None,
@@ -778,9 +784,11 @@ class Transactions(BaseSDK):
                 operation_id="create_transaction_v1_transactions_post",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Transactions"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["400", "401", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -878,9 +886,11 @@ class Transactions(BaseSDK):
                 operation_id="get_transaction_by_external_id_v1_transactions_external__external_id__get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Transactions"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -978,9 +988,11 @@ class Transactions(BaseSDK):
                 operation_id="get_transaction_by_external_id_v1_transactions_external__external_id__get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Transactions"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1018,12 +1030,12 @@ class Transactions(BaseSDK):
         external_id: str,
         date_: datetime,
         addresses: Union[
-            List[models.TransactionAddressBuilder],
-            List[models.TransactionAddressBuilderTypedDict],
+            Iterable[models.TransactionAddressBuilder],
+            Iterable[models.TransactionAddressBuilderTypedDict],
         ],
         transaction_items: Union[
-            List[models.TransactionItemCreateUpdate],
-            List[models.TransactionItemCreateUpdateTypedDict],
+            Iterable[models.TransactionItemCreateUpdate],
+            Iterable[models.TransactionItemCreateUpdateTypedDict],
         ],
         customer: Union[models.CustomerUpdate, models.CustomerUpdateTypedDict],
         requires_exemption: Optional[
@@ -1038,7 +1050,7 @@ class Transactions(BaseSDK):
         marketplace: Optional[bool] = False,
         exempt: Optional[models.TransactionExemptStatusEnum] = None,
         exemptions: Optional[
-            Union[List[models.Exemption], List[models.ExemptionTypedDict]]
+            Union[Iterable[models.Exemption], Iterable[models.ExemptionTypedDict]]
         ] = None,
         related_to: Optional[str] = None,
         secondary_external_id: Optional[str] = None,
@@ -1225,9 +1237,11 @@ class Transactions(BaseSDK):
                 operation_id="update_transaction_v1_transactions__transaction_id__put",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Transactions"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["422", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1256,12 +1270,12 @@ class Transactions(BaseSDK):
         external_id: str,
         date_: datetime,
         addresses: Union[
-            List[models.TransactionAddressBuilder],
-            List[models.TransactionAddressBuilderTypedDict],
+            Iterable[models.TransactionAddressBuilder],
+            Iterable[models.TransactionAddressBuilderTypedDict],
         ],
         transaction_items: Union[
-            List[models.TransactionItemCreateUpdate],
-            List[models.TransactionItemCreateUpdateTypedDict],
+            Iterable[models.TransactionItemCreateUpdate],
+            Iterable[models.TransactionItemCreateUpdateTypedDict],
         ],
         customer: Union[models.CustomerUpdate, models.CustomerUpdateTypedDict],
         requires_exemption: Optional[
@@ -1276,7 +1290,7 @@ class Transactions(BaseSDK):
         marketplace: Optional[bool] = False,
         exempt: Optional[models.TransactionExemptStatusEnum] = None,
         exemptions: Optional[
-            Union[List[models.Exemption], List[models.ExemptionTypedDict]]
+            Union[Iterable[models.Exemption], Iterable[models.ExemptionTypedDict]]
         ] = None,
         related_to: Optional[str] = None,
         secondary_external_id: Optional[str] = None,
@@ -1463,9 +1477,11 @@ class Transactions(BaseSDK):
                 operation_id="update_transaction_v1_transactions__transaction_id__put",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Transactions"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["422", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1552,9 +1568,11 @@ class Transactions(BaseSDK):
                 operation_id="get_transaction_by_id_v1_transactions__transaction_id__get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Transactions"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1650,9 +1668,11 @@ class Transactions(BaseSDK):
                 operation_id="get_transaction_by_id_v1_transactions__transaction_id__get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Transactions"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1751,9 +1771,11 @@ class Transactions(BaseSDK):
                 operation_id="get_transactions_by_filing_id_v1_transactions_filings__filing_id__get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Transactions"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1852,9 +1874,11 @@ class Transactions(BaseSDK):
                 operation_id="get_transactions_by_filing_id_v1_transactions_filings__filing_id__get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Transactions"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1894,8 +1918,8 @@ class Transactions(BaseSDK):
         total_amount: float,
         currency: models.CurrencyEnum,
         transaction_items: Union[
-            List[models.CreditNoteItemCreateUpdate],
-            List[models.CreditNoteItemCreateUpdateTypedDict],
+            Iterable[models.CreditNoteItemCreateUpdate],
+            Iterable[models.CreditNoteItemCreateUpdateTypedDict],
         ],
         description: Optional[str] = None,
         marketplace: Optional[bool] = False,
@@ -1904,8 +1928,8 @@ class Transactions(BaseSDK):
         taxable_amount: Optional[float] = None,
         addresses: Optional[
             Union[
-                List[models.TransactionAddressBuilder],
-                List[models.TransactionAddressBuilderTypedDict],
+                Iterable[models.TransactionAddressBuilder],
+                Iterable[models.TransactionAddressBuilderTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2006,9 +2030,11 @@ class Transactions(BaseSDK):
                 operation_id="POST_create_credit_note_by_transaction_id",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Transactions"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["422", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -2039,8 +2065,8 @@ class Transactions(BaseSDK):
         total_amount: float,
         currency: models.CurrencyEnum,
         transaction_items: Union[
-            List[models.CreditNoteItemCreateUpdate],
-            List[models.CreditNoteItemCreateUpdateTypedDict],
+            Iterable[models.CreditNoteItemCreateUpdate],
+            Iterable[models.CreditNoteItemCreateUpdateTypedDict],
         ],
         description: Optional[str] = None,
         marketplace: Optional[bool] = False,
@@ -2049,8 +2075,8 @@ class Transactions(BaseSDK):
         taxable_amount: Optional[float] = None,
         addresses: Optional[
             Union[
-                List[models.TransactionAddressBuilder],
-                List[models.TransactionAddressBuilderTypedDict],
+                Iterable[models.TransactionAddressBuilder],
+                Iterable[models.TransactionAddressBuilderTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2151,9 +2177,11 @@ class Transactions(BaseSDK):
                 operation_id="POST_create_credit_note_by_transaction_id",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Transactions"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["422", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -2185,8 +2213,8 @@ class Transactions(BaseSDK):
         total_amount: float,
         currency: models.CurrencyEnum,
         transaction_items: Union[
-            List[models.CreditNoteItemCreateUpdate],
-            List[models.CreditNoteItemCreateUpdateTypedDict],
+            Iterable[models.CreditNoteItemCreateUpdate],
+            Iterable[models.CreditNoteItemCreateUpdateTypedDict],
         ],
         description: Optional[str] = None,
         marketplace: Optional[bool] = False,
@@ -2195,8 +2223,8 @@ class Transactions(BaseSDK):
         taxable_amount: Optional[float] = None,
         addresses: Optional[
             Union[
-                List[models.TransactionAddressBuilder],
-                List[models.TransactionAddressBuilderTypedDict],
+                Iterable[models.TransactionAddressBuilder],
+                Iterable[models.TransactionAddressBuilderTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2299,9 +2327,11 @@ class Transactions(BaseSDK):
                 operation_id="PUT_update_credit_note_by_transaction_id",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Transactions"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["422", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -2333,8 +2363,8 @@ class Transactions(BaseSDK):
         total_amount: float,
         currency: models.CurrencyEnum,
         transaction_items: Union[
-            List[models.CreditNoteItemCreateUpdate],
-            List[models.CreditNoteItemCreateUpdateTypedDict],
+            Iterable[models.CreditNoteItemCreateUpdate],
+            Iterable[models.CreditNoteItemCreateUpdateTypedDict],
         ],
         description: Optional[str] = None,
         marketplace: Optional[bool] = False,
@@ -2343,8 +2373,8 @@ class Transactions(BaseSDK):
         taxable_amount: Optional[float] = None,
         addresses: Optional[
             Union[
-                List[models.TransactionAddressBuilder],
-                List[models.TransactionAddressBuilderTypedDict],
+                Iterable[models.TransactionAddressBuilder],
+                Iterable[models.TransactionAddressBuilderTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2447,9 +2477,11 @@ class Transactions(BaseSDK):
                 operation_id="PUT_update_credit_note_by_transaction_id",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Transactions"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["422", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 

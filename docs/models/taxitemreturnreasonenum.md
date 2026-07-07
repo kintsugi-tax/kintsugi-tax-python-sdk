@@ -2,6 +2,14 @@
 
 We use this to understand the response from get_tax_items
 
+## Example Usage
+
+```python
+from kintsugi_tax_platform_sdk.models import TaxItemReturnReasonEnum
+
+value = TaxItemReturnReasonEnum.NO_RULE_FOUND
+```
+
 
 ## Values
 

@@ -1,5 +1,13 @@
 # FilingFrequencyEnum
 
+## Example Usage
+
+```python
+from kintsugi_tax_platform_sdk.models import FilingFrequencyEnum
+
+value = FilingFrequencyEnum.UNKNOWN
+```
+
 
 ## Values
 

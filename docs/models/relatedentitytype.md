@@ -1,5 +1,13 @@
 # RelatedEntityType
 
+## Example Usage
+
+```python
+from kintsugi_tax_platform_sdk.models import RelatedEntityType
+
+value = RelatedEntityType.EXEMPTION
+```
+
 
 ## Values
 

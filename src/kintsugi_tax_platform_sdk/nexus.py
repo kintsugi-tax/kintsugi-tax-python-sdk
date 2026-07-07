@@ -90,9 +90,11 @@ class Nexus(BaseSDK):
                 operation_id="get_physical_nexus_v1_nexus_physical_nexus_get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Nexus"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -199,9 +201,11 @@ class Nexus(BaseSDK):
                 operation_id="get_physical_nexus_v1_nexus_physical_nexus_get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Nexus"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -334,9 +338,11 @@ class Nexus(BaseSDK):
                 operation_id="create_physical_nexus_v1_nexus_physical_nexus_post",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Nexus"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -469,9 +475,11 @@ class Nexus(BaseSDK):
                 operation_id="create_physical_nexus_v1_nexus_physical_nexus_post",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Nexus"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -601,9 +609,11 @@ class Nexus(BaseSDK):
                 operation_id="update_physical_nexus_v1_nexus_physical_nexus__physical_nexus_id__put",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Nexus"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -733,9 +743,11 @@ class Nexus(BaseSDK):
                 operation_id="update_physical_nexus_v1_nexus_physical_nexus__physical_nexus_id__put",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Nexus"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -833,9 +845,11 @@ class Nexus(BaseSDK):
                 operation_id="delete_physical_nexus_v1_nexus_physical_nexus__physical_nexus_id__delete",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Nexus"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -933,9 +947,11 @@ class Nexus(BaseSDK):
                 operation_id="delete_physical_nexus_v1_nexus_physical_nexus__physical_nexus_id__delete",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Nexus"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1055,9 +1071,11 @@ class Nexus(BaseSDK):
                 operation_id="get_nexus_for_org_v1_nexus_get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Nexus"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["422", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1169,9 +1187,11 @@ class Nexus(BaseSDK):
                 operation_id="get_nexus_for_org_v1_nexus_get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Nexus"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["422", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 

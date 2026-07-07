@@ -8,7 +8,7 @@ from kintsugi_tax_platform_sdk.types import OptionalNullable, UNSET
 from kintsugi_tax_platform_sdk.utils.unmarshal_json_response import (
     unmarshal_json_response,
 )
-from typing import Any, List, Mapping, Optional, Union
+from typing import Any, Iterable, List, Mapping, Optional, Union
 
 
 class Exemptions(BaseSDK):
@@ -17,7 +17,7 @@ class Exemptions(BaseSDK):
         *,
         search_query: Optional[str] = None,
         status_in: Optional[str] = "ACTIVE,INACTIVE,EXPIRED",
-        country_code: Optional[List[models.CountryCodeEnum]] = None,
+        country_code: Optional[Iterable[models.CountryCodeEnum]] = None,
         jurisdiction: Optional[str] = None,
         start_date: Optional[str] = None,
         end_date: Optional[str] = None,
@@ -64,7 +64,9 @@ class Exemptions(BaseSDK):
         request = models.GetExemptionsV1ExemptionsGetRequest(
             search_query=search_query,
             status_in=status_in,
-            country_code=country_code,
+            country_code=utils.unmarshal(
+                country_code, Optional[List[models.CountryCodeEnum]]
+            ),
             jurisdiction=jurisdiction,
             start_date=start_date,
             end_date=end_date,
@@ -107,9 +109,11 @@ class Exemptions(BaseSDK):
                 operation_id="get_exemptions_v1_exemptions_get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Exemptions"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -146,7 +150,7 @@ class Exemptions(BaseSDK):
         *,
         search_query: Optional[str] = None,
         status_in: Optional[str] = "ACTIVE,INACTIVE,EXPIRED",
-        country_code: Optional[List[models.CountryCodeEnum]] = None,
+        country_code: Optional[Iterable[models.CountryCodeEnum]] = None,
         jurisdiction: Optional[str] = None,
         start_date: Optional[str] = None,
         end_date: Optional[str] = None,
@@ -193,7 +197,9 @@ class Exemptions(BaseSDK):
         request = models.GetExemptionsV1ExemptionsGetRequest(
             search_query=search_query,
             status_in=status_in,
-            country_code=country_code,
+            country_code=utils.unmarshal(
+                country_code, Optional[List[models.CountryCodeEnum]]
+            ),
             jurisdiction=jurisdiction,
             start_date=start_date,
             end_date=end_date,
@@ -236,9 +242,11 @@ class Exemptions(BaseSDK):
                 operation_id="get_exemptions_v1_exemptions_get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Exemptions"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -370,9 +378,11 @@ class Exemptions(BaseSDK):
                 operation_id="create_exemption_v1_exemptions_post",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Exemptions"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -504,9 +514,11 @@ class Exemptions(BaseSDK):
                 operation_id="create_exemption_v1_exemptions_post",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Exemptions"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -606,9 +618,11 @@ class Exemptions(BaseSDK):
                 operation_id="get_exemption_by_id_v1_exemptions__exemption_id__get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Exemptions"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -708,9 +722,11 @@ class Exemptions(BaseSDK):
                 operation_id="get_exemption_by_id_v1_exemptions__exemption_id__get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Exemptions"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -822,9 +838,11 @@ class Exemptions(BaseSDK):
                 operation_id="upload_exemption_certificate_v1_exemptions__exemption_id__attachments_post",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Exemptions"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -934,9 +952,11 @@ class Exemptions(BaseSDK):
                 operation_id="upload_exemption_certificate_v1_exemptions__exemption_id__attachments_post",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Exemptions"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1035,9 +1055,11 @@ class Exemptions(BaseSDK):
                 operation_id="get_attachments_for_exemption_v1_exemptions__exemption_id__attachments_get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Exemptions"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "422", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1133,9 +1155,11 @@ class Exemptions(BaseSDK):
                 operation_id="get_attachments_for_exemption_v1_exemptions__exemption_id__attachments_get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Exemptions"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "422", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 

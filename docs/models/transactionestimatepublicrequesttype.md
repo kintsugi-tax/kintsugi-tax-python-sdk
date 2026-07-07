@@ -3,6 +3,14 @@
 Type of the address. Must be either
                         SHIP_TO or BILL_TO.
 
+## Example Usage
+
+```python
+from kintsugi_tax_platform_sdk.models import TransactionEstimatePublicRequestType
+
+value = TransactionEstimatePublicRequestType.SHIP_TO
+```
+
 
 ## Values
 

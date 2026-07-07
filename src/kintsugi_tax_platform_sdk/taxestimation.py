@@ -8,7 +8,7 @@ from kintsugi_tax_platform_sdk.types import OptionalNullable, UNSET
 from kintsugi_tax_platform_sdk.utils.unmarshal_json_response import (
     unmarshal_json_response,
 )
-from typing import Any, List, Mapping, Optional, Union
+from typing import Any, Iterable, List, Mapping, Optional, Union
 
 
 class TaxEstimation(BaseSDK):
@@ -19,12 +19,12 @@ class TaxEstimation(BaseSDK):
         external_id: str,
         currency: models.CurrencyEnum,
         transaction_items: Union[
-            List[models.TransactionItemEstimateBase],
-            List[models.TransactionItemEstimateBaseTypedDict],
+            Iterable[models.TransactionItemEstimateBase],
+            Iterable[models.TransactionItemEstimateBaseTypedDict],
         ],
         addresses: Union[
-            List[models.TransactionEstimatePublicRequestAddress],
-            List[models.TransactionEstimatePublicRequestAddressTypedDict],
+            Iterable[models.TransactionEstimatePublicRequestAddress],
+            Iterable[models.TransactionEstimatePublicRequestAddressTypedDict],
         ],
         simulate_nexus_met: Optional[bool] = None,
         description: Optional[str] = None,
@@ -132,9 +132,11 @@ class TaxEstimation(BaseSDK):
                 operation_id="estimate_tax_v1_tax_estimate_post",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Tax Estimation"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -173,12 +175,12 @@ class TaxEstimation(BaseSDK):
         external_id: str,
         currency: models.CurrencyEnum,
         transaction_items: Union[
-            List[models.TransactionItemEstimateBase],
-            List[models.TransactionItemEstimateBaseTypedDict],
+            Iterable[models.TransactionItemEstimateBase],
+            Iterable[models.TransactionItemEstimateBaseTypedDict],
         ],
         addresses: Union[
-            List[models.TransactionEstimatePublicRequestAddress],
-            List[models.TransactionEstimatePublicRequestAddressTypedDict],
+            Iterable[models.TransactionEstimatePublicRequestAddress],
+            Iterable[models.TransactionEstimatePublicRequestAddressTypedDict],
         ],
         simulate_nexus_met: Optional[bool] = None,
         description: Optional[str] = None,
@@ -286,9 +288,11 @@ class TaxEstimation(BaseSDK):
                 operation_id="estimate_tax_v1_tax_estimate_post",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Tax Estimation"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 

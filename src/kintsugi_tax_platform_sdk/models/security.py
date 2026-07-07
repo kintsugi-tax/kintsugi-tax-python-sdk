@@ -19,6 +19,7 @@ class Security(BaseModel):
                 scheme=True,
                 scheme_type="apiKey",
                 sub_type="header",
+                composite=True,
                 field_name="X-API-KEY",
             )
         ),
@@ -31,6 +32,7 @@ class Security(BaseModel):
                 scheme=True,
                 scheme_type="apiKey",
                 sub_type="header",
+                composite=True,
                 field_name="x-organization-id",
             )
         ),

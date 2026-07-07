@@ -3,6 +3,14 @@
 Our transaction state, used to determine when/if a transaction needs additional
 processing.
 
+## Example Usage
+
+```python
+from kintsugi_tax_platform_sdk.models import ProcessingStatusEnum
+
+value = ProcessingStatusEnum.NEW
+```
+
 
 ## Values
 

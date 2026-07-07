@@ -1,5 +1,13 @@
 # FilingStatusEnum
 
+## Example Usage
+
+```python
+from kintsugi_tax_platform_sdk.models import FilingStatusEnum
+
+value = FilingStatusEnum.UNFILED
+```
+
 
 ## Values
 

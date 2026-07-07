@@ -1,5 +1,13 @@
 # CurrencyEnum
 
+## Example Usage
+
+```python
+from kintsugi_tax_platform_sdk.models import CurrencyEnum
+
+value = CurrencyEnum.AED
+```
+
 
 ## Values
 

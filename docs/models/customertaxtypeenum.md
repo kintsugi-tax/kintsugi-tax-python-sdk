@@ -2,6 +2,14 @@
 
 Enum for customer tax registration types.
 
+## Example Usage
+
+```python
+from kintsugi_tax_platform_sdk.models import CustomerTaxTypeEnum
+
+value = CustomerTaxTypeEnum.GST
+```
+
 
 ## Values
 
