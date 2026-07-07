@@ -1,5 +1,13 @@
 # PeriodModelEnum
 
+## Example Usage
+
+```python
+from kintsugi_tax_platform_sdk.models import PeriodModelEnum
+
+value = PeriodModelEnum.CURRENT_OR_PREVIOUS
+```
+
 
 ## Values
 

@@ -113,9 +113,11 @@ class AddressValidation(BaseSDK):
                 operation_id="search_v1_address_validation_search_post",
                 oauth2_scopes=None,
                 security_source=security,
+                tags=["Address Validation"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -247,9 +249,11 @@ class AddressValidation(BaseSDK):
                 operation_id="search_v1_address_validation_search_post",
                 oauth2_scopes=None,
                 security_source=security,
+                tags=["Address Validation"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -382,9 +386,11 @@ class AddressValidation(BaseSDK):
                 operation_id="suggestions_v1_address_validation_suggestions_post",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Address Validation"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -517,9 +523,11 @@ class AddressValidation(BaseSDK):
                 operation_id="suggestions_v1_address_validation_suggestions_post",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Address Validation"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 

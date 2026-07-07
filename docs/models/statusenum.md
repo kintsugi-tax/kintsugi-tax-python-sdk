@@ -1,5 +1,13 @@
 # StatusEnum
 
+## Example Usage
+
+```python
+from kintsugi_tax_platform_sdk.models import StatusEnum
+
+value = StatusEnum.ACTIVE
+```
+
 
 ## Values
 

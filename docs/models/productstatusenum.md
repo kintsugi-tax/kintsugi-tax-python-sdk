@@ -1,5 +1,13 @@
 # ProductStatusEnum
 
+## Example Usage
+
+```python
+from kintsugi_tax_platform_sdk.models import ProductStatusEnum
+
+value = ProductStatusEnum.APPROVED
+```
+
 
 ## Values
 

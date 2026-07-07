@@ -1,5 +1,13 @@
 # PhysicalNexusCategory
 
+## Example Usage
+
+```python
+from kintsugi_tax_platform_sdk.models import PhysicalNexusCategory
+
+value = PhysicalNexusCategory.PHYSICAL_BUSINESS_LOCATION
+```
+
 
 ## Values
 

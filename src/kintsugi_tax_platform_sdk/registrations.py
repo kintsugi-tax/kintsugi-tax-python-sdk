@@ -7,7 +7,7 @@ from kintsugi_tax_platform_sdk.types import BaseModel, OptionalNullable, UNSET
 from kintsugi_tax_platform_sdk.utils.unmarshal_json_response import (
     unmarshal_json_response,
 )
-from typing import Any, List, Mapping, Optional, Union, cast
+from typing import Any, Iterable, List, Mapping, Optional, Union, cast
 
 
 class Registrations(BaseSDK):
@@ -19,7 +19,7 @@ class Registrations(BaseSDK):
         ] = "REGISTERED,PROCESSING,UNREGISTERED,DEREGISTERING,DEREGISTERED,VALIDATING,AWAITING_CLARIFICATION",
         state_code: Optional[str] = None,
         filing_frequency_in: Optional[str] = None,
-        country_code_in: Optional[List[models.CountryCodeEnum]] = None,
+        country_code_in: Optional[Iterable[models.CountryCodeEnum]] = None,
         order_by: Optional[str] = None,
         page: Optional[int] = 1,
         size: Optional[int] = 50,
@@ -64,7 +64,9 @@ class Registrations(BaseSDK):
             status_in=status_in,
             state_code=state_code,
             filing_frequency_in=filing_frequency_in,
-            country_code_in=country_code_in,
+            country_code_in=utils.unmarshal(
+                country_code_in, Optional[List[models.CountryCodeEnum]]
+            ),
             order_by=order_by,
             page=page,
             size=size,
@@ -102,9 +104,11 @@ class Registrations(BaseSDK):
                 operation_id="get_registrations_v1_registrations_get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Registrations"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -144,7 +148,7 @@ class Registrations(BaseSDK):
         ] = "REGISTERED,PROCESSING,UNREGISTERED,DEREGISTERING,DEREGISTERED,VALIDATING,AWAITING_CLARIFICATION",
         state_code: Optional[str] = None,
         filing_frequency_in: Optional[str] = None,
-        country_code_in: Optional[List[models.CountryCodeEnum]] = None,
+        country_code_in: Optional[Iterable[models.CountryCodeEnum]] = None,
         order_by: Optional[str] = None,
         page: Optional[int] = 1,
         size: Optional[int] = 50,
@@ -189,7 +193,9 @@ class Registrations(BaseSDK):
             status_in=status_in,
             state_code=state_code,
             filing_frequency_in=filing_frequency_in,
-            country_code_in=country_code_in,
+            country_code_in=utils.unmarshal(
+                country_code_in, Optional[List[models.CountryCodeEnum]]
+            ),
             order_by=order_by,
             page=page,
             size=size,
@@ -227,9 +233,11 @@ class Registrations(BaseSDK):
                 operation_id="get_registrations_v1_registrations_get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Registrations"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -330,9 +338,11 @@ class Registrations(BaseSDK):
                 operation_id="create_registration_v1_registrations_post",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Registrations"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "409", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -431,9 +441,11 @@ class Registrations(BaseSDK):
                 operation_id="create_registration_v1_registrations_post",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Registrations"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "409", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -533,9 +545,11 @@ class Registrations(BaseSDK):
                 operation_id="get_registration_by_id_v1_registrations__registration_id__get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Registrations"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -635,9 +649,11 @@ class Registrations(BaseSDK):
                 operation_id="get_registration_by_id_v1_registrations__registration_id__get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Registrations"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -811,9 +827,11 @@ class Registrations(BaseSDK):
                 operation_id="update_registration_v1_registrations__registration_id__put",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Registrations"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -987,9 +1005,11 @@ class Registrations(BaseSDK):
                 operation_id="update_registration_v1_registrations__registration_id__put",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Registrations"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1084,9 +1104,11 @@ class Registrations(BaseSDK):
                 operation_id="deregister_registration_v1_registrations__registration_id__deregister_post",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Registrations"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1181,9 +1203,11 @@ class Registrations(BaseSDK):
                 operation_id="deregister_registration_v1_registrations__registration_id__deregister_post",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
+                tags=["Registrations"],
+                extensions=None,
             ),
             request=req,
-            error_status_codes=["401", "404", "422", "4XX", "500", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 

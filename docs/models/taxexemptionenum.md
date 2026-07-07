@@ -2,6 +2,14 @@
 
 This enum is used to determine if a transaction is exempt from tax.
 
+## Example Usage
+
+```python
+from kintsugi_tax_platform_sdk.models import TaxExemptionEnum
+
+value = TaxExemptionEnum.PRODUCT
+```
+
 
 ## Values
 

@@ -1,5 +1,13 @@
 # NexusStatusEnum
 
+## Example Usage
+
+```python
+from kintsugi_tax_platform_sdk.models import NexusStatusEnum
+
+value = NexusStatusEnum.NEEDS_RERUN
+```
+
 
 ## Values
 
