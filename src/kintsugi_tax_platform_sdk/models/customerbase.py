@@ -5,89 +5,104 @@ from .addressstatus import AddressStatus
 from .countrycodeenum import CountryCodeEnum
 from .sourceenum import SourceEnum
 from .statusenum import StatusEnum
-from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from kintsugi_tax_platform_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
 
 class CustomerBaseTypedDict(TypedDict):
-    phone: NotRequired[str]
+    phone: NotRequired[Nullable[str]]
     r"""Phone number associated with the address."""
-    street_1: NotRequired[str]
+    street_1: NotRequired[Nullable[str]]
     r"""Primary street address."""
-    street_2: NotRequired[str]
+    street_2: NotRequired[Nullable[str]]
     r"""Additional street address details, such as an apartment or suite number."""
-    city: NotRequired[str]
+    city: NotRequired[Nullable[str]]
     r"""City where the customer resides."""
-    county: NotRequired[str]
+    county: NotRequired[Nullable[str]]
     r"""County or district of the customer."""
-    state: NotRequired[str]
+    state: NotRequired[Nullable[str]]
     r"""State or province of the customer."""
-    postal_code: NotRequired[str]
+    postal_code: NotRequired[Nullable[str]]
     r"""ZIP or Postal code of the customer."""
-    country: NotRequired[CountryCodeEnum]
-    full_address: NotRequired[str]
+    country: NotRequired[Nullable[CountryCodeEnum]]
+    r"""Country code in ISO 3166-1 alpha-2 format"""
+    full_address: NotRequired[Nullable[str]]
     r"""Complete address string of the customer, which can be used as an alternative to individual fields."""
-    name: NotRequired[str]
+    name: NotRequired[Nullable[str]]
     r"""Name of the customer."""
-    external_id: NotRequired[str]
+    external_id: NotRequired[Nullable[str]]
     r"""A unique identifier for the customer."""
     status: NotRequired[StatusEnum]
-    email: NotRequired[str]
+    email: NotRequired[Nullable[str]]
     r"""Email address of the customer."""
+    company_name: NotRequired[Nullable[str]]
+    r"""Registered or legal business name of the customer."""
     address_status: NotRequired[AddressStatus]
-    source: NotRequired[SourceEnum]
-    registration_number: NotRequired[str]
-    connection_id: NotRequired[str]
+    source: NotRequired[Nullable[SourceEnum]]
+    r"""Source of the customer information (e.g., BIGCOMMERCE, STRIPE, etc.)."""
+    registration_number: NotRequired[Nullable[str]]
+    connection_id: NotRequired[Nullable[str]]
     r"""Unique identifier of the connection related to the customer."""
 
 
 class CustomerBase(BaseModel):
-    phone: Optional[str] = None
+    phone: OptionalNullable[str] = UNSET
     r"""Phone number associated with the address."""
 
-    street_1: Optional[str] = None
+    street_1: OptionalNullable[str] = UNSET
     r"""Primary street address."""
 
-    street_2: Optional[str] = None
+    street_2: OptionalNullable[str] = UNSET
     r"""Additional street address details, such as an apartment or suite number."""
 
-    city: Optional[str] = None
+    city: OptionalNullable[str] = UNSET
     r"""City where the customer resides."""
 
-    county: Optional[str] = None
+    county: OptionalNullable[str] = UNSET
     r"""County or district of the customer."""
 
-    state: Optional[str] = None
+    state: OptionalNullable[str] = UNSET
     r"""State or province of the customer."""
 
-    postal_code: Optional[str] = None
+    postal_code: OptionalNullable[str] = UNSET
     r"""ZIP or Postal code of the customer."""
 
-    country: Optional[CountryCodeEnum] = None
+    country: OptionalNullable[CountryCodeEnum] = UNSET
+    r"""Country code in ISO 3166-1 alpha-2 format"""
 
-    full_address: Optional[str] = None
+    full_address: OptionalNullable[str] = UNSET
     r"""Complete address string of the customer, which can be used as an alternative to individual fields."""
 
-    name: Optional[str] = None
+    name: OptionalNullable[str] = UNSET
     r"""Name of the customer."""
 
-    external_id: Optional[str] = None
+    external_id: OptionalNullable[str] = UNSET
     r"""A unique identifier for the customer."""
 
     status: Optional[StatusEnum] = None
 
-    email: Optional[str] = None
+    email: OptionalNullable[str] = UNSET
     r"""Email address of the customer."""
+
+    company_name: OptionalNullable[str] = UNSET
+    r"""Registered or legal business name of the customer."""
 
     address_status: Optional[AddressStatus] = None
 
-    source: Optional[SourceEnum] = None
+    source: OptionalNullable[SourceEnum] = UNSET
+    r"""Source of the customer information (e.g., BIGCOMMERCE, STRIPE, etc.)."""
 
-    registration_number: Optional[str] = None
+    registration_number: OptionalNullable[str] = UNSET
 
-    connection_id: Optional[str] = None
+    connection_id: OptionalNullable[str] = UNSET
     r"""Unique identifier of the connection related to the customer."""
 
     @model_serializer(mode="wrap")
@@ -107,7 +122,28 @@ class CustomerBase(BaseModel):
                 "external_id",
                 "status",
                 "email",
+                "company_name",
                 "address_status",
+                "source",
+                "registration_number",
+                "connection_id",
+            ]
+        )
+        nullable_fields = set(
+            [
+                "phone",
+                "street_1",
+                "street_2",
+                "city",
+                "county",
+                "state",
+                "postal_code",
+                "country",
+                "full_address",
+                "name",
+                "external_id",
+                "email",
+                "company_name",
                 "source",
                 "registration_number",
                 "connection_id",
@@ -119,9 +155,17 @@ class CustomerBase(BaseModel):
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

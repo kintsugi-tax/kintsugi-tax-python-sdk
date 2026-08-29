@@ -12,11 +12,17 @@ from .transactionaddressbuilder import (
 )
 from datetime import datetime
 from enum import Enum
-from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from kintsugi_tax_platform_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 import pydantic
 from pydantic import model_serializer
-from typing import List, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing import List, Union
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 class Status(str, Enum):
@@ -27,6 +33,54 @@ class Status(str, Enum):
     COMMITTED = "COMMITTED"
 
 
+CreditNoteCreateTotalAmountTypedDict = TypeAliasType(
+    "CreditNoteCreateTotalAmountTypedDict", Union[float, str]
+)
+r"""Total monetary value of the credit note, including all items and taxes."""
+
+
+CreditNoteCreateTotalAmount = TypeAliasType(
+    "CreditNoteCreateTotalAmount", Union[float, str]
+)
+r"""Total monetary value of the credit note, including all items and taxes."""
+
+
+CreditNoteCreateTaxAmountImportedTypedDict = TypeAliasType(
+    "CreditNoteCreateTaxAmountImportedTypedDict", Union[float, str]
+)
+r"""Pre-calculated total tax amount for the entire credit note, if provided by the external system."""
+
+
+CreditNoteCreateTaxAmountImported = TypeAliasType(
+    "CreditNoteCreateTaxAmountImported", Union[float, str]
+)
+r"""Pre-calculated total tax amount for the entire credit note, if provided by the external system."""
+
+
+CreditNoteCreateTaxRateImportedTypedDict = TypeAliasType(
+    "CreditNoteCreateTaxRateImportedTypedDict", Union[float, str]
+)
+r"""Pre-calculated overall tax rate for the credit note, if provided by the external system."""
+
+
+CreditNoteCreateTaxRateImported = TypeAliasType(
+    "CreditNoteCreateTaxRateImported", Union[float, str]
+)
+r"""Pre-calculated overall tax rate for the credit note, if provided by the external system."""
+
+
+CreditNoteCreateTaxableAmountTypedDict = TypeAliasType(
+    "CreditNoteCreateTaxableAmountTypedDict", Union[float, str]
+)
+r"""Total portion of the credit note amount subject to taxation."""
+
+
+CreditNoteCreateTaxableAmount = TypeAliasType(
+    "CreditNoteCreateTaxableAmount", Union[float, str]
+)
+r"""Total portion of the credit note amount subject to taxation."""
+
+
 class CreditNoteCreateTypedDict(TypedDict):
     external_id: str
     r"""Unique identifier for the credit note in the external system."""
@@ -34,22 +88,28 @@ class CreditNoteCreateTypedDict(TypedDict):
     r"""Date when the credit note was issued or created."""
     status: Status
     r"""Current state of the credit note in its lifecycle."""
-    total_amount: float
+    total_amount: CreditNoteCreateTotalAmountTypedDict
     r"""Total monetary value of the credit note, including all items and taxes."""
     currency: CurrencyEnum
     transaction_items: List[CreditNoteItemCreateUpdateTypedDict]
     r"""Detailed list of individual items included in this credit note."""
-    description: NotRequired[str]
+    external_friendly_id: NotRequired[Nullable[str]]
+    r"""Human-readable identifier for the credit note, often used for display purposes."""
+    secondary_external_id: NotRequired[Nullable[str]]
+    r"""Secondary external identifier, reserved for marketplace/channel source ids (paired with secondary_source)."""
+    description: NotRequired[Nullable[str]]
     r"""Brief explanation or reason for issuing the credit note."""
-    marketplace: NotRequired[bool]
+    marketplace: NotRequired[Nullable[bool]]
     r"""Indicates whether this credit note is associated with a marketplace transaction."""
-    tax_amount_imported: NotRequired[float]
+    tax_amount_imported: NotRequired[
+        Nullable[CreditNoteCreateTaxAmountImportedTypedDict]
+    ]
     r"""Pre-calculated total tax amount for the entire credit note, if provided by the external system."""
-    tax_rate_imported: NotRequired[float]
+    tax_rate_imported: NotRequired[Nullable[CreditNoteCreateTaxRateImportedTypedDict]]
     r"""Pre-calculated overall tax rate for the credit note, if provided by the external system."""
-    taxable_amount: NotRequired[float]
+    taxable_amount: NotRequired[Nullable[CreditNoteCreateTaxableAmountTypedDict]]
     r"""Total portion of the credit note amount subject to taxation."""
-    addresses: NotRequired[List[TransactionAddressBuilderTypedDict]]
+    addresses: NotRequired[Nullable[List[TransactionAddressBuilderTypedDict]]]
     r"""A list of TransactionAddressBuilder objects or None if no addresses are provided. This field represents the addresses associated with the transaction."""
 
 
@@ -63,7 +123,7 @@ class CreditNoteCreate(BaseModel):
     status: Status
     r"""Current state of the credit note in its lifecycle."""
 
-    total_amount: float
+    total_amount: CreditNoteCreateTotalAmount
     r"""Total monetary value of the credit note, including all items and taxes."""
 
     currency: CurrencyEnum
@@ -71,28 +131,48 @@ class CreditNoteCreate(BaseModel):
     transaction_items: List[CreditNoteItemCreateUpdate]
     r"""Detailed list of individual items included in this credit note."""
 
-    description: Optional[str] = None
+    external_friendly_id: OptionalNullable[str] = UNSET
+    r"""Human-readable identifier for the credit note, often used for display purposes."""
+
+    secondary_external_id: OptionalNullable[str] = UNSET
+    r"""Secondary external identifier, reserved for marketplace/channel source ids (paired with secondary_source)."""
+
+    description: OptionalNullable[str] = UNSET
     r"""Brief explanation or reason for issuing the credit note."""
 
-    marketplace: Optional[bool] = False
+    marketplace: OptionalNullable[bool] = UNSET
     r"""Indicates whether this credit note is associated with a marketplace transaction."""
 
-    tax_amount_imported: Optional[float] = None
+    tax_amount_imported: OptionalNullable[CreditNoteCreateTaxAmountImported] = UNSET
     r"""Pre-calculated total tax amount for the entire credit note, if provided by the external system."""
 
-    tax_rate_imported: Optional[float] = None
+    tax_rate_imported: OptionalNullable[CreditNoteCreateTaxRateImported] = UNSET
     r"""Pre-calculated overall tax rate for the credit note, if provided by the external system."""
 
-    taxable_amount: Optional[float] = None
+    taxable_amount: OptionalNullable[CreditNoteCreateTaxableAmount] = UNSET
     r"""Total portion of the credit note amount subject to taxation."""
 
-    addresses: Optional[List[TransactionAddressBuilder]] = None
+    addresses: OptionalNullable[List[TransactionAddressBuilder]] = UNSET
     r"""A list of TransactionAddressBuilder objects or None if no addresses are provided. This field represents the addresses associated with the transaction."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "external_friendly_id",
+                "secondary_external_id",
+                "description",
+                "marketplace",
+                "tax_amount_imported",
+                "tax_rate_imported",
+                "taxable_amount",
+                "addresses",
+            ]
+        )
+        nullable_fields = set(
+            [
+                "external_friendly_id",
+                "secondary_external_id",
                 "description",
                 "marketplace",
                 "tax_amount_imported",
@@ -107,9 +187,17 @@ class CreditNoteCreate(BaseModel):
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
