@@ -2,32 +2,59 @@
 
 from __future__ import annotations
 from .countrycodeenum import CountryCodeEnum
-from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
-from kintsugi_tax_platform_sdk.utils import FieldMetadata, QueryParamMetadata
+from datetime import date
+from kintsugi_tax_platform_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
+from kintsugi_tax_platform_sdk.utils import (
+    FieldMetadata,
+    HeaderMetadata,
+    QueryParamMetadata,
+)
 import pydantic
 from pydantic import model_serializer
-from typing import List, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing import List, Optional, Union
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
+
+
+GetExemptionsV1ExemptionsGetCountryCodeTypedDict = TypeAliasType(
+    "GetExemptionsV1ExemptionsGetCountryCodeTypedDict", Union[CountryCodeEnum, str]
+)
+
+
+GetExemptionsV1ExemptionsGetCountryCode = TypeAliasType(
+    "GetExemptionsV1ExemptionsGetCountryCode", Union[CountryCodeEnum, str]
+)
 
 
 class GetExemptionsV1ExemptionsGetRequestTypedDict(TypedDict):
-    search_query: NotRequired[str]
+    x_organization_id: Nullable[str]
+    r"""The unique identifier for the organization making the request"""
+    search_query: NotRequired[Nullable[str]]
     r"""Search term to filter exemptions by exemption ID, customer name, or customer email"""
-    status_in: NotRequired[str]
+    status_in: NotRequired[Nullable[str]]
     r"""Filter exemptions by their status"""
-    country_code: NotRequired[List[CountryCodeEnum]]
+    country_code: NotRequired[
+        Nullable[List[GetExemptionsV1ExemptionsGetCountryCodeTypedDict]]
+    ]
     r"""Country code in ISO 3166-1 alpha-2 format"""
-    jurisdiction: NotRequired[str]
+    jurisdiction: NotRequired[Nullable[str]]
     r"""Jurisdiction identifier"""
-    start_date: NotRequired[str]
+    start_date: NotRequired[Nullable[date]]
     r"""Start date for filtering exemptions"""
-    end_date: NotRequired[str]
+    end_date: NotRequired[Nullable[date]]
     r"""End date for filtering exemptions"""
-    customer_id: NotRequired[str]
+    customer_id: NotRequired[Nullable[str]]
     r"""Customer ID to filter exemptions"""
-    transaction_id: NotRequired[str]
+    transaction_id: NotRequired[Nullable[str]]
     r"""Transaction ID to filter exemptions"""
-    order_by: NotRequired[str]
+    connection_id_in: NotRequired[Nullable[str]]
+    r"""Filter exemptions by customer connection ID (comma-separated)"""
+    order_by: NotRequired[Nullable[str]]
     r"""Fields to sort by (comma-separated)"""
     page: NotRequired[int]
     r"""Page number"""
@@ -36,59 +63,73 @@ class GetExemptionsV1ExemptionsGetRequestTypedDict(TypedDict):
 
 
 class GetExemptionsV1ExemptionsGetRequest(BaseModel):
+    x_organization_id: Annotated[
+        Nullable[str],
+        pydantic.Field(alias="x-organization-id"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ]
+    r"""The unique identifier for the organization making the request"""
+
     search_query: Annotated[
-        Optional[str],
+        OptionalNullable[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = UNSET
     r"""Search term to filter exemptions by exemption ID, customer name, or customer email"""
 
     status_in: Annotated[
-        Optional[str],
+        OptionalNullable[str],
         pydantic.Field(alias="status__in"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = "ACTIVE,INACTIVE,EXPIRED"
+    ] = UNSET
     r"""Filter exemptions by their status"""
 
     country_code: Annotated[
-        Optional[List[CountryCodeEnum]],
+        OptionalNullable[List[GetExemptionsV1ExemptionsGetCountryCode]],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = UNSET
     r"""Country code in ISO 3166-1 alpha-2 format"""
 
     jurisdiction: Annotated[
-        Optional[str],
+        OptionalNullable[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = UNSET
     r"""Jurisdiction identifier"""
 
     start_date: Annotated[
-        Optional[str],
+        OptionalNullable[date],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = UNSET
     r"""Start date for filtering exemptions"""
 
     end_date: Annotated[
-        Optional[str],
+        OptionalNullable[date],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = UNSET
     r"""End date for filtering exemptions"""
 
     customer_id: Annotated[
-        Optional[str],
+        OptionalNullable[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = UNSET
     r"""Customer ID to filter exemptions"""
 
     transaction_id: Annotated[
-        Optional[str],
+        OptionalNullable[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = UNSET
     r"""Transaction ID to filter exemptions"""
 
-    order_by: Annotated[
-        Optional[str],
+    connection_id_in: Annotated[
+        OptionalNullable[str],
+        pydantic.Field(alias="connection_id__in"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = "end_date,FEIN,sales_tax_id,status"
+    ] = UNSET
+    r"""Filter exemptions by customer connection ID (comma-separated)"""
+
+    order_by: Annotated[
+        OptionalNullable[str],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = UNSET
     r"""Fields to sort by (comma-separated)"""
 
     page: Annotated[
@@ -115,9 +156,25 @@ class GetExemptionsV1ExemptionsGetRequest(BaseModel):
                 "end_date",
                 "customer_id",
                 "transaction_id",
+                "connection_id__in",
                 "order_by",
                 "page",
                 "size",
+            ]
+        )
+        nullable_fields = set(
+            [
+                "search_query",
+                "status__in",
+                "country_code",
+                "jurisdiction",
+                "start_date",
+                "end_date",
+                "customer_id",
+                "transaction_id",
+                "connection_id__in",
+                "order_by",
+                "x-organization-id",
             ]
         )
         serialized = handler(self)
@@ -126,9 +183,17 @@ class GetExemptionsV1ExemptionsGetRequest(BaseModel):
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
