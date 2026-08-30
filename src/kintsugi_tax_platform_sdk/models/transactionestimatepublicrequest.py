@@ -10,7 +10,13 @@ from .transactionitemestimatebase import (
 )
 from datetime import datetime
 from enum import Enum
-from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from kintsugi_tax_platform_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 import pydantic
 from pydantic import model_serializer
 from typing import List, Optional
@@ -50,7 +56,9 @@ class TransactionEstimatePublicRequestAddressTypedDict(TypedDict):
     full_address: NotRequired[str]
     r"""Complete address string of the customer, which can be used as an alternative to individual fields."""
     status: NotRequired[str]
-    r"""Status of the address. Deprecated and ignored."""
+    r"""Deprecated: ignored on estimate. Accepted for backward compatibility; each address is validated from structured fields."""
+    is_unincorporated: NotRequired[bool]
+    r"""If true, city-level tax rates are not applied for this address."""
 
 
 class TransactionEstimatePublicRequestAddress(BaseModel):
@@ -92,7 +100,10 @@ class TransactionEstimatePublicRequestAddress(BaseModel):
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
     ] = None
-    r"""Status of the address. Deprecated and ignored."""
+    r"""Deprecated: ignored on estimate. Accepted for backward compatibility; each address is validated from structured fields."""
+
+    is_unincorporated: Optional[bool] = False
+    r"""If true, city-level tax rates are not applied for this address."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -105,6 +116,7 @@ class TransactionEstimatePublicRequestAddress(BaseModel):
                 "county",
                 "full_address",
                 "status",
+                "is_unincorporated",
             ]
         )
         serialized = handler(self)
@@ -135,12 +147,14 @@ class TransactionEstimatePublicRequestTypedDict(TypedDict):
     r"""List of items involved in the transaction."""
     addresses: List[TransactionEstimatePublicRequestAddressTypedDict]
     r"""List of addresses related to the transaction. At least one BILL_TO or SHIP_TO address must be provided. The address will be validated during estimation, and the transaction may be rejected if the address does not pass validation. The SHIP_TO will be preferred to use for determining tax liability."""
-    description: NotRequired[str]
+    description: NotRequired[Nullable[str]]
     r"""An optional description of the transaction."""
-    source: NotRequired[SourceEnum]
-    marketplace: NotRequired[bool]
+    source: NotRequired[Nullable[SourceEnum]]
+    r"""While currently not used, it may be used in the future to determine taxability. The source of the transaction (e.g., OTHER)."""
+    marketplace: NotRequired[Nullable[bool]]
     r"""Indicates if the transaction involves a marketplace."""
-    customer: NotRequired[CustomerBasePublicTypedDict]
+    customer: NotRequired[Nullable[CustomerBasePublicTypedDict]]
+    r"""Details about the customer. If the customer is not found, it will be ignored."""
     total_amount: NotRequired[float]
     r"""Total amount of the transaction. Deprecated - computed from transaction_items. Optional for backward compatibility."""
 
@@ -164,15 +178,22 @@ class TransactionEstimatePublicRequest(BaseModel):
     addresses: List[TransactionEstimatePublicRequestAddress]
     r"""List of addresses related to the transaction. At least one BILL_TO or SHIP_TO address must be provided. The address will be validated during estimation, and the transaction may be rejected if the address does not pass validation. The SHIP_TO will be preferred to use for determining tax liability."""
 
-    description: Optional[str] = None
+    description: OptionalNullable[str] = UNSET
     r"""An optional description of the transaction."""
 
-    source: Optional[SourceEnum] = None
+    source: Annotated[
+        OptionalNullable[SourceEnum],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = UNSET
+    r"""While currently not used, it may be used in the future to determine taxability. The source of the transaction (e.g., OTHER)."""
 
-    marketplace: Optional[bool] = False
+    marketplace: OptionalNullable[bool] = UNSET
     r"""Indicates if the transaction involves a marketplace."""
 
-    customer: Optional[CustomerBasePublic] = None
+    customer: OptionalNullable[CustomerBasePublic] = UNSET
+    r"""Details about the customer. If the customer is not found, it will be ignored."""
 
     total_amount: Annotated[
         Optional[float],
@@ -187,15 +208,24 @@ class TransactionEstimatePublicRequest(BaseModel):
         optional_fields = set(
             ["description", "source", "marketplace", "customer", "total_amount"]
         )
+        nullable_fields = set(["description", "source", "marketplace", "customer"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
