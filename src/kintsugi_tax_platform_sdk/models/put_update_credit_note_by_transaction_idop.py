@@ -2,18 +2,23 @@
 
 from __future__ import annotations
 from .creditnotecreate import CreditNoteCreate, CreditNoteCreateTypedDict
-from kintsugi_tax_platform_sdk.types import BaseModel
+from kintsugi_tax_platform_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
 from kintsugi_tax_platform_sdk.utils import (
     FieldMetadata,
+    HeaderMetadata,
     PathParamMetadata,
     RequestMetadata,
 )
+import pydantic
+from pydantic import model_serializer
 from typing_extensions import Annotated, TypedDict
 
 
 class PUTUpdateCreditNoteByTransactionIDRequestTypedDict(TypedDict):
     original_transaction_id: str
     credit_note_id: str
+    x_organization_id: Nullable[str]
+    r"""The unique identifier for the organization making the request"""
     credit_note_create: CreditNoteCreateTypedDict
 
 
@@ -26,7 +31,28 @@ class PUTUpdateCreditNoteByTransactionIDRequest(BaseModel):
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
 
+    x_organization_id: Annotated[
+        Nullable[str],
+        pydantic.Field(alias="x-organization-id"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ]
+    r"""The unique identifier for the organization making the request"""
+
     credit_note_create: Annotated[
         CreditNoteCreate,
         FieldMetadata(request=RequestMetadata(media_type="application/json")),
     ]
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                m[k] = val
+
+        return m

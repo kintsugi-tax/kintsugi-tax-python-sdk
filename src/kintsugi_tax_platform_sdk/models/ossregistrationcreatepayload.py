@@ -2,35 +2,55 @@
 
 from __future__ import annotations
 from .countrycodeenum import CountryCodeEnum
-from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from .osstypeenum import OssTypeEnum
+from kintsugi_tax_platform_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
+from kintsugi_tax_platform_sdk.utils import validate_const
+import pydantic
 from pydantic import model_serializer
-from typing import Optional
-from typing_extensions import NotRequired, TypedDict
+from pydantic.functional_validators import AfterValidator
+from typing import Literal, Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class OSSRegistrationCreatePayloadTypedDict(TypedDict):
-    registration_import_type: NotRequired[str]
+    registration_import_type: Literal["OSS"]
     r"""Specifies this is an OSS registration import."""
-    password_plain_text: NotRequired[str]
+    password_plain_text: NotRequired[Nullable[str]]
     r"""The plaintext password for accessing the tax registration account."""
-    password_metadata_plain_text: NotRequired[str]
+    password_metadata_plain_text: NotRequired[Nullable[str]]
     r"""Metadata related to the password."""
-    member_state_of_identification_code: NotRequired[CountryCodeEnum]
+    member_state_of_identification_code: NotRequired[Nullable[CountryCodeEnum]]
+    r"""If importing an OSS registration, specify the Member State of Identification."""
+    oss_type: NotRequired[OssTypeEnum]
+    r"""Type of OSS registration."""
     imported: NotRequired[bool]
     r"""Whether the registration was imported from another system."""
 
 
 class OSSRegistrationCreatePayload(BaseModel):
-    registration_import_type: Optional[str] = "OSS"
+    REGISTRATION_IMPORT_TYPE: Annotated[
+        Annotated[Optional[Literal["OSS"]], AfterValidator(validate_const("OSS"))],
+        pydantic.Field(alias="registration_import_type"),
+    ] = "OSS"
     r"""Specifies this is an OSS registration import."""
 
-    password_plain_text: Optional[str] = None
+    password_plain_text: OptionalNullable[str] = UNSET
     r"""The plaintext password for accessing the tax registration account."""
 
-    password_metadata_plain_text: Optional[str] = None
+    password_metadata_plain_text: OptionalNullable[str] = UNSET
     r"""Metadata related to the password."""
 
-    member_state_of_identification_code: Optional[CountryCodeEnum] = None
+    member_state_of_identification_code: OptionalNullable[CountryCodeEnum] = UNSET
+    r"""If importing an OSS registration, specify the Member State of Identification."""
+
+    oss_type: Optional[OssTypeEnum] = None
+    r"""Type of OSS registration."""
 
     imported: Optional[bool] = False
     r"""Whether the registration was imported from another system."""
@@ -43,7 +63,15 @@ class OSSRegistrationCreatePayload(BaseModel):
                 "password_plain_text",
                 "password_metadata_plain_text",
                 "member_state_of_identification_code",
+                "oss_type",
                 "imported",
+            ]
+        )
+        nullable_fields = set(
+            [
+                "password_plain_text",
+                "password_metadata_plain_text",
+                "member_state_of_identification_code",
             ]
         )
         serialized = handler(self)
@@ -52,9 +80,23 @@ class OSSRegistrationCreatePayload(BaseModel):
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
+
+
+try:
+    OSSRegistrationCreatePayload.model_rebuild()
+except NameError:
+    pass
