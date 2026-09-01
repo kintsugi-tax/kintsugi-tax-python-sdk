@@ -5,7 +5,13 @@ from .countrycodeenum import CountryCodeEnum
 from .physicalnexuscategory import PhysicalNexusCategory
 from .physicalnexussource import PhysicalNexusSource
 from datetime import date
-from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from kintsugi_tax_platform_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import NotRequired, TypedDict
@@ -22,22 +28,22 @@ class PhysicalNexusCreateTypedDict(TypedDict):
     effective (YYYY-MM-DD).
     """
     category: PhysicalNexusCategory
-    end_date: NotRequired[str]
+    end_date: NotRequired[Nullable[date]]
     r"""The date when the
     nexus ended, if applicable.
     """
-    external_id: NotRequired[str]
+    external_id: NotRequired[Nullable[str]]
     r"""Optional
     external identifier for the nexus.
     """
     source: NotRequired[PhysicalNexusSource]
-    street_1: NotRequired[str]
+    street_1: NotRequired[Nullable[str]]
     r"""Primary street address for the physical presence location."""
-    street_2: NotRequired[str]
+    street_2: NotRequired[Nullable[str]]
     r"""Additional street address details, such as suite or unit number."""
-    city: NotRequired[str]
+    city: NotRequired[Nullable[str]]
     r"""City of the physical presence location."""
-    postal_code: NotRequired[str]
+    postal_code: NotRequired[Nullable[str]]
     r"""ZIP or postal code of the physical presence location."""
 
 
@@ -56,28 +62,28 @@ class PhysicalNexusCreate(BaseModel):
 
     category: PhysicalNexusCategory
 
-    end_date: Optional[str] = None
+    end_date: OptionalNullable[date] = UNSET
     r"""The date when the
     nexus ended, if applicable.
     """
 
-    external_id: Optional[str] = None
+    external_id: OptionalNullable[str] = UNSET
     r"""Optional
     external identifier for the nexus.
     """
 
     source: Optional[PhysicalNexusSource] = None
 
-    street_1: Optional[str] = None
+    street_1: OptionalNullable[str] = UNSET
     r"""Primary street address for the physical presence location."""
 
-    street_2: Optional[str] = None
+    street_2: OptionalNullable[str] = UNSET
     r"""Additional street address details, such as suite or unit number."""
 
-    city: Optional[str] = None
+    city: OptionalNullable[str] = UNSET
     r"""City of the physical presence location."""
 
-    postal_code: Optional[str] = None
+    postal_code: OptionalNullable[str] = UNSET
     r"""ZIP or postal code of the physical presence location."""
 
     @model_serializer(mode="wrap")
@@ -93,15 +99,26 @@ class PhysicalNexusCreate(BaseModel):
                 "postal_code",
             ]
         )
+        nullable_fields = set(
+            ["end_date", "external_id", "street_1", "street_2", "city", "postal_code"]
+        )
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
