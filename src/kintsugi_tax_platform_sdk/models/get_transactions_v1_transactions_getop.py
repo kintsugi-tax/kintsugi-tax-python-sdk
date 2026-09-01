@@ -2,65 +2,107 @@
 
 from __future__ import annotations
 from .countrycodeenum import CountryCodeEnum
+from .transactiondirectionenum import TransactionDirectionEnum
+from .transactionrefundstatus import TransactionRefundStatus
 from .transactionstatusenum import TransactionStatusEnum
-from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
-from kintsugi_tax_platform_sdk.utils import FieldMetadata, QueryParamMetadata
+from kintsugi_tax_platform_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
+from kintsugi_tax_platform_sdk.utils import (
+    FieldMetadata,
+    HeaderMetadata,
+    QueryParamMetadata,
+)
 import pydantic
 from pydantic import model_serializer
-from typing import List, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing import List, Optional, Union
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
+
+
+GetTransactionsV1TransactionsGetCountryTypedDict = TypeAliasType(
+    "GetTransactionsV1TransactionsGetCountryTypedDict", Union[CountryCodeEnum, str]
+)
+
+
+GetTransactionsV1TransactionsGetCountry = TypeAliasType(
+    "GetTransactionsV1TransactionsGetCountry", Union[CountryCodeEnum, str]
+)
 
 
 class GetTransactionsV1TransactionsGetRequestTypedDict(TypedDict):
-    state_code: NotRequired[str]
+    x_organization_id: Nullable[str]
+    r"""The unique identifier for the organization making the request"""
+    state_code: NotRequired[Nullable[str]]
     r"""Filter transactions by state code."""
-    transaction_type: NotRequired[str]
+    transaction_type: NotRequired[Nullable[str]]
     r"""Filter by transaction type (e.g., SALE, FULL_CREDIT_NOTE,
     PARTIAL_CREDIT_NOTE, ARCHIVE etc.).
     """
-    transaction_source: NotRequired[str]
+    transaction_source: NotRequired[Nullable[str]]
     r"""Filter transactions based on the source."""
-    search_query: NotRequired[str]
+    search_query: NotRequired[Nullable[str]]
     r"""Search for transactions using a general query
     (e.g., order ID, customer name).
     """
-    country: NotRequired[List[CountryCodeEnum]]
+    country: NotRequired[
+        Nullable[List[GetTransactionsV1TransactionsGetCountryTypedDict]]
+    ]
     r"""Filter transactions by country code
     (ISO 3166-1 alpha-2 format, e.g., US).
     """
-    state: NotRequired[str]
+    state: NotRequired[Nullable[str]]
     r"""Filter by full state name (e.g., California)."""
-    address_status_in: NotRequired[str]
+    address_status_in: NotRequired[Nullable[str]]
     r"""Filter by address status (e.g., UNVERIFIED, INVALID,
     PARTIALLY_VERIFIED, VERIFIED, UNVERIFIABLE).
     """
-    status: NotRequired[TransactionStatusEnum]
+    status: NotRequired[Nullable[TransactionStatusEnum]]
     r"""Filter by transaction status (e.g., PENDING, COMMITTED,
-    CANCELLED, FULLY_REFUNDED, PARTIALLY_REFUNDED, ARCHIVED).
+    CANCELLED, ARCHIVED). For refund filtering use the refund_status parameter.
     """
-    filing_id: NotRequired[str]
+    refund_status: NotRequired[Nullable[TransactionRefundStatus]]
+    r"""Filter by refund status (e.g., FULLY_REFUNDED,
+    PARTIALLY_REFUNDED).
+    """
+    filing_id: NotRequired[Nullable[str]]
     r"""Retrieve transactions linked to a specific filing ID."""
-    order_by: NotRequired[str]
+    order_by: NotRequired[Nullable[str]]
     r"""Sort results based on specified fields.
     Prefix with - for descending order (e.g., -date for newest first).
     """
-    date_gte: NotRequired[str]
-    r"""Retrieve transactions with a date
-    greater than or equal to (YYYY-MM-DD).
+    date_gte: NotRequired[Nullable[str]]
+    r"""Retrieve transactions with a date greater than or equal to the bound
+    (YYYY-MM-DD or ISO datetime in UTC).
+    Defaults to 12 months ago when neither date__gte nor date__lte is provided.
     """
-    date_lte: NotRequired[str]
-    r"""Retrieve transactions with a date
-    less than or equal to (YYYY-MM-DD).
+    date_lte: NotRequired[Nullable[str]]
+    r"""Retrieve transactions with a date less than or equal to the bound
+    (YYYY-MM-DD or ISO datetime in UTC).
     """
-    processing_status_in: NotRequired[str]
+    processing_status_in: NotRequired[Nullable[str]]
     r"""Filter transactions based on processing status.
     Multiple values can be passed as a comma-separated list.
     """
-    marketplace: NotRequired[bool]
+    marketplace: NotRequired[Nullable[bool]]
     r"""Filter transactions by marketplace (e.g., AMAZON, EBAY)."""
-    exempt_in: NotRequired[str]
+    exempt_in: NotRequired[Nullable[str]]
     r"""Filter transactions by exemption status.
     Multiple values can be passed as a comma-separated list (e.g., EXEMPT,TAXABLE).
+    """
+    connection_id_in: NotRequired[Nullable[str]]
+    r"""Filter transactions by connection ID (comma-separated)"""
+    direction: NotRequired[Nullable[TransactionDirectionEnum]]
+    r"""Filter by transaction direction (SALE or PURCHASE). When unset, the list includes both directions."""
+    count_limit: NotRequired[Nullable[int]]
+    r"""Optional upper bound for the pagination COUNT query.
+    When set, the returned `total` is capped at this value and `pages`
+    is derived from the capped total, making large result sets faster
+    to paginate at the cost of approximate totals. When unset, `total`
+    and `pages` reflect the exact count (existing behavior).
     """
     page: NotRequired[int]
     r"""Page number"""
@@ -69,119 +111,159 @@ class GetTransactionsV1TransactionsGetRequestTypedDict(TypedDict):
 
 
 class GetTransactionsV1TransactionsGetRequest(BaseModel):
+    x_organization_id: Annotated[
+        Nullable[str],
+        pydantic.Field(alias="x-organization-id"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ]
+    r"""The unique identifier for the organization making the request"""
+
     state_code: Annotated[
-        Optional[str],
+        OptionalNullable[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = UNSET
     r"""Filter transactions by state code."""
 
     transaction_type: Annotated[
-        Optional[str],
+        OptionalNullable[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = UNSET
     r"""Filter by transaction type (e.g., SALE, FULL_CREDIT_NOTE,
     PARTIAL_CREDIT_NOTE, ARCHIVE etc.).
     """
 
     transaction_source: Annotated[
-        Optional[str],
+        OptionalNullable[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = UNSET
     r"""Filter transactions based on the source."""
 
     search_query: Annotated[
-        Optional[str],
+        OptionalNullable[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = UNSET
     r"""Search for transactions using a general query
     (e.g., order ID, customer name).
     """
 
     country: Annotated[
-        Optional[List[CountryCodeEnum]],
+        OptionalNullable[List[GetTransactionsV1TransactionsGetCountry]],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = UNSET
     r"""Filter transactions by country code
     (ISO 3166-1 alpha-2 format, e.g., US).
     """
 
     state: Annotated[
-        Optional[str],
+        OptionalNullable[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = UNSET
     r"""Filter by full state name (e.g., California)."""
 
     address_status_in: Annotated[
-        Optional[str],
+        OptionalNullable[str],
         pydantic.Field(alias="address_status__in"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = "UNVERIFIED,INVALID,PARTIALLY_VERIFIED,VERIFIED,UNVERIFIABLE"
+    ] = UNSET
     r"""Filter by address status (e.g., UNVERIFIED, INVALID,
     PARTIALLY_VERIFIED, VERIFIED, UNVERIFIABLE).
     """
 
     status: Annotated[
-        Optional[TransactionStatusEnum],
+        OptionalNullable[TransactionStatusEnum],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = UNSET
     r"""Filter by transaction status (e.g., PENDING, COMMITTED,
-    CANCELLED, FULLY_REFUNDED, PARTIALLY_REFUNDED, ARCHIVED).
+    CANCELLED, ARCHIVED). For refund filtering use the refund_status parameter.
+    """
+
+    refund_status: Annotated[
+        OptionalNullable[TransactionRefundStatus],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = UNSET
+    r"""Filter by refund status (e.g., FULLY_REFUNDED,
+    PARTIALLY_REFUNDED).
     """
 
     filing_id: Annotated[
-        Optional[str],
+        OptionalNullable[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = UNSET
     r"""Retrieve transactions linked to a specific filing ID."""
 
     order_by: Annotated[
-        Optional[str],
+        OptionalNullable[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = "date,state,customer_name,status"
+    ] = UNSET
     r"""Sort results based on specified fields.
     Prefix with - for descending order (e.g., -date for newest first).
     """
 
     date_gte: Annotated[
-        Optional[str],
+        OptionalNullable[str],
         pydantic.Field(alias="date__gte"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""Retrieve transactions with a date
-    greater than or equal to (YYYY-MM-DD).
+    ] = UNSET
+    r"""Retrieve transactions with a date greater than or equal to the bound
+    (YYYY-MM-DD or ISO datetime in UTC).
+    Defaults to 12 months ago when neither date__gte nor date__lte is provided.
     """
 
     date_lte: Annotated[
-        Optional[str],
+        OptionalNullable[str],
         pydantic.Field(alias="date__lte"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""Retrieve transactions with a date
-    less than or equal to (YYYY-MM-DD).
+    ] = UNSET
+    r"""Retrieve transactions with a date less than or equal to the bound
+    (YYYY-MM-DD or ISO datetime in UTC).
     """
 
     processing_status_in: Annotated[
-        Optional[str],
+        OptionalNullable[str],
         pydantic.Field(alias="processing_status__in"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = UNSET
     r"""Filter transactions based on processing status.
     Multiple values can be passed as a comma-separated list.
     """
 
     marketplace: Annotated[
-        Optional[bool],
+        OptionalNullable[bool],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = UNSET
     r"""Filter transactions by marketplace (e.g., AMAZON, EBAY)."""
 
     exempt_in: Annotated[
-        Optional[str],
+        OptionalNullable[str],
         pydantic.Field(alias="exempt__in"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = UNSET
     r"""Filter transactions by exemption status.
     Multiple values can be passed as a comma-separated list (e.g., EXEMPT,TAXABLE).
+    """
+
+    connection_id_in: Annotated[
+        OptionalNullable[str],
+        pydantic.Field(alias="connection_id__in"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = UNSET
+    r"""Filter transactions by connection ID (comma-separated)"""
+
+    direction: Annotated[
+        OptionalNullable[TransactionDirectionEnum],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = UNSET
+    r"""Filter by transaction direction (SALE or PURCHASE). When unset, the list includes both directions."""
+
+    count_limit: Annotated[
+        OptionalNullable[int],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = UNSET
+    r"""Optional upper bound for the pagination COUNT query.
+    When set, the returned `total` is capped at this value and `pages`
+    is derived from the capped total, making large result sets faster
+    to paginate at the cost of approximate totals. When unset, `total`
+    and `pages` reflect the exact count (existing behavior).
     """
 
     page: Annotated[
@@ -208,6 +290,7 @@ class GetTransactionsV1TransactionsGetRequest(BaseModel):
                 "state",
                 "address_status__in",
                 "status",
+                "refund_status",
                 "filing_id",
                 "order_by",
                 "date__gte",
@@ -215,8 +298,35 @@ class GetTransactionsV1TransactionsGetRequest(BaseModel):
                 "processing_status__in",
                 "marketplace",
                 "exempt__in",
+                "connection_id__in",
+                "direction",
+                "count_limit",
                 "page",
                 "size",
+            ]
+        )
+        nullable_fields = set(
+            [
+                "state_code",
+                "transaction_type",
+                "transaction_source",
+                "search_query",
+                "country",
+                "state",
+                "address_status__in",
+                "status",
+                "refund_status",
+                "filing_id",
+                "order_by",
+                "date__gte",
+                "date__lte",
+                "processing_status__in",
+                "marketplace",
+                "exempt__in",
+                "connection_id__in",
+                "direction",
+                "count_limit",
+                "x-organization-id",
             ]
         )
         serialized = handler(self)
@@ -225,9 +335,17 @@ class GetTransactionsV1TransactionsGetRequest(BaseModel):
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

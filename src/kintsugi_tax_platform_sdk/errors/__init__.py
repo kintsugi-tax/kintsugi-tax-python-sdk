@@ -27,9 +27,9 @@ if TYPE_CHECKING:
         BackendSrcNexusResponsesValidationErrorResponse,
         BackendSrcNexusResponsesValidationErrorResponseData,
     )
-    from .backend_src_products_responses_validationerrorresponse import (
-        BackendSrcProductsResponsesValidationErrorResponse,
-        BackendSrcProductsResponsesValidationErrorResponseData,
+    from .backend_src_products_schemas_responses_validationerrorresponse import (
+        BackendSrcProductsSchemasResponsesValidationErrorResponse,
+        BackendSrcProductsSchemasResponsesValidationErrorResponseData,
     )
     from .backend_src_registrations_responses_validationerrorresponse import (
         BackendSrcRegistrationsResponsesValidationErrorResponse,
@@ -60,8 +60,8 @@ __all__ = [
     "BackendSrcFilingsResponsesValidationErrorResponseData",
     "BackendSrcNexusResponsesValidationErrorResponse",
     "BackendSrcNexusResponsesValidationErrorResponseData",
-    "BackendSrcProductsResponsesValidationErrorResponse",
-    "BackendSrcProductsResponsesValidationErrorResponseData",
+    "BackendSrcProductsSchemasResponsesValidationErrorResponse",
+    "BackendSrcProductsSchemasResponsesValidationErrorResponseData",
     "BackendSrcRegistrationsResponsesValidationErrorResponse",
     "BackendSrcRegistrationsResponsesValidationErrorResponseData",
     "BackendSrcTaxEstimationResponsesValidationErrorResponse",
@@ -89,8 +89,8 @@ _dynamic_imports: dict[str, str] = {
     "BackendSrcFilingsResponsesValidationErrorResponseData": ".backend_src_filings_responses_validationerrorresponse",
     "BackendSrcNexusResponsesValidationErrorResponse": ".backend_src_nexus_responses_validationerrorresponse",
     "BackendSrcNexusResponsesValidationErrorResponseData": ".backend_src_nexus_responses_validationerrorresponse",
-    "BackendSrcProductsResponsesValidationErrorResponse": ".backend_src_products_responses_validationerrorresponse",
-    "BackendSrcProductsResponsesValidationErrorResponseData": ".backend_src_products_responses_validationerrorresponse",
+    "BackendSrcProductsSchemasResponsesValidationErrorResponse": ".backend_src_products_schemas_responses_validationerrorresponse",
+    "BackendSrcProductsSchemasResponsesValidationErrorResponseData": ".backend_src_products_schemas_responses_validationerrorresponse",
     "BackendSrcRegistrationsResponsesValidationErrorResponse": ".backend_src_registrations_responses_validationerrorresponse",
     "BackendSrcRegistrationsResponsesValidationErrorResponseData": ".backend_src_registrations_responses_validationerrorresponse",
     "BackendSrcTaxEstimationResponsesValidationErrorResponse": ".backend_src_tax_estimation_responses_validationerrorresponse",

@@ -3,18 +3,25 @@
 from __future__ import annotations
 from .productstatusenum import ProductStatusEnum
 from .sourceenum import SourceEnum
-from kintsugi_tax_platform_sdk.types import BaseModel
-from typing import List
-from typing_extensions import TypedDict
+from kintsugi_tax_platform_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
+from pydantic import model_serializer
+from typing import Any, Dict, List
+from typing_extensions import NotRequired, TypedDict
 
 
 class ProductReadTypedDict(TypedDict):
     id: str
     external_id: str
-    sku: List[str]
+    sku: Nullable[List[str]]
     code: str
     name: str
-    description: str
+    description: Nullable[str]
     status: ProductStatusEnum
     product_category: str
     r"""Main category of the product.
@@ -28,8 +35,15 @@ class ProductReadTypedDict(TypedDict):
     """
     tax_exempt: bool
     source: SourceEnum
-    connection_id: str
-    classification_failed: bool
+    connection_id: Nullable[str]
+    classification_failed: Nullable[bool]
+    store_name: NotRequired[Nullable[str]]
+    source_taxonomy_type: NotRequired[Nullable[str]]
+    source_taxonomy_code: NotRequired[Nullable[str]]
+    source_taxonomy_id: NotRequired[Nullable[str]]
+    source_taxonomy_name: NotRequired[Nullable[str]]
+    source_taxonomy_categories: NotRequired[Nullable[List[Dict[str, Any]]]]
+    source_taxonomy_metadata: NotRequired[Nullable[Dict[str, Any]]]
 
 
 class ProductRead(BaseModel):
@@ -37,13 +51,13 @@ class ProductRead(BaseModel):
 
     external_id: str
 
-    sku: List[str]
+    sku: Nullable[List[str]]
 
     code: str
 
     name: str
 
-    description: str
+    description: Nullable[str]
 
     status: ProductStatusEnum
 
@@ -63,6 +77,69 @@ class ProductRead(BaseModel):
 
     source: SourceEnum
 
-    connection_id: str
+    connection_id: Nullable[str]
 
-    classification_failed: bool
+    classification_failed: Nullable[bool]
+
+    store_name: OptionalNullable[str] = UNSET
+
+    source_taxonomy_type: OptionalNullable[str] = UNSET
+
+    source_taxonomy_code: OptionalNullable[str] = UNSET
+
+    source_taxonomy_id: OptionalNullable[str] = UNSET
+
+    source_taxonomy_name: OptionalNullable[str] = UNSET
+
+    source_taxonomy_categories: OptionalNullable[List[Dict[str, Any]]] = UNSET
+
+    source_taxonomy_metadata: OptionalNullable[Dict[str, Any]] = UNSET
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "store_name",
+                "source_taxonomy_type",
+                "source_taxonomy_code",
+                "source_taxonomy_id",
+                "source_taxonomy_name",
+                "source_taxonomy_categories",
+                "source_taxonomy_metadata",
+            ]
+        )
+        nullable_fields = set(
+            [
+                "sku",
+                "description",
+                "connection_id",
+                "classification_failed",
+                "store_name",
+                "source_taxonomy_type",
+                "source_taxonomy_code",
+                "source_taxonomy_id",
+                "source_taxonomy_name",
+                "source_taxonomy_categories",
+                "source_taxonomy_metadata",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
+
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
+
+        return m
