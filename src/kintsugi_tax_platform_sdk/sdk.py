@@ -11,11 +11,14 @@ from kintsugi_tax_platform_sdk import models, utils
 from kintsugi_tax_platform_sdk._hooks import SDKHooks
 from kintsugi_tax_platform_sdk.types import OptionalNullable, UNSET
 import sys
-from typing import Callable, Dict, Optional, TYPE_CHECKING, Union, cast
+from typing import Any, Callable, Dict, Optional, TYPE_CHECKING, Union, cast
 import weakref
 
 if TYPE_CHECKING:
     from kintsugi_tax_platform_sdk.addressvalidation import AddressValidation
+    from kintsugi_tax_platform_sdk.customer_tax_registration import (
+        CustomerTaxRegistration,
+    )
     from kintsugi_tax_platform_sdk.customers import Customers
     from kintsugi_tax_platform_sdk.exemptions import Exemptions
     from kintsugi_tax_platform_sdk.filings import Filings
@@ -27,33 +30,40 @@ if TYPE_CHECKING:
 
 
 class SDK(BaseSDK):
+    r"""Kintsugi Customer API: Publicly documented Kintsugi Customer API endpoints. The source (openapi/_source/openapi-master.json) is the platform spec filtered to the documented customer surface (openapi/customer-endpoints.json); scripts/build-specs.mjs re-applies that filter here. Do not edit by hand."""
+
     address_validation: "AddressValidation"
     customers: "Customers"
+    customer_tax_registration: "CustomerTaxRegistration"
     exemptions: "Exemptions"
     filings: "Filings"
     nexus: "Nexus"
     products: "Products"
     registrations: "Registrations"
-    transactions: "Transactions"
     tax_estimation: "TaxEstimation"
+    transactions: "Transactions"
     _sub_sdk_map = {
         "address_validation": (
             "kintsugi_tax_platform_sdk.addressvalidation",
             "AddressValidation",
         ),
         "customers": ("kintsugi_tax_platform_sdk.customers", "Customers"),
+        "customer_tax_registration": (
+            "kintsugi_tax_platform_sdk.customer_tax_registration",
+            "CustomerTaxRegistration",
+        ),
         "exemptions": ("kintsugi_tax_platform_sdk.exemptions", "Exemptions"),
         "filings": ("kintsugi_tax_platform_sdk.filings", "Filings"),
         "nexus": ("kintsugi_tax_platform_sdk.nexus", "Nexus"),
         "products": ("kintsugi_tax_platform_sdk.products", "Products"),
         "registrations": ("kintsugi_tax_platform_sdk.registrations", "Registrations"),
-        "transactions": ("kintsugi_tax_platform_sdk.transactions", "Transactions"),
         "tax_estimation": ("kintsugi_tax_platform_sdk.taxestimation", "TaxEstimation"),
+        "transactions": ("kintsugi_tax_platform_sdk.transactions", "Transactions"),
     }
 
     def __init__(
         self,
-        security: Union[models.Security, Callable[[], models.Security]],
+        api_key_header: Union[str, Callable[[], str]],
         server_idx: Optional[int] = None,
         url_params: Optional[Dict[str, str]] = None,
         server_url: Optional[str] = None,
@@ -65,7 +75,7 @@ class SDK(BaseSDK):
     ) -> None:
         r"""Instantiates the SDK configuring it with the provided parameters.
 
-        :param security: The security details required for authentication
+        :param api_key_header: The api_key_header required for authentication
         :param server_idx: The index of the server to use for all methods
         :param server_url: The server URL to use for all methods
         :param url_params: Parameters to optionally template the server URL with
@@ -94,6 +104,15 @@ class SDK(BaseSDK):
         assert issubclass(
             type(async_client), AsyncHttpClient
         ), "The provided async_client must implement the AsyncHttpClient protocol."
+
+        security: Any = None
+        if api_key_header is None:
+            security = None
+        elif callable(api_key_header):
+            # pylint: disable=unnecessary-lambda-assignment
+            security = lambda: models.Security(api_key_header=api_key_header())
+        else:
+            security = models.Security(api_key_header=api_key_header)
 
         if server_url is not None:
             if url_params is not None:
