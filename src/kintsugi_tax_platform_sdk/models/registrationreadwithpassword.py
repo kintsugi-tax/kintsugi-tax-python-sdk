@@ -9,13 +9,28 @@ from .registrationcategoryenum import RegistrationCategoryEnum
 from .registrationsregimeenum import RegistrationsRegimeEnum
 from .registrationstatusenum import RegistrationStatusEnum
 from .registrationtypeenum import RegistrationTypeEnum
-from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from .taxtypeenum import TaxTypeEnum
+from datetime import date, datetime
+from kintsugi_tax_platform_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 from pydantic import model_serializer
-from typing import Optional
+from typing import Any, Dict, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
 class RegistrationReadWithPasswordTypedDict(TypedDict):
+    r"""Partner-facing read model.
+
+    ``_reveal_cdtfa_jsf`` is set only for US-California when the service applies
+    ``?reveal=cdtfa_third_party_access_security_code``, so JSON serialization keeps plaintext
+    for that jurisdiction only. ``_reveal_idaho_tap_jsf`` is the US-Idaho equivalent for the
+    """
+
     status: RegistrationStatusEnum
     country_code: CountryCodeEnum
     state_code: str
@@ -27,72 +42,124 @@ class RegistrationReadWithPasswordTypedDict(TypedDict):
     r"""The unique identifier for the registration."""
     filing_days: int
     registration_type: RegistrationTypeEnum
-    registration_date: NotRequired[str]
+    filing_website_url: Nullable[str]
+    r"""State tax portal URL for this registration's jurisdiction."""
+    registration_date: NotRequired[Nullable[date]]
     r"""The date when the registration was created. Format: YYYY-MM-DD."""
-    registration_email: NotRequired[str]
+    registration_email: NotRequired[Nullable[str]]
     r"""Email address associated with the registration."""
-    registration_key: NotRequired[str]
-    r"""A unique key assigned to the registration."""
-    deregistration_key: NotRequired[str]
-    r"""A unique key assigned for deregistration."""
-    registration_requested: NotRequired[str]
+    registration_requested: NotRequired[Nullable[datetime]]
     r"""Timestamp when the registration was requested."""
-    registration_completed: NotRequired[str]
+    registration_completed: NotRequired[Nullable[datetime]]
     r"""Timestamp when the registration was completed."""
-    deregistration_requested: NotRequired[str]
+    deregistration_requested: NotRequired[Nullable[datetime]]
     r"""Timestamp when deregistration was requested."""
-    deregistration_completed: NotRequired[str]
+    deregistration_completed: NotRequired[Nullable[datetime]]
     r"""Timestamp when the deregistration was completed."""
-    auto_registered: NotRequired[bool]
+    auto_registered: NotRequired[Nullable[bool]]
     r"""Indicates whether the registration was completed automatically."""
-    registrations_regime: NotRequired[RegistrationsRegimeEnum]
-    change_regime_status: NotRequired[ChangeRegimeStatusEnum]
-    third_party_enabled: NotRequired[bool]
+    registrations_regime: NotRequired[Nullable[RegistrationsRegimeEnum]]
+    r"""The tax registration regime (e.g., STANDARD, SIMPLIFIED)."""
+    change_regime_status: NotRequired[Nullable[ChangeRegimeStatusEnum]]
+    third_party_enabled: NotRequired[Nullable[bool]]
     r"""Indicates whether third-party access is enabled for this registration."""
     do_not_file: NotRequired[bool]
     r"""If true, do not file for this registration (treated as False by default)."""
-    two_factor_enabled: NotRequired[bool]
+    two_factor_enabled: NotRequired[Nullable[bool]]
     r"""Indicates whether two-factor authentication (2FA) is enabled for this registration."""
-    marked_collecting: NotRequired[bool]
+    marked_collecting: NotRequired[Nullable[bool]]
     r"""Indicates whether the  registration is marked as collecting in shopify"""
-    username: NotRequired[str]
+    initial_filing_frequency: NotRequired[Nullable[FilingFrequencyEnum]]
+    r"""The first non-UNKNOWN filing frequency this registration
+    was ever assigned.
+    """
+    scheduled_filing_frequency: NotRequired[Nullable[FilingFrequencyEnum]]
+    r"""The filing frequency that will automatically replace
+    `filing_frequency` on `filing_frequency_effective_date`. Null when no
+    frequency change is pending.
+    """
+    filing_frequency_effective_date: NotRequired[Nullable[date]]
+    r"""The date on which `scheduled_filing_frequency` should
+    automatically become the registration's `filing_frequency`. Null when
+    no frequency change is pending.
+    """
+    username: NotRequired[Nullable[str]]
     r"""Username for accessing tax registration details."""
-    comment: NotRequired[str]
+    comment: NotRequired[Nullable[str]]
     r"""Additional comments related to the registration."""
-    create_filings_from: NotRequired[str]
+    create_filings_from: NotRequired[Nullable[date]]
     r"""The date from which filings should be created.
     should start (YYYY-MM-DD).
     """
-    initial_sync: NotRequired[bool]
+    create_back_filing: NotRequired[bool]
+    r"""Whether to also file the single period preceding the first filing period."""
+    retail_delivery_fee_obligated: NotRequired[bool]
+    r"""Whether this registration is declared obligated to file a Retail Delivery Fee return (e.g. Colorado DR 1786)."""
+    retail_delivery_fee_effective_from: NotRequired[Nullable[date]]
+    r"""First date from which retail delivery fee filings may be generated. Periods that closed before this date must not get those filings."""
+    initial_sync: NotRequired[Nullable[bool]]
     r"""Indicates whether an initial synchronization should be performed."""
     amount_fees: NotRequired[str]
     r"""The amount of fees associated with the registration."""
-    vda: NotRequired[bool]
+    vda: NotRequired[Nullable[bool]]
     r"""Indicates whether a Voluntary Disclosure Agreement (VDA) applies."""
-    imported: NotRequired[bool]
+    imported: NotRequired[Nullable[bool]]
     r"""Whether the registration was imported from another system."""
-    sales_tax_id: NotRequired[str]
-    r"""The sales tax ID associated with the registration."""
-    sst_import: NotRequired[bool]
+    sales_tax_id: NotRequired[Nullable[str]]
+    r"""Account number for this registration. Holds the sales tax ID on a sales or combined permit, and the consumer use tax account number on a use tax registration."""
+    ior_number: NotRequired[Nullable[str]]
+    r"""The Importer of Record (IOR) number associated with the registration."""
+    ior_date: NotRequired[Nullable[date]]
+    r"""The date the Importer of Record (IOR) became effective (YYYY-MM-DD).
+    For jurisdictions where tax collection starts after the IOR date rather than the
+    registration date, this is the date on/after which tax is collected.
+    """
+    sst_import: NotRequired[Nullable[bool]]
     r"""Indicates whether the registration is an SST Import."""
-    oss_type: NotRequired[OssTypeEnum]
-    r"""Type of OSS registration."""
-    oss_member_state_of_identification_code: NotRequired[CountryCodeEnum]
-    marked_collecting_date: NotRequired[str]
+    oss_type: NotRequired[Nullable[OssTypeEnum]]
+    r"""The type of OSS registration. Should be filled for ZZ_EU OSS registrations."""
+    oss_member_state_of_identification_code: NotRequired[Nullable[CountryCodeEnum]]
+    r"""The Member State of Identification code for OSS registrations."""
+    tax_type: NotRequired[TaxTypeEnum]
+    r"""Tax obligation on a nexus, registration, or filing row.
+
+    Registrations and filings may be SALES_AND_USE_TAX: one state account and
+    one return can cover both taxes, and each is stored as a single row.
+    Nexus rows are only SALES_TAX or USE_TAX. Sales and use tax exposure are
+    separate obligations with their own met dates, period models, and liability
+    accrual.
+    """
+    marked_collecting_date: NotRequired[Nullable[datetime]]
     r"""The date when the registration was marked as collecting."""
-    needs_mark_as_collecting: NotRequired[bool]
+    needs_mark_as_collecting: NotRequired[Nullable[bool]]
     r"""Indicates whether the registration needs to be marked as collecting."""
+    created_at: NotRequired[Nullable[datetime]]
+    r"""Timestamp when this registration was created in Kintsugi."""
     credits_total_available: NotRequired[str]
     registration_category: NotRequired[RegistrationCategoryEnum]
-    password_encrypted: NotRequired[str]
+    jurisdiction_specific_fields: NotRequired[Nullable[Dict[str, Any]]]
+    r"""Jurisdiction-specific registration fields."""
+    password_encrypted: NotRequired[Nullable[str]]
     r"""Encrypted password for accessing the registration,
     if applicable.
+    """
+    pin_encrypted: NotRequired[Nullable[str]]
+    r"""Encrypted PIN for the registration (e.g. Arizona/Wyoming
+    e-file PIN). Masked by default; decrypted only when explicitly revealed
+    via the GET registration endpoint's reveal query.
     """
     has_all_credentials: NotRequired[bool]
     r"""Indicates if all required credentials are present."""
 
 
 class RegistrationReadWithPassword(BaseModel):
+    r"""Partner-facing read model.
+
+    ``_reveal_cdtfa_jsf`` is set only for US-California when the service applies
+    ``?reveal=cdtfa_third_party_access_security_code``, so JSON serialization keeps plaintext
+    for that jurisdiction only. ``_reveal_idaho_tap_jsf`` is the US-Idaho equivalent for the
+    """
+
     status: RegistrationStatusEnum
 
     country_code: CountryCodeEnum
@@ -112,96 +179,152 @@ class RegistrationReadWithPassword(BaseModel):
 
     registration_type: RegistrationTypeEnum
 
-    registration_date: Optional[str] = None
+    filing_website_url: Nullable[str]
+    r"""State tax portal URL for this registration's jurisdiction."""
+
+    registration_date: OptionalNullable[date] = UNSET
     r"""The date when the registration was created. Format: YYYY-MM-DD."""
 
-    registration_email: Optional[str] = None
+    registration_email: OptionalNullable[str] = UNSET
     r"""Email address associated with the registration."""
 
-    registration_key: Optional[str] = None
-    r"""A unique key assigned to the registration."""
-
-    deregistration_key: Optional[str] = None
-    r"""A unique key assigned for deregistration."""
-
-    registration_requested: Optional[str] = None
+    registration_requested: OptionalNullable[datetime] = UNSET
     r"""Timestamp when the registration was requested."""
 
-    registration_completed: Optional[str] = None
+    registration_completed: OptionalNullable[datetime] = UNSET
     r"""Timestamp when the registration was completed."""
 
-    deregistration_requested: Optional[str] = None
+    deregistration_requested: OptionalNullable[datetime] = UNSET
     r"""Timestamp when deregistration was requested."""
 
-    deregistration_completed: Optional[str] = None
+    deregistration_completed: OptionalNullable[datetime] = UNSET
     r"""Timestamp when the deregistration was completed."""
 
-    auto_registered: Optional[bool] = False
+    auto_registered: OptionalNullable[bool] = UNSET
     r"""Indicates whether the registration was completed automatically."""
 
-    registrations_regime: Optional[RegistrationsRegimeEnum] = None
+    registrations_regime: OptionalNullable[RegistrationsRegimeEnum] = UNSET
+    r"""The tax registration regime (e.g., STANDARD, SIMPLIFIED)."""
 
-    change_regime_status: Optional[ChangeRegimeStatusEnum] = None
+    change_regime_status: OptionalNullable[ChangeRegimeStatusEnum] = UNSET
 
-    third_party_enabled: Optional[bool] = False
+    third_party_enabled: OptionalNullable[bool] = UNSET
     r"""Indicates whether third-party access is enabled for this registration."""
 
     do_not_file: Optional[bool] = False
     r"""If true, do not file for this registration (treated as False by default)."""
 
-    two_factor_enabled: Optional[bool] = None
+    two_factor_enabled: OptionalNullable[bool] = UNSET
     r"""Indicates whether two-factor authentication (2FA) is enabled for this registration."""
 
-    marked_collecting: Optional[bool] = None
+    marked_collecting: OptionalNullable[bool] = UNSET
     r"""Indicates whether the  registration is marked as collecting in shopify"""
 
-    username: Optional[str] = None
+    initial_filing_frequency: OptionalNullable[FilingFrequencyEnum] = UNSET
+    r"""The first non-UNKNOWN filing frequency this registration
+    was ever assigned.
+    """
+
+    scheduled_filing_frequency: OptionalNullable[FilingFrequencyEnum] = UNSET
+    r"""The filing frequency that will automatically replace
+    `filing_frequency` on `filing_frequency_effective_date`. Null when no
+    frequency change is pending.
+    """
+
+    filing_frequency_effective_date: OptionalNullable[date] = UNSET
+    r"""The date on which `scheduled_filing_frequency` should
+    automatically become the registration's `filing_frequency`. Null when
+    no frequency change is pending.
+    """
+
+    username: OptionalNullable[str] = UNSET
     r"""Username for accessing tax registration details."""
 
-    comment: Optional[str] = None
+    comment: OptionalNullable[str] = UNSET
     r"""Additional comments related to the registration."""
 
-    create_filings_from: Optional[str] = None
+    create_filings_from: OptionalNullable[date] = UNSET
     r"""The date from which filings should be created.
     should start (YYYY-MM-DD).
     """
 
-    initial_sync: Optional[bool] = False
+    create_back_filing: Optional[bool] = False
+    r"""Whether to also file the single period preceding the first filing period."""
+
+    retail_delivery_fee_obligated: Optional[bool] = False
+    r"""Whether this registration is declared obligated to file a Retail Delivery Fee return (e.g. Colorado DR 1786)."""
+
+    retail_delivery_fee_effective_from: OptionalNullable[date] = UNSET
+    r"""First date from which retail delivery fee filings may be generated. Periods that closed before this date must not get those filings."""
+
+    initial_sync: OptionalNullable[bool] = UNSET
     r"""Indicates whether an initial synchronization should be performed."""
 
     amount_fees: Optional[str] = "0.00"
     r"""The amount of fees associated with the registration."""
 
-    vda: Optional[bool] = False
+    vda: OptionalNullable[bool] = UNSET
     r"""Indicates whether a Voluntary Disclosure Agreement (VDA) applies."""
 
-    imported: Optional[bool] = None
+    imported: OptionalNullable[bool] = UNSET
     r"""Whether the registration was imported from another system."""
 
-    sales_tax_id: Optional[str] = None
-    r"""The sales tax ID associated with the registration."""
+    sales_tax_id: OptionalNullable[str] = UNSET
+    r"""Account number for this registration. Holds the sales tax ID on a sales or combined permit, and the consumer use tax account number on a use tax registration."""
 
-    sst_import: Optional[bool] = False
+    ior_number: OptionalNullable[str] = UNSET
+    r"""The Importer of Record (IOR) number associated with the registration."""
+
+    ior_date: OptionalNullable[date] = UNSET
+    r"""The date the Importer of Record (IOR) became effective (YYYY-MM-DD).
+    For jurisdictions where tax collection starts after the IOR date rather than the
+    registration date, this is the date on/after which tax is collected.
+    """
+
+    sst_import: OptionalNullable[bool] = UNSET
     r"""Indicates whether the registration is an SST Import."""
 
-    oss_type: Optional[OssTypeEnum] = None
-    r"""Type of OSS registration."""
+    oss_type: OptionalNullable[OssTypeEnum] = UNSET
+    r"""The type of OSS registration. Should be filled for ZZ_EU OSS registrations."""
 
-    oss_member_state_of_identification_code: Optional[CountryCodeEnum] = None
+    oss_member_state_of_identification_code: OptionalNullable[CountryCodeEnum] = UNSET
+    r"""The Member State of Identification code for OSS registrations."""
 
-    marked_collecting_date: Optional[str] = None
+    tax_type: Optional[TaxTypeEnum] = None
+    r"""Tax obligation on a nexus, registration, or filing row.
+
+    Registrations and filings may be SALES_AND_USE_TAX: one state account and
+    one return can cover both taxes, and each is stored as a single row.
+    Nexus rows are only SALES_TAX or USE_TAX. Sales and use tax exposure are
+    separate obligations with their own met dates, period models, and liability
+    accrual.
+    """
+
+    marked_collecting_date: OptionalNullable[datetime] = UNSET
     r"""The date when the registration was marked as collecting."""
 
-    needs_mark_as_collecting: Optional[bool] = False
+    needs_mark_as_collecting: OptionalNullable[bool] = UNSET
     r"""Indicates whether the registration needs to be marked as collecting."""
+
+    created_at: OptionalNullable[datetime] = UNSET
+    r"""Timestamp when this registration was created in Kintsugi."""
 
     credits_total_available: Optional[str] = "0.00"
 
     registration_category: Optional[RegistrationCategoryEnum] = None
 
-    password_encrypted: Optional[str] = None
+    jurisdiction_specific_fields: OptionalNullable[Dict[str, Any]] = UNSET
+    r"""Jurisdiction-specific registration fields."""
+
+    password_encrypted: OptionalNullable[str] = UNSET
     r"""Encrypted password for accessing the registration,
     if applicable.
+    """
+
+    pin_encrypted: OptionalNullable[str] = UNSET
+    r"""Encrypted PIN for the registration (e.g. Arizona/Wyoming
+    e-file PIN). Masked by default; decrypted only when explicitly revealed
+    via the GET registration endpoint's reveal query.
     """
 
     has_all_credentials: Optional[bool] = False
@@ -213,8 +336,6 @@ class RegistrationReadWithPassword(BaseModel):
             [
                 "registration_date",
                 "registration_email",
-                "registration_key",
-                "deregistration_key",
                 "registration_requested",
                 "registration_completed",
                 "deregistration_requested",
@@ -226,23 +347,74 @@ class RegistrationReadWithPassword(BaseModel):
                 "do_not_file",
                 "two_factor_enabled",
                 "marked_collecting",
+                "initial_filing_frequency",
+                "scheduled_filing_frequency",
+                "filing_frequency_effective_date",
                 "username",
                 "comment",
                 "create_filings_from",
+                "create_back_filing",
+                "retail_delivery_fee_obligated",
+                "retail_delivery_fee_effective_from",
                 "initial_sync",
                 "amount_fees",
                 "vda",
                 "imported",
                 "sales_tax_id",
+                "ior_number",
+                "ior_date",
+                "sst_import",
+                "oss_type",
+                "oss_member_state_of_identification_code",
+                "tax_type",
+                "marked_collecting_date",
+                "needs_mark_as_collecting",
+                "created_at",
+                "credits_total_available",
+                "registration_category",
+                "jurisdiction_specific_fields",
+                "password_encrypted",
+                "pin_encrypted",
+                "has_all_credentials",
+            ]
+        )
+        nullable_fields = set(
+            [
+                "registration_date",
+                "registration_email",
+                "registration_requested",
+                "registration_completed",
+                "deregistration_requested",
+                "deregistration_completed",
+                "auto_registered",
+                "registrations_regime",
+                "change_regime_status",
+                "third_party_enabled",
+                "two_factor_enabled",
+                "marked_collecting",
+                "initial_filing_frequency",
+                "scheduled_filing_frequency",
+                "filing_frequency_effective_date",
+                "username",
+                "comment",
+                "create_filings_from",
+                "retail_delivery_fee_effective_from",
+                "initial_sync",
+                "vda",
+                "imported",
+                "sales_tax_id",
+                "ior_number",
+                "ior_date",
                 "sst_import",
                 "oss_type",
                 "oss_member_state_of_identification_code",
                 "marked_collecting_date",
                 "needs_mark_as_collecting",
-                "credits_total_available",
-                "registration_category",
+                "created_at",
+                "jurisdiction_specific_fields",
                 "password_encrypted",
-                "has_all_credentials",
+                "pin_encrypted",
+                "filing_website_url",
             ]
         )
         serialized = handler(self)
@@ -251,9 +423,17 @@ class RegistrationReadWithPassword(BaseModel):
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

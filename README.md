@@ -12,7 +12,7 @@ Developer-friendly & type-safe Python SDK specifically catered to leverage *kint
 <!-- Start Summary [summary] -->
 ## Summary
 
-
+Kintsugi Customer API: Publicly documented Kintsugi Customer API endpoints. The source (openapi/_source/openapi-master.json) is the platform spec filtered to the documented customer surface (openapi/customer-endpoints.json); scripts/build-specs.mjs re-applies that filter here. Do not edit by hand.
 <!-- End Summary [summary] -->
 
 <!-- Start Table of Contents [toc] -->
@@ -24,7 +24,6 @@ Developer-friendly & type-safe Python SDK specifically catered to leverage *kint
   * [SDK Example Usage](#sdk-example-usage)
   * [Authentication](#authentication)
   * [Available Resources and Operations](#available-resources-and-operations)
-  * [File uploads](#file-uploads)
   * [Retries](#retries)
   * [Error Handling](#error-handling)
   * [Server Selection](#server-selection)
@@ -123,11 +122,11 @@ Generally, the SDK will work well with most IDEs out of the box. However, when u
 from kintsugi_tax_platform_sdk import SDK, models
 
 
-with SDK() as sdk:
+with SDK(
+    api_key_header="<YOUR_API_KEY_HERE>",
+) as sdk:
 
-    res = sdk.address_validation.search(security=models.SearchV1AddressValidationSearchPostSecurity(
-        api_key_header="<YOUR_API_KEY_HERE>",
-    ), phone="555-123-4567", street_1="1600 Amphitheatre Parkway", street_2="Building 40", city="Mountain View", county="Santa Clara", state="CA", postal_code="94043", country=models.CountryCodeEnum.US, full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043")
+    res = sdk.address_validation.search(phone="555-123-4567", street_1="1600 Amphitheatre Parkway", street_2="Building 40", city="Mountain View", county="Santa Clara", state="CA", postal_code="94043", country=models.CountryCodeEnum.US, full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043")
 
     # Handle response
     print(res)
@@ -144,11 +143,11 @@ from kintsugi_tax_platform_sdk import SDK, models
 
 async def main():
 
-    async with SDK() as sdk:
+    async with SDK(
+        api_key_header="<YOUR_API_KEY_HERE>",
+    ) as sdk:
 
-        res = await sdk.address_validation.search_async(security=models.SearchV1AddressValidationSearchPostSecurity(
-            api_key_header="<YOUR_API_KEY_HERE>",
-        ), phone="555-123-4567", street_1="1600 Amphitheatre Parkway", street_2="Building 40", city="Mountain View", county="Santa Clara", state="CA", postal_code="94043", country=models.CountryCodeEnum.US, full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043")
+        res = await sdk.address_validation.search_async(phone="555-123-4567", street_1="1600 Amphitheatre Parkway", street_2="Building 40", city="Mountain View", county="Santa Clara", state="CA", postal_code="94043", country=models.CountryCodeEnum.US, full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043")
 
         # Handle response
         print(res)
@@ -162,44 +161,22 @@ asyncio.run(main())
 
 ### Per-Client Security Schemes
 
-This SDK supports the following security schemes globally:
+This SDK supports the following security scheme globally:
 
 | Name             | Type   | Scheme  |
 | ---------------- | ------ | ------- |
 | `api_key_header` | apiKey | API key |
-| `custom_header`  | apiKey | API key |
 
-You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
+To authenticate with the API the `api_key_header` parameter must be set when initializing the SDK client instance. For example:
 ```python
 from kintsugi_tax_platform_sdk import SDK, models
 
 
 with SDK(
-    security=models.Security(
-        api_key_header="<YOUR_API_KEY_HERE>",
-        custom_header="<YOUR_API_KEY_HERE>",
-    ),
+    api_key_header="<YOUR_API_KEY_HERE>",
 ) as sdk:
 
-    res = sdk.address_validation.suggestions(line1="1600 Amphitheatre Parkway", line2="", line3="", city="Mountain View", state="CA", country="US", postal_code="94043", id=215, county="", full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043")
-
-    # Handle response
-    print(res)
-
-```
-
-### Per-Operation Security Schemes
-
-Some operations in this SDK require the security scheme to be specified at the request level. For example:
-```python
-from kintsugi_tax_platform_sdk import SDK, models
-
-
-with SDK() as sdk:
-
-    res = sdk.address_validation.search(security=models.SearchV1AddressValidationSearchPostSecurity(
-        api_key_header="<YOUR_API_KEY_HERE>",
-    ), phone="555-123-4567", street_1="1600 Amphitheatre Parkway", street_2="Building 40", city="Mountain View", county="Santa Clara", state="CA", postal_code="94043", country=models.CountryCodeEnum.US, full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043")
+    res = sdk.address_validation.search(phone="555-123-4567", street_1="1600 Amphitheatre Parkway", street_2="Building 40", city="Mountain View", county="Santa Clara", state="CA", postal_code="94043", country=models.CountryCodeEnum.US, full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043")
 
     # Handle response
     print(res)
@@ -218,103 +195,84 @@ with SDK() as sdk:
 * [search](docs/sdks/addressvalidation/README.md#search) - Search
 * [suggestions](docs/sdks/addressvalidation/README.md#suggestions) - Suggestions
 
+### [CustomerTaxRegistration](docs/sdks/customertaxregistration/README.md)
+
+* [upsert_customer_tax_registration_v1_customers_customer_id_tax_registrations_post](docs/sdks/customertaxregistration/README.md#upsert_customer_tax_registration_v1_customers_customer_id_tax_registrations_post) - Upsert customer tax registration
+
 ### [Customers](docs/sdks/customers/README.md)
 
-* [list](docs/sdks/customers/README.md#list) - Get Customers
-* [create](docs/sdks/customers/README.md#create) - Create Customer
-* [get](docs/sdks/customers/README.md#get) - Get Customer By Id
-* [update](docs/sdks/customers/README.md#update) - Update Customer
-* [get_by_external_id](docs/sdks/customers/README.md#get_by_external_id) - Get Customer By External Id
-* [get_transactions](docs/sdks/customers/README.md#get_transactions) - Get Transactions By Customer Id
-* [create_transaction](docs/sdks/customers/README.md#create_transaction) - Create Transaction By Customer Id
+* [list](docs/sdks/customers/README.md#list) - Get customers
+* [create](docs/sdks/customers/README.md#create) - Create customer
+* [get_by_external_id](docs/sdks/customers/README.md#get_by_external_id) - Get customer by external id
+* [get](docs/sdks/customers/README.md#get) - Get customer by id
+* [update](docs/sdks/customers/README.md#update) - Update customer
+* [get_transactions](docs/sdks/customers/README.md#get_transactions) - Get transactions by customer id
+* [create_transaction](docs/sdks/customers/README.md#create_transaction) - Create transaction by customer id
 
 ### [Exemptions](docs/sdks/exemptions/README.md)
 
-* [list](docs/sdks/exemptions/README.md#list) - Get Exemptions
-* [create](docs/sdks/exemptions/README.md#create) - Create Exemption
-* [get](docs/sdks/exemptions/README.md#get) - Get Exemption By Id
-* [upload_certificate](docs/sdks/exemptions/README.md#upload_certificate) - Upload Exemption Certificate
-* [list_attachments](docs/sdks/exemptions/README.md#list_attachments) - Get Attachments For Exemption
+* [list](docs/sdks/exemptions/README.md#list) - Get exemptions
+* [create](docs/sdks/exemptions/README.md#create) - Create exemption
+* [get](docs/sdks/exemptions/README.md#get) - Get exemption by id
+* [list_attachments](docs/sdks/exemptions/README.md#list_attachments) - Get attachments for exemption
+* [upload_certificate](docs/sdks/exemptions/README.md#upload_certificate) - Upload exemption certificate
 
 ### [Filings](docs/sdks/filings/README.md)
 
-* [get_all](docs/sdks/filings/README.md#get_all) - Get Filings
-* [get](docs/sdks/filings/README.md#get) - Get Filing By Id
-* [get_by_registration_id](docs/sdks/filings/README.md#get_by_registration_id) - Get Filings By Registration Id
+* [get_all](docs/sdks/filings/README.md#get_all) - Get filings
+* [get_by_registration_id](docs/sdks/filings/README.md#get_by_registration_id) - Get filings by registration id
+* [get](docs/sdks/filings/README.md#get) - Get filing by id
+* [approve_filing_v1_filings_filing_id_approve_put](docs/sdks/filings/README.md#approve_filing_v1_filings_filing_id_approve_put) - Approve filing
 
 ### [Nexus](docs/sdks/nexus/README.md)
 
-* [get_physical](docs/sdks/nexus/README.md#get_physical) - Get Physical Nexus
-* [create_physical](docs/sdks/nexus/README.md#create_physical) - Create Physical Nexus
-* [update_physical_nexus](docs/sdks/nexus/README.md#update_physical_nexus) - Update Physical Nexus
-* [delete_physical_nexus](docs/sdks/nexus/README.md#delete_physical_nexus) - Delete Physical Nexus
-* [get_all](docs/sdks/nexus/README.md#get_all) - Get Nexus For Org
+* [get_all](docs/sdks/nexus/README.md#get_all) - Get nexus for org
+* [get_physical](docs/sdks/nexus/README.md#get_physical) - Get physical nexus
+* [create_physical](docs/sdks/nexus/README.md#create_physical) - Create physical nexus
+* [get_physical_nexus_categories_v1_nexus_physical_nexus_categories_get](docs/sdks/nexus/README.md#get_physical_nexus_categories_v1_nexus_physical_nexus_categories_get) - Get physical nexus categories
+* [delete_physical_nexus](docs/sdks/nexus/README.md#delete_physical_nexus) - Delete physical nexus
+* [update_physical_nexus](docs/sdks/nexus/README.md#update_physical_nexus) - Update physical nexus
+* [get_nexus_details_for_id_v1_nexus_nexus_id_get](docs/sdks/nexus/README.md#get_nexus_details_for_id_v1_nexus_nexus_id_get) - Get nexus details for id
 
 ### [Products](docs/sdks/products/README.md)
 
-* [get_products_v1_products_get](docs/sdks/products/README.md#get_products_v1_products_get) - Get Products
-* [create_product_v1_products_post](docs/sdks/products/README.md#create_product_v1_products_post) - Create Product
-* [get_product_categories_v1_products_categories_get](docs/sdks/products/README.md#get_product_categories_v1_products_categories_get) - Get Product Categories
-* [retrieve](docs/sdks/products/README.md#retrieve) - Get Product By Id
-* [update](docs/sdks/products/README.md#update) - Update Product
+* [get_products_v1_products_get](docs/sdks/products/README.md#get_products_v1_products_get) - Get products
+* [create_product_v1_products_post](docs/sdks/products/README.md#create_product_v1_products_post) - Create product
+* [get_product_categories_v1_products_categories_get](docs/sdks/products/README.md#get_product_categories_v1_products_categories_get) - Get product categories
+* [retrieve](docs/sdks/products/README.md#retrieve) - Get product by id
+* [update](docs/sdks/products/README.md#update) - Update product
 
 ### [Registrations](docs/sdks/registrations/README.md)
 
-* [get_all](docs/sdks/registrations/README.md#get_all) - Get Registrations
-* [create](docs/sdks/registrations/README.md#create) - Create Registration
-* [get](docs/sdks/registrations/README.md#get) - Get Registration By Id
-* [update](docs/sdks/registrations/README.md#update) - Update Registration
-* [deregister](docs/sdks/registrations/README.md#deregister) - Deregister Registration
+* [get_all](docs/sdks/registrations/README.md#get_all) - Get registrations
+* [create](docs/sdks/registrations/README.md#create) - Create registration
+* [get_jurisdiction_specific_fields_v1_registrations_jurisdiction_specific_fields_get](docs/sdks/registrations/README.md#get_jurisdiction_specific_fields_v1_registrations_jurisdiction_specific_fields_get) - Get jurisdiction specific fields
+* [list_registration_jurisdictions_v1_registrations_jurisdictions_get](docs/sdks/registrations/README.md#list_registration_jurisdictions_v1_registrations_jurisdictions_get) - List registration jurisdictions
+* [get](docs/sdks/registrations/README.md#get) - Get registration by id
+* [update](docs/sdks/registrations/README.md#update) - Update registration
+* [upload_registration_attachment_v1_registrations_registration_id_attachments_post](docs/sdks/registrations/README.md#upload_registration_attachment_v1_registrations_registration_id_attachments_post) - Upload registration attachment
+* [deregister](docs/sdks/registrations/README.md#deregister) - Deregister registration
+* [get_oss_countries_for_registration_v1_registrations_registration_id_oss_countries_get](docs/sdks/registrations/README.md#get_oss_countries_for_registration_v1_registrations_registration_id_oss_countries_get) - Get oss countries for registration
 
 ### [TaxEstimation](docs/sdks/taxestimation/README.md)
 
-* [estimate](docs/sdks/taxestimation/README.md#estimate) - Estimate Tax
+* [estimate](docs/sdks/taxestimation/README.md#estimate) - Estimate tax
 
 ### [Transactions](docs/sdks/transactions/README.md)
 
-* [list](docs/sdks/transactions/README.md#list) - Get Transactions
-* [create](docs/sdks/transactions/README.md#create) - Create Transaction
-* [get_by_external_id](docs/sdks/transactions/README.md#get_by_external_id) - Get Transaction By External Id
-* [update](docs/sdks/transactions/README.md#update) - Update Transaction
-* [get_by_id](docs/sdks/transactions/README.md#get_by_id) - Get Transaction By Id
-* [get_by_filing_id](docs/sdks/transactions/README.md#get_by_filing_id) - Get Transactions By Filing Id
-* [create_credit_note](docs/sdks/transactions/README.md#create_credit_note) - Create Credit Note By Transaction Id
-* [update_credit_note](docs/sdks/transactions/README.md#update_credit_note) - Update Credit Note By Transaction Id
+* [list](docs/sdks/transactions/README.md#list) - Get transactions
+* [create](docs/sdks/transactions/README.md#create) - Create transaction
+* [archive_transaction_by_id_v1_transactions_archive_post](docs/sdks/transactions/README.md#archive_transaction_by_id_v1_transactions_archive_post) - Archive transaction by id
+* [get_by_external_id](docs/sdks/transactions/README.md#get_by_external_id) - Get transaction by external id
+* [get_by_filing_id](docs/sdks/transactions/README.md#get_by_filing_id) - Get transactions by filing id
+* [create_credit_note](docs/sdks/transactions/README.md#create_credit_note) - Create credit note by transaction id
+* [update_credit_note](docs/sdks/transactions/README.md#update_credit_note) - Update credit note by transaction id
+* [get_by_id](docs/sdks/transactions/README.md#get_by_id) - Get transaction by id
+* [update](docs/sdks/transactions/README.md#update) - Update transaction
+* [set_transaction_tax_only_v1_transactions_transaction_id_tax_only_post](docs/sdks/transactions/README.md#set_transaction_tax_only_v1_transactions_transaction_id_tax_only_post) - Set transaction tax only
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
-
-<!-- Start File uploads [file-upload] -->
-## File uploads
-
-Certain SDK methods accept file objects as part of a request body or multi-part request. It is possible and typically recommended to upload files as a stream rather than reading the entire contents into memory. This avoids excessive memory consumption and potentially crashing with out-of-memory errors when working with very large files. The following example demonstrates how to attach a file stream to a request.
-
-> [!TIP]
->
-> For endpoints that handle file uploads bytes arrays can also be used. However, using streams is recommended for large files.
->
-
-```python
-from kintsugi_tax_platform_sdk import SDK, models
-
-
-with SDK(
-    security=models.Security(
-        api_key_header="<YOUR_API_KEY_HERE>",
-        custom_header="<YOUR_API_KEY_HERE>",
-    ),
-) as sdk:
-
-    res = sdk.exemptions.upload_certificate(exemption_id="<id>", file={
-        "file_name": "example.file",
-        "content": open("example.file", "rb"),
-    })
-
-    # Handle response
-    print(res)
-
-```
-<!-- End File uploads [file-upload] -->
 
 <!-- Start Retries [retries] -->
 ## Retries
@@ -327,11 +285,11 @@ from kintsugi_tax_platform_sdk import SDK, models
 from kintsugi_tax_platform_sdk.utils import BackoffStrategy, RetryConfig
 
 
-with SDK() as sdk:
+with SDK(
+    api_key_header="<YOUR_API_KEY_HERE>",
+) as sdk:
 
-    res = sdk.address_validation.search(security=models.SearchV1AddressValidationSearchPostSecurity(
-        api_key_header="<YOUR_API_KEY_HERE>",
-    ), phone="555-123-4567", street_1="1600 Amphitheatre Parkway", street_2="Building 40", city="Mountain View", county="Santa Clara", state="CA", postal_code="94043", country=models.CountryCodeEnum.US, full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043",
+    res = sdk.address_validation.search(phone="555-123-4567", street_1="1600 Amphitheatre Parkway", street_2="Building 40", city="Mountain View", county="Santa Clara", state="CA", postal_code="94043", country=models.CountryCodeEnum.US, full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043",
         RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
 
     # Handle response
@@ -347,11 +305,10 @@ from kintsugi_tax_platform_sdk.utils import BackoffStrategy, RetryConfig
 
 with SDK(
     retry_config=RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False),
+    api_key_header="<YOUR_API_KEY_HERE>",
 ) as sdk:
 
-    res = sdk.address_validation.search(security=models.SearchV1AddressValidationSearchPostSecurity(
-        api_key_header="<YOUR_API_KEY_HERE>",
-    ), phone="555-123-4567", street_1="1600 Amphitheatre Parkway", street_2="Building 40", city="Mountain View", county="Santa Clara", state="CA", postal_code="94043", country=models.CountryCodeEnum.US, full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043")
+    res = sdk.address_validation.search(phone="555-123-4567", street_1="1600 Amphitheatre Parkway", street_2="Building 40", city="Mountain View", county="Santa Clara", state="CA", postal_code="94043", country=models.CountryCodeEnum.US, full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043")
 
     # Handle response
     print(res)
@@ -378,13 +335,13 @@ with SDK(
 from kintsugi_tax_platform_sdk import SDK, errors, models
 
 
-with SDK() as sdk:
+with SDK(
+    api_key_header="<YOUR_API_KEY_HERE>",
+) as sdk:
     res = None
     try:
 
-        res = sdk.address_validation.search(security=models.SearchV1AddressValidationSearchPostSecurity(
-            api_key_header="<YOUR_API_KEY_HERE>",
-        ), phone="555-123-4567", street_1="1600 Amphitheatre Parkway", street_2="Building 40", city="Mountain View", county="Santa Clara", state="CA", postal_code="94043", country=models.CountryCodeEnum.US, full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043")
+        res = sdk.address_validation.search(phone="555-123-4567", street_1="1600 Amphitheatre Parkway", street_2="Building 40", city="Mountain View", county="Santa Clara", state="CA", postal_code="94043", country=models.CountryCodeEnum.US, full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043")
 
         # Handle response
         print(res)
@@ -404,11 +361,10 @@ with SDK() as sdk:
 ```
 
 ### Error Classes
-**Primary errors:**
+**Primary error:**
 * [`SDKError`](./src/kintsugi_tax_platform_sdk/errors/sdkerror.py): The base class for HTTP error responses.
-  * [`ErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/errorresponse.py): *
 
-<details><summary>Less common errors (15)</summary>
+<details><summary>Less common errors (16)</summary>
 
 <br />
 
@@ -419,16 +375,17 @@ with SDK() as sdk:
 
 
 **Inherit from [`SDKError`](./src/kintsugi_tax_platform_sdk/errors/sdkerror.py)**:
-* [`HTTPValidationError`](./src/kintsugi_tax_platform_sdk/errors/httpvalidationerror.py): Validation Error. Status code `422`. Applicable to 8 of 41 methods.*
-* [`BackendSrcExemptionsResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcexemptionsresponsesvalidationerrorresponse.py): Validation issues, such as missing required fields or invalid field values. Status code `422`. Applicable to 5 of 41 methods.*
-* [`BackendSrcProductsResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcproductsresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 5 of 41 methods.*
-* [`BackendSrcRegistrationsResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcregistrationsresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 5 of 41 methods.*
-* [`BackendSrcTransactionsResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrctransactionsresponsesvalidationerrorresponse.py): Status code `422`. Applicable to 5 of 41 methods.*
-* [`BackendSrcNexusResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcnexusresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 4 of 41 methods.*
-* [`BackendSrcCustomersResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrccustomersresponsesvalidationerrorresponse.py): Query parameters failed validation, such as an out-of-range page number. Status code `422`. Applicable to 3 of 41 methods.*
-* [`BackendSrcFilingsResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcfilingsresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 3 of 41 methods.*
-* [`BackendSrcAddressValidationResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcaddressvalidationresponsesvalidationerrorresponse.py): Validation error - Address fields failed validation or are incomplete. Status code `422`. Applicable to 2 of 41 methods.*
-* [`BackendSrcTaxEstimationResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrctaxestimationresponsesvalidationerrorresponse.py): Validation Error. Status code `422`. Applicable to 1 of 41 methods.*
+* [`ErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/errorresponse.py): Applicable to 33 of 51 methods.*
+* [`HTTPValidationError`](./src/kintsugi_tax_platform_sdk/errors/httpvalidationerror.py): Validation Error. Status code `422`. Applicable to 18 of 51 methods.*
+* [`BackendSrcExemptionsResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcexemptionsresponsesvalidationerrorresponse.py): Validation issues, such as missing required fields or invalid field values. Status code `422`. Applicable to 5 of 51 methods.*
+* [`BackendSrcProductsSchemasResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcproductsschemasresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 5 of 51 methods.*
+* [`BackendSrcRegistrationsResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcregistrationsresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 5 of 51 methods.*
+* [`BackendSrcTransactionsResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrctransactionsresponsesvalidationerrorresponse.py): Status code `422`. Applicable to 5 of 51 methods.*
+* [`BackendSrcNexusResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcnexusresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 4 of 51 methods.*
+* [`BackendSrcCustomersResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrccustomersresponsesvalidationerrorresponse.py): Query parameters failed validation, such as an out-of-range page number. Status code `422`. Applicable to 3 of 51 methods.*
+* [`BackendSrcFilingsResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcfilingsresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 3 of 51 methods.*
+* [`BackendSrcAddressValidationResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrcaddressvalidationresponsesvalidationerrorresponse.py): Validation error - Address fields failed validation or are incomplete. Status code `422`. Applicable to 2 of 51 methods.*
+* [`BackendSrcTaxEstimationResponsesValidationErrorResponse`](./src/kintsugi_tax_platform_sdk/errors/backendsrctaxestimationresponsesvalidationerrorresponse.py): Validation Error. Status code `422`. Applicable to 1 of 51 methods.*
 * [`ResponseValidationError`](./src/kintsugi_tax_platform_sdk/errors/responsevalidationerror.py): Type mismatch between the response data and the expected Pydantic model. Provides access to the Pydantic validation error via the `cause` attribute.
 
 </details>
@@ -448,11 +405,10 @@ from kintsugi_tax_platform_sdk import SDK, models
 
 with SDK(
     server_url="https://api.trykintsugi.com",
+    api_key_header="<YOUR_API_KEY_HERE>",
 ) as sdk:
 
-    res = sdk.address_validation.search(security=models.SearchV1AddressValidationSearchPostSecurity(
-        api_key_header="<YOUR_API_KEY_HERE>",
-    ), phone="555-123-4567", street_1="1600 Amphitheatre Parkway", street_2="Building 40", city="Mountain View", county="Santa Clara", state="CA", postal_code="94043", country=models.CountryCodeEnum.US, full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043")
+    res = sdk.address_validation.search(phone="555-123-4567", street_1="1600 Amphitheatre Parkway", street_2="Building 40", city="Mountain View", county="Santa Clara", state="CA", postal_code="94043", country=models.CountryCodeEnum.US, full_address="1600 Amphitheatre Parkway, Mountain View, CA 94043")
 
     # Handle response
     print(res)
@@ -539,6 +495,20 @@ class CustomClient(AsyncHttpClient):
 
 s = SDK(async_client=CustomClient(httpx.AsyncClient()))
 ```
+### httpx2 (Pydantic's httpx fork)
+
+[httpx2](https://httpx2.pydantic.dev/) is Pydantic's maintained fork of `httpx`. To run this SDK on httpx2, call `alias_httpx()` at your program's entry point, before importing the SDK, so every `import httpx` — including the ones inside the SDK — resolves to `httpx2`:
+```python
+import httpx2
+
+httpx2.alias_httpx()
+
+from kintsugi_tax_platform_sdk import SDK
+
+s = SDK()
+```
+
+An SDK can also be generated against httpx2 directly, so it depends on the fork instead of `httpx`, by setting `python.httpClientLibrary: httpx2` in `gen.yaml`.
 <!-- End Custom HTTP Client [http-client] -->
 
 <!-- Start Resource Management [resource-management] -->
@@ -552,14 +522,18 @@ The `SDK` class implements the context manager protocol and registers a finalize
 from kintsugi_tax_platform_sdk import SDK
 def main():
 
-    with SDK() as sdk:
+    with SDK(
+        api_key_header="<YOUR_API_KEY_HERE>",
+    ) as sdk:
         # Rest of application here...
 
 
 # Or when using async:
 async def amain():
 
-    async with SDK() as sdk:
+    async with SDK(
+        api_key_header="<YOUR_API_KEY_HERE>",
+    ) as sdk:
         # Rest of application here...
 ```
 <!-- End Resource Management [resource-management] -->
