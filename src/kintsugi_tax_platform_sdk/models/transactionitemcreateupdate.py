@@ -6,71 +6,254 @@ from .discountbuilder import DiscountBuilder, DiscountBuilderTypedDict
 from .taxexemptionenum import TaxExemptionEnum
 from .taxitembuilder import TaxItemBuilder, TaxItemBuilderTypedDict
 from datetime import datetime
-from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from kintsugi_tax_platform_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 import pydantic
 from pydantic import model_serializer
-from typing import List, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing import List, Optional, Union
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
+
+
+TransactionItemCreateUpdateQuantityTypedDict = TypeAliasType(
+    "TransactionItemCreateUpdateQuantityTypedDict", Union[float, str]
+)
+r"""Quantity of item."""
+
+
+TransactionItemCreateUpdateQuantity = TypeAliasType(
+    "TransactionItemCreateUpdateQuantity", Union[float, str]
+)
+r"""Quantity of item."""
+
+
+TransactionItemCreateUpdateAmountTypedDict = TypeAliasType(
+    "TransactionItemCreateUpdateAmountTypedDict", Union[float, str]
+)
+r"""Item amount."""
+
+
+TransactionItemCreateUpdateAmount = TypeAliasType(
+    "TransactionItemCreateUpdateAmount", Union[float, str]
+)
+r"""Item amount."""
+
+
+TransactionItemCreateUpdateTaxAmountImportedTypedDict = TypeAliasType(
+    "TransactionItemCreateUpdateTaxAmountImportedTypedDict", Union[float, str]
+)
+r"""Imported tax amount for the item."""
+
+
+TransactionItemCreateUpdateTaxAmountImported = TypeAliasType(
+    "TransactionItemCreateUpdateTaxAmountImported", Union[float, str]
+)
+r"""Imported tax amount for the item."""
+
+
+TransactionItemCreateUpdateTaxRateImportedTypedDict = TypeAliasType(
+    "TransactionItemCreateUpdateTaxRateImportedTypedDict", Union[float, str]
+)
+r"""Imported tax rate."""
+
+
+TransactionItemCreateUpdateTaxRateImported = TypeAliasType(
+    "TransactionItemCreateUpdateTaxRateImported", Union[float, str]
+)
+r"""Imported tax rate."""
+
+
+TransactionItemCreateUpdateTaxAmountCalculatedTypedDict = TypeAliasType(
+    "TransactionItemCreateUpdateTaxAmountCalculatedTypedDict", Union[float, str]
+)
+r"""Calculated tax amount for the item."""
+
+
+TransactionItemCreateUpdateTaxAmountCalculated = TypeAliasType(
+    "TransactionItemCreateUpdateTaxAmountCalculated", Union[float, str]
+)
+r"""Calculated tax amount for the item."""
+
+
+TransactionItemCreateUpdateTaxRateCalculatedTypedDict = TypeAliasType(
+    "TransactionItemCreateUpdateTaxRateCalculatedTypedDict", Union[float, str]
+)
+r"""Calculated tax rate."""
+
+
+TransactionItemCreateUpdateTaxRateCalculated = TypeAliasType(
+    "TransactionItemCreateUpdateTaxRateCalculated", Union[float, str]
+)
+r"""Calculated tax rate."""
+
+
+TransactionItemCreateUpdateConvertedAmountTypedDict = TypeAliasType(
+    "TransactionItemCreateUpdateConvertedAmountTypedDict", Union[float, str]
+)
+r"""Converted item amount."""
+
+
+TransactionItemCreateUpdateConvertedAmount = TypeAliasType(
+    "TransactionItemCreateUpdateConvertedAmount", Union[float, str]
+)
+r"""Converted item amount."""
+
+
+TransactionItemCreateUpdateConvertedTaxableAmountTypedDict = TypeAliasType(
+    "TransactionItemCreateUpdateConvertedTaxableAmountTypedDict", Union[float, str]
+)
+r"""Converted taxable amount."""
+
+
+TransactionItemCreateUpdateConvertedTaxableAmount = TypeAliasType(
+    "TransactionItemCreateUpdateConvertedTaxableAmount", Union[float, str]
+)
+r"""Converted taxable amount."""
+
+
+TransactionItemCreateUpdateConvertedTaxAmountImportedTypedDict = TypeAliasType(
+    "TransactionItemCreateUpdateConvertedTaxAmountImportedTypedDict", Union[float, str]
+)
+r"""Converted imported tax amount."""
+
+
+TransactionItemCreateUpdateConvertedTaxAmountImported = TypeAliasType(
+    "TransactionItemCreateUpdateConvertedTaxAmountImported", Union[float, str]
+)
+r"""Converted imported tax amount."""
+
+
+TransactionItemCreateUpdateConvertedTaxAmountCalculatedTypedDict = TypeAliasType(
+    "TransactionItemCreateUpdateConvertedTaxAmountCalculatedTypedDict",
+    Union[float, str],
+)
+r"""Converted calculated tax amount"""
+
+
+TransactionItemCreateUpdateConvertedTaxAmountCalculated = TypeAliasType(
+    "TransactionItemCreateUpdateConvertedTaxAmountCalculated", Union[float, str]
+)
+r"""Converted calculated tax amount"""
+
+
+TransactionItemCreateUpdateConvertedTotalDiscountTypedDict = TypeAliasType(
+    "TransactionItemCreateUpdateConvertedTotalDiscountTypedDict", Union[float, str]
+)
+r"""Converted total discount amount."""
+
+
+TransactionItemCreateUpdateConvertedTotalDiscount = TypeAliasType(
+    "TransactionItemCreateUpdateConvertedTotalDiscount", Union[float, str]
+)
+r"""Converted total discount amount."""
+
+
+TransactionItemCreateUpdateConvertedSubtotalTypedDict = TypeAliasType(
+    "TransactionItemCreateUpdateConvertedSubtotalTypedDict", Union[float, str]
+)
+r"""Converted subtotal amount."""
+
+
+TransactionItemCreateUpdateConvertedSubtotal = TypeAliasType(
+    "TransactionItemCreateUpdateConvertedSubtotal", Union[float, str]
+)
+r"""Converted subtotal amount."""
+
+
+TransactionItemCreateUpdateTaxableAmountTypedDict = TypeAliasType(
+    "TransactionItemCreateUpdateTaxableAmountTypedDict", Union[float, str]
+)
+r"""Taxable amount for the item."""
+
+
+TransactionItemCreateUpdateTaxableAmount = TypeAliasType(
+    "TransactionItemCreateUpdateTaxableAmount", Union[float, str]
+)
+r"""Taxable amount for the item."""
 
 
 class TransactionItemCreateUpdateTypedDict(TypedDict):
-    organization_id: str
+    organization_id: Nullable[str]
     r"""Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header."""
     date_: datetime
     r"""Date/time of item."""
     external_product_id: str
     r"""External product identifier."""
-    external_id: NotRequired[str]
+    external_id: NotRequired[Nullable[str]]
     r"""External item identifier."""
-    description: NotRequired[str]
+    description: NotRequired[Nullable[str]]
     r"""Item description"""
-    product: NotRequired[str]
+    product: NotRequired[Nullable[str]]
     r"""Product name"""
-    product_id: NotRequired[str]
+    product_id: NotRequired[Nullable[str]]
     r"""Product identifier."""
-    product_name: NotRequired[str]
+    product_name: NotRequired[Nullable[str]]
     r"""Product name (detailed)"""
-    product_description: NotRequired[str]
+    product_description: NotRequired[Nullable[str]]
     r"""Product description"""
-    quantity: NotRequired[float]
+    quantity: NotRequired[TransactionItemCreateUpdateQuantityTypedDict]
     r"""Quantity of item."""
-    amount: NotRequired[float]
+    amount: NotRequired[TransactionItemCreateUpdateAmountTypedDict]
     r"""Item amount."""
-    tax_amount_imported: NotRequired[float]
+    tax_amount_imported: NotRequired[
+        TransactionItemCreateUpdateTaxAmountImportedTypedDict
+    ]
     r"""Imported tax amount for the item."""
-    tax_rate_imported: NotRequired[float]
+    tax_rate_imported: NotRequired[TransactionItemCreateUpdateTaxRateImportedTypedDict]
     r"""Imported tax rate."""
-    tax_amount_calculated: NotRequired[float]
+    tax_amount_calculated: NotRequired[
+        TransactionItemCreateUpdateTaxAmountCalculatedTypedDict
+    ]
     r"""Calculated tax amount for the item."""
-    tax_rate_calculated: NotRequired[float]
+    tax_rate_calculated: NotRequired[
+        TransactionItemCreateUpdateTaxRateCalculatedTypedDict
+    ]
     r"""Calculated tax rate."""
-    original_currency: NotRequired[CurrencyEnum]
-    destination_currency: NotRequired[CurrencyEnum]
-    converted_amount: NotRequired[float]
+    original_currency: NotRequired[Nullable[CurrencyEnum]]
+    r"""Original currency code."""
+    destination_currency: NotRequired[Nullable[CurrencyEnum]]
+    r"""Destination currency code."""
+    converted_amount: NotRequired[
+        Nullable[TransactionItemCreateUpdateConvertedAmountTypedDict]
+    ]
     r"""Converted item amount."""
-    converted_taxable_amount: NotRequired[float]
+    converted_taxable_amount: NotRequired[
+        Nullable[TransactionItemCreateUpdateConvertedTaxableAmountTypedDict]
+    ]
     r"""Converted taxable amount."""
-    converted_tax_amount_imported: NotRequired[float]
+    converted_tax_amount_imported: NotRequired[
+        Nullable[TransactionItemCreateUpdateConvertedTaxAmountImportedTypedDict]
+    ]
     r"""Converted imported tax amount."""
-    converted_tax_amount_calculated: NotRequired[float]
+    converted_tax_amount_calculated: NotRequired[
+        Nullable[TransactionItemCreateUpdateConvertedTaxAmountCalculatedTypedDict]
+    ]
     r"""Converted calculated tax amount"""
-    converted_total_discount: NotRequired[float]
+    converted_total_discount: NotRequired[
+        Nullable[TransactionItemCreateUpdateConvertedTotalDiscountTypedDict]
+    ]
     r"""Converted total discount amount."""
-    converted_subtotal: NotRequired[float]
+    converted_subtotal: NotRequired[
+        Nullable[TransactionItemCreateUpdateConvertedSubtotalTypedDict]
+    ]
     r"""Converted subtotal amount."""
-    taxable_amount: NotRequired[float]
+    taxable_amount: NotRequired[TransactionItemCreateUpdateTaxableAmountTypedDict]
     r"""Taxable amount for the item."""
-    tax_exemption: NotRequired[TaxExemptionEnum]
-    r"""This enum is used to determine if a transaction is exempt from tax."""
+    tax_exemption: NotRequired[Nullable[TaxExemptionEnum]]
+    r"""Tax exemption status."""
     exempt: NotRequired[bool]
     r"""Indicates if the item is exempt."""
     tax_items: NotRequired[List[TaxItemBuilderTypedDict]]
-    discount_builder: NotRequired[DiscountBuilderTypedDict]
+    discount_builder: NotRequired[Nullable[DiscountBuilderTypedDict]]
 
 
 class TransactionItemCreateUpdate(BaseModel):
     organization_id: Annotated[
-        str,
+        Nullable[str],
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
@@ -83,76 +266,92 @@ class TransactionItemCreateUpdate(BaseModel):
     external_product_id: str
     r"""External product identifier."""
 
-    external_id: Optional[str] = None
+    external_id: OptionalNullable[str] = UNSET
     r"""External item identifier."""
 
-    description: Optional[str] = None
+    description: OptionalNullable[str] = UNSET
     r"""Item description"""
 
-    product: Optional[str] = None
+    product: OptionalNullable[str] = UNSET
     r"""Product name"""
 
-    product_id: Optional[str] = None
+    product_id: OptionalNullable[str] = UNSET
     r"""Product identifier."""
 
-    product_name: Optional[str] = None
+    product_name: OptionalNullable[str] = UNSET
     r"""Product name (detailed)"""
 
-    product_description: Optional[str] = None
+    product_description: OptionalNullable[str] = UNSET
     r"""Product description"""
 
-    quantity: Optional[float] = 1
+    quantity: Optional[TransactionItemCreateUpdateQuantity] = None
     r"""Quantity of item."""
 
-    amount: Optional[float] = 0
+    amount: Optional[TransactionItemCreateUpdateAmount] = None
     r"""Item amount."""
 
-    tax_amount_imported: Optional[float] = 0
+    tax_amount_imported: Optional[TransactionItemCreateUpdateTaxAmountImported] = None
     r"""Imported tax amount for the item."""
 
-    tax_rate_imported: Optional[float] = 0
+    tax_rate_imported: Optional[TransactionItemCreateUpdateTaxRateImported] = None
     r"""Imported tax rate."""
 
-    tax_amount_calculated: Optional[float] = 0
+    tax_amount_calculated: Optional[TransactionItemCreateUpdateTaxAmountCalculated] = (
+        None
+    )
     r"""Calculated tax amount for the item."""
 
-    tax_rate_calculated: Optional[float] = 0
+    tax_rate_calculated: Optional[TransactionItemCreateUpdateTaxRateCalculated] = None
     r"""Calculated tax rate."""
 
-    original_currency: Optional[CurrencyEnum] = None
+    original_currency: OptionalNullable[CurrencyEnum] = UNSET
+    r"""Original currency code."""
 
-    destination_currency: Optional[CurrencyEnum] = None
+    destination_currency: OptionalNullable[CurrencyEnum] = UNSET
+    r"""Destination currency code."""
 
-    converted_amount: Optional[float] = None
+    converted_amount: OptionalNullable[TransactionItemCreateUpdateConvertedAmount] = (
+        UNSET
+    )
     r"""Converted item amount."""
 
-    converted_taxable_amount: Optional[float] = None
+    converted_taxable_amount: OptionalNullable[
+        TransactionItemCreateUpdateConvertedTaxableAmount
+    ] = UNSET
     r"""Converted taxable amount."""
 
-    converted_tax_amount_imported: Optional[float] = None
+    converted_tax_amount_imported: OptionalNullable[
+        TransactionItemCreateUpdateConvertedTaxAmountImported
+    ] = UNSET
     r"""Converted imported tax amount."""
 
-    converted_tax_amount_calculated: Optional[float] = None
+    converted_tax_amount_calculated: OptionalNullable[
+        TransactionItemCreateUpdateConvertedTaxAmountCalculated
+    ] = UNSET
     r"""Converted calculated tax amount"""
 
-    converted_total_discount: Optional[float] = None
+    converted_total_discount: OptionalNullable[
+        TransactionItemCreateUpdateConvertedTotalDiscount
+    ] = UNSET
     r"""Converted total discount amount."""
 
-    converted_subtotal: Optional[float] = None
+    converted_subtotal: OptionalNullable[
+        TransactionItemCreateUpdateConvertedSubtotal
+    ] = UNSET
     r"""Converted subtotal amount."""
 
-    taxable_amount: Optional[float] = 0
+    taxable_amount: Optional[TransactionItemCreateUpdateTaxableAmount] = None
     r"""Taxable amount for the item."""
 
-    tax_exemption: Optional[TaxExemptionEnum] = None
-    r"""This enum is used to determine if a transaction is exempt from tax."""
+    tax_exemption: OptionalNullable[TaxExemptionEnum] = UNSET
+    r"""Tax exemption status."""
 
     exempt: Optional[bool] = False
     r"""Indicates if the item is exempt."""
 
     tax_items: Optional[List[TaxItemBuilder]] = None
 
-    discount_builder: Optional[DiscountBuilder] = None
+    discount_builder: OptionalNullable[DiscountBuilder] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -185,15 +384,44 @@ class TransactionItemCreateUpdate(BaseModel):
                 "discount_builder",
             ]
         )
+        nullable_fields = set(
+            [
+                "external_id",
+                "organization_id",
+                "description",
+                "product",
+                "product_id",
+                "product_name",
+                "product_description",
+                "original_currency",
+                "destination_currency",
+                "converted_amount",
+                "converted_taxable_amount",
+                "converted_tax_amount_imported",
+                "converted_tax_amount_calculated",
+                "converted_total_discount",
+                "converted_subtotal",
+                "tax_exemption",
+                "discount_builder",
+            ]
+        )
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

@@ -2,13 +2,15 @@
 
 from __future__ import annotations
 from .transactioncreate import TransactionCreate, TransactionCreateTypedDict
-from kintsugi_tax_platform_sdk.types import BaseModel
+from kintsugi_tax_platform_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
 from kintsugi_tax_platform_sdk.utils import (
     FieldMetadata,
+    HeaderMetadata,
     PathParamMetadata,
     RequestMetadata,
 )
 import pydantic
+from pydantic import model_serializer
 from typing_extensions import Annotated, TypedDict
 
 
@@ -16,6 +18,8 @@ class CreateTransactionByCustomerIDV1CustomersCustomerIDTransactionsPostRequestT
     TypedDict
 ):
     customer_id_param: str
+    x_organization_id: Nullable[str]
+    r"""The unique identifier for the organization making the request"""
     transaction_create: TransactionCreateTypedDict
 
 
@@ -28,7 +32,28 @@ class CreateTransactionByCustomerIDV1CustomersCustomerIDTransactionsPostRequest(
         FieldMetadata(path=PathParamMetadata(style="simple", explode=False)),
     ]
 
+    x_organization_id: Annotated[
+        Nullable[str],
+        pydantic.Field(alias="x-organization-id"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ]
+    r"""The unique identifier for the organization making the request"""
+
     transaction_create: Annotated[
         TransactionCreate,
         FieldMetadata(request=RequestMetadata(media_type="application/json")),
     ]
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                m[k] = val
+
+        return m
