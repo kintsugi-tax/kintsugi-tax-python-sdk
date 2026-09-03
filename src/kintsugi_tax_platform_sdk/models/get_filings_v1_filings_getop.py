@@ -2,31 +2,62 @@
 
 from __future__ import annotations
 from .countrycodeenum import CountryCodeEnum
-from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
-from kintsugi_tax_platform_sdk.utils import FieldMetadata, QueryParamMetadata
+from datetime import date
+from kintsugi_tax_platform_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
+from kintsugi_tax_platform_sdk.utils import (
+    FieldMetadata,
+    HeaderMetadata,
+    QueryParamMetadata,
+)
 import pydantic
 from pydantic import model_serializer
-from typing import List, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing import List, Optional, Union
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
+
+
+GetFilingsV1FilingsGetCountryCodeTypedDict = TypeAliasType(
+    "GetFilingsV1FilingsGetCountryCodeTypedDict", Union[CountryCodeEnum, str]
+)
+
+
+GetFilingsV1FilingsGetCountryCode = TypeAliasType(
+    "GetFilingsV1FilingsGetCountryCode", Union[CountryCodeEnum, str]
+)
 
 
 class GetFilingsV1FilingsGetRequestTypedDict(TypedDict):
-    status_in: NotRequired[str]
+    x_organization_id: Nullable[str]
+    r"""The unique identifier for the organization making the request"""
+    status_in: NotRequired[Nullable[str]]
     r"""Filter filings by status"""
-    start_date: NotRequired[str]
+    start_date: NotRequired[Nullable[date]]
     r"""Filter filings with a start date greater than or equal to this date."""
-    end_date: NotRequired[str]
+    end_date: NotRequired[Nullable[date]]
     r"""Filter filings with an end date less than or equal to this date."""
-    date_filed_gte: NotRequired[str]
+    date_filed_gte: NotRequired[Nullable[date]]
     r"""Filter filings filed on or after this date."""
-    date_filed_lte: NotRequired[str]
+    date_filed_lte: NotRequired[Nullable[date]]
     r"""Filter filings filed on or before this date."""
-    order_by: NotRequired[str]
+    order_by: NotRequired[Nullable[str]]
     r"""Comma-separated list of fields to sort the results."""
-    state_code: NotRequired[str]
+    state_code: NotRequired[Nullable[str]]
     r"""Filter filings by state code (e.g., CA for California)."""
-    country_code: NotRequired[List[CountryCodeEnum]]
+    country_code: NotRequired[
+        Nullable[List[GetFilingsV1FilingsGetCountryCodeTypedDict]]
+    ]
     r"""Filter filings by country code in ISO 3166-1 alpha-2 format (e.g., US)."""
+    filing_category_in: NotRequired[Nullable[str]]
+    r"""Filter filings by category (e.g., REGULAR, BACK_FILING, AMENDMENT)."""
+    tax_type_in: NotRequired[Nullable[str]]
+    r"""Filter filings by tax type. Multiple tax types can be
+    passed, separated by commas (SALES_TAX, USE_TAX, SALES_AND_USE_TAX).
+    """
     page: NotRequired[int]
     r"""Page number"""
     size: NotRequired[int]
@@ -34,56 +65,79 @@ class GetFilingsV1FilingsGetRequestTypedDict(TypedDict):
 
 
 class GetFilingsV1FilingsGetRequest(BaseModel):
+    x_organization_id: Annotated[
+        Nullable[str],
+        pydantic.Field(alias="x-organization-id"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ]
+    r"""The unique identifier for the organization making the request"""
+
     status_in: Annotated[
-        Optional[str],
+        OptionalNullable[str],
         pydantic.Field(alias="status__in"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = "FILED,FILING,UNFILED,PAUSED"
+    ] = UNSET
     r"""Filter filings by status"""
 
     start_date: Annotated[
-        Optional[str],
+        OptionalNullable[date],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = UNSET
     r"""Filter filings with a start date greater than or equal to this date."""
 
     end_date: Annotated[
-        Optional[str],
+        OptionalNullable[date],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = UNSET
     r"""Filter filings with an end date less than or equal to this date."""
 
     date_filed_gte: Annotated[
-        Optional[str],
+        OptionalNullable[date],
         pydantic.Field(alias="date_filed__gte"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = UNSET
     r"""Filter filings filed on or after this date."""
 
     date_filed_lte: Annotated[
-        Optional[str],
+        OptionalNullable[date],
         pydantic.Field(alias="date_filed__lte"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = UNSET
     r"""Filter filings filed on or before this date."""
 
     order_by: Annotated[
-        Optional[str],
+        OptionalNullable[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = UNSET
     r"""Comma-separated list of fields to sort the results."""
 
     state_code: Annotated[
-        Optional[str],
+        OptionalNullable[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = UNSET
     r"""Filter filings by state code (e.g., CA for California)."""
 
     country_code: Annotated[
-        Optional[List[CountryCodeEnum]],
+        OptionalNullable[List[GetFilingsV1FilingsGetCountryCode]],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = UNSET
     r"""Filter filings by country code in ISO 3166-1 alpha-2 format (e.g., US)."""
+
+    filing_category_in: Annotated[
+        OptionalNullable[str],
+        pydantic.Field(alias="filing_category__in"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = UNSET
+    r"""Filter filings by category (e.g., REGULAR, BACK_FILING, AMENDMENT)."""
+
+    tax_type_in: Annotated[
+        OptionalNullable[str],
+        pydantic.Field(alias="tax_type__in"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = UNSET
+    r"""Filter filings by tax type. Multiple tax types can be
+    passed, separated by commas (SALES_TAX, USE_TAX, SALES_AND_USE_TAX).
+    """
 
     page: Annotated[
         Optional[int],
@@ -109,8 +163,25 @@ class GetFilingsV1FilingsGetRequest(BaseModel):
                 "order_by",
                 "state_code",
                 "country_code",
+                "filing_category__in",
+                "tax_type__in",
                 "page",
                 "size",
+            ]
+        )
+        nullable_fields = set(
+            [
+                "status__in",
+                "start_date",
+                "end_date",
+                "date_filed__gte",
+                "date_filed__lte",
+                "order_by",
+                "state_code",
+                "country_code",
+                "filing_category__in",
+                "tax_type__in",
+                "x-organization-id",
             ]
         )
         serialized = handler(self)
@@ -119,9 +190,17 @@ class GetFilingsV1FilingsGetRequest(BaseModel):
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

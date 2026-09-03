@@ -3,30 +3,26 @@
 from .basesdk import BaseSDK
 from kintsugi_tax_platform_sdk import errors, models, utils
 from kintsugi_tax_platform_sdk._hooks import HookContext
-from kintsugi_tax_platform_sdk.types import OptionalNullable, UNSET
+from kintsugi_tax_platform_sdk.types import Nullable, OptionalNullable, UNSET
 from kintsugi_tax_platform_sdk.utils.unmarshal_json_response import (
     unmarshal_json_response,
 )
-from typing import Any, List, Mapping, Optional, Union
+from typing import Any, List, Mapping, Optional
 
 
 class AddressValidation(BaseSDK):
     def search(
         self,
         *,
-        security: Union[
-            models.SearchV1AddressValidationSearchPostSecurity,
-            models.SearchV1AddressValidationSearchPostSecurityTypedDict,
-        ],
-        phone: Optional[str] = None,
-        street_1: Optional[str] = None,
-        street_2: Optional[str] = None,
-        city: Optional[str] = None,
-        county: Optional[str] = None,
-        state: Optional[str] = None,
-        postal_code: Optional[str] = None,
-        country: Optional[models.CountryCodeEnum] = None,
-        full_address: Optional[str] = None,
+        phone: OptionalNullable[str] = UNSET,
+        street_1: OptionalNullable[str] = UNSET,
+        street_2: OptionalNullable[str] = UNSET,
+        city: OptionalNullable[str] = UNSET,
+        county: OptionalNullable[str] = UNSET,
+        state: OptionalNullable[str] = UNSET,
+        postal_code: OptionalNullable[str] = UNSET,
+        country: OptionalNullable[models.CountryCodeEnum] = UNSET,
+        full_address: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -39,7 +35,6 @@ class AddressValidation(BaseSDK):
         and compliant with geographical and postal standards.
         The API also adds additional fields, such as county, when possible.
 
-        :param security:
         :param phone: Phone number associated with the address.
         :param street_1: Primary street address.
         :param street_2: Additional street address details, such as an apartment or suite number.
@@ -47,7 +42,7 @@ class AddressValidation(BaseSDK):
         :param county: County or district of the customer.
         :param state: State or province of the customer.
         :param postal_code: ZIP or Postal code of the customer.
-        :param country:
+        :param country: Country code in ISO 3166-1 alpha-2 format
         :param full_address: Complete address string of the customer, which can be used as an alternative to individual fields.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -88,9 +83,7 @@ class AddressValidation(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            security=utils.get_pydantic_model(
-                security, models.SearchV1AddressValidationSearchPostSecurity
-            ),
+            security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.AddressBase
             ),
@@ -112,7 +105,7 @@ class AddressValidation(BaseSDK):
                 base_url=base_url or "",
                 operation_id="search_v1_address_validation_search_post",
                 oauth2_scopes=None,
-                security_source=security,
+                security_source=self.sdk_configuration.security,
                 tags=["Address Validation"],
                 extensions=None,
             ),
@@ -150,19 +143,15 @@ class AddressValidation(BaseSDK):
     async def search_async(
         self,
         *,
-        security: Union[
-            models.SearchV1AddressValidationSearchPostSecurity,
-            models.SearchV1AddressValidationSearchPostSecurityTypedDict,
-        ],
-        phone: Optional[str] = None,
-        street_1: Optional[str] = None,
-        street_2: Optional[str] = None,
-        city: Optional[str] = None,
-        county: Optional[str] = None,
-        state: Optional[str] = None,
-        postal_code: Optional[str] = None,
-        country: Optional[models.CountryCodeEnum] = None,
-        full_address: Optional[str] = None,
+        phone: OptionalNullable[str] = UNSET,
+        street_1: OptionalNullable[str] = UNSET,
+        street_2: OptionalNullable[str] = UNSET,
+        city: OptionalNullable[str] = UNSET,
+        county: OptionalNullable[str] = UNSET,
+        state: OptionalNullable[str] = UNSET,
+        postal_code: OptionalNullable[str] = UNSET,
+        country: OptionalNullable[models.CountryCodeEnum] = UNSET,
+        full_address: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -175,7 +164,6 @@ class AddressValidation(BaseSDK):
         and compliant with geographical and postal standards.
         The API also adds additional fields, such as county, when possible.
 
-        :param security:
         :param phone: Phone number associated with the address.
         :param street_1: Primary street address.
         :param street_2: Additional street address details, such as an apartment or suite number.
@@ -183,7 +171,7 @@ class AddressValidation(BaseSDK):
         :param county: County or district of the customer.
         :param state: State or province of the customer.
         :param postal_code: ZIP or Postal code of the customer.
-        :param country:
+        :param country: Country code in ISO 3166-1 alpha-2 format
         :param full_address: Complete address string of the customer, which can be used as an alternative to individual fields.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -224,9 +212,7 @@ class AddressValidation(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            security=utils.get_pydantic_model(
-                security, models.SearchV1AddressValidationSearchPostSecurity
-            ),
+            security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.AddressBase
             ),
@@ -248,7 +234,7 @@ class AddressValidation(BaseSDK):
                 base_url=base_url or "",
                 operation_id="search_v1_address_validation_search_post",
                 oauth2_scopes=None,
-                security_source=security,
+                security_source=self.sdk_configuration.security,
                 tags=["Address Validation"],
                 extensions=None,
             ),
@@ -286,16 +272,17 @@ class AddressValidation(BaseSDK):
     def suggestions(
         self,
         *,
-        line1: Optional[str] = None,
-        line2: Optional[str] = None,
-        line3: Optional[str] = None,
-        city: Optional[str] = None,
-        state: Optional[str] = None,
-        country: Optional[str] = "US",
-        postal_code: Optional[str] = "",
-        id: Optional[int] = None,
-        county: Optional[str] = None,
-        full_address: Optional[str] = None,
+        x_organization_id: Nullable[str],
+        line1: OptionalNullable[str] = UNSET,
+        line2: OptionalNullable[str] = UNSET,
+        line3: OptionalNullable[str] = UNSET,
+        city: OptionalNullable[str] = UNSET,
+        state: OptionalNullable[str] = UNSET,
+        country: OptionalNullable[str] = UNSET,
+        postal_code: OptionalNullable[str] = UNSET,
+        id: OptionalNullable[int] = UNSET,
+        county: OptionalNullable[str] = UNSET,
+        full_address: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -309,6 +296,7 @@ class AddressValidation(BaseSDK):
         This improves accuracy, increases speed, reduces errors,
         and streamlines the data entry process.
 
+        :param x_organization_id: The unique identifier for the organization making the request
         :param line1: Primary address line, such as street name and number
         :param line2: Additional address details, such as an apartment or suite number
         :param line3: Additional address details for complex addresses
@@ -338,17 +326,20 @@ class AddressValidation(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ValidationAddress(
-            line1=line1,
-            line2=line2,
-            line3=line3,
-            city=city,
-            state=state,
-            country=country,
-            postal_code=postal_code,
-            id=id,
-            county=county,
-            full_address=full_address,
+        request = models.SuggestionsV1AddressValidationSuggestionsPostRequest(
+            x_organization_id=x_organization_id,
+            validation_address=models.ValidationAddress(
+                line1=line1,
+                line2=line2,
+                line3=line3,
+                city=city,
+                state=state,
+                country=country,
+                postal_code=postal_code,
+                id=id,
+                county=county,
+                full_address=full_address,
+            ),
         )
 
         req = self._build_request(
@@ -365,7 +356,11 @@ class AddressValidation(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.ValidationAddress
+                request.validation_address,
+                False,
+                False,
+                "json",
+                models.ValidationAddress,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -423,16 +418,17 @@ class AddressValidation(BaseSDK):
     async def suggestions_async(
         self,
         *,
-        line1: Optional[str] = None,
-        line2: Optional[str] = None,
-        line3: Optional[str] = None,
-        city: Optional[str] = None,
-        state: Optional[str] = None,
-        country: Optional[str] = "US",
-        postal_code: Optional[str] = "",
-        id: Optional[int] = None,
-        county: Optional[str] = None,
-        full_address: Optional[str] = None,
+        x_organization_id: Nullable[str],
+        line1: OptionalNullable[str] = UNSET,
+        line2: OptionalNullable[str] = UNSET,
+        line3: OptionalNullable[str] = UNSET,
+        city: OptionalNullable[str] = UNSET,
+        state: OptionalNullable[str] = UNSET,
+        country: OptionalNullable[str] = UNSET,
+        postal_code: OptionalNullable[str] = UNSET,
+        id: OptionalNullable[int] = UNSET,
+        county: OptionalNullable[str] = UNSET,
+        full_address: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -446,6 +442,7 @@ class AddressValidation(BaseSDK):
         This improves accuracy, increases speed, reduces errors,
         and streamlines the data entry process.
 
+        :param x_organization_id: The unique identifier for the organization making the request
         :param line1: Primary address line, such as street name and number
         :param line2: Additional address details, such as an apartment or suite number
         :param line3: Additional address details for complex addresses
@@ -475,17 +472,20 @@ class AddressValidation(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ValidationAddress(
-            line1=line1,
-            line2=line2,
-            line3=line3,
-            city=city,
-            state=state,
-            country=country,
-            postal_code=postal_code,
-            id=id,
-            county=county,
-            full_address=full_address,
+        request = models.SuggestionsV1AddressValidationSuggestionsPostRequest(
+            x_organization_id=x_organization_id,
+            validation_address=models.ValidationAddress(
+                line1=line1,
+                line2=line2,
+                line3=line3,
+                city=city,
+                state=state,
+                country=country,
+                postal_code=postal_code,
+                id=id,
+                county=county,
+                full_address=full_address,
+            ),
         )
 
         req = self._build_request_async(
@@ -502,7 +502,11 @@ class AddressValidation(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.ValidationAddress
+                request.validation_address,
+                False,
+                False,
+                "json",
+                models.ValidationAddress,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
