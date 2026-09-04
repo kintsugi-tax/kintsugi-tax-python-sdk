@@ -3,69 +3,96 @@
 from __future__ import annotations
 from .addresstype import AddressType
 from .countrycodeenum import CountryCodeEnum
-from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from kintsugi_tax_platform_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
 
 class TransactionAddressPublicTypedDict(TypedDict):
-    r"""Public address class for transaction addresses"""
+    r"""API-facing transaction address without internal enrichment fields."""
 
     type: AddressType
-    phone: NotRequired[str]
+    phone: NotRequired[Nullable[str]]
     r"""Phone number associated with the address."""
-    street_1: NotRequired[str]
+    street_1: NotRequired[Nullable[str]]
     r"""Primary street address."""
-    street_2: NotRequired[str]
+    street_2: NotRequired[Nullable[str]]
     r"""Additional street address details, such as an apartment or suite number."""
-    city: NotRequired[str]
+    city: NotRequired[Nullable[str]]
     r"""City where the customer resides."""
-    county: NotRequired[str]
+    county: NotRequired[Nullable[str]]
     r"""County or district of the customer."""
-    state: NotRequired[str]
+    state: NotRequired[Nullable[str]]
     r"""State or province of the customer."""
-    postal_code: NotRequired[str]
+    postal_code: NotRequired[Nullable[str]]
     r"""ZIP or Postal code of the customer."""
-    country: NotRequired[CountryCodeEnum]
-    full_address: NotRequired[str]
+    country: NotRequired[Nullable[CountryCodeEnum]]
+    r"""Country code in ISO 3166-1 alpha-2 format"""
+    full_address: NotRequired[Nullable[str]]
     r"""Complete address string of the customer, which can be used as an alternative to individual fields."""
+    is_unincorporated: NotRequired[bool]
+    r"""If true, city-level tax rates are not applied for this address."""
 
 
 class TransactionAddressPublic(BaseModel):
-    r"""Public address class for transaction addresses"""
+    r"""API-facing transaction address without internal enrichment fields."""
 
     type: AddressType
 
-    phone: Optional[str] = None
+    phone: OptionalNullable[str] = UNSET
     r"""Phone number associated with the address."""
 
-    street_1: Optional[str] = None
+    street_1: OptionalNullable[str] = UNSET
     r"""Primary street address."""
 
-    street_2: Optional[str] = None
+    street_2: OptionalNullable[str] = UNSET
     r"""Additional street address details, such as an apartment or suite number."""
 
-    city: Optional[str] = None
+    city: OptionalNullable[str] = UNSET
     r"""City where the customer resides."""
 
-    county: Optional[str] = None
+    county: OptionalNullable[str] = UNSET
     r"""County or district of the customer."""
 
-    state: Optional[str] = None
+    state: OptionalNullable[str] = UNSET
     r"""State or province of the customer."""
 
-    postal_code: Optional[str] = None
+    postal_code: OptionalNullable[str] = UNSET
     r"""ZIP or Postal code of the customer."""
 
-    country: Optional[CountryCodeEnum] = None
+    country: OptionalNullable[CountryCodeEnum] = UNSET
+    r"""Country code in ISO 3166-1 alpha-2 format"""
 
-    full_address: Optional[str] = None
+    full_address: OptionalNullable[str] = UNSET
     r"""Complete address string of the customer, which can be used as an alternative to individual fields."""
+
+    is_unincorporated: Optional[bool] = False
+    r"""If true, city-level tax rates are not applied for this address."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
+            [
+                "phone",
+                "street_1",
+                "street_2",
+                "city",
+                "county",
+                "state",
+                "postal_code",
+                "country",
+                "full_address",
+                "is_unincorporated",
+            ]
+        )
+        nullable_fields = set(
             [
                 "phone",
                 "street_1",
@@ -84,9 +111,17 @@ class TransactionAddressPublic(BaseModel):
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

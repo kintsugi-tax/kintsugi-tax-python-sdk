@@ -4,7 +4,7 @@ from .basesdk import BaseSDK
 from datetime import datetime
 from kintsugi_tax_platform_sdk import errors, models, utils
 from kintsugi_tax_platform_sdk._hooks import HookContext
-from kintsugi_tax_platform_sdk.types import OptionalNullable, UNSET
+from kintsugi_tax_platform_sdk.types import Nullable, OptionalNullable, UNSET
 from kintsugi_tax_platform_sdk.utils.unmarshal_json_response import (
     unmarshal_json_response,
 )
@@ -15,6 +15,7 @@ class TaxEstimation(BaseSDK):
     def estimate(
         self,
         *,
+        x_organization_id: Nullable[str],
         date_: datetime,
         external_id: str,
         currency: models.CurrencyEnum,
@@ -27,24 +28,25 @@ class TaxEstimation(BaseSDK):
             Iterable[models.TransactionEstimatePublicRequestAddressTypedDict],
         ],
         simulate_nexus_met: Optional[bool] = None,
-        description: Optional[str] = None,
-        source: Optional[models.SourceEnum] = None,
-        marketplace: Optional[bool] = False,
-        customer: Optional[
+        description: OptionalNullable[str] = UNSET,
+        source: OptionalNullable[models.SourceEnum] = UNSET,
+        marketplace: OptionalNullable[bool] = UNSET,
+        customer: OptionalNullable[
             Union[models.CustomerBasePublic, models.CustomerBasePublicTypedDict]
-        ] = None,
+        ] = UNSET,
         total_amount: Optional[float] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PageTransactionEstimateResponse:
-        r"""Estimate Tax
+    ) -> models.TransactionEstimateResponse:
+        r"""Estimate tax
 
         The Estimate Tax API calculates the estimated tax for a specific
         transaction based on the provided details, including organization nexus,
         transaction details, customer details, and addresses. Optionally simulates nexus being met for tax calculation purposes. The `simulate_nexus_met` parameter is deprecated and will be removed in future releases.
 
+        :param x_organization_id: The unique identifier for the organization making the request
         :param date_: The date of the transaction in ISO 8601 format (e.g., 2025-01-25T12:00:00Z).
         :param external_id: Unique identifier of this transaction in the source system.
         :param currency:
@@ -52,9 +54,9 @@ class TaxEstimation(BaseSDK):
         :param addresses: List of addresses related to the transaction. At least one BILL_TO or SHIP_TO address must be provided. The address will be validated during estimation, and the transaction may be rejected if the address does not pass validation. The SHIP_TO will be preferred to use for determining tax liability.
         :param simulate_nexus_met: **Deprecated:** Use `simulate_active_registration` in the request body instead.
         :param description: An optional description of the transaction.
-        :param source:
+        :param source: While currently not used, it may be used in the future to determine taxability. The source of the transaction (e.g., OTHER).
         :param marketplace: Indicates if the transaction involves a marketplace.
-        :param customer:
+        :param customer: Details about the customer. If the customer is not found, it will be ignored.
         :param total_amount: Total amount of the transaction. Deprecated - computed from transaction_items. Optional for backward compatibility.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -73,6 +75,7 @@ class TaxEstimation(BaseSDK):
 
         request = models.EstimateTaxV1TaxEstimatePostRequest(
             simulate_nexus_met=simulate_nexus_met,
+            x_organization_id=x_organization_id,
             transaction_estimate_public_request=models.TransactionEstimatePublicRequest(
                 date_=date_,
                 external_id=external_id,
@@ -84,7 +87,7 @@ class TaxEstimation(BaseSDK):
                     transaction_items, List[models.TransactionItemEstimateBase]
                 ),
                 customer=utils.get_pydantic_model(
-                    customer, Optional[models.CustomerBasePublic]
+                    customer, OptionalNullable[models.CustomerBasePublic]
                 ),
                 addresses=utils.get_pydantic_model(
                     addresses, List[models.TransactionEstimatePublicRequestAddress]
@@ -142,10 +145,8 @@ class TaxEstimation(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.PageTransactionEstimateResponse, http_res
-            )
-        if utils.match_response(http_res, "401", "application/json"):
+            return unmarshal_json_response(models.TransactionEstimateResponse, http_res)
+        if utils.match_response(http_res, ["400", "401"], "application/json"):
             response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
             raise errors.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "422", "application/json"):
@@ -156,7 +157,7 @@ class TaxEstimation(BaseSDK):
             raise errors.BackendSrcTaxEstimationResponsesValidationErrorResponse(
                 response_data, http_res
             )
-        if utils.match_response(http_res, "500", "application/json"):
+        if utils.match_response(http_res, ["500", "503"], "application/json"):
             response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
             raise errors.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, ["404", "4XX"], "*"):
@@ -171,6 +172,7 @@ class TaxEstimation(BaseSDK):
     async def estimate_async(
         self,
         *,
+        x_organization_id: Nullable[str],
         date_: datetime,
         external_id: str,
         currency: models.CurrencyEnum,
@@ -183,24 +185,25 @@ class TaxEstimation(BaseSDK):
             Iterable[models.TransactionEstimatePublicRequestAddressTypedDict],
         ],
         simulate_nexus_met: Optional[bool] = None,
-        description: Optional[str] = None,
-        source: Optional[models.SourceEnum] = None,
-        marketplace: Optional[bool] = False,
-        customer: Optional[
+        description: OptionalNullable[str] = UNSET,
+        source: OptionalNullable[models.SourceEnum] = UNSET,
+        marketplace: OptionalNullable[bool] = UNSET,
+        customer: OptionalNullable[
             Union[models.CustomerBasePublic, models.CustomerBasePublicTypedDict]
-        ] = None,
+        ] = UNSET,
         total_amount: Optional[float] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PageTransactionEstimateResponse:
-        r"""Estimate Tax
+    ) -> models.TransactionEstimateResponse:
+        r"""Estimate tax
 
         The Estimate Tax API calculates the estimated tax for a specific
         transaction based on the provided details, including organization nexus,
         transaction details, customer details, and addresses. Optionally simulates nexus being met for tax calculation purposes. The `simulate_nexus_met` parameter is deprecated and will be removed in future releases.
 
+        :param x_organization_id: The unique identifier for the organization making the request
         :param date_: The date of the transaction in ISO 8601 format (e.g., 2025-01-25T12:00:00Z).
         :param external_id: Unique identifier of this transaction in the source system.
         :param currency:
@@ -208,9 +211,9 @@ class TaxEstimation(BaseSDK):
         :param addresses: List of addresses related to the transaction. At least one BILL_TO or SHIP_TO address must be provided. The address will be validated during estimation, and the transaction may be rejected if the address does not pass validation. The SHIP_TO will be preferred to use for determining tax liability.
         :param simulate_nexus_met: **Deprecated:** Use `simulate_active_registration` in the request body instead.
         :param description: An optional description of the transaction.
-        :param source:
+        :param source: While currently not used, it may be used in the future to determine taxability. The source of the transaction (e.g., OTHER).
         :param marketplace: Indicates if the transaction involves a marketplace.
-        :param customer:
+        :param customer: Details about the customer. If the customer is not found, it will be ignored.
         :param total_amount: Total amount of the transaction. Deprecated - computed from transaction_items. Optional for backward compatibility.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -229,6 +232,7 @@ class TaxEstimation(BaseSDK):
 
         request = models.EstimateTaxV1TaxEstimatePostRequest(
             simulate_nexus_met=simulate_nexus_met,
+            x_organization_id=x_organization_id,
             transaction_estimate_public_request=models.TransactionEstimatePublicRequest(
                 date_=date_,
                 external_id=external_id,
@@ -240,7 +244,7 @@ class TaxEstimation(BaseSDK):
                     transaction_items, List[models.TransactionItemEstimateBase]
                 ),
                 customer=utils.get_pydantic_model(
-                    customer, Optional[models.CustomerBasePublic]
+                    customer, OptionalNullable[models.CustomerBasePublic]
                 ),
                 addresses=utils.get_pydantic_model(
                     addresses, List[models.TransactionEstimatePublicRequestAddress]
@@ -298,10 +302,8 @@ class TaxEstimation(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                models.PageTransactionEstimateResponse, http_res
-            )
-        if utils.match_response(http_res, "401", "application/json"):
+            return unmarshal_json_response(models.TransactionEstimateResponse, http_res)
+        if utils.match_response(http_res, ["400", "401"], "application/json"):
             response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
             raise errors.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "422", "application/json"):
@@ -312,7 +314,7 @@ class TaxEstimation(BaseSDK):
             raise errors.BackendSrcTaxEstimationResponsesValidationErrorResponse(
                 response_data, http_res
             )
-        if utils.match_response(http_res, "500", "application/json"):
+        if utils.match_response(http_res, ["500", "503"], "application/json"):
             response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
             raise errors.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, ["404", "4XX"], "*"):
