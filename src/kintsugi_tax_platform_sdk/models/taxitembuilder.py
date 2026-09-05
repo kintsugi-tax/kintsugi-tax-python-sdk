@@ -4,55 +4,85 @@ from __future__ import annotations
 from .currencyenum import CurrencyEnum
 from .jurisdictiontype import JurisdictionType
 from .taxitemtypeenum import TaxItemTypeEnum
-from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from kintsugi_tax_platform_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 from pydantic import model_serializer
-from typing import Optional
-from typing_extensions import NotRequired, TypedDict
+from typing import Optional, Union
+from typing_extensions import NotRequired, TypeAliasType, TypedDict
+
+
+RateTypedDict = TypeAliasType("RateTypedDict", Union[float, str])
+
+
+Rate = TypeAliasType("Rate", Union[float, str])
+
+
+TaxItemBuilderAmountTypedDict = TypeAliasType(
+    "TaxItemBuilderAmountTypedDict", Union[float, str]
+)
+
+
+TaxItemBuilderAmount = TypeAliasType("TaxItemBuilderAmount", Union[float, str])
+
+
+TaxItemBuilderConvertedAmountTypedDict = TypeAliasType(
+    "TaxItemBuilderConvertedAmountTypedDict", Union[float, str]
+)
+
+
+TaxItemBuilderConvertedAmount = TypeAliasType(
+    "TaxItemBuilderConvertedAmount", Union[float, str]
+)
 
 
 class TaxItemBuilderTypedDict(TypedDict):
-    rate: float
-    amount: float
+    rate: RateTypedDict
+    amount: TaxItemBuilderAmountTypedDict
     name: str
     r"""Deprecated: use `jurisdiction_type` instead"""
-    organization_id: str
+    organization_id: Nullable[str]
     rule_id: NotRequired[str]
     r"""The rule ID of the tax item"""
-    converted_amount: NotRequired[float]
-    currency: NotRequired[CurrencyEnum]
-    destination_currency: NotRequired[CurrencyEnum]
-    external_id: NotRequired[str]
+    converted_amount: NotRequired[Nullable[TaxItemBuilderConvertedAmountTypedDict]]
+    currency: NotRequired[Nullable[CurrencyEnum]]
+    destination_currency: NotRequired[Nullable[CurrencyEnum]]
+    external_id: NotRequired[Nullable[str]]
     type: NotRequired[TaxItemTypeEnum]
-    jurisdiction_type: NotRequired[JurisdictionType]
-    jurisdiction_name: NotRequired[str]
+    jurisdiction_type: NotRequired[Nullable[JurisdictionType]]
+    jurisdiction_name: NotRequired[Nullable[str]]
 
 
 class TaxItemBuilder(BaseModel):
-    rate: float
+    rate: Rate
 
-    amount: float
+    amount: TaxItemBuilderAmount
 
     name: str
     r"""Deprecated: use `jurisdiction_type` instead"""
 
-    organization_id: str
+    organization_id: Nullable[str]
 
     rule_id: Optional[str] = "0000"
     r"""The rule ID of the tax item"""
 
-    converted_amount: Optional[float] = None
+    converted_amount: OptionalNullable[TaxItemBuilderConvertedAmount] = UNSET
 
-    currency: Optional[CurrencyEnum] = None
+    currency: OptionalNullable[CurrencyEnum] = UNSET
 
-    destination_currency: Optional[CurrencyEnum] = None
+    destination_currency: OptionalNullable[CurrencyEnum] = UNSET
 
-    external_id: Optional[str] = None
+    external_id: OptionalNullable[str] = UNSET
 
     type: Optional[TaxItemTypeEnum] = None
 
-    jurisdiction_type: Optional[JurisdictionType] = None
+    jurisdiction_type: OptionalNullable[JurisdictionType] = UNSET
 
-    jurisdiction_name: Optional[str] = None
+    jurisdiction_name: OptionalNullable[str] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -68,15 +98,34 @@ class TaxItemBuilder(BaseModel):
                 "jurisdiction_name",
             ]
         )
+        nullable_fields = set(
+            [
+                "converted_amount",
+                "currency",
+                "destination_currency",
+                "external_id",
+                "jurisdiction_type",
+                "jurisdiction_name",
+                "organization_id",
+            ]
+        )
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
