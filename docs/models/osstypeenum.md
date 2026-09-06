@@ -17,3 +17,4 @@ value = OssTypeEnum.UNION
 | ----------- | ----------- |
 | `UNION`     | UNION       |
 | `NON_UNION` | NON_UNION   |
+| `IOSS`      | IOSS        |
