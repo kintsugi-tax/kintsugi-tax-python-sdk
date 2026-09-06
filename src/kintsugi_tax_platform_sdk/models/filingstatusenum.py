@@ -9,3 +9,6 @@ class FilingStatusEnum(str, Enum):
     FILED = "FILED"
     FILING = "FILING"
     PAUSED = "PAUSED"
+    SKIPPED = "SKIPPED"
+    CANCELLED = "CANCELLED"
+    ISSUE = "ISSUE"

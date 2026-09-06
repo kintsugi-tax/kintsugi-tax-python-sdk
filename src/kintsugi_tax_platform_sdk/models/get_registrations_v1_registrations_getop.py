@@ -2,15 +2,35 @@
 
 from __future__ import annotations
 from .countrycodeenum import CountryCodeEnum
-from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
-from kintsugi_tax_platform_sdk.utils import FieldMetadata, QueryParamMetadata
+from kintsugi_tax_platform_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
+from kintsugi_tax_platform_sdk.utils import (
+    FieldMetadata,
+    HeaderMetadata,
+    QueryParamMetadata,
+)
 import pydantic
 from pydantic import model_serializer
-from typing import List, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing import List, Optional, Union
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
+
+
+CountryCodeInTypedDict = TypeAliasType(
+    "CountryCodeInTypedDict", Union[CountryCodeEnum, str]
+)
+
+
+CountryCodeIn = TypeAliasType("CountryCodeIn", Union[CountryCodeEnum, str])
 
 
 class GetRegistrationsV1RegistrationsGetRequestTypedDict(TypedDict):
+    x_organization_id: Nullable[str]
+    r"""The unique identifier for the organization making the request"""
     status_in: NotRequired[str]
     r"""Filter registrations by status. Multiple statuses can be passed,
     separated by commas.
@@ -21,11 +41,15 @@ class GetRegistrationsV1RegistrationsGetRequestTypedDict(TypedDict):
     r"""Filter registrations by filing frequency. Multiple filing frequencies
     can be passed, separated by commas.
     """
-    country_code_in: NotRequired[List[CountryCodeEnum]]
+    country_code_in: NotRequired[Nullable[List[CountryCodeInTypedDict]]]
     r"""Filter registrations by country code in ISO 3166-1 alpha-2 format
     (e.g., US, CA).
     """
-    order_by: NotRequired[str]
+    tax_type_in: NotRequired[Nullable[str]]
+    r"""Filter registrations by tax type. Multiple tax types can be
+    passed, separated by commas (SALES_TAX, USE_TAX, SALES_AND_USE_TAX).
+    """
+    order_by: NotRequired[Nullable[str]]
     r"""Order results by specified fields (comma-separated)"""
     page: NotRequired[int]
     r"""Page number"""
@@ -34,11 +58,18 @@ class GetRegistrationsV1RegistrationsGetRequestTypedDict(TypedDict):
 
 
 class GetRegistrationsV1RegistrationsGetRequest(BaseModel):
+    x_organization_id: Annotated[
+        Nullable[str],
+        pydantic.Field(alias="x-organization-id"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ]
+    r"""The unique identifier for the organization making the request"""
+
     status_in: Annotated[
         Optional[str],
         pydantic.Field(alias="status__in"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = "REGISTERED,PROCESSING,UNREGISTERED,DEREGISTERING,DEREGISTERED,VALIDATING,AWAITING_CLARIFICATION"
+    ] = "REGISTERED,PROCESSING,UNREGISTERED,DEREGISTERING,DEREGISTERED,CANCELLED,VALIDATING,AWAITING_CLARIFICATION,SELF_MANAGED"
     r"""Filter registrations by status. Multiple statuses can be passed,
     separated by commas.
     """
@@ -59,18 +90,27 @@ class GetRegistrationsV1RegistrationsGetRequest(BaseModel):
     """
 
     country_code_in: Annotated[
-        Optional[List[CountryCodeEnum]],
+        OptionalNullable[List[CountryCodeIn]],
         pydantic.Field(alias="country_code__in"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = UNSET
     r"""Filter registrations by country code in ISO 3166-1 alpha-2 format
     (e.g., US, CA).
     """
 
-    order_by: Annotated[
-        Optional[str],
+    tax_type_in: Annotated[
+        OptionalNullable[str],
+        pydantic.Field(alias="tax_type__in"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = UNSET
+    r"""Filter registrations by tax type. Multiple tax types can be
+    passed, separated by commas (SALES_TAX, USE_TAX, SALES_AND_USE_TAX).
+    """
+
+    order_by: Annotated[
+        OptionalNullable[str],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = UNSET
     r"""Order results by specified fields (comma-separated)"""
 
     page: Annotated[
@@ -93,10 +133,14 @@ class GetRegistrationsV1RegistrationsGetRequest(BaseModel):
                 "state_code",
                 "filing_frequency__in",
                 "country_code__in",
+                "tax_type__in",
                 "order_by",
                 "page",
                 "size",
             ]
+        )
+        nullable_fields = set(
+            ["country_code__in", "tax_type__in", "order_by", "x-organization-id"]
         )
         serialized = handler(self)
         m = {}
@@ -104,9 +148,17 @@ class GetRegistrationsV1RegistrationsGetRequest(BaseModel):
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

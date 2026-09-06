@@ -5,9 +5,10 @@ from .transactionestimatepublicrequest import (
     TransactionEstimatePublicRequest,
     TransactionEstimatePublicRequestTypedDict,
 )
-from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from kintsugi_tax_platform_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
 from kintsugi_tax_platform_sdk.utils import (
     FieldMetadata,
+    HeaderMetadata,
     QueryParamMetadata,
     RequestMetadata,
 )
@@ -18,12 +19,21 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class EstimateTaxV1TaxEstimatePostRequestTypedDict(TypedDict):
+    x_organization_id: Nullable[str]
+    r"""The unique identifier for the organization making the request"""
     transaction_estimate_public_request: TransactionEstimatePublicRequestTypedDict
     simulate_nexus_met: NotRequired[bool]
     r"""**Deprecated:** Use `simulate_active_registration` in the request body instead."""
 
 
 class EstimateTaxV1TaxEstimatePostRequest(BaseModel):
+    x_organization_id: Annotated[
+        Nullable[str],
+        pydantic.Field(alias="x-organization-id"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ]
+    r"""The unique identifier for the organization making the request"""
+
     transaction_estimate_public_request: Annotated[
         TransactionEstimatePublicRequest,
         FieldMetadata(request=RequestMetadata(media_type="application/json")),
@@ -41,15 +51,24 @@ class EstimateTaxV1TaxEstimatePostRequest(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["simulate_nexus_met"])
+        nullable_fields = set(["x-organization-id"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
