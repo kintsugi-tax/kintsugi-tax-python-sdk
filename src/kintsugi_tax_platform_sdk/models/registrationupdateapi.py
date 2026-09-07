@@ -4,124 +4,135 @@ from __future__ import annotations
 from .changeregimestatusenum import ChangeRegimeStatusEnum
 from .filingfrequencyenum import FilingFrequencyEnum
 from .registrationsregimeenum import RegistrationsRegimeEnum
-from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from datetime import date, datetime
+from kintsugi_tax_platform_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
 
 class RegistrationUpdateAPITypedDict(TypedDict):
-    registration_date: NotRequired[str]
+    registration_date: NotRequired[Nullable[date]]
     r"""The date when the registration was created. Format: YYYY-MM-DD."""
-    registration_email: NotRequired[str]
+    registration_email: NotRequired[Nullable[str]]
     r"""Email address associated with the registration."""
-    registration_key: NotRequired[str]
-    r"""A unique key assigned to the registration."""
-    deregistration_key: NotRequired[str]
-    r"""A unique key assigned for deregistration."""
-    registration_requested: NotRequired[str]
+    registration_requested: NotRequired[Nullable[datetime]]
     r"""Timestamp when the registration was requested."""
-    registration_completed: NotRequired[str]
+    registration_completed: NotRequired[Nullable[datetime]]
     r"""Timestamp when the registration was completed."""
-    deregistration_requested: NotRequired[str]
+    deregistration_requested: NotRequired[Nullable[datetime]]
     r"""Timestamp when deregistration was requested."""
-    deregistration_completed: NotRequired[str]
+    deregistration_completed: NotRequired[Nullable[datetime]]
     r"""Timestamp when the deregistration was completed."""
-    auto_registered: NotRequired[bool]
+    auto_registered: NotRequired[Nullable[bool]]
     r"""Indicates whether the registration was completed automatically."""
-    registrations_regime: NotRequired[RegistrationsRegimeEnum]
-    change_regime_status: NotRequired[ChangeRegimeStatusEnum]
-    third_party_enabled: NotRequired[bool]
+    registrations_regime: NotRequired[Nullable[RegistrationsRegimeEnum]]
+    r"""The tax registration regime (e.g., STANDARD, SIMPLIFIED)."""
+    change_regime_status: NotRequired[Nullable[ChangeRegimeStatusEnum]]
+    third_party_enabled: NotRequired[Nullable[bool]]
     r"""Indicates whether third-party access is enabled for this registration."""
     do_not_file: NotRequired[bool]
     r"""If true, do not file for this registration (treated as False by default)."""
-    two_factor_enabled: NotRequired[bool]
+    two_factor_enabled: NotRequired[Nullable[bool]]
     r"""Indicates whether two-factor authentication (2FA) is enabled for this registration."""
-    marked_collecting: NotRequired[bool]
+    marked_collecting: NotRequired[Nullable[bool]]
     r"""Indicates whether the  registration is marked as collecting in shopify"""
-    encrypted_username: NotRequired[str]
+    encrypted_username: NotRequired[Nullable[str]]
     r"""The encrypted username for the registration."""
-    username: NotRequired[str]
+    username: NotRequired[Nullable[str]]
     r"""The username associated with the registration."""
-    filing_frequency: NotRequired[FilingFrequencyEnum]
-    create_filings_from: NotRequired[str]
+    filing_frequency: NotRequired[Nullable[FilingFrequencyEnum]]
+    r"""The updated filing frequency (MONTHLY, QUARTERLY, etc.)."""
+    create_filings_from: NotRequired[Nullable[date]]
     r"""The updated date from which filings should start (YYYY-MM-DD)."""
-    is_approaching: NotRequired[bool]
+    is_approaching: NotRequired[Nullable[bool]]
     r"""Indicates whether the registration is approaching an action (e.g., renewal)."""
-    comment: NotRequired[str]
+    comment: NotRequired[Nullable[str]]
     r"""Additional notes or comments related to the registration."""
-    vda: NotRequired[bool]
+    vda: NotRequired[Nullable[bool]]
     r"""Indicates if the Voluntary Disclosure Agreement (VDA) applies."""
-    tax_id: NotRequired[str]
+    tax_id: NotRequired[Nullable[str]]
     r"""Organization-level tax ID (e.g., VAT number, Canada Business Number)."""
+    ior_number: NotRequired[Nullable[str]]
+    r"""The Importer of Record (IOR) number for the registration."""
+    create_back_filing: NotRequired[bool]
+    r"""Whether to also file the single period preceding the first filing period."""
 
 
 class RegistrationUpdateAPI(BaseModel):
-    registration_date: Optional[str] = None
+    registration_date: OptionalNullable[date] = UNSET
     r"""The date when the registration was created. Format: YYYY-MM-DD."""
 
-    registration_email: Optional[str] = None
+    registration_email: OptionalNullable[str] = UNSET
     r"""Email address associated with the registration."""
 
-    registration_key: Optional[str] = None
-    r"""A unique key assigned to the registration."""
-
-    deregistration_key: Optional[str] = None
-    r"""A unique key assigned for deregistration."""
-
-    registration_requested: Optional[str] = None
+    registration_requested: OptionalNullable[datetime] = UNSET
     r"""Timestamp when the registration was requested."""
 
-    registration_completed: Optional[str] = None
+    registration_completed: OptionalNullable[datetime] = UNSET
     r"""Timestamp when the registration was completed."""
 
-    deregistration_requested: Optional[str] = None
+    deregistration_requested: OptionalNullable[datetime] = UNSET
     r"""Timestamp when deregistration was requested."""
 
-    deregistration_completed: Optional[str] = None
+    deregistration_completed: OptionalNullable[datetime] = UNSET
     r"""Timestamp when the deregistration was completed."""
 
-    auto_registered: Optional[bool] = False
+    auto_registered: OptionalNullable[bool] = UNSET
     r"""Indicates whether the registration was completed automatically."""
 
-    registrations_regime: Optional[RegistrationsRegimeEnum] = None
+    registrations_regime: OptionalNullable[RegistrationsRegimeEnum] = UNSET
+    r"""The tax registration regime (e.g., STANDARD, SIMPLIFIED)."""
 
-    change_regime_status: Optional[ChangeRegimeStatusEnum] = None
+    change_regime_status: OptionalNullable[ChangeRegimeStatusEnum] = UNSET
 
-    third_party_enabled: Optional[bool] = False
+    third_party_enabled: OptionalNullable[bool] = UNSET
     r"""Indicates whether third-party access is enabled for this registration."""
 
     do_not_file: Optional[bool] = False
     r"""If true, do not file for this registration (treated as False by default)."""
 
-    two_factor_enabled: Optional[bool] = None
+    two_factor_enabled: OptionalNullable[bool] = UNSET
     r"""Indicates whether two-factor authentication (2FA) is enabled for this registration."""
 
-    marked_collecting: Optional[bool] = None
+    marked_collecting: OptionalNullable[bool] = UNSET
     r"""Indicates whether the  registration is marked as collecting in shopify"""
 
-    encrypted_username: Optional[str] = None
+    encrypted_username: OptionalNullable[str] = UNSET
     r"""The encrypted username for the registration."""
 
-    username: Optional[str] = None
+    username: OptionalNullable[str] = UNSET
     r"""The username associated with the registration."""
 
-    filing_frequency: Optional[FilingFrequencyEnum] = None
+    filing_frequency: OptionalNullable[FilingFrequencyEnum] = UNSET
+    r"""The updated filing frequency (MONTHLY, QUARTERLY, etc.)."""
 
-    create_filings_from: Optional[str] = None
+    create_filings_from: OptionalNullable[date] = UNSET
     r"""The updated date from which filings should start (YYYY-MM-DD)."""
 
-    is_approaching: Optional[bool] = None
+    is_approaching: OptionalNullable[bool] = UNSET
     r"""Indicates whether the registration is approaching an action (e.g., renewal)."""
 
-    comment: Optional[str] = None
+    comment: OptionalNullable[str] = UNSET
     r"""Additional notes or comments related to the registration."""
 
-    vda: Optional[bool] = None
+    vda: OptionalNullable[bool] = UNSET
     r"""Indicates if the Voluntary Disclosure Agreement (VDA) applies."""
 
-    tax_id: Optional[str] = None
+    tax_id: OptionalNullable[str] = UNSET
     r"""Organization-level tax ID (e.g., VAT number, Canada Business Number)."""
+
+    ior_number: OptionalNullable[str] = UNSET
+    r"""The Importer of Record (IOR) number for the registration."""
+
+    create_back_filing: Optional[bool] = False
+    r"""Whether to also file the single period preceding the first filing period."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -129,8 +140,6 @@ class RegistrationUpdateAPI(BaseModel):
             [
                 "registration_date",
                 "registration_email",
-                "registration_key",
-                "deregistration_key",
                 "registration_requested",
                 "registration_completed",
                 "deregistration_requested",
@@ -150,6 +159,33 @@ class RegistrationUpdateAPI(BaseModel):
                 "comment",
                 "vda",
                 "tax_id",
+                "ior_number",
+                "create_back_filing",
+            ]
+        )
+        nullable_fields = set(
+            [
+                "registration_date",
+                "registration_email",
+                "registration_requested",
+                "registration_completed",
+                "deregistration_requested",
+                "deregistration_completed",
+                "auto_registered",
+                "registrations_regime",
+                "change_regime_status",
+                "third_party_enabled",
+                "two_factor_enabled",
+                "marked_collecting",
+                "encrypted_username",
+                "username",
+                "filing_frequency",
+                "create_filings_from",
+                "is_approaching",
+                "comment",
+                "vda",
+                "tax_id",
+                "ior_number",
             ]
         )
         serialized = handler(self)
@@ -158,9 +194,17 @@ class RegistrationUpdateAPI(BaseModel):
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

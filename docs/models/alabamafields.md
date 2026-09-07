@@ -1,0 +1,21 @@
+# AlabamaFields
+
+State-specific fields for Alabama registration import.
+
+Values are plaintext in API request/response models. Before persistence,
+``access_code`` and ``third_party_password`` are encrypted with
+``kintsugi_encrypt`` (see ``finalize_jurisdiction_specific_fields_for_storage``).
+
+
+## Fields
+
+| Field                                                                                       | Type                                                                                        | Required                                                                                    | Description                                                                                 |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `registration_type`                                                                         | [models.AlabamaRegistrationType](../models/alabamaregistrationtype.md)                      | :heavy_check_mark:                                                                          | N/A                                                                                         |
+| `business_name`                                                                             | *str*                                                                                       | :heavy_check_mark:                                                                          | Business name as registered with the state of Alabama.                                      |
+| `sign_on_id`                                                                                | *str*                                                                                       | :heavy_check_mark:                                                                          | Alabama Sign On ID used to access My Alabama Taxes (MAT).                                   |
+| `access_code`                                                                               | *str*                                                                                       | :heavy_check_mark:                                                                          | Alabama Access Code used to access My Alabama Taxes (MAT).                                  |
+| `third_party_password`                                                                      | *str*                                                                                       | :heavy_check_mark:                                                                          | Third-party password for Kintsugi access to My Alabama Taxes (MAT).                         |
+| `mfa_completed`                                                                             | *Optional[bool]*                                                                            | :heavy_minus_sign:                                                                          | Whether the customer has completed MFA setup in their Alabama tax account.                  |
+| `sales_tax_id`                                                                              | *str*                                                                                       | :heavy_check_mark:                                                                          | Alabama state-issued sales tax account number (Department of Revenue).                      |
+| `local_tax_id`                                                                              | *OptionalNullable[str]*                                                                     | :heavy_minus_sign:                                                                          | Local tax account or permit ID used for Alabama local sales tax (e.g. county or municipal). |

@@ -5,7 +5,13 @@ from .currencyenum import CurrencyEnum
 from .taxexemptionenum import TaxExemptionEnum
 from .taxitemread import TaxItemRead, TaxItemReadTypedDict
 from datetime import datetime
-from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from kintsugi_tax_platform_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 import pydantic
 from pydantic import model_serializer
 from typing import List, Optional
@@ -13,7 +19,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class TransactionItemReadTypedDict(TypedDict):
-    organization_id: str
+    organization_id: Nullable[str]
     r"""Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header."""
     date_: datetime
     r"""Date/time of item."""
@@ -23,17 +29,17 @@ class TransactionItemReadTypedDict(TypedDict):
     r"""The unique transaction item identifier."""
     tax_items: List[TaxItemReadTypedDict]
     r"""List of tax items associated with the transaction item."""
-    external_id: NotRequired[str]
+    external_id: NotRequired[Nullable[str]]
     r"""External item identifier."""
-    description: NotRequired[str]
+    description: NotRequired[Nullable[str]]
     r"""Item description"""
-    product: NotRequired[str]
+    product: NotRequired[Nullable[str]]
     r"""Product name"""
-    product_id: NotRequired[str]
+    product_id: NotRequired[Nullable[str]]
     r"""Product identifier."""
-    product_name: NotRequired[str]
+    product_name: NotRequired[Nullable[str]]
     r"""Product name (detailed)"""
-    product_description: NotRequired[str]
+    product_description: NotRequired[Nullable[str]]
     r"""Product description"""
     quantity: NotRequired[str]
     r"""Quantity of item."""
@@ -47,35 +53,37 @@ class TransactionItemReadTypedDict(TypedDict):
     r"""Calculated tax amount for the item."""
     tax_rate_calculated: NotRequired[str]
     r"""Calculated tax rate."""
-    original_currency: NotRequired[CurrencyEnum]
-    destination_currency: NotRequired[CurrencyEnum]
-    converted_amount: NotRequired[str]
+    original_currency: NotRequired[Nullable[CurrencyEnum]]
+    r"""Original currency code."""
+    destination_currency: NotRequired[Nullable[CurrencyEnum]]
+    r"""Destination currency code."""
+    converted_amount: NotRequired[Nullable[str]]
     r"""Converted item amount."""
-    converted_taxable_amount: NotRequired[str]
+    converted_taxable_amount: NotRequired[Nullable[str]]
     r"""Converted taxable amount."""
-    converted_tax_amount_imported: NotRequired[str]
+    converted_tax_amount_imported: NotRequired[Nullable[str]]
     r"""Converted imported tax amount."""
-    converted_tax_amount_calculated: NotRequired[str]
+    converted_tax_amount_calculated: NotRequired[Nullable[str]]
     r"""Converted calculated tax amount"""
-    converted_total_discount: NotRequired[str]
+    converted_total_discount: NotRequired[Nullable[str]]
     r"""Converted total discount amount."""
-    converted_subtotal: NotRequired[str]
+    converted_subtotal: NotRequired[Nullable[str]]
     r"""Converted subtotal amount."""
     taxable_amount: NotRequired[str]
     r"""Taxable amount for the item."""
-    tax_exemption: NotRequired[TaxExemptionEnum]
-    r"""This enum is used to determine if a transaction is exempt from tax."""
+    tax_exemption: NotRequired[Nullable[TaxExemptionEnum]]
+    r"""Tax exemption status."""
     exempt: NotRequired[bool]
     r"""Indicates if the item is exempt."""
-    total_discount: NotRequired[str]
+    total_discount: NotRequired[Nullable[str]]
     r"""Total discount amount applied to this transaction item."""
-    subtotal: NotRequired[str]
+    subtotal: NotRequired[Nullable[str]]
     r"""Subtotal amount before any discount is applied."""
 
 
 class TransactionItemRead(BaseModel):
     organization_id: Annotated[
-        str,
+        Nullable[str],
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
@@ -94,22 +102,22 @@ class TransactionItemRead(BaseModel):
     tax_items: List[TaxItemRead]
     r"""List of tax items associated with the transaction item."""
 
-    external_id: Optional[str] = None
+    external_id: OptionalNullable[str] = UNSET
     r"""External item identifier."""
 
-    description: Optional[str] = None
+    description: OptionalNullable[str] = UNSET
     r"""Item description"""
 
-    product: Optional[str] = None
+    product: OptionalNullable[str] = UNSET
     r"""Product name"""
 
-    product_id: Optional[str] = None
+    product_id: OptionalNullable[str] = UNSET
     r"""Product identifier."""
 
-    product_name: Optional[str] = None
+    product_name: OptionalNullable[str] = UNSET
     r"""Product name (detailed)"""
 
-    product_description: Optional[str] = None
+    product_description: OptionalNullable[str] = UNSET
     r"""Product description"""
 
     quantity: Optional[str] = "1.0"
@@ -130,41 +138,43 @@ class TransactionItemRead(BaseModel):
     tax_rate_calculated: Optional[str] = "0.00"
     r"""Calculated tax rate."""
 
-    original_currency: Optional[CurrencyEnum] = None
+    original_currency: OptionalNullable[CurrencyEnum] = UNSET
+    r"""Original currency code."""
 
-    destination_currency: Optional[CurrencyEnum] = None
+    destination_currency: OptionalNullable[CurrencyEnum] = UNSET
+    r"""Destination currency code."""
 
-    converted_amount: Optional[str] = None
+    converted_amount: OptionalNullable[str] = UNSET
     r"""Converted item amount."""
 
-    converted_taxable_amount: Optional[str] = None
+    converted_taxable_amount: OptionalNullable[str] = UNSET
     r"""Converted taxable amount."""
 
-    converted_tax_amount_imported: Optional[str] = None
+    converted_tax_amount_imported: OptionalNullable[str] = UNSET
     r"""Converted imported tax amount."""
 
-    converted_tax_amount_calculated: Optional[str] = None
+    converted_tax_amount_calculated: OptionalNullable[str] = UNSET
     r"""Converted calculated tax amount"""
 
-    converted_total_discount: Optional[str] = None
+    converted_total_discount: OptionalNullable[str] = UNSET
     r"""Converted total discount amount."""
 
-    converted_subtotal: Optional[str] = None
+    converted_subtotal: OptionalNullable[str] = UNSET
     r"""Converted subtotal amount."""
 
     taxable_amount: Optional[str] = "0.00"
     r"""Taxable amount for the item."""
 
-    tax_exemption: Optional[TaxExemptionEnum] = None
-    r"""This enum is used to determine if a transaction is exempt from tax."""
+    tax_exemption: OptionalNullable[TaxExemptionEnum] = UNSET
+    r"""Tax exemption status."""
 
     exempt: Optional[bool] = False
     r"""Indicates if the item is exempt."""
 
-    total_discount: Optional[str] = None
+    total_discount: OptionalNullable[str] = UNSET
     r"""Total discount amount applied to this transaction item."""
 
-    subtotal: Optional[str] = None
+    subtotal: OptionalNullable[str] = UNSET
     r"""Subtotal amount before any discount is applied."""
 
     @model_serializer(mode="wrap")
@@ -198,15 +208,45 @@ class TransactionItemRead(BaseModel):
                 "subtotal",
             ]
         )
+        nullable_fields = set(
+            [
+                "external_id",
+                "organization_id",
+                "description",
+                "product",
+                "product_id",
+                "product_name",
+                "product_description",
+                "original_currency",
+                "destination_currency",
+                "converted_amount",
+                "converted_taxable_amount",
+                "converted_tax_amount_imported",
+                "converted_tax_amount_calculated",
+                "converted_total_discount",
+                "converted_subtotal",
+                "tax_exemption",
+                "total_discount",
+                "subtotal",
+            ]
+        )
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
