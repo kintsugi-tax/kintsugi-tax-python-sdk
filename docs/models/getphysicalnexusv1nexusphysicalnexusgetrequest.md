@@ -3,10 +3,11 @@
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `country_code`     | *Optional[str]*    | :heavy_minus_sign: | N/A                |
-| `state_code`       | *Optional[str]*    | :heavy_minus_sign: | N/A                |
-| `order_by`         | *Optional[str]*    | :heavy_minus_sign: | N/A                |
-| `page`             | *Optional[int]*    | :heavy_minus_sign: | Page number        |
-| `size`             | *Optional[int]*    | :heavy_minus_sign: | Page size          |
+| Field                                                         | Type                                                          | Required                                                      | Description                                                   | Example                                                       |
+| ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
+| `country_code`                                                | *OptionalNullable[str]*                                       | :heavy_minus_sign:                                            | N/A                                                           |                                                               |
+| `state_code`                                                  | *OptionalNullable[str]*                                       | :heavy_minus_sign:                                            | N/A                                                           |                                                               |
+| `order_by`                                                    | *OptionalNullable[str]*                                       | :heavy_minus_sign:                                            | N/A                                                           |                                                               |
+| `page`                                                        | *Optional[int]*                                               | :heavy_minus_sign:                                            | Page number                                                   |                                                               |
+| `size`                                                        | *Optional[int]*                                               | :heavy_minus_sign:                                            | Page size                                                     |                                                               |
+| `x_organization_id`                                           | *Nullable[str]*                                               | :heavy_check_mark:                                            | The unique identifier for the organization making the request | org_12345                                                     |
