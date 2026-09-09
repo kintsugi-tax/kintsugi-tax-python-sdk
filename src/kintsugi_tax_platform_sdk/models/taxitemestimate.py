@@ -2,7 +2,13 @@
 
 from __future__ import annotations
 from .taxitemreturnreasonenum import TaxItemReturnReasonEnum
-from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from kintsugi_tax_platform_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import NotRequired, TypedDict
@@ -13,9 +19,8 @@ class TaxItemEstimateTypedDict(TypedDict):
     rate: NotRequired[str]
     amount: NotRequired[str]
     exempt: NotRequired[bool]
-    exempt_reason: NotRequired[TaxItemReturnReasonEnum]
-    r"""We use this to understand the response from get_tax_items"""
-    rule: NotRequired[str]
+    exempt_reason: NotRequired[Nullable[TaxItemReturnReasonEnum]]
+    rule: NotRequired[Nullable[str]]
 
 
 class TaxItemEstimate(BaseModel):
@@ -27,23 +32,31 @@ class TaxItemEstimate(BaseModel):
 
     exempt: Optional[bool] = False
 
-    exempt_reason: Optional[TaxItemReturnReasonEnum] = None
-    r"""We use this to understand the response from get_tax_items"""
+    exempt_reason: OptionalNullable[TaxItemReturnReasonEnum] = UNSET
 
-    rule: Optional[str] = None
+    rule: OptionalNullable[str] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["rate", "amount", "exempt", "exempt_reason", "rule"])
+        nullable_fields = set(["exempt_reason", "rule"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
