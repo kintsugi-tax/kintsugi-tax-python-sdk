@@ -4,6 +4,7 @@ from __future__ import annotations
 from .countrycodeenum import CountryCodeEnum
 from .currencyenum import CurrencyEnum
 from .customerbasebase import CustomerBaseBase, CustomerBaseBaseTypedDict
+from .documenttypeenum import DocumentTypeEnum
 from .exemption import Exemption, ExemptionTypedDict
 from .exemptionrequired import ExemptionRequired, ExemptionRequiredTypedDict
 from .sourceenum import SourceEnum
@@ -13,6 +14,10 @@ from .transactionaddresspublic import (
     TransactionAddressPublicTypedDict,
 )
 from .transactionexemptstatusenum import TransactionExemptStatusEnum
+from .transactionimportcustomer import (
+    TransactionImportCustomer,
+    TransactionImportCustomerTypedDict,
+)
 from .transactionitembuilder import (
     TransactionItemBuilder,
     TransactionItemBuilderTypedDict,
@@ -20,12 +25,111 @@ from .transactionitembuilder import (
 from .transactionrefundstatus import TransactionRefundStatus
 from .transactionstatusenum import TransactionStatusEnum
 from .transactiontypeenum import TransactionTypeEnum
-from datetime import datetime
-from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from datetime import date, datetime
+from kintsugi_tax_platform_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 import pydantic
 from pydantic import model_serializer
-from typing import List, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing import List, Optional, Union
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
+
+
+TransactionPublicRequestTotalAmountTypedDict = TypeAliasType(
+    "TransactionPublicRequestTotalAmountTypedDict", Union[float, str]
+)
+r"""Total amount of the transaction."""
+
+
+TransactionPublicRequestTotalAmount = TypeAliasType(
+    "TransactionPublicRequestTotalAmount", Union[float, str]
+)
+r"""Total amount of the transaction."""
+
+
+TransactionPublicRequestTotalTaxAmountImportedTypedDict = TypeAliasType(
+    "TransactionPublicRequestTotalTaxAmountImportedTypedDict", Union[float, str]
+)
+r"""Imported tax amount."""
+
+
+TransactionPublicRequestTotalTaxAmountImported = TypeAliasType(
+    "TransactionPublicRequestTotalTaxAmountImported", Union[float, str]
+)
+r"""Imported tax amount."""
+
+
+TransactionPublicRequestTaxRateImportedTypedDict = TypeAliasType(
+    "TransactionPublicRequestTaxRateImportedTypedDict", Union[float, str]
+)
+r"""Imported tax rate."""
+
+
+TransactionPublicRequestTaxRateImported = TypeAliasType(
+    "TransactionPublicRequestTaxRateImported", Union[float, str]
+)
+r"""Imported tax rate."""
+
+
+TransactionPublicRequestTotalTaxAmountCalculatedTypedDict = TypeAliasType(
+    "TransactionPublicRequestTotalTaxAmountCalculatedTypedDict", Union[float, str]
+)
+r"""Calculated tax amount."""
+
+
+TransactionPublicRequestTotalTaxAmountCalculated = TypeAliasType(
+    "TransactionPublicRequestTotalTaxAmountCalculated", Union[float, str]
+)
+r"""Calculated tax amount."""
+
+
+TransactionPublicRequestTaxRateCalculatedTypedDict = TypeAliasType(
+    "TransactionPublicRequestTaxRateCalculatedTypedDict", Union[float, str]
+)
+r"""Calculated tax rate."""
+
+
+TransactionPublicRequestTaxRateCalculated = TypeAliasType(
+    "TransactionPublicRequestTaxRateCalculated", Union[float, str]
+)
+r"""Calculated tax rate."""
+
+
+TransactionPublicRequestTotalTaxLiabilityAmountTypedDict = TypeAliasType(
+    "TransactionPublicRequestTotalTaxLiabilityAmountTypedDict", Union[float, str]
+)
+r"""Total tax liability amount."""
+
+
+TransactionPublicRequestTotalTaxLiabilityAmount = TypeAliasType(
+    "TransactionPublicRequestTotalTaxLiabilityAmount", Union[float, str]
+)
+r"""Total tax liability amount."""
+
+
+TransactionPublicRequestTaxableAmountTypedDict = TypeAliasType(
+    "TransactionPublicRequestTaxableAmountTypedDict", Union[float, str]
+)
+r"""Taxable amount."""
+
+
+TransactionPublicRequestTaxableAmount = TypeAliasType(
+    "TransactionPublicRequestTaxableAmount", Union[float, str]
+)
+r"""Taxable amount."""
+
+
+CustomerTypedDict = TypeAliasType(
+    "CustomerTypedDict",
+    Union[TransactionImportCustomerTypedDict, CustomerBaseBaseTypedDict],
+)
+
+
+Customer = TypeAliasType("Customer", Union[TransactionImportCustomer, CustomerBaseBase])
 
 
 class TransactionPublicRequestTypedDict(TypedDict):
@@ -37,76 +141,81 @@ class TransactionPublicRequestTypedDict(TypedDict):
     r"""Transaction date and time"""
     addresses: List[TransactionAddressPublicTypedDict]
     transaction_items: List[TransactionItemBuilderTypedDict]
-    customer: CustomerBaseBaseTypedDict
+    customer: CustomerTypedDict
     type: TransactionTypeEnum
-    requires_exemption: NotRequired[ExemptionRequiredTypedDict]
-    shop_date: NotRequired[str]
+    requires_exemption: NotRequired[Nullable[ExemptionRequiredTypedDict]]
+    r"""Indicates if transaction requires tax exemption."""
+    shop_date: NotRequired[Nullable[date]]
     r"""Transaction date in the shop's local timezone"""
-    shop_date_tz: NotRequired[str]
+    shop_date_tz: NotRequired[Nullable[str]]
     r"""Timezone of the shop"""
-    description: NotRequired[str]
+    description: NotRequired[Nullable[str]]
     r"""Description of the transaction."""
-    refund_status: NotRequired[TransactionRefundStatus]
-    r"""Shopify has 2 order statuses for refund case: refunded and partially_refunded
-    If the given order has different status from these 2, we will set the
-    transaction's refund_status to PARTIALLY_REFUNDED by default.
-    """
-    total_amount: NotRequired[float]
+    refund_status: NotRequired[Nullable[TransactionRefundStatus]]
+    r"""Status of refund, if applicable"""
+    total_amount: NotRequired[TransactionPublicRequestTotalAmountTypedDict]
     r"""Total amount of the transaction."""
-    customer_id: NotRequired[str]
+    customer_id: NotRequired[Nullable[str]]
     r"""Unique identifier of the customer."""
-    marketplace: NotRequired[bool]
+    marketplace: NotRequired[Nullable[bool]]
     r"""Indicates if transaction is marketplace-based."""
-    exempt: NotRequired[TransactionExemptStatusEnum]
-    r"""Based on transaction item exempt status.
-    NOT EXEMPT: None of the items are NOT EXEMPT
-    PARTIALLY EXEMPT: At least some of the items are NOT EXEMPT
-    FULLY_EXEMPT: All items sold in the transaction are EXEMPT
-    ZERO_RATE_NOT_EXEMPT: All items sold in the transaction are zero-rated
-    """
-    exemptions: NotRequired[List[ExemptionTypedDict]]
+    exempt: NotRequired[Nullable[TransactionExemptStatusEnum]]
+    r"""Exemption status (e.g., NOT_EXEMPT)"""
+    exemptions: NotRequired[Nullable[List[ExemptionTypedDict]]]
     r"""List of exemptions applied (if any)."""
-    related_to: NotRequired[str]
+    related_to: NotRequired[Nullable[str]]
     r"""Related transaction identifier."""
-    secondary_external_id: NotRequired[str]
+    secondary_external_id: NotRequired[Nullable[str]]
     r"""Secondary External Identifier."""
-    secondary_source: NotRequired[str]
+    secondary_source: NotRequired[Nullable[str]]
     r"""Secondary source information"""
-    external_friendly_id: NotRequired[str]
+    external_friendly_id: NotRequired[Nullable[str]]
     r"""Friendly identifier of the original item."""
-    total_tax_amount_imported: NotRequired[float]
+    total_tax_amount_imported: NotRequired[
+        TransactionPublicRequestTotalTaxAmountImportedTypedDict
+    ]
     r"""Imported tax amount."""
-    tax_rate_imported: NotRequired[float]
+    tax_rate_imported: NotRequired[TransactionPublicRequestTaxRateImportedTypedDict]
     r"""Imported tax rate."""
-    total_tax_amount_calculated: NotRequired[float]
+    total_tax_amount_calculated: NotRequired[
+        TransactionPublicRequestTotalTaxAmountCalculatedTypedDict
+    ]
     r"""Calculated tax amount."""
-    tax_rate_calculated: NotRequired[float]
+    tax_rate_calculated: NotRequired[TransactionPublicRequestTaxRateCalculatedTypedDict]
     r"""Calculated tax rate."""
-    total_tax_liability_amount: NotRequired[float]
+    total_tax_liability_amount: NotRequired[
+        TransactionPublicRequestTotalTaxLiabilityAmountTypedDict
+    ]
     r"""Total tax liability amount."""
-    tax_liability_source: NotRequired[TaxLiabilitySourceEnum]
-    taxable_amount: NotRequired[float]
+    tax_liability_source: NotRequired[Nullable[TaxLiabilitySourceEnum]]
+    r"""Source of tax liability."""
+    taxable_amount: NotRequired[TransactionPublicRequestTaxableAmountTypedDict]
     r"""Taxable amount."""
     currency: NotRequired[CurrencyEnum]
     locked: NotRequired[bool]
     r"""Transaction lock status."""
     source: NotRequired[SourceEnum]
-    connection_id: NotRequired[str]
+    connection_id: NotRequired[Nullable[str]]
     r"""Connection Identifier"""
-    filing_id: NotRequired[str]
+    filing_id: NotRequired[Nullable[str]]
     r"""Filing identifier."""
-    city: NotRequired[str]
+    city: NotRequired[Nullable[str]]
     r"""City of the transaction address."""
-    county: NotRequired[str]
+    county: NotRequired[Nullable[str]]
     r"""County of the transaction address."""
-    state: NotRequired[str]
+    state: NotRequired[Nullable[str]]
     r"""State of the transaction address."""
-    country: NotRequired[CountryCodeEnum]
-    postal_code: NotRequired[str]
+    country: NotRequired[Nullable[CountryCodeEnum]]
+    r"""Country code (ISO Alpha-2)."""
+    postal_code: NotRequired[Nullable[str]]
     r"""Postal code of the transaction."""
-    tax_id: NotRequired[str]
+    tax_id: NotRequired[Nullable[str]]
     r"""Tax ID associated with the transaction. DEPRECATED: This field is only populated for QuickBooks integrations and will be removed in a future version."""
     status: NotRequired[TransactionStatusEnum]
+    document_type: NotRequired[Nullable[DocumentTypeEnum]]
+    r"""Document type distinguishing invoices from sales orders."""
+    created_from: NotRequired[Nullable[str]]
+    r"""Identifier of the invoice that created from a sales order."""
 
 
 class TransactionPublicRequest(BaseModel):
@@ -128,77 +237,77 @@ class TransactionPublicRequest(BaseModel):
 
     transaction_items: List[TransactionItemBuilder]
 
-    customer: CustomerBaseBase
+    customer: Customer
 
     type: TransactionTypeEnum
 
-    requires_exemption: Optional[ExemptionRequired] = None
+    requires_exemption: OptionalNullable[ExemptionRequired] = UNSET
+    r"""Indicates if transaction requires tax exemption."""
 
-    shop_date: Optional[str] = None
+    shop_date: OptionalNullable[date] = UNSET
     r"""Transaction date in the shop's local timezone"""
 
-    shop_date_tz: Optional[str] = None
+    shop_date_tz: OptionalNullable[str] = UNSET
     r"""Timezone of the shop"""
 
-    description: Optional[str] = None
+    description: OptionalNullable[str] = UNSET
     r"""Description of the transaction."""
 
-    refund_status: Optional[TransactionRefundStatus] = None
-    r"""Shopify has 2 order statuses for refund case: refunded and partially_refunded
-    If the given order has different status from these 2, we will set the
-    transaction's refund_status to PARTIALLY_REFUNDED by default.
-    """
+    refund_status: OptionalNullable[TransactionRefundStatus] = UNSET
+    r"""Status of refund, if applicable"""
 
-    total_amount: Optional[float] = 0
+    total_amount: Optional[TransactionPublicRequestTotalAmount] = None
     r"""Total amount of the transaction."""
 
-    customer_id: Optional[str] = None
+    customer_id: OptionalNullable[str] = UNSET
     r"""Unique identifier of the customer."""
 
-    marketplace: Optional[bool] = False
+    marketplace: OptionalNullable[bool] = UNSET
     r"""Indicates if transaction is marketplace-based."""
 
-    exempt: Optional[TransactionExemptStatusEnum] = None
-    r"""Based on transaction item exempt status.
-    NOT EXEMPT: None of the items are NOT EXEMPT
-    PARTIALLY EXEMPT: At least some of the items are NOT EXEMPT
-    FULLY_EXEMPT: All items sold in the transaction are EXEMPT
-    ZERO_RATE_NOT_EXEMPT: All items sold in the transaction are zero-rated
-    """
+    exempt: OptionalNullable[TransactionExemptStatusEnum] = UNSET
+    r"""Exemption status (e.g., NOT_EXEMPT)"""
 
-    exemptions: Optional[List[Exemption]] = None
+    exemptions: OptionalNullable[List[Exemption]] = UNSET
     r"""List of exemptions applied (if any)."""
 
-    related_to: Optional[str] = None
+    related_to: OptionalNullable[str] = UNSET
     r"""Related transaction identifier."""
 
-    secondary_external_id: Optional[str] = None
+    secondary_external_id: OptionalNullable[str] = UNSET
     r"""Secondary External Identifier."""
 
-    secondary_source: Optional[str] = None
+    secondary_source: OptionalNullable[str] = UNSET
     r"""Secondary source information"""
 
-    external_friendly_id: Optional[str] = None
+    external_friendly_id: OptionalNullable[str] = UNSET
     r"""Friendly identifier of the original item."""
 
-    total_tax_amount_imported: Optional[float] = 0
+    total_tax_amount_imported: Optional[
+        TransactionPublicRequestTotalTaxAmountImported
+    ] = None
     r"""Imported tax amount."""
 
-    tax_rate_imported: Optional[float] = 0
+    tax_rate_imported: Optional[TransactionPublicRequestTaxRateImported] = None
     r"""Imported tax rate."""
 
-    total_tax_amount_calculated: Optional[float] = 0
+    total_tax_amount_calculated: Optional[
+        TransactionPublicRequestTotalTaxAmountCalculated
+    ] = None
     r"""Calculated tax amount."""
 
-    tax_rate_calculated: Optional[float] = 0
+    tax_rate_calculated: Optional[TransactionPublicRequestTaxRateCalculated] = None
     r"""Calculated tax rate."""
 
-    total_tax_liability_amount: Optional[float] = 0
+    total_tax_liability_amount: Optional[
+        TransactionPublicRequestTotalTaxLiabilityAmount
+    ] = None
     r"""Total tax liability amount."""
 
-    tax_liability_source: Optional[TaxLiabilitySourceEnum] = None
+    tax_liability_source: OptionalNullable[TaxLiabilitySourceEnum] = UNSET
+    r"""Source of tax liability."""
 
-    taxable_amount: Optional[float] = 0
+    taxable_amount: Optional[TransactionPublicRequestTaxableAmount] = None
     r"""Taxable amount."""
 
     currency: Optional[CurrencyEnum] = None
@@ -208,35 +317,42 @@ class TransactionPublicRequest(BaseModel):
 
     source: Optional[SourceEnum] = None
 
-    connection_id: Optional[str] = None
+    connection_id: OptionalNullable[str] = UNSET
     r"""Connection Identifier"""
 
-    filing_id: Optional[str] = None
+    filing_id: OptionalNullable[str] = UNSET
     r"""Filing identifier."""
 
-    city: Optional[str] = None
+    city: OptionalNullable[str] = UNSET
     r"""City of the transaction address."""
 
-    county: Optional[str] = None
+    county: OptionalNullable[str] = UNSET
     r"""County of the transaction address."""
 
-    state: Optional[str] = None
+    state: OptionalNullable[str] = UNSET
     r"""State of the transaction address."""
 
-    country: Optional[CountryCodeEnum] = None
+    country: OptionalNullable[CountryCodeEnum] = UNSET
+    r"""Country code (ISO Alpha-2)."""
 
-    postal_code: Optional[str] = None
+    postal_code: OptionalNullable[str] = UNSET
     r"""Postal code of the transaction."""
 
     tax_id: Annotated[
-        Optional[str],
+        OptionalNullable[str],
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
         ),
-    ] = None
+    ] = UNSET
     r"""Tax ID associated with the transaction. DEPRECATED: This field is only populated for QuickBooks integrations and will be removed in a future version."""
 
     status: Optional[TransactionStatusEnum] = None
+
+    document_type: OptionalNullable[DocumentTypeEnum] = UNSET
+    r"""Document type distinguishing invoices from sales orders."""
+
+    created_from: OptionalNullable[str] = UNSET
+    r"""Identifier of the invoice that created from a sales order."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -275,6 +391,36 @@ class TransactionPublicRequest(BaseModel):
                 "postal_code",
                 "tax_id",
                 "status",
+                "document_type",
+                "created_from",
+            ]
+        )
+        nullable_fields = set(
+            [
+                "requires_exemption",
+                "shop_date",
+                "shop_date_tz",
+                "description",
+                "refund_status",
+                "customer_id",
+                "marketplace",
+                "exempt",
+                "exemptions",
+                "related_to",
+                "secondary_external_id",
+                "secondary_source",
+                "external_friendly_id",
+                "tax_liability_source",
+                "connection_id",
+                "filing_id",
+                "city",
+                "county",
+                "state",
+                "country",
+                "postal_code",
+                "tax_id",
+                "document_type",
+                "created_from",
             ]
         )
         serialized = handler(self)
@@ -283,9 +429,17 @@ class TransactionPublicRequest(BaseModel):
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
