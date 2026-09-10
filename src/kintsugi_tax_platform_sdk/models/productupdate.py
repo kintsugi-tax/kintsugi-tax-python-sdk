@@ -2,7 +2,13 @@
 
 from __future__ import annotations
 from .productstatusenum import ProductStatusEnum
-from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from kintsugi_tax_platform_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
@@ -23,17 +29,17 @@ class ProductUpdateTypedDict(TypedDict):
     """
     tax_exempt: bool
     r"""Indicates whether the product is tax-exempt."""
-    id: NotRequired[str]
+    id: NotRequired[Nullable[str]]
     r"""The unique identifier of the product to be updated."""
-    external_id: NotRequired[str]
+    external_id: NotRequired[Nullable[str]]
     r"""External identifier provided for the product,
     typically by the source system.
     """
-    sku: NotRequired[List[str]]
-    description: NotRequired[str]
+    sku: NotRequired[Nullable[List[str]]]
+    description: NotRequired[Nullable[str]]
     r"""Description of the product."""
     status: NotRequired[ProductStatusEnum]
-    classification_failed: NotRequired[bool]
+    classification_failed: NotRequired[Nullable[bool]]
     r"""Indicates if the product classification failed."""
 
 
@@ -56,22 +62,22 @@ class ProductUpdate(BaseModel):
     tax_exempt: bool
     r"""Indicates whether the product is tax-exempt."""
 
-    id: Optional[str] = None
+    id: OptionalNullable[str] = UNSET
     r"""The unique identifier of the product to be updated."""
 
-    external_id: Optional[str] = None
+    external_id: OptionalNullable[str] = UNSET
     r"""External identifier provided for the product,
     typically by the source system.
     """
 
-    sku: Optional[List[str]] = None
+    sku: OptionalNullable[List[str]] = UNSET
 
-    description: Optional[str] = None
+    description: OptionalNullable[str] = UNSET
     r"""Description of the product."""
 
     status: Optional[ProductStatusEnum] = None
 
-    classification_failed: Optional[bool] = False
+    classification_failed: OptionalNullable[bool] = UNSET
     r"""Indicates if the product classification failed."""
 
     @model_serializer(mode="wrap")
@@ -86,15 +92,26 @@ class ProductUpdate(BaseModel):
                 "classification_failed",
             ]
         )
+        nullable_fields = set(
+            ["id", "external_id", "sku", "description", "classification_failed"]
+        )
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

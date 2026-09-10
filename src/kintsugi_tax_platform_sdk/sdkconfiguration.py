@@ -17,7 +17,7 @@ from typing import Callable, Dict, Optional, Tuple, Union
 
 SERVERS = [
     "https://api.trykintsugi.com",
-    # Production API server URL
+    # Production
 ]
 """Contains the list of servers available to the SDK"""
 
