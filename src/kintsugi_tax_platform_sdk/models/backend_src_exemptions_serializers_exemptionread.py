@@ -7,7 +7,13 @@ from .customerread import CustomerRead, CustomerReadTypedDict
 from .exemptionstatus import ExemptionStatus
 from .exemptiontype import ExemptionType
 from datetime import date
-from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from kintsugi_tax_platform_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 import pydantic
 from pydantic import model_serializer
 from typing import List, Optional
@@ -21,21 +27,23 @@ class BackendSrcExemptionsSerializersExemptionReadTypedDict(TypedDict):
     r"""Unique identifier for the exemption"""
     exemption_type: ExemptionType
     status: ExemptionStatus
-    country_code: NotRequired[CountryCodeEnum]
-    jurisdiction: NotRequired[str]
+    country_code: NotRequired[Nullable[CountryCodeEnum]]
+    r"""Country code in ISO 3166-1 alpha-2 format (e.g., 'US')"""
+    jurisdiction: NotRequired[Nullable[str]]
     r"""The jurisdiction identifier for the exemption"""
-    end_date: NotRequired[str]
+    end_date: NotRequired[Nullable[date]]
     r"""End date for the exemption validity period (YYYY-MM-DD format)"""
-    transaction_id: NotRequired[str]
+    transaction_id: NotRequired[Nullable[str]]
     r"""Unique identifier for the transaction, if applicable"""
     reseller: NotRequired[bool]
     r"""Indicates whether the exemption is for a reseller"""
-    fein: NotRequired[str]
+    fein: NotRequired[Nullable[str]]
     r"""Federal Employer Identification Number"""
-    sales_tax_id: NotRequired[str]
+    sales_tax_id: NotRequired[Nullable[str]]
     r"""Sales tax ID for the exemption"""
-    customer: NotRequired[CustomerReadTypedDict]
-    attachment: NotRequired[List[AttachmentReadTypedDict]]
+    customer: NotRequired[Nullable[CustomerReadTypedDict]]
+    r"""Details of the customer associated with the exemption"""
+    attachment: NotRequired[Nullable[List[AttachmentReadTypedDict]]]
     r"""List of attachments related to the exemption"""
 
 
@@ -50,29 +58,31 @@ class BackendSrcExemptionsSerializersExemptionRead(BaseModel):
 
     status: ExemptionStatus
 
-    country_code: Optional[CountryCodeEnum] = None
+    country_code: OptionalNullable[CountryCodeEnum] = UNSET
+    r"""Country code in ISO 3166-1 alpha-2 format (e.g., 'US')"""
 
-    jurisdiction: Optional[str] = None
+    jurisdiction: OptionalNullable[str] = UNSET
     r"""The jurisdiction identifier for the exemption"""
 
-    end_date: Optional[str] = None
+    end_date: OptionalNullable[date] = UNSET
     r"""End date for the exemption validity period (YYYY-MM-DD format)"""
 
-    transaction_id: Optional[str] = None
+    transaction_id: OptionalNullable[str] = UNSET
     r"""Unique identifier for the transaction, if applicable"""
 
     reseller: Optional[bool] = False
     r"""Indicates whether the exemption is for a reseller"""
 
-    fein: Annotated[Optional[str], pydantic.Field(alias="FEIN")] = None
+    fein: Annotated[OptionalNullable[str], pydantic.Field(alias="FEIN")] = UNSET
     r"""Federal Employer Identification Number"""
 
-    sales_tax_id: Optional[str] = None
+    sales_tax_id: OptionalNullable[str] = UNSET
     r"""Sales tax ID for the exemption"""
 
-    customer: Optional[CustomerRead] = None
+    customer: OptionalNullable[CustomerRead] = UNSET
+    r"""Details of the customer associated with the exemption"""
 
-    attachment: Optional[List[AttachmentRead]] = None
+    attachment: OptionalNullable[List[AttachmentRead]] = UNSET
     r"""List of attachments related to the exemption"""
 
     @model_serializer(mode="wrap")
@@ -90,15 +100,35 @@ class BackendSrcExemptionsSerializersExemptionRead(BaseModel):
                 "attachment",
             ]
         )
+        nullable_fields = set(
+            [
+                "country_code",
+                "jurisdiction",
+                "end_date",
+                "transaction_id",
+                "FEIN",
+                "sales_tax_id",
+                "customer",
+                "attachment",
+            ]
+        )
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

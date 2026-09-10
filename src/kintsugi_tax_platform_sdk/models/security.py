@@ -8,7 +8,6 @@ from typing_extensions import Annotated, TypedDict
 
 class SecurityTypedDict(TypedDict):
     api_key_header: str
-    custom_header: str
 
 
 class Security(BaseModel):
@@ -19,21 +18,7 @@ class Security(BaseModel):
                 scheme=True,
                 scheme_type="apiKey",
                 sub_type="header",
-                composite=True,
                 field_name="X-API-KEY",
-            )
-        ),
-    ]
-
-    custom_header: Annotated[
-        str,
-        FieldMetadata(
-            security=SecurityMetadata(
-                scheme=True,
-                scheme_type="apiKey",
-                sub_type="header",
-                composite=True,
-                field_name="x-organization-id",
             )
         ),
     ]
