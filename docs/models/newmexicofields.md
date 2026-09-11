@@ -1,0 +1,16 @@
+# NewMexicoFields
+
+State-specific fields for New Mexico TAP portal registration import.
+
+Third-party access is communicated via Indiana-style footer copy on import
+(no ``third_party_access_enabled`` checkbox field).
+
+
+## Fields
+
+| Field                                                                                                                  | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            |
+| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `mfa_completed`                                                                                                        | *Optional[bool]*                                                                                                       | :heavy_minus_sign:                                                                                                     | Whether the customer has completed MFA setup using the Kintsugi virtual mail group ID on their New Mexico TAP account. |
+| `registration_type`                                                                                                    | *Literal["GROSS_RECEIPTS_TAX"]*                                                                                        | :heavy_check_mark:                                                                                                     | Registration type for this New Mexico import: gross receipts tax.                                                      |
+| `business_name`                                                                                                        | *str*                                                                                                                  | :heavy_check_mark:                                                                                                     | State-registered business name as shown in New Mexico TAP.                                                             |
+| `nm_state_tax_id`                                                                                                      | *str*                                                                                                                  | :heavy_check_mark:                                                                                                     | New Mexico State Taxpayer ID associated with the Gross Receipts Tax account.                                           |
