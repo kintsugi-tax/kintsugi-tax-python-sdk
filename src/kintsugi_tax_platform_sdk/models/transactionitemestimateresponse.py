@@ -5,7 +5,13 @@ from .sourceenum import SourceEnum
 from .taxexemptionenum import TaxExemptionEnum
 from .taxitemestimate import TaxItemEstimate, TaxItemEstimateTypedDict
 from datetime import datetime
-from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from kintsugi_tax_platform_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 import pydantic
 from pydantic import model_serializer
 from typing import List, Optional
@@ -17,24 +23,24 @@ class TransactionItemEstimateResponseTypedDict(TypedDict):
     r"""The date of the transaction item."""
     amount: str
     r"""The total amount of the item."""
-    external_id: NotRequired[str]
+    external_id: NotRequired[Nullable[str]]
     r"""A unique identifier for the transaction item."""
-    description: NotRequired[str]
+    description: NotRequired[Nullable[str]]
     r"""A description of the item."""
-    external_product_id: NotRequired[str]
+    external_product_id: NotRequired[Nullable[str]]
     r"""External product identifier. If not found and product_subcategory
     and product_category are not provided, an error occurs.
     """
-    product_name: NotRequired[str]
+    product_name: NotRequired[Nullable[str]]
     r"""Name of the product. Used if creating a new product."""
-    product_description: NotRequired[str]
+    product_description: NotRequired[Nullable[str]]
     r"""Description of the product. Used if creating a new product."""
-    product_source: NotRequired[SourceEnum]
-    product_subcategory: NotRequired[str]
+    product_source: NotRequired[Nullable[SourceEnum]]
+    product_subcategory: NotRequired[Nullable[str]]
     r"""Subcategory of the product. Required if product_category is used
     in place of external_product_id.
     """
-    product_category: NotRequired[str]
+    product_category: NotRequired[Nullable[str]]
     r"""Category of the product. Required if product_subcategory is used
     in place of external_product_id.
     """
@@ -42,14 +48,23 @@ class TransactionItemEstimateResponseTypedDict(TypedDict):
     r"""Defaults to 1.0. The quantity of the item."""
     exempt: NotRequired[bool]
     r"""Indicates whether the transaction item is exempt from tax."""
+    is_tax_inclusive: NotRequired[bool]
+    r"""**Beta — not yet available in production.** When it is not enabled for your environment the field is accepted but ignored, and the response echoes `false`.
+
+    Defaults to false. When true, `amount` is the gross (tax-included) price and the tax is backed out of it rather than added on top; for a taxable line, `taxable_amount` in the response is then the net base.
+
+    When the line is not taxed - exempt, or no tax rule applies in the destination - `taxable_amount` is `0.00` rather than the net base, matching how exempt tax-exclusive lines already behave. Read the net amount as `taxable_amount` when `tax_amount` is non-zero, and as `amount` otherwise.
+
+    This applies to the estimate in this request only. Transactions imported through a connection carry no such flag, so an order quoted here as gross is treated as net when it later syncs, and its recorded tax will be higher than this estimate. Send net amounts on the connection side, or reconcile the difference, until tax-inclusive import support ships.
+    """
     tax_amount: NotRequired[str]
     r"""The total tax amount for the transaction item."""
     taxable_amount: NotRequired[str]
     r"""The taxable amount for the transaction item."""
     tax_rate: NotRequired[str]
     r"""The tax rate applied to the transaction item."""
-    exempt_reason: NotRequired[TaxExemptionEnum]
-    r"""This enum is used to determine if a transaction is exempt from tax."""
+    exempt_reason: NotRequired[Nullable[TaxExemptionEnum]]
+    r"""Reason for exemption, if applicable."""
     tax_items: NotRequired[List[TaxItemEstimateTypedDict]]
     r"""List of tax items applied to the transaction item."""
 
@@ -61,31 +76,31 @@ class TransactionItemEstimateResponse(BaseModel):
     amount: str
     r"""The total amount of the item."""
 
-    external_id: Optional[str] = None
+    external_id: OptionalNullable[str] = UNSET
     r"""A unique identifier for the transaction item."""
 
-    description: Optional[str] = None
+    description: OptionalNullable[str] = UNSET
     r"""A description of the item."""
 
-    external_product_id: Optional[str] = None
+    external_product_id: OptionalNullable[str] = UNSET
     r"""External product identifier. If not found and product_subcategory
     and product_category are not provided, an error occurs.
     """
 
-    product_name: Optional[str] = None
+    product_name: OptionalNullable[str] = UNSET
     r"""Name of the product. Used if creating a new product."""
 
-    product_description: Optional[str] = None
+    product_description: OptionalNullable[str] = UNSET
     r"""Description of the product. Used if creating a new product."""
 
-    product_source: Optional[SourceEnum] = None
+    product_source: OptionalNullable[SourceEnum] = UNSET
 
-    product_subcategory: Optional[str] = None
+    product_subcategory: OptionalNullable[str] = UNSET
     r"""Subcategory of the product. Required if product_category is used
     in place of external_product_id.
     """
 
-    product_category: Optional[str] = None
+    product_category: OptionalNullable[str] = UNSET
     r"""Category of the product. Required if product_subcategory is used
     in place of external_product_id.
     """
@@ -96,6 +111,16 @@ class TransactionItemEstimateResponse(BaseModel):
     exempt: Optional[bool] = False
     r"""Indicates whether the transaction item is exempt from tax."""
 
+    is_tax_inclusive: Optional[bool] = False
+    r"""**Beta — not yet available in production.** When it is not enabled for your environment the field is accepted but ignored, and the response echoes `false`.
+
+    Defaults to false. When true, `amount` is the gross (tax-included) price and the tax is backed out of it rather than added on top; for a taxable line, `taxable_amount` in the response is then the net base.
+
+    When the line is not taxed - exempt, or no tax rule applies in the destination - `taxable_amount` is `0.00` rather than the net base, matching how exempt tax-exclusive lines already behave. Read the net amount as `taxable_amount` when `tax_amount` is non-zero, and as `amount` otherwise.
+
+    This applies to the estimate in this request only. Transactions imported through a connection carry no such flag, so an order quoted here as gross is treated as net when it later syncs, and its recorded tax will be higher than this estimate. Send net amounts on the connection side, or reconcile the difference, until tax-inclusive import support ships.
+    """
+
     tax_amount: Optional[str] = "0.00"
     r"""The total tax amount for the transaction item."""
 
@@ -105,8 +130,8 @@ class TransactionItemEstimateResponse(BaseModel):
     tax_rate: Optional[str] = "0.00"
     r"""The tax rate applied to the transaction item."""
 
-    exempt_reason: Optional[TaxExemptionEnum] = None
-    r"""This enum is used to determine if a transaction is exempt from tax."""
+    exempt_reason: OptionalNullable[TaxExemptionEnum] = UNSET
+    r"""Reason for exemption, if applicable."""
 
     tax_items: Optional[List[TaxItemEstimate]] = None
     r"""List of tax items applied to the transaction item."""
@@ -125,11 +150,25 @@ class TransactionItemEstimateResponse(BaseModel):
                 "product_category",
                 "quantity",
                 "exempt",
+                "is_tax_inclusive",
                 "tax_amount",
                 "taxable_amount",
                 "tax_rate",
                 "exempt_reason",
                 "tax_items",
+            ]
+        )
+        nullable_fields = set(
+            [
+                "external_id",
+                "description",
+                "external_product_id",
+                "product_name",
+                "product_description",
+                "product_source",
+                "product_subcategory",
+                "product_category",
+                "exempt_reason",
             ]
         )
         serialized = handler(self)
@@ -138,9 +177,17 @@ class TransactionItemEstimateResponse(BaseModel):
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
