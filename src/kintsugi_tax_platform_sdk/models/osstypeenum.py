@@ -9,3 +9,4 @@ class OssTypeEnum(str, Enum):
 
     UNION = "UNION"
     NON_UNION = "NON_UNION"
+    IOSS = "IOSS"

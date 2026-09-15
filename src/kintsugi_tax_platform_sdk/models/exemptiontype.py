@@ -8,3 +8,4 @@ class ExemptionType(str, Enum):
     CUSTOMER = "customer"
     WHOLESALE = "wholesale"
     TRANSACTION = "transaction"
+    REVERSE_CHARGE = "reverse_charge"

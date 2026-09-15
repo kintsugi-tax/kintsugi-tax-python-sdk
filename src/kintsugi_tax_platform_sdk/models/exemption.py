@@ -2,10 +2,17 @@
 
 from __future__ import annotations
 from .countrycodeenum import CountryCodeEnum
+from .exemptionsourceenum import ExemptionSourceEnum
 from .exemptionstatus import ExemptionStatus
 from .exemptiontype import ExemptionType
 from datetime import date, datetime
-from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from kintsugi_tax_platform_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 import pydantic
 from pydantic import model_serializer
 from typing import Optional
@@ -20,29 +27,37 @@ class ExemptionTypedDict(TypedDict):
     r"""Unique identifier for the exemption"""
     created_at: NotRequired[datetime]
     r"""Timestamp when transaction was created in Kintsugi."""
-    updated_at: NotRequired[str]
+    updated_at: NotRequired[Nullable[datetime]]
     r"""Timestamp when transaction was last updated."""
-    jurisdiction: NotRequired[str]
+    jurisdiction: NotRequired[Nullable[str]]
     r"""The jurisdiction identifier for the exemption"""
-    country_code: NotRequired[CountryCodeEnum]
-    end_date: NotRequired[str]
+    country_code: NotRequired[Nullable[CountryCodeEnum]]
+    r"""Country code in ISO 3166-1 alpha-2 format (e.g., 'US')"""
+    end_date: NotRequired[Nullable[date]]
     r"""End date for the exemption validity period (YYYY-MM-DD format)"""
-    customer_id: NotRequired[str]
+    customer_id: NotRequired[Nullable[str]]
     r"""Unique identifier for the customer associated with the exemption"""
-    transaction_id: NotRequired[str]
+    transaction_id: NotRequired[Nullable[str]]
     r"""Unique identifier for the transaction
     associated with the exemption, if applicable.
     """
     reseller: NotRequired[bool]
     r"""Indicates whether the exemption is for a reseller"""
-    fein: NotRequired[str]
+    fein: NotRequired[Nullable[str]]
     r"""Federal Employer Identification Number
     associated with the exemption.
     """
-    sales_tax_id: NotRequired[str]
+    sales_tax_id: NotRequired[Nullable[str]]
     r"""Sales tax ID for the exemption"""
-    status: NotRequired[ExemptionStatus]
+    status: NotRequired[Nullable[ExemptionStatus]]
+    r"""The status of the exemption.
+    Defaults to ACTIVE if not provided.
+    """
     organization_id: NotRequired[str]
+    certificate_import_id: NotRequired[Nullable[str]]
+    r"""FK to bulk-imported certificate; NULL for manually-created exemptions"""
+    source: NotRequired[Nullable[ExemptionSourceEnum]]
+    r"""Source of exemption."""
 
 
 class Exemption(BaseModel):
@@ -57,21 +72,22 @@ class Exemption(BaseModel):
     created_at: Optional[datetime] = None
     r"""Timestamp when transaction was created in Kintsugi."""
 
-    updated_at: Optional[str] = None
+    updated_at: OptionalNullable[datetime] = UNSET
     r"""Timestamp when transaction was last updated."""
 
-    jurisdiction: Optional[str] = None
+    jurisdiction: OptionalNullable[str] = UNSET
     r"""The jurisdiction identifier for the exemption"""
 
-    country_code: Optional[CountryCodeEnum] = None
+    country_code: OptionalNullable[CountryCodeEnum] = UNSET
+    r"""Country code in ISO 3166-1 alpha-2 format (e.g., 'US')"""
 
-    end_date: Optional[str] = None
+    end_date: OptionalNullable[date] = UNSET
     r"""End date for the exemption validity period (YYYY-MM-DD format)"""
 
-    customer_id: Optional[str] = None
+    customer_id: OptionalNullable[str] = UNSET
     r"""Unique identifier for the customer associated with the exemption"""
 
-    transaction_id: Optional[str] = None
+    transaction_id: OptionalNullable[str] = UNSET
     r"""Unique identifier for the transaction
     associated with the exemption, if applicable.
     """
@@ -79,17 +95,26 @@ class Exemption(BaseModel):
     reseller: Optional[bool] = False
     r"""Indicates whether the exemption is for a reseller"""
 
-    fein: Annotated[Optional[str], pydantic.Field(alias="FEIN")] = None
+    fein: Annotated[OptionalNullable[str], pydantic.Field(alias="FEIN")] = UNSET
     r"""Federal Employer Identification Number
     associated with the exemption.
     """
 
-    sales_tax_id: Optional[str] = None
+    sales_tax_id: OptionalNullable[str] = UNSET
     r"""Sales tax ID for the exemption"""
 
-    status: Optional[ExemptionStatus] = None
+    status: OptionalNullable[ExemptionStatus] = UNSET
+    r"""The status of the exemption.
+    Defaults to ACTIVE if not provided.
+    """
 
     organization_id: Optional[str] = None
+
+    certificate_import_id: OptionalNullable[str] = UNSET
+    r"""FK to bulk-imported certificate; NULL for manually-created exemptions"""
+
+    source: OptionalNullable[ExemptionSourceEnum] = UNSET
+    r"""Source of exemption."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -108,6 +133,23 @@ class Exemption(BaseModel):
                 "sales_tax_id",
                 "status",
                 "organization_id",
+                "certificate_import_id",
+                "source",
+            ]
+        )
+        nullable_fields = set(
+            [
+                "updated_at",
+                "jurisdiction",
+                "country_code",
+                "end_date",
+                "customer_id",
+                "transaction_id",
+                "FEIN",
+                "sales_tax_id",
+                "status",
+                "certificate_import_id",
+                "source",
             ]
         )
         serialized = handler(self)
@@ -116,9 +158,17 @@ class Exemption(BaseModel):
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

@@ -5,10 +5,32 @@ from .changeregimestatusenum import ChangeRegimeStatusEnum
 from .countrycodeenum import CountryCodeEnum
 from .filingfrequencyenum import FilingFrequencyEnum
 from .registrationsregimeenum import RegistrationsRegimeEnum
-from kintsugi_tax_platform_sdk.types import BaseModel, UNSET_SENTINEL
+from datetime import date, datetime
+from kintsugi_tax_platform_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
+from kintsugi_tax_platform_sdk.utils import validate_const
+import pydantic
 from pydantic import model_serializer
-from typing import Optional
-from typing_extensions import NotRequired, TypedDict
+from pydantic.functional_validators import AfterValidator
+from typing import Any, Dict, Literal, Optional, Union
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
+
+
+RegistrationCreatePayloadAmountFeesTypedDict = TypeAliasType(
+    "RegistrationCreatePayloadAmountFeesTypedDict", Union[float, str]
+)
+r"""The amount of fees associated with the registration."""
+
+
+RegistrationCreatePayloadAmountFees = TypeAliasType(
+    "RegistrationCreatePayloadAmountFees", Union[float, str]
+)
+r"""The amount of fees associated with the registration."""
 
 
 class RegistrationCreatePayloadTypedDict(TypedDict):
@@ -18,54 +40,62 @@ class RegistrationCreatePayloadTypedDict(TypedDict):
     state_name: str
     r"""The name of the state/province."""
     filing_frequency: FilingFrequencyEnum
-    registration_import_type: NotRequired[str]
+    registration_import_type: Literal["REGULAR"]
     r"""Specifies this is a regular jurisdiction registration import."""
-    registration_date: NotRequired[str]
+    registration_date: NotRequired[Nullable[date]]
     r"""The date when the registration was created. Format: YYYY-MM-DD."""
-    registration_email: NotRequired[str]
+    registration_email: NotRequired[Nullable[str]]
     r"""Email address associated with the registration."""
-    registration_key: NotRequired[str]
-    r"""A unique key assigned to the registration."""
-    deregistration_key: NotRequired[str]
-    r"""A unique key assigned for deregistration."""
-    registration_requested: NotRequired[str]
+    registration_requested: NotRequired[Nullable[datetime]]
     r"""Timestamp when the registration was requested."""
-    registration_completed: NotRequired[str]
+    registration_completed: NotRequired[Nullable[datetime]]
     r"""Timestamp when the registration was completed."""
-    deregistration_requested: NotRequired[str]
+    deregistration_requested: NotRequired[Nullable[datetime]]
     r"""Timestamp when deregistration was requested."""
-    deregistration_completed: NotRequired[str]
+    deregistration_completed: NotRequired[Nullable[datetime]]
     r"""Timestamp when the deregistration was completed."""
-    auto_registered: NotRequired[bool]
+    auto_registered: NotRequired[Nullable[bool]]
     r"""Indicates whether the registration was completed automatically."""
     do_not_file: NotRequired[bool]
     r"""If true, do not file for this registration (treated as False by default)."""
-    registrations_regime: NotRequired[RegistrationsRegimeEnum]
-    change_regime_status: NotRequired[ChangeRegimeStatusEnum]
-    username: NotRequired[str]
+    registrations_regime: NotRequired[Nullable[RegistrationsRegimeEnum]]
+    r"""The tax registration regime (e.g., STANDARD, SIMPLIFIED)."""
+    change_regime_status: NotRequired[Nullable[ChangeRegimeStatusEnum]]
+    period_end_month: NotRequired[Nullable[int]]
+    r"""Fiscal-year anchor month (1-12) on which each quarterly/semiannual
+    period ends, for Hawaii (US-HI) filers whose periods are offset from the calendar.
+    Null (default) keeps the standard calendar grid.
+    """
+    username: NotRequired[Nullable[str]]
     r"""Username for accessing tax registration details."""
-    comment: NotRequired[str]
+    comment: NotRequired[Nullable[str]]
     r"""Additional comments related to the registration."""
-    create_filings_from: NotRequired[str]
+    create_filings_from: NotRequired[Nullable[date]]
     r"""The date from which filings should be created. should start (YYYY-MM-DD)."""
-    initial_sync: NotRequired[bool]
+    initial_sync: NotRequired[Nullable[bool]]
     r"""Indicates whether an initial synchronization should be performed."""
-    amount_fees: NotRequired[float]
+    amount_fees: NotRequired[RegistrationCreatePayloadAmountFeesTypedDict]
     r"""The amount of fees associated with the registration."""
-    vda: NotRequired[bool]
+    vda: NotRequired[Nullable[bool]]
     r"""Indicates whether a Voluntary Disclosure Agreement (VDA) applies."""
-    imported: NotRequired[bool]
+    imported: NotRequired[Nullable[bool]]
     r"""Whether the registration was imported from another system."""
-    sales_tax_id: NotRequired[str]
+    sales_tax_id: NotRequired[Nullable[str]]
     r"""The sales tax ID associated with the registration."""
-    sst_import: NotRequired[bool]
+    ior_number: NotRequired[Nullable[str]]
+    r"""The Importer of Record (IOR) number associated with the registration."""
+    sst_import: NotRequired[Nullable[bool]]
     r"""Indicates whether the registration is an SST Import."""
-    tax_id: NotRequired[str]
+    tax_id: NotRequired[Nullable[str]]
     r"""Organization-level tax ID (e.g., VAT number, Canada Business Number)."""
-    password_plain_text: NotRequired[str]
+    password_plain_text: NotRequired[Nullable[str]]
     r"""The plaintext password for accessing the tax registration account."""
-    password_metadata_plain_text: NotRequired[str]
+    password_metadata_plain_text: NotRequired[Nullable[str]]
     r"""Metadata related to the password."""
+    jurisdiction_specific_fields: NotRequired[Nullable[Dict[str, Any]]]
+    r"""State-specific registration fields (e.g. Alabama Sign On ID, Access Code)."""
+    request_id: NotRequired[Nullable[str]]
+    r"""Optional client-minted id for this confirm attempt."""
 
 
 class RegistrationCreatePayload(BaseModel):
@@ -79,78 +109,93 @@ class RegistrationCreatePayload(BaseModel):
 
     filing_frequency: FilingFrequencyEnum
 
-    registration_import_type: Optional[str] = "REGULAR"
+    REGISTRATION_IMPORT_TYPE: Annotated[
+        Annotated[
+            Optional[Literal["REGULAR"]], AfterValidator(validate_const("REGULAR"))
+        ],
+        pydantic.Field(alias="registration_import_type"),
+    ] = "REGULAR"
     r"""Specifies this is a regular jurisdiction registration import."""
 
-    registration_date: Optional[str] = None
+    registration_date: OptionalNullable[date] = UNSET
     r"""The date when the registration was created. Format: YYYY-MM-DD."""
 
-    registration_email: Optional[str] = None
+    registration_email: OptionalNullable[str] = UNSET
     r"""Email address associated with the registration."""
 
-    registration_key: Optional[str] = None
-    r"""A unique key assigned to the registration."""
-
-    deregistration_key: Optional[str] = None
-    r"""A unique key assigned for deregistration."""
-
-    registration_requested: Optional[str] = None
+    registration_requested: OptionalNullable[datetime] = UNSET
     r"""Timestamp when the registration was requested."""
 
-    registration_completed: Optional[str] = None
+    registration_completed: OptionalNullable[datetime] = UNSET
     r"""Timestamp when the registration was completed."""
 
-    deregistration_requested: Optional[str] = None
+    deregistration_requested: OptionalNullable[datetime] = UNSET
     r"""Timestamp when deregistration was requested."""
 
-    deregistration_completed: Optional[str] = None
+    deregistration_completed: OptionalNullable[datetime] = UNSET
     r"""Timestamp when the deregistration was completed."""
 
-    auto_registered: Optional[bool] = False
+    auto_registered: OptionalNullable[bool] = UNSET
     r"""Indicates whether the registration was completed automatically."""
 
     do_not_file: Optional[bool] = False
     r"""If true, do not file for this registration (treated as False by default)."""
 
-    registrations_regime: Optional[RegistrationsRegimeEnum] = None
+    registrations_regime: OptionalNullable[RegistrationsRegimeEnum] = UNSET
+    r"""The tax registration regime (e.g., STANDARD, SIMPLIFIED)."""
 
-    change_regime_status: Optional[ChangeRegimeStatusEnum] = None
+    change_regime_status: OptionalNullable[ChangeRegimeStatusEnum] = UNSET
 
-    username: Optional[str] = None
+    period_end_month: OptionalNullable[int] = UNSET
+    r"""Fiscal-year anchor month (1-12) on which each quarterly/semiannual
+    period ends, for Hawaii (US-HI) filers whose periods are offset from the calendar.
+    Null (default) keeps the standard calendar grid.
+    """
+
+    username: OptionalNullable[str] = UNSET
     r"""Username for accessing tax registration details."""
 
-    comment: Optional[str] = None
+    comment: OptionalNullable[str] = UNSET
     r"""Additional comments related to the registration."""
 
-    create_filings_from: Optional[str] = None
+    create_filings_from: OptionalNullable[date] = UNSET
     r"""The date from which filings should be created. should start (YYYY-MM-DD)."""
 
-    initial_sync: Optional[bool] = False
+    initial_sync: OptionalNullable[bool] = UNSET
     r"""Indicates whether an initial synchronization should be performed."""
 
-    amount_fees: Optional[float] = 0
+    amount_fees: Optional[RegistrationCreatePayloadAmountFees] = None
     r"""The amount of fees associated with the registration."""
 
-    vda: Optional[bool] = False
+    vda: OptionalNullable[bool] = UNSET
     r"""Indicates whether a Voluntary Disclosure Agreement (VDA) applies."""
 
-    imported: Optional[bool] = None
+    imported: OptionalNullable[bool] = UNSET
     r"""Whether the registration was imported from another system."""
 
-    sales_tax_id: Optional[str] = None
+    sales_tax_id: OptionalNullable[str] = UNSET
     r"""The sales tax ID associated with the registration."""
 
-    sst_import: Optional[bool] = False
+    ior_number: OptionalNullable[str] = UNSET
+    r"""The Importer of Record (IOR) number associated with the registration."""
+
+    sst_import: OptionalNullable[bool] = UNSET
     r"""Indicates whether the registration is an SST Import."""
 
-    tax_id: Optional[str] = None
+    tax_id: OptionalNullable[str] = UNSET
     r"""Organization-level tax ID (e.g., VAT number, Canada Business Number)."""
 
-    password_plain_text: Optional[str] = None
+    password_plain_text: OptionalNullable[str] = UNSET
     r"""The plaintext password for accessing the tax registration account."""
 
-    password_metadata_plain_text: Optional[str] = None
+    password_metadata_plain_text: OptionalNullable[str] = UNSET
     r"""Metadata related to the password."""
+
+    jurisdiction_specific_fields: OptionalNullable[Dict[str, Any]] = UNSET
+    r"""State-specific registration fields (e.g. Alabama Sign On ID, Access Code)."""
+
+    request_id: OptionalNullable[str] = UNSET
+    r"""Optional client-minted id for this confirm attempt."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -159,8 +204,6 @@ class RegistrationCreatePayload(BaseModel):
                 "registration_import_type",
                 "registration_date",
                 "registration_email",
-                "registration_key",
-                "deregistration_key",
                 "registration_requested",
                 "registration_completed",
                 "deregistration_requested",
@@ -169,6 +212,7 @@ class RegistrationCreatePayload(BaseModel):
                 "do_not_file",
                 "registrations_regime",
                 "change_regime_status",
+                "period_end_month",
                 "username",
                 "comment",
                 "create_filings_from",
@@ -177,10 +221,41 @@ class RegistrationCreatePayload(BaseModel):
                 "vda",
                 "imported",
                 "sales_tax_id",
+                "ior_number",
                 "sst_import",
                 "tax_id",
                 "password_plain_text",
                 "password_metadata_plain_text",
+                "jurisdiction_specific_fields",
+                "request_id",
+            ]
+        )
+        nullable_fields = set(
+            [
+                "registration_date",
+                "registration_email",
+                "registration_requested",
+                "registration_completed",
+                "deregistration_requested",
+                "deregistration_completed",
+                "auto_registered",
+                "registrations_regime",
+                "change_regime_status",
+                "period_end_month",
+                "username",
+                "comment",
+                "create_filings_from",
+                "initial_sync",
+                "vda",
+                "imported",
+                "sales_tax_id",
+                "ior_number",
+                "sst_import",
+                "tax_id",
+                "password_plain_text",
+                "password_metadata_plain_text",
+                "jurisdiction_specific_fields",
+                "request_id",
             ]
         )
         serialized = handler(self)
@@ -189,9 +264,23 @@ class RegistrationCreatePayload(BaseModel):
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m
+
+
+try:
+    RegistrationCreatePayload.model_rebuild()
+except NameError:
+    pass

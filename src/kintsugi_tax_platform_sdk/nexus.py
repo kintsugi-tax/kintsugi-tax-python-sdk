@@ -4,37 +4,295 @@ from .basesdk import BaseSDK
 from datetime import date
 from kintsugi_tax_platform_sdk import errors, models, utils
 from kintsugi_tax_platform_sdk._hooks import HookContext
-from kintsugi_tax_platform_sdk.types import OptionalNullable, UNSET
+from kintsugi_tax_platform_sdk.types import Nullable, OptionalNullable, UNSET
 from kintsugi_tax_platform_sdk.utils.unmarshal_json_response import (
     unmarshal_json_response,
 )
-from typing import Any, Mapping, Optional
+from typing import Any, List, Mapping, Optional
 
 
 class Nexus(BaseSDK):
-    def get_physical(
+    def get_all(
         self,
         *,
-        country_code: Optional[str] = None,
-        state_code: Optional[str] = None,
-        order_by: Optional[str] = "country_code,state_code,start_date,end_date",
+        x_organization_id: Nullable[str],
+        without_pagination: Optional[bool] = False,
+        disregard_view: OptionalNullable[str] = UNSET,
+        search_query: OptionalNullable[str] = UNSET,
+        status_in: OptionalNullable[str] = UNSET,
+        state_code: OptionalNullable[str] = UNSET,
+        state_code_in: OptionalNullable[str] = UNSET,
+        country_code_in: OptionalNullable[str] = UNSET,
+        tax_type_in: OptionalNullable[str] = UNSET,
+        order_by: OptionalNullable[str] = UNSET,
+        collected_tax_nexus_met: OptionalNullable[bool] = UNSET,
         page: Optional[int] = 1,
         size: Optional[int] = 50,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ResponseGetNexusForOrgV1NexusGet:
+        r"""Get nexus for org
+
+        Get a list of all nexuses for the organization.
+
+        :param x_organization_id: The unique identifier for the organization making the request
+        :param without_pagination: Return all results without pagination
+        :param disregard_view: Filter nexuses by disregard view: 'exposed' or 'disregarded'
+        :param search_query: Search nexuses by state code or state name
+        :param status_in:
+        :param state_code:
+        :param state_code_in:
+        :param country_code_in:
+        :param tax_type_in:
+        :param order_by:
+        :param collected_tax_nexus_met:
+        :param page:
+        :param size:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.GetNexusForOrgV1NexusGetRequest(
+            without_pagination=without_pagination,
+            disregard_view=disregard_view,
+            search_query=search_query,
+            status_in=status_in,
+            state_code=state_code,
+            state_code_in=state_code_in,
+            country_code_in=country_code_in,
+            tax_type_in=tax_type_in,
+            order_by=order_by,
+            collected_tax_nexus_met=collected_tax_nexus_met,
+            page=page,
+            size=size,
+            x_organization_id=x_organization_id,
+        )
+
+        req = self._build_request(
+            method="GET",
+            path="/v1/nexus",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="get_nexus_for_org_v1_nexus_get",
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
+                tags=["Nexus"],
+                extensions=None,
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ResponseGetNexusForOrgV1NexusGet, http_res
+            )
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = unmarshal_json_response(
+                errors.HTTPValidationErrorData, http_res
+            )
+            raise errors.HTTPValidationError(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.APIError("API error occurred", http_res, http_res_text)
+
+        raise errors.APIError("Unexpected response received", http_res)
+
+    async def get_all_async(
+        self,
+        *,
+        x_organization_id: Nullable[str],
+        without_pagination: Optional[bool] = False,
+        disregard_view: OptionalNullable[str] = UNSET,
+        search_query: OptionalNullable[str] = UNSET,
+        status_in: OptionalNullable[str] = UNSET,
+        state_code: OptionalNullable[str] = UNSET,
+        state_code_in: OptionalNullable[str] = UNSET,
+        country_code_in: OptionalNullable[str] = UNSET,
+        tax_type_in: OptionalNullable[str] = UNSET,
+        order_by: OptionalNullable[str] = UNSET,
+        collected_tax_nexus_met: OptionalNullable[bool] = UNSET,
+        page: Optional[int] = 1,
+        size: Optional[int] = 50,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ResponseGetNexusForOrgV1NexusGet:
+        r"""Get nexus for org
+
+        Get a list of all nexuses for the organization.
+
+        :param x_organization_id: The unique identifier for the organization making the request
+        :param without_pagination: Return all results without pagination
+        :param disregard_view: Filter nexuses by disregard view: 'exposed' or 'disregarded'
+        :param search_query: Search nexuses by state code or state name
+        :param status_in:
+        :param state_code:
+        :param state_code_in:
+        :param country_code_in:
+        :param tax_type_in:
+        :param order_by:
+        :param collected_tax_nexus_met:
+        :param page:
+        :param size:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.GetNexusForOrgV1NexusGetRequest(
+            without_pagination=without_pagination,
+            disregard_view=disregard_view,
+            search_query=search_query,
+            status_in=status_in,
+            state_code=state_code,
+            state_code_in=state_code_in,
+            country_code_in=country_code_in,
+            tax_type_in=tax_type_in,
+            order_by=order_by,
+            collected_tax_nexus_met=collected_tax_nexus_met,
+            page=page,
+            size=size,
+            x_organization_id=x_organization_id,
+        )
+
+        req = self._build_request_async(
+            method="GET",
+            path="/v1/nexus",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="get_nexus_for_org_v1_nexus_get",
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
+                tags=["Nexus"],
+                extensions=None,
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.ResponseGetNexusForOrgV1NexusGet, http_res
+            )
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = unmarshal_json_response(
+                errors.HTTPValidationErrorData, http_res
+            )
+            raise errors.HTTPValidationError(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.APIError("API error occurred", http_res, http_res_text)
+
+        raise errors.APIError("Unexpected response received", http_res)
+
+    def get_physical(
+        self,
+        *,
+        x_organization_id: Nullable[str],
+        page: Optional[int] = 1,
+        size: Optional[int] = 50,
+        country_code: OptionalNullable[str] = UNSET,
+        state_code: OptionalNullable[str] = UNSET,
+        order_by: OptionalNullable[str] = UNSET,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.PagePhysicalNexusRead:
-        r"""Get Physical Nexus
+        r"""Get physical nexus
 
         Retrieve a paginated list of
         physical nexuses for a specific organization.
 
+        :param x_organization_id: The unique identifier for the organization making the request
+        :param page: Page number
+        :param size: Page size
         :param country_code:
         :param state_code:
         :param order_by:
-        :param page: Page number
-        :param size: Page size
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -51,11 +309,12 @@ class Nexus(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetPhysicalNexusV1NexusPhysicalNexusGetRequest(
+            page=page,
+            size=size,
             country_code=country_code,
             state_code=state_code,
             order_by=order_by,
-            page=page,
-            size=size,
+            x_organization_id=x_organization_id,
         )
 
         req = self._build_request(
@@ -126,26 +385,28 @@ class Nexus(BaseSDK):
     async def get_physical_async(
         self,
         *,
-        country_code: Optional[str] = None,
-        state_code: Optional[str] = None,
-        order_by: Optional[str] = "country_code,state_code,start_date,end_date",
+        x_organization_id: Nullable[str],
         page: Optional[int] = 1,
         size: Optional[int] = 50,
+        country_code: OptionalNullable[str] = UNSET,
+        state_code: OptionalNullable[str] = UNSET,
+        order_by: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.PagePhysicalNexusRead:
-        r"""Get Physical Nexus
+        r"""Get physical nexus
 
         Retrieve a paginated list of
         physical nexuses for a specific organization.
 
+        :param x_organization_id: The unique identifier for the organization making the request
+        :param page: Page number
+        :param size: Page size
         :param country_code:
         :param state_code:
         :param order_by:
-        :param page: Page number
-        :param size: Page size
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -162,11 +423,12 @@ class Nexus(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetPhysicalNexusV1NexusPhysicalNexusGetRequest(
+            page=page,
+            size=size,
             country_code=country_code,
             state_code=state_code,
             order_by=order_by,
-            page=page,
-            size=size,
+            x_organization_id=x_organization_id,
         )
 
         req = self._build_request_async(
@@ -237,28 +499,30 @@ class Nexus(BaseSDK):
     def create_physical(
         self,
         *,
+        x_organization_id: Nullable[str],
         country_code: models.CountryCodeEnum,
         state_code: str,
         start_date: date,
         category: models.PhysicalNexusCategory,
-        end_date: Optional[str] = None,
-        external_id: Optional[str] = None,
+        end_date: OptionalNullable[date] = UNSET,
+        external_id: OptionalNullable[str] = UNSET,
         source: Optional[models.PhysicalNexusSource] = None,
-        street_1: Optional[str] = None,
-        street_2: Optional[str] = None,
-        city: Optional[str] = None,
-        postal_code: Optional[str] = None,
+        street_1: OptionalNullable[str] = UNSET,
+        street_2: OptionalNullable[str] = UNSET,
+        city: OptionalNullable[str] = UNSET,
+        postal_code: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.PhysicalNexusRead:
-        r"""Create Physical Nexus
+        r"""Create physical nexus
 
         The Create Physical Nexus API allows you to create a new physical
         nexus by specifying its attributes, including the location,
         start date, end date, etc.
 
+        :param x_organization_id: The unique identifier for the organization making the request
         :param country_code:
         :param state_code: The state or province code in
             ISO 3166-2 format (e.g., CA).
@@ -289,18 +553,21 @@ class Nexus(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.PhysicalNexusCreate(
-            country_code=country_code,
-            state_code=state_code,
-            start_date=start_date,
-            end_date=end_date,
-            category=category,
-            external_id=external_id,
-            source=source,
-            street_1=street_1,
-            street_2=street_2,
-            city=city,
-            postal_code=postal_code,
+        request = models.CreatePhysicalNexusV1NexusPhysicalNexusPostRequest(
+            x_organization_id=x_organization_id,
+            physical_nexus_create=models.PhysicalNexusCreate(
+                country_code=country_code,
+                state_code=state_code,
+                start_date=start_date,
+                end_date=end_date,
+                category=category,
+                external_id=external_id,
+                source=source,
+                street_1=street_1,
+                street_2=street_2,
+                city=city,
+                postal_code=postal_code,
+            ),
         )
 
         req = self._build_request(
@@ -317,7 +584,11 @@ class Nexus(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.PhysicalNexusCreate
+                request.physical_nexus_create,
+                False,
+                False,
+                "json",
+                models.PhysicalNexusCreate,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -374,28 +645,30 @@ class Nexus(BaseSDK):
     async def create_physical_async(
         self,
         *,
+        x_organization_id: Nullable[str],
         country_code: models.CountryCodeEnum,
         state_code: str,
         start_date: date,
         category: models.PhysicalNexusCategory,
-        end_date: Optional[str] = None,
-        external_id: Optional[str] = None,
+        end_date: OptionalNullable[date] = UNSET,
+        external_id: OptionalNullable[str] = UNSET,
         source: Optional[models.PhysicalNexusSource] = None,
-        street_1: Optional[str] = None,
-        street_2: Optional[str] = None,
-        city: Optional[str] = None,
-        postal_code: Optional[str] = None,
+        street_1: OptionalNullable[str] = UNSET,
+        street_2: OptionalNullable[str] = UNSET,
+        city: OptionalNullable[str] = UNSET,
+        postal_code: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.PhysicalNexusRead:
-        r"""Create Physical Nexus
+        r"""Create physical nexus
 
         The Create Physical Nexus API allows you to create a new physical
         nexus by specifying its attributes, including the location,
         start date, end date, etc.
 
+        :param x_organization_id: The unique identifier for the organization making the request
         :param country_code:
         :param state_code: The state or province code in
             ISO 3166-2 format (e.g., CA).
@@ -426,18 +699,21 @@ class Nexus(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.PhysicalNexusCreate(
-            country_code=country_code,
-            state_code=state_code,
-            start_date=start_date,
-            end_date=end_date,
-            category=category,
-            external_id=external_id,
-            source=source,
-            street_1=street_1,
-            street_2=street_2,
-            city=city,
-            postal_code=postal_code,
+        request = models.CreatePhysicalNexusV1NexusPhysicalNexusPostRequest(
+            x_organization_id=x_organization_id,
+            physical_nexus_create=models.PhysicalNexusCreate(
+                country_code=country_code,
+                state_code=state_code,
+                start_date=start_date,
+                end_date=end_date,
+                category=category,
+                external_id=external_id,
+                source=source,
+                street_1=street_1,
+                street_2=street_2,
+                city=city,
+                postal_code=postal_code,
+            ),
         )
 
         req = self._build_request_async(
@@ -454,7 +730,11 @@ class Nexus(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.PhysicalNexusCreate
+                request.physical_nexus_create,
+                False,
+                False,
+                "json",
+                models.PhysicalNexusCreate,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -508,29 +788,441 @@ class Nexus(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
+    def get_physical_nexus_categories_v1_nexus_physical_nexus_categories_get(
+        self,
+        *,
+        x_organization_id: Nullable[str],
+        country_code: OptionalNullable[models.CountryCodeEnum] = UNSET,
+        state_code: OptionalNullable[str] = UNSET,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> List[models.PhysicalNexusCategories]:
+        r"""Get physical nexus categories
+
+        Get physical nexus categories
+
+        :param x_organization_id: The unique identifier for the organization making the request
+        :param country_code:
+        :param state_code:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = (
+            models.GetPhysicalNexusCategoriesV1NexusPhysicalNexusCategoriesGetRequest(
+                country_code=country_code,
+                state_code=state_code,
+                x_organization_id=x_organization_id,
+            )
+        )
+
+        req = self._build_request(
+            method="GET",
+            path="/v1/nexus/physical_nexus/categories",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="get_physical_nexus_categories_v1_nexus_physical_nexus_categories_get",
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
+                tags=["Nexus"],
+                extensions=None,
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                List[models.PhysicalNexusCategories], http_res
+            )
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = unmarshal_json_response(
+                errors.HTTPValidationErrorData, http_res
+            )
+            raise errors.HTTPValidationError(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.APIError("API error occurred", http_res, http_res_text)
+
+        raise errors.APIError("Unexpected response received", http_res)
+
+    async def get_physical_nexus_categories_v1_nexus_physical_nexus_categories_get_async(
+        self,
+        *,
+        x_organization_id: Nullable[str],
+        country_code: OptionalNullable[models.CountryCodeEnum] = UNSET,
+        state_code: OptionalNullable[str] = UNSET,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> List[models.PhysicalNexusCategories]:
+        r"""Get physical nexus categories
+
+        Get physical nexus categories
+
+        :param x_organization_id: The unique identifier for the organization making the request
+        :param country_code:
+        :param state_code:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = (
+            models.GetPhysicalNexusCategoriesV1NexusPhysicalNexusCategoriesGetRequest(
+                country_code=country_code,
+                state_code=state_code,
+                x_organization_id=x_organization_id,
+            )
+        )
+
+        req = self._build_request_async(
+            method="GET",
+            path="/v1/nexus/physical_nexus/categories",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="get_physical_nexus_categories_v1_nexus_physical_nexus_categories_get",
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
+                tags=["Nexus"],
+                extensions=None,
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                List[models.PhysicalNexusCategories], http_res
+            )
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = unmarshal_json_response(
+                errors.HTTPValidationErrorData, http_res
+            )
+            raise errors.HTTPValidationError(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.APIError("API error occurred", http_res, http_res_text)
+
+        raise errors.APIError("Unexpected response received", http_res)
+
+    def delete_physical_nexus(
+        self,
+        *,
+        physical_nexus_id: str,
+        x_organization_id: Nullable[str],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Any:
+        r"""Delete physical nexus
+
+        The Delete Physical Nexus API allows you to remove an existing
+        physical nexus by its unique ID.
+
+        :param physical_nexus_id: The unique identifier of the physical
+            nexus to delete.
+        :param x_organization_id: The unique identifier for the organization making the request
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = (
+            models.DeletePhysicalNexusV1NexusPhysicalNexusPhysicalNexusIDDeleteRequest(
+                physical_nexus_id=physical_nexus_id,
+                x_organization_id=x_organization_id,
+            )
+        )
+
+        req = self._build_request(
+            method="DELETE",
+            path="/v1/nexus/physical_nexus/{physical_nexus_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="delete_physical_nexus_v1_nexus_physical_nexus__physical_nexus_id__delete",
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
+                tags=["Nexus"],
+                extensions=None,
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(Any, http_res)
+        if utils.match_response(http_res, ["401", "404"], "application/json"):
+            response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
+            raise errors.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = unmarshal_json_response(
+                errors.BackendSrcNexusResponsesValidationErrorResponseData, http_res
+            )
+            raise errors.BackendSrcNexusResponsesValidationErrorResponse(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "500", "application/json"):
+            response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
+            raise errors.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.APIError("API error occurred", http_res, http_res_text)
+
+        raise errors.APIError("Unexpected response received", http_res)
+
+    async def delete_physical_nexus_async(
+        self,
+        *,
+        physical_nexus_id: str,
+        x_organization_id: Nullable[str],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Any:
+        r"""Delete physical nexus
+
+        The Delete Physical Nexus API allows you to remove an existing
+        physical nexus by its unique ID.
+
+        :param physical_nexus_id: The unique identifier of the physical
+            nexus to delete.
+        :param x_organization_id: The unique identifier for the organization making the request
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = (
+            models.DeletePhysicalNexusV1NexusPhysicalNexusPhysicalNexusIDDeleteRequest(
+                physical_nexus_id=physical_nexus_id,
+                x_organization_id=x_organization_id,
+            )
+        )
+
+        req = self._build_request_async(
+            method="DELETE",
+            path="/v1/nexus/physical_nexus/{physical_nexus_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="delete_physical_nexus_v1_nexus_physical_nexus__physical_nexus_id__delete",
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
+                tags=["Nexus"],
+                extensions=None,
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(Any, http_res)
+        if utils.match_response(http_res, ["401", "404"], "application/json"):
+            response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
+            raise errors.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = unmarshal_json_response(
+                errors.BackendSrcNexusResponsesValidationErrorResponseData, http_res
+            )
+            raise errors.BackendSrcNexusResponsesValidationErrorResponse(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "500", "application/json"):
+            response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
+            raise errors.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.APIError("API error occurred", http_res, http_res_text)
+
+        raise errors.APIError("Unexpected response received", http_res)
+
     def update_physical_nexus(
         self,
         *,
         physical_nexus_id: str,
+        x_organization_id: Nullable[str],
         start_date: date,
         category: models.PhysicalNexusCategory,
-        end_date: Optional[str] = None,
-        street_1: Optional[str] = None,
-        street_2: Optional[str] = None,
-        city: Optional[str] = None,
-        postal_code: Optional[str] = None,
+        end_date: OptionalNullable[date] = UNSET,
+        street_1: OptionalNullable[str] = UNSET,
+        street_2: OptionalNullable[str] = UNSET,
+        city: OptionalNullable[str] = UNSET,
+        postal_code: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.PhysicalNexusRead:
-        r"""Update Physical Nexus
+        r"""Update physical nexus
 
         The Update Physical Nexus API allows you to modify the details of
         an existing physical nexus by its unique ID.
 
         :param physical_nexus_id: The unique identifier of the physical
             nexus to update.
+        :param x_organization_id: The unique identifier for the organization making the request
         :param start_date: The date when the nexus became
             effective (YYYY-MM-DD).
         :param category:
@@ -558,6 +1250,7 @@ class Nexus(BaseSDK):
         request = (
             models.UpdatePhysicalNexusV1NexusPhysicalNexusPhysicalNexusIDPutRequest(
                 physical_nexus_id=physical_nexus_id,
+                x_organization_id=x_organization_id,
                 physical_nexus_update=models.PhysicalNexusUpdate(
                     start_date=start_date,
                     end_date=end_date,
@@ -646,25 +1339,27 @@ class Nexus(BaseSDK):
         self,
         *,
         physical_nexus_id: str,
+        x_organization_id: Nullable[str],
         start_date: date,
         category: models.PhysicalNexusCategory,
-        end_date: Optional[str] = None,
-        street_1: Optional[str] = None,
-        street_2: Optional[str] = None,
-        city: Optional[str] = None,
-        postal_code: Optional[str] = None,
+        end_date: OptionalNullable[date] = UNSET,
+        street_1: OptionalNullable[str] = UNSET,
+        street_2: OptionalNullable[str] = UNSET,
+        city: OptionalNullable[str] = UNSET,
+        postal_code: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.PhysicalNexusRead:
-        r"""Update Physical Nexus
+        r"""Update physical nexus
 
         The Update Physical Nexus API allows you to modify the details of
         an existing physical nexus by its unique ID.
 
         :param physical_nexus_id: The unique identifier of the physical
             nexus to update.
+        :param x_organization_id: The unique identifier for the organization making the request
         :param start_date: The date when the nexus became
             effective (YYYY-MM-DD).
         :param category:
@@ -692,6 +1387,7 @@ class Nexus(BaseSDK):
         request = (
             models.UpdatePhysicalNexusV1NexusPhysicalNexusPhysicalNexusIDPutRequest(
                 physical_nexus_id=physical_nexus_id,
+                x_organization_id=x_organization_id,
                 physical_nexus_update=models.PhysicalNexusUpdate(
                     start_date=start_date,
                     end_date=end_date,
@@ -776,22 +1472,22 @@ class Nexus(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    def delete_physical_nexus(
+    def get_nexus_details_for_id_v1_nexus_nexus_id_get(
         self,
         *,
-        physical_nexus_id: str,
+        nexus_id: str,
+        x_organization_id: Nullable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Any:
-        r"""Delete Physical Nexus
+    ) -> models.NexusResponse:
+        r"""Get nexus details for id
 
-        The Delete Physical Nexus API allows you to remove an existing
-        physical nexus by its unique ID.
+        Get details for a specific nexus by its ID.
 
-        :param physical_nexus_id: The unique identifier of the physical
-            nexus to delete.
+        :param nexus_id: The unique identifier of the nexus.
+        :param x_organization_id: The unique identifier for the organization making the request
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -807,246 +1503,19 @@ class Nexus(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = (
-            models.DeletePhysicalNexusV1NexusPhysicalNexusPhysicalNexusIDDeleteRequest(
-                physical_nexus_id=physical_nexus_id,
-            )
-        )
-
-        req = self._build_request(
-            method="DELETE",
-            path="/v1/nexus/physical_nexus/{physical_nexus_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="delete_physical_nexus_v1_nexus_physical_nexus__physical_nexus_id__delete",
-                oauth2_scopes=None,
-                security_source=self.sdk_configuration.security,
-                tags=["Nexus"],
-                extensions=None,
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(Any, http_res)
-        if utils.match_response(http_res, ["401", "404"], "application/json"):
-            response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
-            raise errors.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, "422", "application/json"):
-            response_data = unmarshal_json_response(
-                errors.BackendSrcNexusResponsesValidationErrorResponseData, http_res
-            )
-            raise errors.BackendSrcNexusResponsesValidationErrorResponse(
-                response_data, http_res
-            )
-        if utils.match_response(http_res, "500", "application/json"):
-            response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
-            raise errors.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.APIError("API error occurred", http_res, http_res_text)
-
-        raise errors.APIError("Unexpected response received", http_res)
-
-    async def delete_physical_nexus_async(
-        self,
-        *,
-        physical_nexus_id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Any:
-        r"""Delete Physical Nexus
-
-        The Delete Physical Nexus API allows you to remove an existing
-        physical nexus by its unique ID.
-
-        :param physical_nexus_id: The unique identifier of the physical
-            nexus to delete.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = (
-            models.DeletePhysicalNexusV1NexusPhysicalNexusPhysicalNexusIDDeleteRequest(
-                physical_nexus_id=physical_nexus_id,
-            )
-        )
-
-        req = self._build_request_async(
-            method="DELETE",
-            path="/v1/nexus/physical_nexus/{physical_nexus_id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="delete_physical_nexus_v1_nexus_physical_nexus__physical_nexus_id__delete",
-                oauth2_scopes=None,
-                security_source=self.sdk_configuration.security,
-                tags=["Nexus"],
-                extensions=None,
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(Any, http_res)
-        if utils.match_response(http_res, ["401", "404"], "application/json"):
-            response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
-            raise errors.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, "422", "application/json"):
-            response_data = unmarshal_json_response(
-                errors.BackendSrcNexusResponsesValidationErrorResponseData, http_res
-            )
-            raise errors.BackendSrcNexusResponsesValidationErrorResponse(
-                response_data, http_res
-            )
-        if utils.match_response(http_res, "500", "application/json"):
-            response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
-            raise errors.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.APIError("API error occurred", http_res, http_res_text)
-
-        raise errors.APIError("Unexpected response received", http_res)
-
-    def get_all(
-        self,
-        *,
-        without_pagination: Optional[bool] = False,
-        disregard_view: Optional[str] = None,
-        status_in: Optional[
-            str
-        ] = "APPROACHING,NOT_EXPOSED,PENDING_REGISTRATION,EXPOSED,APPROACHING,REGISTERED",
-        state_code: Optional[str] = None,
-        country_code_in: Optional[str] = None,
-        order_by: Optional[str] = "state_code,country_code",
-        collected_tax_nexus_met: Optional[bool] = None,
-        page: Optional[int] = 1,
-        size: Optional[int] = 50,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PageNexusResponse:
-        r"""Get Nexus For Org
-
-        Get a list of all nexuses for the organization.
-
-        :param without_pagination: Return all results without pagination
-        :param disregard_view: Filter nexuses by disregard view: 'exposed' or 'disregarded'
-        :param status_in:
-        :param state_code:
-        :param country_code_in:
-        :param order_by:
-        :param collected_tax_nexus_met:
-        :param page:
-        :param size:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetNexusForOrgV1NexusGetRequest(
-            without_pagination=without_pagination,
-            disregard_view=disregard_view,
-            status_in=status_in,
-            state_code=state_code,
-            country_code_in=country_code_in,
-            order_by=order_by,
-            collected_tax_nexus_met=collected_tax_nexus_met,
-            page=page,
-            size=size,
+        request = models.GetNexusDetailsForIDV1NexusNexusIDGetRequest(
+            nexus_id=nexus_id,
+            x_organization_id=x_organization_id,
         )
 
         req = self._build_request(
             method="GET",
-            path="/v1/nexus",
+            path="/v1/nexus/{nexus_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
             request_body_required=False,
-            request_has_path_params=False,
+            request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
@@ -1068,7 +1537,7 @@ class Nexus(BaseSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="get_nexus_for_org_v1_nexus_get",
+                operation_id="get_nexus_details_for_id_v1_nexus__nexus_id__get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
                 tags=["Nexus"],
@@ -1081,7 +1550,7 @@ class Nexus(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.PageNexusResponse, http_res)
+            return unmarshal_json_response(models.NexusResponse, http_res)
         if utils.match_response(http_res, "422", "application/json"):
             response_data = unmarshal_json_response(
                 errors.HTTPValidationErrorData, http_res
@@ -1096,38 +1565,22 @@ class Nexus(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
-    async def get_all_async(
+    async def get_nexus_details_for_id_v1_nexus_nexus_id_get_async(
         self,
         *,
-        without_pagination: Optional[bool] = False,
-        disregard_view: Optional[str] = None,
-        status_in: Optional[
-            str
-        ] = "APPROACHING,NOT_EXPOSED,PENDING_REGISTRATION,EXPOSED,APPROACHING,REGISTERED",
-        state_code: Optional[str] = None,
-        country_code_in: Optional[str] = None,
-        order_by: Optional[str] = "state_code,country_code",
-        collected_tax_nexus_met: Optional[bool] = None,
-        page: Optional[int] = 1,
-        size: Optional[int] = 50,
+        nexus_id: str,
+        x_organization_id: Nullable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PageNexusResponse:
-        r"""Get Nexus For Org
+    ) -> models.NexusResponse:
+        r"""Get nexus details for id
 
-        Get a list of all nexuses for the organization.
+        Get details for a specific nexus by its ID.
 
-        :param without_pagination: Return all results without pagination
-        :param disregard_view: Filter nexuses by disregard view: 'exposed' or 'disregarded'
-        :param status_in:
-        :param state_code:
-        :param country_code_in:
-        :param order_by:
-        :param collected_tax_nexus_met:
-        :param page:
-        :param size:
+        :param nexus_id: The unique identifier of the nexus.
+        :param x_organization_id: The unique identifier for the organization making the request
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1143,26 +1596,19 @@ class Nexus(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetNexusForOrgV1NexusGetRequest(
-            without_pagination=without_pagination,
-            disregard_view=disregard_view,
-            status_in=status_in,
-            state_code=state_code,
-            country_code_in=country_code_in,
-            order_by=order_by,
-            collected_tax_nexus_met=collected_tax_nexus_met,
-            page=page,
-            size=size,
+        request = models.GetNexusDetailsForIDV1NexusNexusIDGetRequest(
+            nexus_id=nexus_id,
+            x_organization_id=x_organization_id,
         )
 
         req = self._build_request_async(
             method="GET",
-            path="/v1/nexus",
+            path="/v1/nexus/{nexus_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
             request_body_required=False,
-            request_has_path_params=False,
+            request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
@@ -1184,7 +1630,7 @@ class Nexus(BaseSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="get_nexus_for_org_v1_nexus_get",
+                operation_id="get_nexus_details_for_id_v1_nexus__nexus_id__get",
                 oauth2_scopes=None,
                 security_source=self.sdk_configuration.security,
                 tags=["Nexus"],
@@ -1197,7 +1643,7 @@ class Nexus(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.PageNexusResponse, http_res)
+            return unmarshal_json_response(models.NexusResponse, http_res)
         if utils.match_response(http_res, "422", "application/json"):
             response_data = unmarshal_json_response(
                 errors.HTTPValidationErrorData, http_res
