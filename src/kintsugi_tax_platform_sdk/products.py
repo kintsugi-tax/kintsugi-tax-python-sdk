@@ -3,23 +3,25 @@
 from .basesdk import BaseSDK
 from kintsugi_tax_platform_sdk import errors, models, utils
 from kintsugi_tax_platform_sdk._hooks import HookContext
-from kintsugi_tax_platform_sdk.types import OptionalNullable, UNSET
+from kintsugi_tax_platform_sdk.types import Nullable, OptionalNullable, UNSET
 from kintsugi_tax_platform_sdk.utils.unmarshal_json_response import (
     unmarshal_json_response,
 )
-from typing import Any, Iterable, List, Mapping, Optional
+from typing import Any, Mapping, Optional, Union
 
 
 class Products(BaseSDK):
     def get_products_v1_products_get(
         self,
         *,
-        query: Optional[str] = None,
-        status_in: Optional[str] = None,
-        product_category_in: Optional[str] = None,
-        product_subcategory_in: Optional[str] = None,
-        source_in: Optional[str] = None,
-        order_by: Optional[str] = None,
+        x_organization_id: Nullable[str],
+        query: OptionalNullable[str] = UNSET,
+        status_in: OptionalNullable[str] = UNSET,
+        product_category_in: OptionalNullable[str] = UNSET,
+        product_subcategory_in: OptionalNullable[str] = UNSET,
+        source_in: OptionalNullable[str] = UNSET,
+        connection_id_in: OptionalNullable[str] = UNSET,
+        order_by: OptionalNullable[str] = UNSET,
         page: Optional[int] = 1,
         size: Optional[int] = 50,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -27,18 +29,20 @@ class Products(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.PageProductRead:
-        r"""Get Products
+        r"""Get products
 
         Retrieve a paginated list of products based on filters and search query.
 
+        :param x_organization_id: The unique identifier for the organization making the request
         :param query: Search term to filter products by name or other details.
         :param status_in: Filter products by status (comma-separated)
         :param product_category_in: Filter products by category (comma-separated)
         :param product_subcategory_in: Filter products by subcategory (comma-separated)
         :param source_in: Filter products by source (comma-separated)
+        :param connection_id_in: Filter products by connection ID (comma-separated). Use __direct_api__ for products without a connection.
         :param order_by: Order results by specified fields (comma-separated)
-        :param page: Page number
-        :param size: Page size
+        :param page:
+        :param size:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -60,9 +64,11 @@ class Products(BaseSDK):
             product_category_in=product_category_in,
             product_subcategory_in=product_subcategory_in,
             source_in=source_in,
+            connection_id_in=connection_id_in,
             order_by=order_by,
             page=page,
             size=size,
+            x_organization_id=x_organization_id,
         )
 
         req = self._build_request(
@@ -113,9 +119,10 @@ class Products(BaseSDK):
             raise errors.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "422", "application/json"):
             response_data = unmarshal_json_response(
-                errors.BackendSrcProductsResponsesValidationErrorResponseData, http_res
+                errors.BackendSrcProductsSchemasResponsesValidationErrorResponseData,
+                http_res,
             )
-            raise errors.BackendSrcProductsResponsesValidationErrorResponse(
+            raise errors.BackendSrcProductsSchemasResponsesValidationErrorResponse(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
@@ -133,12 +140,14 @@ class Products(BaseSDK):
     async def get_products_v1_products_get_async(
         self,
         *,
-        query: Optional[str] = None,
-        status_in: Optional[str] = None,
-        product_category_in: Optional[str] = None,
-        product_subcategory_in: Optional[str] = None,
-        source_in: Optional[str] = None,
-        order_by: Optional[str] = None,
+        x_organization_id: Nullable[str],
+        query: OptionalNullable[str] = UNSET,
+        status_in: OptionalNullable[str] = UNSET,
+        product_category_in: OptionalNullable[str] = UNSET,
+        product_subcategory_in: OptionalNullable[str] = UNSET,
+        source_in: OptionalNullable[str] = UNSET,
+        connection_id_in: OptionalNullable[str] = UNSET,
+        order_by: OptionalNullable[str] = UNSET,
         page: Optional[int] = 1,
         size: Optional[int] = 50,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -146,18 +155,20 @@ class Products(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.PageProductRead:
-        r"""Get Products
+        r"""Get products
 
         Retrieve a paginated list of products based on filters and search query.
 
+        :param x_organization_id: The unique identifier for the organization making the request
         :param query: Search term to filter products by name or other details.
         :param status_in: Filter products by status (comma-separated)
         :param product_category_in: Filter products by category (comma-separated)
         :param product_subcategory_in: Filter products by subcategory (comma-separated)
         :param source_in: Filter products by source (comma-separated)
+        :param connection_id_in: Filter products by connection ID (comma-separated). Use __direct_api__ for products without a connection.
         :param order_by: Order results by specified fields (comma-separated)
-        :param page: Page number
-        :param size: Page size
+        :param page:
+        :param size:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -179,9 +190,11 @@ class Products(BaseSDK):
             product_category_in=product_category_in,
             product_subcategory_in=product_subcategory_in,
             source_in=source_in,
+            connection_id_in=connection_id_in,
             order_by=order_by,
             page=page,
             size=size,
+            x_organization_id=x_organization_id,
         )
 
         req = self._build_request_async(
@@ -232,9 +245,10 @@ class Products(BaseSDK):
             raise errors.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "422", "application/json"):
             response_data = unmarshal_json_response(
-                errors.BackendSrcProductsResponsesValidationErrorResponseData, http_res
+                errors.BackendSrcProductsSchemasResponsesValidationErrorResponseData,
+                http_res,
             )
-            raise errors.BackendSrcProductsResponsesValidationErrorResponse(
+            raise errors.BackendSrcProductsSchemasResponsesValidationErrorResponse(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
@@ -252,12 +266,15 @@ class Products(BaseSDK):
     def create_product_v1_products_post(
         self,
         *,
+        x_organization_id: Nullable[str],
         external_id: str,
         name: str,
-        product_category: models.ProductCategoryEnum,
-        product_subcategory: models.ProductSubCategoryEnum,
+        product_category: models.PublicProductCategoryEnum,
+        product_subcategory: Union[
+            models.ProductSubcategoryUnion, models.ProductSubcategoryUnionTypedDict
+        ],
         tax_exempt: bool,
-        description: Optional[str] = None,
+        description: OptionalNullable[str] = UNSET,
         status: Optional[models.ProductStatusEnum] = None,
         source: Optional[models.SourceEnum] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -265,18 +282,21 @@ class Products(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.ProductRead:
-        r"""Create Product
+        r"""Create product
 
         The Create Product API allows users to manually create a new product
         in the system. This includes specifying product details such as category,
         subcategory, and tax exemption status, etc. You can
-        retrieve supported categories and subcategories from
-        [GET /products/categories endpoint](/reference/api/products/get-product-categories)
+        retrieve supported categories and subcategories from the
+        [GET /products/categories endpoint](/reference/api/products/get-product-categories),
+        or browse the full catalog with descriptions and examples in the
+        [Product Categories guide](/docs/guides/product-categories)
 
+        :param x_organization_id: The unique identifier for the organization making the request
         :param external_id: A unique external identifier for the product.
         :param name: The name of the product.
-        :param product_category:
-        :param product_subcategory:
+        :param product_category: Top-level tax category for a product.
+        :param product_subcategory: The subcategory of the product.
         :param tax_exempt: Specifies whether the product is tax-exempt.
         :param description: A description of the product.
         :param status:
@@ -296,15 +316,18 @@ class Products(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ProductCreateManual(
-            external_id=external_id,
-            name=name,
-            description=description,
-            status=status,
-            product_category=product_category,
-            product_subcategory=product_subcategory,
-            tax_exempt=tax_exempt,
-            source=source,
+        request = models.CreateProductV1ProductsPostRequest(
+            x_organization_id=x_organization_id,
+            product_create_manual=models.ProductCreateManual(
+                external_id=external_id,
+                name=name,
+                description=description,
+                status=status,
+                product_category=product_category,
+                product_subcategory=product_subcategory,
+                tax_exempt=tax_exempt,
+                source=source,
+            ),
         )
 
         req = self._build_request(
@@ -321,7 +344,11 @@ class Products(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.ProductCreateManual
+                request.product_create_manual,
+                False,
+                False,
+                "json",
+                models.ProductCreateManual,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -358,9 +385,10 @@ class Products(BaseSDK):
             raise errors.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "422", "application/json"):
             response_data = unmarshal_json_response(
-                errors.BackendSrcProductsResponsesValidationErrorResponseData, http_res
+                errors.BackendSrcProductsSchemasResponsesValidationErrorResponseData,
+                http_res,
             )
-            raise errors.BackendSrcProductsResponsesValidationErrorResponse(
+            raise errors.BackendSrcProductsSchemasResponsesValidationErrorResponse(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
@@ -378,12 +406,15 @@ class Products(BaseSDK):
     async def create_product_v1_products_post_async(
         self,
         *,
+        x_organization_id: Nullable[str],
         external_id: str,
         name: str,
-        product_category: models.ProductCategoryEnum,
-        product_subcategory: models.ProductSubCategoryEnum,
+        product_category: models.PublicProductCategoryEnum,
+        product_subcategory: Union[
+            models.ProductSubcategoryUnion, models.ProductSubcategoryUnionTypedDict
+        ],
         tax_exempt: bool,
-        description: Optional[str] = None,
+        description: OptionalNullable[str] = UNSET,
         status: Optional[models.ProductStatusEnum] = None,
         source: Optional[models.SourceEnum] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -391,18 +422,21 @@ class Products(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.ProductRead:
-        r"""Create Product
+        r"""Create product
 
         The Create Product API allows users to manually create a new product
         in the system. This includes specifying product details such as category,
         subcategory, and tax exemption status, etc. You can
-        retrieve supported categories and subcategories from
-        [GET /products/categories endpoint](/reference/api/products/get-product-categories)
+        retrieve supported categories and subcategories from the
+        [GET /products/categories endpoint](/reference/api/products/get-product-categories),
+        or browse the full catalog with descriptions and examples in the
+        [Product Categories guide](/docs/guides/product-categories)
 
+        :param x_organization_id: The unique identifier for the organization making the request
         :param external_id: A unique external identifier for the product.
         :param name: The name of the product.
-        :param product_category:
-        :param product_subcategory:
+        :param product_category: Top-level tax category for a product.
+        :param product_subcategory: The subcategory of the product.
         :param tax_exempt: Specifies whether the product is tax-exempt.
         :param description: A description of the product.
         :param status:
@@ -422,15 +456,18 @@ class Products(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ProductCreateManual(
-            external_id=external_id,
-            name=name,
-            description=description,
-            status=status,
-            product_category=product_category,
-            product_subcategory=product_subcategory,
-            tax_exempt=tax_exempt,
-            source=source,
+        request = models.CreateProductV1ProductsPostRequest(
+            x_organization_id=x_organization_id,
+            product_create_manual=models.ProductCreateManual(
+                external_id=external_id,
+                name=name,
+                description=description,
+                status=status,
+                product_category=product_category,
+                product_subcategory=product_subcategory,
+                tax_exempt=tax_exempt,
+                source=source,
+            ),
         )
 
         req = self._build_request_async(
@@ -447,7 +484,11 @@ class Products(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.ProductCreateManual
+                request.product_create_manual,
+                False,
+                False,
+                "json",
+                models.ProductCreateManual,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -484,9 +525,10 @@ class Products(BaseSDK):
             raise errors.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "422", "application/json"):
             response_data = unmarshal_json_response(
-                errors.BackendSrcProductsResponsesValidationErrorResponseData, http_res
+                errors.BackendSrcProductsSchemasResponsesValidationErrorResponseData,
+                http_res,
             )
-            raise errors.BackendSrcProductsResponsesValidationErrorResponse(
+            raise errors.BackendSrcProductsSchemasResponsesValidationErrorResponse(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
@@ -504,17 +546,19 @@ class Products(BaseSDK):
     def get_product_categories_v1_products_categories_get(
         self,
         *,
+        x_organization_id: Nullable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ProductCategories:
-        r"""Get Product Categories
+    ) -> models.ProductCategoryRead:
+        r"""Get product categories
 
         The Get Product Categories API retrieves all
         product categories.  This endpoint helps users understand and select the
         appropriate categories for their products.
 
+        :param x_organization_id: The unique identifier for the organization making the request
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -529,12 +573,17 @@ class Products(BaseSDK):
             base_url = server_url
         else:
             base_url = self._get_url(base_url, url_variables)
+
+        request = models.GetProductCategoriesV1ProductsCategoriesGetRequest(
+            x_organization_id=x_organization_id,
+        )
+
         req = self._build_request(
             method="GET",
             path="/v1/products/categories",
             base_url=base_url,
             url_variables=url_variables,
-            request=None,
+            request=request,
             request_body_required=False,
             request_has_path_params=False,
             request_has_query_params=True,
@@ -571,15 +620,16 @@ class Products(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ProductCategories, http_res)
+            return unmarshal_json_response(models.ProductCategoryRead, http_res)
         if utils.match_response(http_res, "401", "application/json"):
             response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
             raise errors.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "422", "application/json"):
             response_data = unmarshal_json_response(
-                errors.BackendSrcProductsResponsesValidationErrorResponseData, http_res
+                errors.BackendSrcProductsSchemasResponsesValidationErrorResponseData,
+                http_res,
             )
-            raise errors.BackendSrcProductsResponsesValidationErrorResponse(
+            raise errors.BackendSrcProductsSchemasResponsesValidationErrorResponse(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
@@ -597,17 +647,19 @@ class Products(BaseSDK):
     async def get_product_categories_v1_products_categories_get_async(
         self,
         *,
+        x_organization_id: Nullable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ProductCategories:
-        r"""Get Product Categories
+    ) -> models.ProductCategoryRead:
+        r"""Get product categories
 
         The Get Product Categories API retrieves all
         product categories.  This endpoint helps users understand and select the
         appropriate categories for their products.
 
+        :param x_organization_id: The unique identifier for the organization making the request
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -622,12 +674,17 @@ class Products(BaseSDK):
             base_url = server_url
         else:
             base_url = self._get_url(base_url, url_variables)
+
+        request = models.GetProductCategoriesV1ProductsCategoriesGetRequest(
+            x_organization_id=x_organization_id,
+        )
+
         req = self._build_request_async(
             method="GET",
             path="/v1/products/categories",
             base_url=base_url,
             url_variables=url_variables,
-            request=None,
+            request=request,
             request_body_required=False,
             request_has_path_params=False,
             request_has_query_params=True,
@@ -664,15 +721,16 @@ class Products(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ProductCategories, http_res)
+            return unmarshal_json_response(models.ProductCategoryRead, http_res)
         if utils.match_response(http_res, "401", "application/json"):
             response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
             raise errors.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "422", "application/json"):
             response_data = unmarshal_json_response(
-                errors.BackendSrcProductsResponsesValidationErrorResponseData, http_res
+                errors.BackendSrcProductsSchemasResponsesValidationErrorResponseData,
+                http_res,
             )
-            raise errors.BackendSrcProductsResponsesValidationErrorResponse(
+            raise errors.BackendSrcProductsSchemasResponsesValidationErrorResponse(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
@@ -691,18 +749,20 @@ class Products(BaseSDK):
         self,
         *,
         product_id: str,
+        x_organization_id: Nullable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.ProductRead:
-        r"""Get Product By Id
+        r"""Get product by id
 
         The Get Product By ID API retrieves detailed information about
         a single product by its unique ID. This API helps in viewing the specific details
         of a product, including its attributes, status, and categorization.
 
         :param product_id: The unique identifier for the product you want to retrieve.
+        :param x_organization_id: The unique identifier for the organization making the request
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -720,6 +780,7 @@ class Products(BaseSDK):
 
         request = models.GetProductByIDV1ProductsProductIDGetRequest(
             product_id=product_id,
+            x_organization_id=x_organization_id,
         )
 
         req = self._build_request(
@@ -770,9 +831,10 @@ class Products(BaseSDK):
             raise errors.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "422", "application/json"):
             response_data = unmarshal_json_response(
-                errors.BackendSrcProductsResponsesValidationErrorResponseData, http_res
+                errors.BackendSrcProductsSchemasResponsesValidationErrorResponseData,
+                http_res,
             )
-            raise errors.BackendSrcProductsResponsesValidationErrorResponse(
+            raise errors.BackendSrcProductsSchemasResponsesValidationErrorResponse(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
@@ -791,18 +853,20 @@ class Products(BaseSDK):
         self,
         *,
         product_id: str,
+        x_organization_id: Nullable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.ProductRead:
-        r"""Get Product By Id
+        r"""Get product by id
 
         The Get Product By ID API retrieves detailed information about
         a single product by its unique ID. This API helps in viewing the specific details
         of a product, including its attributes, status, and categorization.
 
         :param product_id: The unique identifier for the product you want to retrieve.
+        :param x_organization_id: The unique identifier for the organization making the request
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -820,6 +884,7 @@ class Products(BaseSDK):
 
         request = models.GetProductByIDV1ProductsProductIDGetRequest(
             product_id=product_id,
+            x_organization_id=x_organization_id,
         )
 
         req = self._build_request_async(
@@ -870,9 +935,10 @@ class Products(BaseSDK):
             raise errors.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "422", "application/json"):
             response_data = unmarshal_json_response(
-                errors.BackendSrcProductsResponsesValidationErrorResponseData, http_res
+                errors.BackendSrcProductsSchemasResponsesValidationErrorResponseData,
+                http_res,
             )
-            raise errors.BackendSrcProductsResponsesValidationErrorResponse(
+            raise errors.BackendSrcProductsSchemasResponsesValidationErrorResponse(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
@@ -891,44 +957,25 @@ class Products(BaseSDK):
         self,
         *,
         product_id: str,
-        name: str,
-        product_category: str,
-        product_subcategory: str,
-        tax_exempt: bool,
-        id: Optional[str] = None,
-        external_id: Optional[str] = None,
-        sku: Optional[Iterable[str]] = None,
-        description: Optional[str] = None,
-        status: Optional[models.ProductStatusEnum] = None,
-        classification_failed: Optional[bool] = False,
+        x_organization_id: Nullable[str],
+        request_body: Union[models.Product, models.ProductTypedDict],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.ProductRead:
-        r"""Update Product
+        r"""Update product
 
         The Update Product API allows users to modify the details of
         an existing product identified by its unique product_id. You can
-        retrieve supported categories and subcategories from
-        [GET /products/categories endpoint](/reference/api/products/get-product-categories)
+        retrieve supported categories and subcategories from the
+        [GET /products/categories endpoint](/reference/api/products/get-product-categories),
+        or browse the full catalog with descriptions and examples in the
+        [Product Categories guide](/docs/guides/product-categories)
 
         :param product_id: Unique identifier of the product to be updated.
-        :param name: Name of the product.
-        :param product_category: Main category of the product.
-            For example, Physical, Digital, etc. You can
-            retrieve supported categories from [GET /products/categories endpoint](/reference/api/products/get-product-categories)
-        :param product_subcategory: Subcategory of the product.
-            For example, General Clothing, UNKNOWN, etc. You can
-            retrieve supported subcategories from [GET /products/categories endpoint](/reference/api/products/get-product-categories)
-        :param tax_exempt: Indicates whether the product is tax-exempt.
-        :param id: The unique identifier of the product to be updated.
-        :param external_id: External identifier provided for the product,
-            typically by the source system.
-        :param sku:
-        :param description: Description of the product.
-        :param status:
-        :param classification_failed: Indicates if the product classification failed.
+        :param x_organization_id: The unique identifier for the organization making the request
+        :param request_body:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -946,18 +993,8 @@ class Products(BaseSDK):
 
         request = models.UpdateProductV1ProductsProductIDPutRequest(
             product_id=product_id,
-            product_update=models.ProductUpdate(
-                id=id,
-                external_id=external_id,
-                sku=utils.unmarshal(sku, Optional[List[str]]),
-                name=name,
-                description=description,
-                status=status,
-                product_category=product_category,
-                product_subcategory=product_subcategory,
-                tax_exempt=tax_exempt,
-                classification_failed=classification_failed,
-            ),
+            x_organization_id=x_organization_id,
+            request_body=utils.get_pydantic_model(request_body, models.Product),
         )
 
         req = self._build_request(
@@ -974,7 +1011,7 @@ class Products(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.product_update, False, False, "json", models.ProductUpdate
+                request.request_body, False, False, "json", models.Product
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1011,9 +1048,10 @@ class Products(BaseSDK):
             raise errors.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "422", "application/json"):
             response_data = unmarshal_json_response(
-                errors.BackendSrcProductsResponsesValidationErrorResponseData, http_res
+                errors.BackendSrcProductsSchemasResponsesValidationErrorResponseData,
+                http_res,
             )
-            raise errors.BackendSrcProductsResponsesValidationErrorResponse(
+            raise errors.BackendSrcProductsSchemasResponsesValidationErrorResponse(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
@@ -1032,44 +1070,25 @@ class Products(BaseSDK):
         self,
         *,
         product_id: str,
-        name: str,
-        product_category: str,
-        product_subcategory: str,
-        tax_exempt: bool,
-        id: Optional[str] = None,
-        external_id: Optional[str] = None,
-        sku: Optional[Iterable[str]] = None,
-        description: Optional[str] = None,
-        status: Optional[models.ProductStatusEnum] = None,
-        classification_failed: Optional[bool] = False,
+        x_organization_id: Nullable[str],
+        request_body: Union[models.Product, models.ProductTypedDict],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.ProductRead:
-        r"""Update Product
+        r"""Update product
 
         The Update Product API allows users to modify the details of
         an existing product identified by its unique product_id. You can
-        retrieve supported categories and subcategories from
-        [GET /products/categories endpoint](/reference/api/products/get-product-categories)
+        retrieve supported categories and subcategories from the
+        [GET /products/categories endpoint](/reference/api/products/get-product-categories),
+        or browse the full catalog with descriptions and examples in the
+        [Product Categories guide](/docs/guides/product-categories)
 
         :param product_id: Unique identifier of the product to be updated.
-        :param name: Name of the product.
-        :param product_category: Main category of the product.
-            For example, Physical, Digital, etc. You can
-            retrieve supported categories from [GET /products/categories endpoint](/reference/api/products/get-product-categories)
-        :param product_subcategory: Subcategory of the product.
-            For example, General Clothing, UNKNOWN, etc. You can
-            retrieve supported subcategories from [GET /products/categories endpoint](/reference/api/products/get-product-categories)
-        :param tax_exempt: Indicates whether the product is tax-exempt.
-        :param id: The unique identifier of the product to be updated.
-        :param external_id: External identifier provided for the product,
-            typically by the source system.
-        :param sku:
-        :param description: Description of the product.
-        :param status:
-        :param classification_failed: Indicates if the product classification failed.
+        :param x_organization_id: The unique identifier for the organization making the request
+        :param request_body:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1087,18 +1106,8 @@ class Products(BaseSDK):
 
         request = models.UpdateProductV1ProductsProductIDPutRequest(
             product_id=product_id,
-            product_update=models.ProductUpdate(
-                id=id,
-                external_id=external_id,
-                sku=utils.unmarshal(sku, Optional[List[str]]),
-                name=name,
-                description=description,
-                status=status,
-                product_category=product_category,
-                product_subcategory=product_subcategory,
-                tax_exempt=tax_exempt,
-                classification_failed=classification_failed,
-            ),
+            x_organization_id=x_organization_id,
+            request_body=utils.get_pydantic_model(request_body, models.Product),
         )
 
         req = self._build_request_async(
@@ -1115,7 +1124,7 @@ class Products(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.product_update, False, False, "json", models.ProductUpdate
+                request.request_body, False, False, "json", models.Product
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1152,9 +1161,10 @@ class Products(BaseSDK):
             raise errors.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "422", "application/json"):
             response_data = unmarshal_json_response(
-                errors.BackendSrcProductsResponsesValidationErrorResponseData, http_res
+                errors.BackendSrcProductsSchemasResponsesValidationErrorResponseData,
+                http_res,
             )
-            raise errors.BackendSrcProductsResponsesValidationErrorResponse(
+            raise errors.BackendSrcProductsSchemasResponsesValidationErrorResponse(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):

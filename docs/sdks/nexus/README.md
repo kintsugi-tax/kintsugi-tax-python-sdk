@@ -4,11 +4,65 @@
 
 ### Available Operations
 
-* [get_physical](#get_physical) - Get Physical Nexus
-* [create_physical](#create_physical) - Create Physical Nexus
-* [update_physical_nexus](#update_physical_nexus) - Update Physical Nexus
-* [delete_physical_nexus](#delete_physical_nexus) - Delete Physical Nexus
-* [get_all](#get_all) - Get Nexus For Org
+* [get_all](#get_all) - Get nexus for org
+* [get_physical](#get_physical) - Get physical nexus
+* [create_physical](#create_physical) - Create physical nexus
+* [get_physical_nexus_categories_v1_nexus_physical_nexus_categories_get](#get_physical_nexus_categories_v1_nexus_physical_nexus_categories_get) - Get physical nexus categories
+* [delete_physical_nexus](#delete_physical_nexus) - Delete physical nexus
+* [update_physical_nexus](#update_physical_nexus) - Update physical nexus
+* [get_nexus_details_for_id_v1_nexus_nexus_id_get](#get_nexus_details_for_id_v1_nexus_nexus_id_get) - Get nexus details for id
+
+## get_all
+
+Get a list of all nexuses for the organization.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="get_nexus_for_org_v1_nexus_get" method="get" path="/v1/nexus" -->
+```python
+from kintsugi_tax_platform_sdk import SDK
+
+
+with SDK(
+    api_key_header="<YOUR_API_KEY_HERE>",
+) as sdk:
+
+    res = sdk.nexus.get_all(x_organization_id="org_12345", without_pagination=False, status_in="APPROACHING,NOT_EXPOSED,PENDING_REGISTRATION,EXPOSED,APPROACHING,REGISTERED", order_by="state_code,country_code", page=1, size=50)
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `x_organization_id`                                                 | *Nullable[str]*                                                     | :heavy_check_mark:                                                  | The unique identifier for the organization making the request       | org_12345                                                           |
+| `without_pagination`                                                | *Optional[bool]*                                                    | :heavy_minus_sign:                                                  | Return all results without pagination                               |                                                                     |
+| `disregard_view`                                                    | *OptionalNullable[str]*                                             | :heavy_minus_sign:                                                  | Filter nexuses by disregard view: 'exposed' or 'disregarded'        |                                                                     |
+| `search_query`                                                      | *OptionalNullable[str]*                                             | :heavy_minus_sign:                                                  | Search nexuses by state code or state name                          |                                                                     |
+| `status_in`                                                         | *OptionalNullable[str]*                                             | :heavy_minus_sign:                                                  | N/A                                                                 |                                                                     |
+| `state_code`                                                        | *OptionalNullable[str]*                                             | :heavy_minus_sign:                                                  | N/A                                                                 |                                                                     |
+| `state_code_in`                                                     | *OptionalNullable[str]*                                             | :heavy_minus_sign:                                                  | N/A                                                                 |                                                                     |
+| `country_code_in`                                                   | *OptionalNullable[str]*                                             | :heavy_minus_sign:                                                  | N/A                                                                 |                                                                     |
+| `tax_type_in`                                                       | *OptionalNullable[str]*                                             | :heavy_minus_sign:                                                  | N/A                                                                 |                                                                     |
+| `order_by`                                                          | *OptionalNullable[str]*                                             | :heavy_minus_sign:                                                  | N/A                                                                 |                                                                     |
+| `collected_tax_nexus_met`                                           | *OptionalNullable[bool]*                                            | :heavy_minus_sign:                                                  | N/A                                                                 |                                                                     |
+| `page`                                                              | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |                                                                     |
+| `size`                                                              | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |                                                                     |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+
+### Response
+
+**[models.ResponseGetNexusForOrgV1NexusGet](../../models/responsegetnexusfororgv1nexusget.md)**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.HTTPValidationError | 422                        | application/json           |
+| errors.APIError            | 4XX, 5XX                   | \*/\*                      |
 
 ## get_physical
 
@@ -19,17 +73,14 @@ Retrieve a paginated list of
 
 <!-- UsageSnippet language="python" operationID="get_physical_nexus_v1_nexus_physical_nexus_get" method="get" path="/v1/nexus/physical_nexus" -->
 ```python
-from kintsugi_tax_platform_sdk import SDK, models
+from kintsugi_tax_platform_sdk import SDK
 
 
 with SDK(
-    security=models.Security(
-        api_key_header="<YOUR_API_KEY_HERE>",
-        custom_header="<YOUR_API_KEY_HERE>",
-    ),
+    api_key_header="<YOUR_API_KEY_HERE>",
 ) as sdk:
 
-    res = sdk.nexus.get_physical(order_by="country_code,state_code,start_date,end_date", page=1, size=50)
+    res = sdk.nexus.get_physical(x_organization_id="org_12345", page=1, size=50, order_by="country_code,state_code,start_date,end_date")
 
     # Handle response
     print(res)
@@ -38,14 +89,15 @@ with SDK(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `country_code`                                                      | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `state_code`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `order_by`                                                          | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `page`                                                              | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | Page number                                                         |
-| `size`                                                              | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | Page size                                                           |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `x_organization_id`                                                 | *Nullable[str]*                                                     | :heavy_check_mark:                                                  | The unique identifier for the organization making the request       | org_12345                                                           |
+| `page`                                                              | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | Page number                                                         |                                                                     |
+| `size`                                                              | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | Page size                                                           |                                                                     |
+| `country_code`                                                      | *OptionalNullable[str]*                                             | :heavy_minus_sign:                                                  | N/A                                                                 |                                                                     |
+| `state_code`                                                        | *OptionalNullable[str]*                                             | :heavy_minus_sign:                                                  | N/A                                                                 |                                                                     |
+| `order_by`                                                          | *OptionalNullable[str]*                                             | :heavy_minus_sign:                                                  | N/A                                                                 |                                                                     |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
 
 ### Response
 
@@ -75,13 +127,10 @@ from kintsugi_tax_platform_sdk import SDK, models
 
 
 with SDK(
-    security=models.Security(
-        api_key_header="<YOUR_API_KEY_HERE>",
-        custom_header="<YOUR_API_KEY_HERE>",
-    ),
+    api_key_header="<YOUR_API_KEY_HERE>",
 ) as sdk:
 
-    res = sdk.nexus.create_physical(country_code=models.CountryCodeEnum.US, state_code="CA", start_date=date.fromisoformat("2024-01-01"), category=models.PhysicalNexusCategory.PHYSICAL_BUSINESS_LOCATION, end_date="2025-01-01", external_id="ext_ABC123", source=models.PhysicalNexusSource.USER, street_1="123 Main Street", street_2="Suite 100", city="San Francisco", postal_code="94102")
+    res = sdk.nexus.create_physical(x_organization_id="org_12345", country_code=models.CountryCodeEnum.US, state_code="CA", start_date=date.fromisoformat("2024-01-01"), category=models.PhysicalNexusCategory.PHYSICAL_BUSINESS_LOCATION, end_date=date.fromisoformat("2025-01-01"), external_id="ext_ABC123", source=models.PhysicalNexusSource.USER, street_1="123 Main Street", street_2="Suite 100", city="San Francisco", postal_code="94102")
 
     # Handle response
     print(res)
@@ -90,20 +139,21 @@ with SDK(
 
 ### Parameters
 
-| Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
-| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| `country_code`                                                                          | [models.CountryCodeEnum](../../models/countrycodeenum.md)                               | :heavy_check_mark:                                                                      | N/A                                                                                     |
-| `state_code`                                                                            | *str*                                                                                   | :heavy_check_mark:                                                                      | The state or province code in<br/>                            ISO 3166-2 format (e.g., CA). |
-| `start_date`                                                                            | [datetime](https://docs.python.org/3/library/datetime.html#datetime-objects)            | :heavy_check_mark:                                                                      | The date when the nexus became<br/>                            effective (YYYY-MM-DD).  |
-| `category`                                                                              | [models.PhysicalNexusCategory](../../models/physicalnexuscategory.md)                   | :heavy_check_mark:                                                                      | N/A                                                                                     |
-| `end_date`                                                                              | *Optional[str]*                                                                         | :heavy_minus_sign:                                                                      | The date when the<br/>                                        nexus ended, if applicable. |
-| `external_id`                                                                           | *Optional[str]*                                                                         | :heavy_minus_sign:                                                                      | Optional<br/>                                        external identifier for the nexus. |
-| `source`                                                                                | [Optional[models.PhysicalNexusSource]](../../models/physicalnexussource.md)             | :heavy_minus_sign:                                                                      | N/A                                                                                     |
-| `street_1`                                                                              | *Optional[str]*                                                                         | :heavy_minus_sign:                                                                      | Primary street address for the physical presence location.                              |
-| `street_2`                                                                              | *Optional[str]*                                                                         | :heavy_minus_sign:                                                                      | Additional street address details, such as suite or unit number.                        |
-| `city`                                                                                  | *Optional[str]*                                                                         | :heavy_minus_sign:                                                                      | City of the physical presence location.                                                 |
-| `postal_code`                                                                           | *Optional[str]*                                                                         | :heavy_minus_sign:                                                                      | ZIP or postal code of the physical presence location.                                   |
-| `retries`                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                        | :heavy_minus_sign:                                                                      | Configuration to override the default retry behavior of the client.                     |
+| Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             | Example                                                                                 |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `x_organization_id`                                                                     | *Nullable[str]*                                                                         | :heavy_check_mark:                                                                      | The unique identifier for the organization making the request                           | org_12345                                                                               |
+| `country_code`                                                                          | [models.CountryCodeEnum](../../models/countrycodeenum.md)                               | :heavy_check_mark:                                                                      | N/A                                                                                     |                                                                                         |
+| `state_code`                                                                            | *str*                                                                                   | :heavy_check_mark:                                                                      | The state or province code in<br/>                            ISO 3166-2 format (e.g., CA). |                                                                                         |
+| `start_date`                                                                            | [datetime](https://docs.python.org/3/library/datetime.html#datetime-objects)            | :heavy_check_mark:                                                                      | The date when the nexus became<br/>                            effective (YYYY-MM-DD).  |                                                                                         |
+| `category`                                                                              | [models.PhysicalNexusCategory](../../models/physicalnexuscategory.md)                   | :heavy_check_mark:                                                                      | N/A                                                                                     |                                                                                         |
+| `end_date`                                                                              | [datetime](https://docs.python.org/3/library/datetime.html#datetime-objects)            | :heavy_minus_sign:                                                                      | The date when the<br/>                                        nexus ended, if applicable. |                                                                                         |
+| `external_id`                                                                           | *OptionalNullable[str]*                                                                 | :heavy_minus_sign:                                                                      | Optional<br/>                                        external identifier for the nexus. |                                                                                         |
+| `source`                                                                                | [Optional[models.PhysicalNexusSource]](../../models/physicalnexussource.md)             | :heavy_minus_sign:                                                                      | N/A                                                                                     |                                                                                         |
+| `street_1`                                                                              | *OptionalNullable[str]*                                                                 | :heavy_minus_sign:                                                                      | Primary street address for the physical presence location.                              |                                                                                         |
+| `street_2`                                                                              | *OptionalNullable[str]*                                                                 | :heavy_minus_sign:                                                                      | Additional street address details, such as suite or unit number.                        |                                                                                         |
+| `city`                                                                                  | *OptionalNullable[str]*                                                                 | :heavy_minus_sign:                                                                      | City of the physical presence location.                                                 |                                                                                         |
+| `postal_code`                                                                           | *OptionalNullable[str]*                                                                 | :heavy_minus_sign:                                                                      | ZIP or postal code of the physical presence location.                                   |                                                                                         |
+| `retries`                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                        | :heavy_minus_sign:                                                                      | Configuration to override the default retry behavior of the client.                     |                                                                                         |
 
 ### Response
 
@@ -114,6 +164,92 @@ with SDK(
 | Error Type                                             | Status Code                                            | Content Type                                           |
 | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
 | errors.ErrorResponse                                   | 401                                                    | application/json                                       |
+| errors.BackendSrcNexusResponsesValidationErrorResponse | 422                                                    | application/json                                       |
+| errors.ErrorResponse                                   | 500                                                    | application/json                                       |
+| errors.APIError                                        | 4XX, 5XX                                               | \*/\*                                                  |
+
+## get_physical_nexus_categories_v1_nexus_physical_nexus_categories_get
+
+Get physical nexus categories
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="get_physical_nexus_categories_v1_nexus_physical_nexus_categories_get" method="get" path="/v1/nexus/physical_nexus/categories" -->
+```python
+from kintsugi_tax_platform_sdk import SDK
+
+
+with SDK(
+    api_key_header="<YOUR_API_KEY_HERE>",
+) as sdk:
+
+    res = sdk.nexus.get_physical_nexus_categories_v1_nexus_physical_nexus_categories_get(x_organization_id="org_12345")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                   | Type                                                                        | Required                                                                    | Description                                                                 | Example                                                                     |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `x_organization_id`                                                         | *Nullable[str]*                                                             | :heavy_check_mark:                                                          | The unique identifier for the organization making the request               | org_12345                                                                   |
+| `country_code`                                                              | [OptionalNullable[models.CountryCodeEnum]](../../models/countrycodeenum.md) | :heavy_minus_sign:                                                          | N/A                                                                         |                                                                             |
+| `state_code`                                                                | *OptionalNullable[str]*                                                     | :heavy_minus_sign:                                                          | N/A                                                                         |                                                                             |
+| `retries`                                                                   | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)            | :heavy_minus_sign:                                                          | Configuration to override the default retry behavior of the client.         |                                                                             |
+
+### Response
+
+**[List[models.PhysicalNexusCategories]](../../models/.md)**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.HTTPValidationError | 422                        | application/json           |
+| errors.APIError            | 4XX, 5XX                   | \*/\*                      |
+
+## delete_physical_nexus
+
+The Delete Physical Nexus API allows you to remove an existing
+    physical nexus by its unique ID.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="delete_physical_nexus_v1_nexus_physical_nexus__physical_nexus_id__delete" method="delete" path="/v1/nexus/physical_nexus/{physical_nexus_id}" -->
+```python
+from kintsugi_tax_platform_sdk import SDK
+
+
+with SDK(
+    api_key_header="<YOUR_API_KEY_HERE>",
+) as sdk:
+
+    res = sdk.nexus.delete_physical_nexus(physical_nexus_id="<id>", x_organization_id="org_12345")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                              | Type                                                                                   | Required                                                                               | Description                                                                            | Example                                                                                |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `physical_nexus_id`                                                                    | *str*                                                                                  | :heavy_check_mark:                                                                     | The unique identifier of the physical<br/>                                nexus to delete. |                                                                                        |
+| `x_organization_id`                                                                    | *Nullable[str]*                                                                        | :heavy_check_mark:                                                                     | The unique identifier for the organization making the request                          | org_12345                                                                              |
+| `retries`                                                                              | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                       | :heavy_minus_sign:                                                                     | Configuration to override the default retry behavior of the client.                    |                                                                                        |
+
+### Response
+
+**[Any](../../models/.md)**
+
+### Errors
+
+| Error Type                                             | Status Code                                            | Content Type                                           |
+| ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
+| errors.ErrorResponse                                   | 401, 404                                               | application/json                                       |
 | errors.BackendSrcNexusResponsesValidationErrorResponse | 422                                                    | application/json                                       |
 | errors.ErrorResponse                                   | 500                                                    | application/json                                       |
 | errors.APIError                                        | 4XX, 5XX                                               | \*/\*                                                  |
@@ -132,13 +268,10 @@ from kintsugi_tax_platform_sdk import SDK, models
 
 
 with SDK(
-    security=models.Security(
-        api_key_header="<YOUR_API_KEY_HERE>",
-        custom_header="<YOUR_API_KEY_HERE>",
-    ),
+    api_key_header="<YOUR_API_KEY_HERE>",
 ) as sdk:
 
-    res = sdk.nexus.update_physical_nexus(physical_nexus_id="<id>", start_date=date.fromisoformat("2024-01-01"), category=models.PhysicalNexusCategory.PHYSICAL_BUSINESS_LOCATION, end_date="2025-01-01", street_1="123 Main Street", street_2="Suite 100", city="San Francisco", postal_code="94102")
+    res = sdk.nexus.update_physical_nexus(physical_nexus_id="<id>", x_organization_id="org_12345", start_date=date.fromisoformat("2024-01-01"), category=models.PhysicalNexusCategory.PHYSICAL_BUSINESS_LOCATION, end_date=date.fromisoformat("2025-01-01"), street_1="123 Main Street", street_2="Suite 100", city="San Francisco", postal_code="94102")
 
     # Handle response
     print(res)
@@ -147,17 +280,18 @@ with SDK(
 
 ### Parameters
 
-| Parameter                                                                                         | Type                                                                                              | Required                                                                                          | Description                                                                                       |
-| ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| `physical_nexus_id`                                                                               | *str*                                                                                             | :heavy_check_mark:                                                                                | The unique identifier of the physical<br/>                                nexus to update.        |
-| `start_date`                                                                                      | [datetime](https://docs.python.org/3/library/datetime.html#datetime-objects)                      | :heavy_check_mark:                                                                                | The date when the nexus became<br/>                                effective (YYYY-MM-DD).        |
-| `category`                                                                                        | [models.PhysicalNexusCategory](../../models/physicalnexuscategory.md)                             | :heavy_check_mark:                                                                                | N/A                                                                                               |
-| `end_date`                                                                                        | *Optional[str]*                                                                                   | :heavy_minus_sign:                                                                                | The date when the<br/>                                        nexus ends, if applicable (YYYY-MM-DD). |
-| `street_1`                                                                                        | *Optional[str]*                                                                                   | :heavy_minus_sign:                                                                                | Primary street address for the physical presence location.                                        |
-| `street_2`                                                                                        | *Optional[str]*                                                                                   | :heavy_minus_sign:                                                                                | Additional street address details, such as suite or unit number.                                  |
-| `city`                                                                                            | *Optional[str]*                                                                                   | :heavy_minus_sign:                                                                                | City of the physical presence location.                                                           |
-| `postal_code`                                                                                     | *Optional[str]*                                                                                   | :heavy_minus_sign:                                                                                | ZIP or postal code of the physical presence location.                                             |
-| `retries`                                                                                         | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                  | :heavy_minus_sign:                                                                                | Configuration to override the default retry behavior of the client.                               |
+| Parameter                                                                                         | Type                                                                                              | Required                                                                                          | Description                                                                                       | Example                                                                                           |
+| ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `physical_nexus_id`                                                                               | *str*                                                                                             | :heavy_check_mark:                                                                                | The unique identifier of the physical<br/>                                nexus to update.        |                                                                                                   |
+| `x_organization_id`                                                                               | *Nullable[str]*                                                                                   | :heavy_check_mark:                                                                                | The unique identifier for the organization making the request                                     | org_12345                                                                                         |
+| `start_date`                                                                                      | [datetime](https://docs.python.org/3/library/datetime.html#datetime-objects)                      | :heavy_check_mark:                                                                                | The date when the nexus became<br/>                                effective (YYYY-MM-DD).        |                                                                                                   |
+| `category`                                                                                        | [models.PhysicalNexusCategory](../../models/physicalnexuscategory.md)                             | :heavy_check_mark:                                                                                | N/A                                                                                               |                                                                                                   |
+| `end_date`                                                                                        | [datetime](https://docs.python.org/3/library/datetime.html#datetime-objects)                      | :heavy_minus_sign:                                                                                | The date when the<br/>                                        nexus ends, if applicable (YYYY-MM-DD). |                                                                                                   |
+| `street_1`                                                                                        | *OptionalNullable[str]*                                                                           | :heavy_minus_sign:                                                                                | Primary street address for the physical presence location.                                        |                                                                                                   |
+| `street_2`                                                                                        | *OptionalNullable[str]*                                                                           | :heavy_minus_sign:                                                                                | Additional street address details, such as suite or unit number.                                  |                                                                                                   |
+| `city`                                                                                            | *OptionalNullable[str]*                                                                           | :heavy_minus_sign:                                                                                | City of the physical presence location.                                                           |                                                                                                   |
+| `postal_code`                                                                                     | *OptionalNullable[str]*                                                                           | :heavy_minus_sign:                                                                                | ZIP or postal code of the physical presence location.                                             |                                                                                                   |
+| `retries`                                                                                         | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                  | :heavy_minus_sign:                                                                                | Configuration to override the default retry behavior of the client.                               |                                                                                                   |
 
 ### Response
 
@@ -172,26 +306,22 @@ with SDK(
 | errors.ErrorResponse                                   | 500                                                    | application/json                                       |
 | errors.APIError                                        | 4XX, 5XX                                               | \*/\*                                                  |
 
-## delete_physical_nexus
+## get_nexus_details_for_id_v1_nexus_nexus_id_get
 
-The Delete Physical Nexus API allows you to remove an existing
-    physical nexus by its unique ID.
+Get details for a specific nexus by its ID.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="delete_physical_nexus_v1_nexus_physical_nexus__physical_nexus_id__delete" method="delete" path="/v1/nexus/physical_nexus/{physical_nexus_id}" -->
+<!-- UsageSnippet language="python" operationID="get_nexus_details_for_id_v1_nexus__nexus_id__get" method="get" path="/v1/nexus/{nexus_id}" -->
 ```python
-from kintsugi_tax_platform_sdk import SDK, models
+from kintsugi_tax_platform_sdk import SDK
 
 
 with SDK(
-    security=models.Security(
-        api_key_header="<YOUR_API_KEY_HERE>",
-        custom_header="<YOUR_API_KEY_HERE>",
-    ),
+    api_key_header="<YOUR_API_KEY_HERE>",
 ) as sdk:
 
-    res = sdk.nexus.delete_physical_nexus(physical_nexus_id="<id>")
+    res = sdk.nexus.get_nexus_details_for_id_v1_nexus_nexus_id_get(nexus_id="<id>", x_organization_id="org_12345")
 
     # Handle response
     print(res)
@@ -200,67 +330,15 @@ with SDK(
 
 ### Parameters
 
-| Parameter                                                                              | Type                                                                                   | Required                                                                               | Description                                                                            |
-| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| `physical_nexus_id`                                                                    | *str*                                                                                  | :heavy_check_mark:                                                                     | The unique identifier of the physical<br/>                                nexus to delete. |
-| `retries`                                                                              | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                       | :heavy_minus_sign:                                                                     | Configuration to override the default retry behavior of the client.                    |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `nexus_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the nexus.                                 |                                                                     |
+| `x_organization_id`                                                 | *Nullable[str]*                                                     | :heavy_check_mark:                                                  | The unique identifier for the organization making the request       | org_12345                                                           |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
 
 ### Response
 
-**[Any](../../models/.md)**
-
-### Errors
-
-| Error Type                                             | Status Code                                            | Content Type                                           |
-| ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
-| errors.ErrorResponse                                   | 401, 404                                               | application/json                                       |
-| errors.BackendSrcNexusResponsesValidationErrorResponse | 422                                                    | application/json                                       |
-| errors.ErrorResponse                                   | 500                                                    | application/json                                       |
-| errors.APIError                                        | 4XX, 5XX                                               | \*/\*                                                  |
-
-## get_all
-
-Get a list of all nexuses for the organization.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="get_nexus_for_org_v1_nexus_get" method="get" path="/v1/nexus" -->
-```python
-from kintsugi_tax_platform_sdk import SDK, models
-
-
-with SDK(
-    security=models.Security(
-        api_key_header="<YOUR_API_KEY_HERE>",
-        custom_header="<YOUR_API_KEY_HERE>",
-    ),
-) as sdk:
-
-    res = sdk.nexus.get_all(without_pagination=False, status_in="APPROACHING,NOT_EXPOSED,PENDING_REGISTRATION,EXPOSED,APPROACHING,REGISTERED", order_by="state_code,country_code", page=1, size=50)
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `without_pagination`                                                | *Optional[bool]*                                                    | :heavy_minus_sign:                                                  | Return all results without pagination                               |
-| `disregard_view`                                                    | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Filter nexuses by disregard view: 'exposed' or 'disregarded'        |
-| `status_in`                                                         | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `state_code`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `country_code_in`                                                   | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `order_by`                                                          | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `collected_tax_nexus_met`                                           | *Optional[bool]*                                                    | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `page`                                                              | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `size`                                                              | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[models.PageNexusResponse](../../models/pagenexusresponse.md)**
+**[models.NexusResponse](../../models/nexusresponse.md)**
 
 ### Errors
 

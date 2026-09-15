@@ -4,7 +4,7 @@ from .basesdk import BaseSDK
 from datetime import date
 from kintsugi_tax_platform_sdk import errors, models, utils
 from kintsugi_tax_platform_sdk._hooks import HookContext
-from kintsugi_tax_platform_sdk.types import OptionalNullable, UNSET
+from kintsugi_tax_platform_sdk.types import Nullable, OptionalNullable, UNSET
 from kintsugi_tax_platform_sdk.utils.unmarshal_json_response import (
     unmarshal_json_response,
 )
@@ -15,15 +15,22 @@ class Exemptions(BaseSDK):
     def list(
         self,
         *,
-        search_query: Optional[str] = None,
-        status_in: Optional[str] = "ACTIVE,INACTIVE,EXPIRED",
-        country_code: Optional[Iterable[models.CountryCodeEnum]] = None,
-        jurisdiction: Optional[str] = None,
-        start_date: Optional[str] = None,
-        end_date: Optional[str] = None,
-        customer_id: Optional[str] = None,
-        transaction_id: Optional[str] = None,
-        order_by: Optional[str] = "end_date,FEIN,sales_tax_id,status",
+        x_organization_id: Nullable[str],
+        search_query: OptionalNullable[str] = UNSET,
+        status_in: OptionalNullable[str] = UNSET,
+        country_code: OptionalNullable[
+            Union[
+                Iterable[models.GetExemptionsV1ExemptionsGetCountryCode],
+                Iterable[models.GetExemptionsV1ExemptionsGetCountryCodeTypedDict],
+            ]
+        ] = UNSET,
+        jurisdiction: OptionalNullable[str] = UNSET,
+        start_date: OptionalNullable[date] = UNSET,
+        end_date: OptionalNullable[date] = UNSET,
+        customer_id: OptionalNullable[str] = UNSET,
+        transaction_id: OptionalNullable[str] = UNSET,
+        connection_id_in: OptionalNullable[str] = UNSET,
+        order_by: OptionalNullable[str] = UNSET,
         page: Optional[int] = 1,
         size: Optional[int] = 50,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -31,10 +38,11 @@ class Exemptions(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.FastapiPaginationDefaultPageExemptionRead2:
-        r"""Get Exemptions
+        r"""Get exemptions
 
         Retrieve a list of exemptions based on filters.
 
+        :param x_organization_id: The unique identifier for the organization making the request
         :param search_query: Search term to filter exemptions by exemption ID, customer name, or customer email
         :param status_in: Filter exemptions by their status
         :param country_code: Country code in ISO 3166-1 alpha-2 format
@@ -43,6 +51,7 @@ class Exemptions(BaseSDK):
         :param end_date: End date for filtering exemptions
         :param customer_id: Customer ID to filter exemptions
         :param transaction_id: Transaction ID to filter exemptions
+        :param connection_id_in: Filter exemptions by customer connection ID (comma-separated)
         :param order_by: Fields to sort by (comma-separated)
         :param page: Page number
         :param size: Page size
@@ -65,16 +74,19 @@ class Exemptions(BaseSDK):
             search_query=search_query,
             status_in=status_in,
             country_code=utils.unmarshal(
-                country_code, Optional[List[models.CountryCodeEnum]]
+                country_code,
+                OptionalNullable[List[models.GetExemptionsV1ExemptionsGetCountryCode]],
             ),
             jurisdiction=jurisdiction,
             start_date=start_date,
             end_date=end_date,
             customer_id=customer_id,
             transaction_id=transaction_id,
+            connection_id_in=connection_id_in,
             order_by=order_by,
             page=page,
             size=size,
+            x_organization_id=x_organization_id,
         )
 
         req = self._build_request(
@@ -148,15 +160,22 @@ class Exemptions(BaseSDK):
     async def list_async(
         self,
         *,
-        search_query: Optional[str] = None,
-        status_in: Optional[str] = "ACTIVE,INACTIVE,EXPIRED",
-        country_code: Optional[Iterable[models.CountryCodeEnum]] = None,
-        jurisdiction: Optional[str] = None,
-        start_date: Optional[str] = None,
-        end_date: Optional[str] = None,
-        customer_id: Optional[str] = None,
-        transaction_id: Optional[str] = None,
-        order_by: Optional[str] = "end_date,FEIN,sales_tax_id,status",
+        x_organization_id: Nullable[str],
+        search_query: OptionalNullable[str] = UNSET,
+        status_in: OptionalNullable[str] = UNSET,
+        country_code: OptionalNullable[
+            Union[
+                Iterable[models.GetExemptionsV1ExemptionsGetCountryCode],
+                Iterable[models.GetExemptionsV1ExemptionsGetCountryCodeTypedDict],
+            ]
+        ] = UNSET,
+        jurisdiction: OptionalNullable[str] = UNSET,
+        start_date: OptionalNullable[date] = UNSET,
+        end_date: OptionalNullable[date] = UNSET,
+        customer_id: OptionalNullable[str] = UNSET,
+        transaction_id: OptionalNullable[str] = UNSET,
+        connection_id_in: OptionalNullable[str] = UNSET,
+        order_by: OptionalNullable[str] = UNSET,
         page: Optional[int] = 1,
         size: Optional[int] = 50,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -164,10 +183,11 @@ class Exemptions(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.FastapiPaginationDefaultPageExemptionRead2:
-        r"""Get Exemptions
+        r"""Get exemptions
 
         Retrieve a list of exemptions based on filters.
 
+        :param x_organization_id: The unique identifier for the organization making the request
         :param search_query: Search term to filter exemptions by exemption ID, customer name, or customer email
         :param status_in: Filter exemptions by their status
         :param country_code: Country code in ISO 3166-1 alpha-2 format
@@ -176,6 +196,7 @@ class Exemptions(BaseSDK):
         :param end_date: End date for filtering exemptions
         :param customer_id: Customer ID to filter exemptions
         :param transaction_id: Transaction ID to filter exemptions
+        :param connection_id_in: Filter exemptions by customer connection ID (comma-separated)
         :param order_by: Fields to sort by (comma-separated)
         :param page: Page number
         :param size: Page size
@@ -198,16 +219,19 @@ class Exemptions(BaseSDK):
             search_query=search_query,
             status_in=status_in,
             country_code=utils.unmarshal(
-                country_code, Optional[List[models.CountryCodeEnum]]
+                country_code,
+                OptionalNullable[List[models.GetExemptionsV1ExemptionsGetCountryCode]],
             ),
             jurisdiction=jurisdiction,
             start_date=start_date,
             end_date=end_date,
             customer_id=customer_id,
             transaction_id=transaction_id,
+            connection_id_in=connection_id_in,
             order_by=order_by,
             page=page,
             size=size,
+            x_organization_id=x_organization_id,
         )
 
         req = self._build_request_async(
@@ -281,28 +305,30 @@ class Exemptions(BaseSDK):
     def create(
         self,
         *,
+        x_organization_id: Nullable[str],
         exemption_type: models.ExemptionType,
         start_date: date,
         customer_id: str,
         fein: str,
         sales_tax_id: str,
         status: models.ExemptionStatus,
-        jurisdiction: Optional[str] = None,
-        country_code: Optional[models.CountryCodeEnum] = None,
-        end_date: Optional[str] = None,
-        transaction_id: Optional[str] = None,
+        jurisdiction: OptionalNullable[str] = UNSET,
+        country_code: OptionalNullable[models.CountryCodeEnum] = UNSET,
+        end_date: OptionalNullable[date] = UNSET,
+        transaction_id: OptionalNullable[str] = UNSET,
         reseller: Optional[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.BackendSrcExemptionsSerializersExemptionRead:
-        r"""Create Exemption
+        r"""Create exemption
 
         The Create Exemption API allows you to create a new exemption record.
         This includes defining details such as exemption type, jurisdiction,
         Country, State, validity dates, etc.
 
+        :param x_organization_id: The unique identifier for the organization making the request
         :param exemption_type:
         :param start_date: Start date for the exemption validity period (YYYY-MM-DD format)
         :param customer_id: Unique identifier for the customer associated with the exemption
@@ -310,7 +336,7 @@ class Exemptions(BaseSDK):
         :param sales_tax_id: Sales tax ID for the exemption
         :param status:
         :param jurisdiction: The jurisdiction identifier for the exemption
-        :param country_code:
+        :param country_code: Country code in ISO 3166-1 alpha-2 format (e.g., 'US')
         :param end_date: End date for the exemption validity period (YYYY-MM-DD format)
         :param transaction_id: Unique identifier for the transaction, if applicable
         :param reseller: Indicates whether the exemption is for a reseller
@@ -329,18 +355,21 @@ class Exemptions(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ExemptionCreate(
-            exemption_type=exemption_type,
-            jurisdiction=jurisdiction,
-            country_code=country_code,
-            start_date=start_date,
-            end_date=end_date,
-            customer_id=customer_id,
-            transaction_id=transaction_id,
-            reseller=reseller,
-            fein=fein,
-            sales_tax_id=sales_tax_id,
-            status=status,
+        request = models.CreateExemptionV1ExemptionsPostRequest(
+            x_organization_id=x_organization_id,
+            exemption_create=models.ExemptionCreate(
+                exemption_type=exemption_type,
+                jurisdiction=jurisdiction,
+                country_code=country_code,
+                start_date=start_date,
+                end_date=end_date,
+                customer_id=customer_id,
+                transaction_id=transaction_id,
+                reseller=reseller,
+                fein=fein,
+                sales_tax_id=sales_tax_id,
+                status=status,
+            ),
         )
 
         req = self._build_request(
@@ -357,7 +386,7 @@ class Exemptions(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.ExemptionCreate
+                request.exemption_create, False, False, "json", models.ExemptionCreate
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -417,28 +446,30 @@ class Exemptions(BaseSDK):
     async def create_async(
         self,
         *,
+        x_organization_id: Nullable[str],
         exemption_type: models.ExemptionType,
         start_date: date,
         customer_id: str,
         fein: str,
         sales_tax_id: str,
         status: models.ExemptionStatus,
-        jurisdiction: Optional[str] = None,
-        country_code: Optional[models.CountryCodeEnum] = None,
-        end_date: Optional[str] = None,
-        transaction_id: Optional[str] = None,
+        jurisdiction: OptionalNullable[str] = UNSET,
+        country_code: OptionalNullable[models.CountryCodeEnum] = UNSET,
+        end_date: OptionalNullable[date] = UNSET,
+        transaction_id: OptionalNullable[str] = UNSET,
         reseller: Optional[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.BackendSrcExemptionsSerializersExemptionRead:
-        r"""Create Exemption
+        r"""Create exemption
 
         The Create Exemption API allows you to create a new exemption record.
         This includes defining details such as exemption type, jurisdiction,
         Country, State, validity dates, etc.
 
+        :param x_organization_id: The unique identifier for the organization making the request
         :param exemption_type:
         :param start_date: Start date for the exemption validity period (YYYY-MM-DD format)
         :param customer_id: Unique identifier for the customer associated with the exemption
@@ -446,7 +477,7 @@ class Exemptions(BaseSDK):
         :param sales_tax_id: Sales tax ID for the exemption
         :param status:
         :param jurisdiction: The jurisdiction identifier for the exemption
-        :param country_code:
+        :param country_code: Country code in ISO 3166-1 alpha-2 format (e.g., 'US')
         :param end_date: End date for the exemption validity period (YYYY-MM-DD format)
         :param transaction_id: Unique identifier for the transaction, if applicable
         :param reseller: Indicates whether the exemption is for a reseller
@@ -465,18 +496,21 @@ class Exemptions(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ExemptionCreate(
-            exemption_type=exemption_type,
-            jurisdiction=jurisdiction,
-            country_code=country_code,
-            start_date=start_date,
-            end_date=end_date,
-            customer_id=customer_id,
-            transaction_id=transaction_id,
-            reseller=reseller,
-            fein=fein,
-            sales_tax_id=sales_tax_id,
-            status=status,
+        request = models.CreateExemptionV1ExemptionsPostRequest(
+            x_organization_id=x_organization_id,
+            exemption_create=models.ExemptionCreate(
+                exemption_type=exemption_type,
+                jurisdiction=jurisdiction,
+                country_code=country_code,
+                start_date=start_date,
+                end_date=end_date,
+                customer_id=customer_id,
+                transaction_id=transaction_id,
+                reseller=reseller,
+                fein=fein,
+                sales_tax_id=sales_tax_id,
+                status=status,
+            ),
         )
 
         req = self._build_request_async(
@@ -493,7 +527,7 @@ class Exemptions(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.ExemptionCreate
+                request.exemption_create, False, False, "json", models.ExemptionCreate
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -554,12 +588,13 @@ class Exemptions(BaseSDK):
         self,
         *,
         exemption_id: str,
+        x_organization_id: Nullable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.BackendSrcExemptionsModelsExemptionRead:
-        r"""Get Exemption By Id
+    ) -> models.BackendSrcExemptionsSchemasExemptionExemptionRead:
+        r"""Get exemption by id
 
         The Get Exemption By ID API retrieves a specific exemption record by
         its unique ID. This API is useful for retrieving detailed information
@@ -567,6 +602,7 @@ class Exemptions(BaseSDK):
         customer, organisation id, status, etc.
 
         :param exemption_id: The unique identifier for the exemption being retrieved.
+        :param x_organization_id: The unique identifier for the organization making the request
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -584,6 +620,7 @@ class Exemptions(BaseSDK):
 
         request = models.GetExemptionByIDV1ExemptionsExemptionIDGetRequest(
             exemption_id=exemption_id,
+            x_organization_id=x_organization_id,
         )
 
         req = self._build_request(
@@ -629,7 +666,7 @@ class Exemptions(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                models.BackendSrcExemptionsModelsExemptionRead, http_res
+                models.BackendSrcExemptionsSchemasExemptionExemptionRead, http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
@@ -658,12 +695,13 @@ class Exemptions(BaseSDK):
         self,
         *,
         exemption_id: str,
+        x_organization_id: Nullable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.BackendSrcExemptionsModelsExemptionRead:
-        r"""Get Exemption By Id
+    ) -> models.BackendSrcExemptionsSchemasExemptionExemptionRead:
+        r"""Get exemption by id
 
         The Get Exemption By ID API retrieves a specific exemption record by
         its unique ID. This API is useful for retrieving detailed information
@@ -671,6 +709,7 @@ class Exemptions(BaseSDK):
         customer, organisation id, status, etc.
 
         :param exemption_id: The unique identifier for the exemption being retrieved.
+        :param x_organization_id: The unique identifier for the organization making the request
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -688,6 +727,7 @@ class Exemptions(BaseSDK):
 
         request = models.GetExemptionByIDV1ExemptionsExemptionIDGetRequest(
             exemption_id=exemption_id,
+            x_organization_id=x_organization_id,
         )
 
         req = self._build_request_async(
@@ -733,7 +773,7 @@ class Exemptions(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                models.BackendSrcExemptionsModelsExemptionRead, http_res
+                models.BackendSrcExemptionsSchemasExemptionExemptionRead, http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
@@ -758,17 +798,224 @@ class Exemptions(BaseSDK):
 
         raise errors.APIError("Unexpected response received", http_res)
 
+    def list_attachments(
+        self,
+        *,
+        exemption_id: str,
+        x_organization_id: Nullable[str],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> List[models.AttachmentRead]:
+        r"""Get attachments for exemption
+
+        The Get Attachments for Exemption API retrieves all
+        attachments associated with a specific exemption.
+        This is used to view and manage supporting documents
+        like exemption certificates uploaded for a particular exemption record.
+
+        :param exemption_id: The unique identifier for the exemption
+            whose attachments are being retrieved.
+        :param x_organization_id: The unique identifier for the organization making the request
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.GetAttachmentsForExemptionV1ExemptionsExemptionIDAttachmentsGetRequest(
+            exemption_id=exemption_id,
+            x_organization_id=x_organization_id,
+        )
+
+        req = self._build_request(
+            method="GET",
+            path="/v1/exemptions/{exemption_id}/attachments",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="get_attachments_for_exemption_v1_exemptions__exemption_id__attachments_get",
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
+                tags=["Exemptions"],
+                extensions=None,
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(List[models.AttachmentRead], http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
+            raise errors.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = unmarshal_json_response(
+                errors.BackendSrcExemptionsResponsesValidationErrorResponseData,
+                http_res,
+            )
+            raise errors.BackendSrcExemptionsResponsesValidationErrorResponse(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.APIError("API error occurred", http_res, http_res_text)
+
+        raise errors.APIError("Unexpected response received", http_res)
+
+    async def list_attachments_async(
+        self,
+        *,
+        exemption_id: str,
+        x_organization_id: Nullable[str],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> List[models.AttachmentRead]:
+        r"""Get attachments for exemption
+
+        The Get Attachments for Exemption API retrieves all
+        attachments associated with a specific exemption.
+        This is used to view and manage supporting documents
+        like exemption certificates uploaded for a particular exemption record.
+
+        :param exemption_id: The unique identifier for the exemption
+            whose attachments are being retrieved.
+        :param x_organization_id: The unique identifier for the organization making the request
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.GetAttachmentsForExemptionV1ExemptionsExemptionIDAttachmentsGetRequest(
+            exemption_id=exemption_id,
+            x_organization_id=x_organization_id,
+        )
+
+        req = self._build_request_async(
+            method="GET",
+            path="/v1/exemptions/{exemption_id}/attachments",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="get_attachments_for_exemption_v1_exemptions__exemption_id__attachments_get",
+                oauth2_scopes=None,
+                security_source=self.sdk_configuration.security,
+                tags=["Exemptions"],
+                extensions=None,
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(List[models.AttachmentRead], http_res)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
+            raise errors.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = unmarshal_json_response(
+                errors.BackendSrcExemptionsResponsesValidationErrorResponseData,
+                http_res,
+            )
+            raise errors.BackendSrcExemptionsResponsesValidationErrorResponse(
+                response_data, http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.APIError("API error occurred", http_res, http_res_text)
+
+        raise errors.APIError("Unexpected response received", http_res)
+
     def upload_certificate(
         self,
         *,
         exemption_id: str,
-        file: Union[models.File, models.FileTypedDict],
+        x_organization_id: Nullable[str],
+        file: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.AttachmentRead:
-        r"""Upload Exemption Certificate
+        r"""Upload exemption certificate
 
         The Upload Exemption Certificate API allows you
         to upload a file attachment (e.g., exemption certificate) for a specific exemption.
@@ -776,6 +1023,7 @@ class Exemptions(BaseSDK):
         to ensure compliance and facilitate verification.
 
         :param exemption_id: The unique identifier for the exemption to which the attachment will be associated.
+        :param x_organization_id: The unique identifier for the organization making the request
         :param file: The file to be uploaded. Supported format: PDF. Max size: 10 MB.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -794,8 +1042,9 @@ class Exemptions(BaseSDK):
 
         request = models.UploadExemptionCertificateV1ExemptionsExemptionIDAttachmentsPostRequest(
             exemption_id=exemption_id,
+            x_organization_id=x_organization_id,
             body_upload_exemption_certificate_v1_exemptions_exemption_id_attachments_post=models.BodyUploadExemptionCertificateV1ExemptionsExemptionIDAttachmentsPost(
-                file=utils.get_pydantic_model(file, models.File),
+                file=file,
             ),
         )
 
@@ -876,13 +1125,14 @@ class Exemptions(BaseSDK):
         self,
         *,
         exemption_id: str,
-        file: Union[models.File, models.FileTypedDict],
+        x_organization_id: Nullable[str],
+        file: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.AttachmentRead:
-        r"""Upload Exemption Certificate
+        r"""Upload exemption certificate
 
         The Upload Exemption Certificate API allows you
         to upload a file attachment (e.g., exemption certificate) for a specific exemption.
@@ -890,6 +1140,7 @@ class Exemptions(BaseSDK):
         to ensure compliance and facilitate verification.
 
         :param exemption_id: The unique identifier for the exemption to which the attachment will be associated.
+        :param x_organization_id: The unique identifier for the organization making the request
         :param file: The file to be uploaded. Supported format: PDF. Max size: 10 MB.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -908,8 +1159,9 @@ class Exemptions(BaseSDK):
 
         request = models.UploadExemptionCertificateV1ExemptionsExemptionIDAttachmentsPostRequest(
             exemption_id=exemption_id,
+            x_organization_id=x_organization_id,
             body_upload_exemption_certificate_v1_exemptions_exemption_id_attachments_post=models.BodyUploadExemptionCertificateV1ExemptionsExemptionIDAttachmentsPost(
-                file=utils.get_pydantic_model(file, models.File),
+                file=file,
             ),
         )
 
@@ -977,206 +1229,6 @@ class Exemptions(BaseSDK):
         if utils.match_response(http_res, "500", "application/json"):
             response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
             raise errors.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.APIError("API error occurred", http_res, http_res_text)
-
-        raise errors.APIError("Unexpected response received", http_res)
-
-    def list_attachments(
-        self,
-        *,
-        exemption_id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.AttachmentRead]:
-        r"""Get Attachments For Exemption
-
-        The Get Attachments for Exemption API retrieves all
-        attachments associated with a specific exemption.
-        This is used to view and manage supporting documents
-        like exemption certificates uploaded for a particular exemption record.
-
-        :param exemption_id: The unique identifier for the exemption
-            whose attachments are being retrieved.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetAttachmentsForExemptionV1ExemptionsExemptionIDAttachmentsGetRequest(
-            exemption_id=exemption_id,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/v1/exemptions/{exemption_id}/attachments",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="get_attachments_for_exemption_v1_exemptions__exemption_id__attachments_get",
-                oauth2_scopes=None,
-                security_source=self.sdk_configuration.security,
-                tags=["Exemptions"],
-                extensions=None,
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(List[models.AttachmentRead], http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
-            raise errors.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, "422", "application/json"):
-            response_data = unmarshal_json_response(
-                errors.BackendSrcExemptionsResponsesValidationErrorResponseData,
-                http_res,
-            )
-            raise errors.BackendSrcExemptionsResponsesValidationErrorResponse(
-                response_data, http_res
-            )
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.APIError("API error occurred", http_res, http_res_text)
-
-        raise errors.APIError("Unexpected response received", http_res)
-
-    async def list_attachments_async(
-        self,
-        *,
-        exemption_id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> List[models.AttachmentRead]:
-        r"""Get Attachments For Exemption
-
-        The Get Attachments for Exemption API retrieves all
-        attachments associated with a specific exemption.
-        This is used to view and manage supporting documents
-        like exemption certificates uploaded for a particular exemption record.
-
-        :param exemption_id: The unique identifier for the exemption
-            whose attachments are being retrieved.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetAttachmentsForExemptionV1ExemptionsExemptionIDAttachmentsGetRequest(
-            exemption_id=exemption_id,
-        )
-
-        req = self._build_request_async(
-            method="GET",
-            path="/v1/exemptions/{exemption_id}/attachments",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="get_attachments_for_exemption_v1_exemptions__exemption_id__attachments_get",
-                oauth2_scopes=None,
-                security_source=self.sdk_configuration.security,
-                tags=["Exemptions"],
-                extensions=None,
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(List[models.AttachmentRead], http_res)
-        if utils.match_response(http_res, "401", "application/json"):
-            response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
-            raise errors.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, "422", "application/json"):
-            response_data = unmarshal_json_response(
-                errors.BackendSrcExemptionsResponsesValidationErrorResponseData,
-                http_res,
-            )
-            raise errors.BackendSrcExemptionsResponsesValidationErrorResponse(
-                response_data, http_res
-            )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.APIError("API error occurred", http_res, http_res_text)
