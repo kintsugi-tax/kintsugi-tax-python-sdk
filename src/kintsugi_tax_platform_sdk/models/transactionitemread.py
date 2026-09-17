@@ -4,7 +4,6 @@ from __future__ import annotations
 from .currencyenum import CurrencyEnum
 from .taxexemptionenum import TaxExemptionEnum
 from .taxitemread import TaxItemRead, TaxItemReadTypedDict
-from datetime import datetime
 from kintsugi_tax_platform_sdk.types import (
     BaseModel,
     Nullable,
@@ -21,7 +20,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 class TransactionItemReadTypedDict(TypedDict):
     organization_id: Nullable[str]
     r"""Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header."""
-    date_: datetime
+    date_: str
     r"""Date/time of item."""
     external_product_id: str
     r"""External product identifier."""
@@ -83,6 +82,10 @@ class TransactionItemReadTypedDict(TypedDict):
     r"""Whether this purchase line is reverse-charged."""
     recoverability_percent: NotRequired[Nullable[str]]
     r"""Input VAT recoverability 0-100. Blank means 100%."""
+    recoverable_input_vat: NotRequired[str]
+    r"""VAT recoverable on this line in the transaction's currency, after the line's recoverability percentage and the organization's pro-rata recovery rate. 0.00 for sales and outside the EU and UK."""
+    converted_recoverable_input_vat: NotRequired[Nullable[str]]
+    r"""Recoverable VAT on this line in the destination currency. Null when the line has no converted amount."""
 
 
 class TransactionItemRead(BaseModel):
@@ -94,7 +97,7 @@ class TransactionItemRead(BaseModel):
     ]
     r"""Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header."""
 
-    date_: Annotated[datetime, pydantic.Field(alias="date")]
+    date_: Annotated[str, pydantic.Field(alias="date")]
     r"""Date/time of item."""
 
     external_product_id: str
@@ -187,6 +190,12 @@ class TransactionItemRead(BaseModel):
     recoverability_percent: OptionalNullable[str] = UNSET
     r"""Input VAT recoverability 0-100. Blank means 100%."""
 
+    recoverable_input_vat: Optional[str] = "0.00"
+    r"""VAT recoverable on this line in the transaction's currency, after the line's recoverability percentage and the organization's pro-rata recovery rate. 0.00 for sales and outside the EU and UK."""
+
+    converted_recoverable_input_vat: OptionalNullable[str] = UNSET
+    r"""Recoverable VAT on this line in the destination currency. Null when the line has no converted amount."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -218,6 +227,8 @@ class TransactionItemRead(BaseModel):
                 "subtotal",
                 "is_reverse_charge_self_accounted",
                 "recoverability_percent",
+                "recoverable_input_vat",
+                "converted_recoverable_input_vat",
             ]
         )
         nullable_fields = set(
@@ -241,6 +252,7 @@ class TransactionItemRead(BaseModel):
                 "total_discount",
                 "subtotal",
                 "recoverability_percent",
+                "converted_recoverable_input_vat",
             ]
         )
         serialized = handler(self)
