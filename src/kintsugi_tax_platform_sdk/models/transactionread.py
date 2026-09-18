@@ -6,7 +6,6 @@ from .countrycodeenum import CountryCodeEnum
 from .currencyenum import CurrencyEnum
 from .customerread import CustomerRead, CustomerReadTypedDict
 from .documenttypeenum import DocumentTypeEnum
-from .exemption import Exemption, ExemptionTypedDict
 from .exemptionrequired import ExemptionRequired, ExemptionRequiredTypedDict
 from .processingstatusenum import ProcessingStatusEnum
 from .sourceenum import SourceEnum
@@ -16,12 +15,16 @@ from .transactionaddressread_output import (
     TransactionAddressReadOutputTypedDict,
 )
 from .transactiondirectionenum import TransactionDirectionEnum
+from .transactionembeddedexemption import (
+    TransactionEmbeddedExemption,
+    TransactionEmbeddedExemptionTypedDict,
+)
 from .transactionexemptstatusenum import TransactionExemptStatusEnum
 from .transactionitemread import TransactionItemRead, TransactionItemReadTypedDict
 from .transactionrefundstatus import TransactionRefundStatus
 from .transactionstatusenum import TransactionStatusEnum
 from .transactiontypeenum import TransactionTypeEnum
-from datetime import date, datetime
+from datetime import date
 from kintsugi_tax_platform_sdk.types import (
     BaseModel,
     Nullable,
@@ -40,7 +43,7 @@ class TransactionReadTypedDict(TypedDict):
     r"""Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header."""
     external_id: str
     r"""External identifier of the transaction."""
-    date_: datetime
+    date_: str
     r"""Transaction date and time"""
     id: str
     r"""The unique transaction identifier."""
@@ -67,7 +70,7 @@ class TransactionReadTypedDict(TypedDict):
     r"""Indicates if transaction is marketplace-based."""
     exempt: NotRequired[Nullable[TransactionExemptStatusEnum]]
     r"""Exemption status (e.g., NOT_EXEMPT)"""
-    exemptions: NotRequired[Nullable[List[ExemptionTypedDict]]]
+    exemptions: NotRequired[Nullable[List[TransactionEmbeddedExemptionTypedDict]]]
     r"""List of exemptions applied (if any)."""
     related_to: NotRequired[Nullable[str]]
     r"""Related transaction identifier."""
@@ -145,6 +148,12 @@ class TransactionReadTypedDict(TypedDict):
     is_deferred_transaction: NotRequired[bool]
     r"""Whether this transaction was deferred (rolled over) from a prior filing period."""
     direction: NotRequired[TransactionDirectionEnum]
+    total_recoverable_input_vat: NotRequired[str]
+    r"""Recoverable input VAT across this transaction's lines, in the transaction's currency. 0.00 for sales and outside the EU and UK."""
+    converted_total_recoverable_input_vat: NotRequired[Nullable[str]]
+    r"""Recoverable input VAT across this transaction's lines in the destination currency. Null when the transaction is unconverted."""
+    input_vat_recovery_rate: NotRequired[Nullable[str]]
+    r"""Pro-rata coefficient 0-100 used to scale recoverable input VAT on this purchase. Null for sales and outside the EU and UK. 100 when the organization has no partial exemption rate for the tax-point year."""
     customer: NotRequired[Nullable[CustomerReadTypedDict]]
     r"""Customer information associated with the transaction."""
     total_discount: NotRequired[Nullable[str]]
@@ -169,7 +178,7 @@ class TransactionRead(BaseModel):
     external_id: str
     r"""External identifier of the transaction."""
 
-    date_: Annotated[datetime, pydantic.Field(alias="date")]
+    date_: Annotated[str, pydantic.Field(alias="date")]
     r"""Transaction date and time"""
 
     id: str
@@ -210,7 +219,7 @@ class TransactionRead(BaseModel):
     exempt: OptionalNullable[TransactionExemptStatusEnum] = UNSET
     r"""Exemption status (e.g., NOT_EXEMPT)"""
 
-    exemptions: OptionalNullable[List[Exemption]] = UNSET
+    exemptions: OptionalNullable[List[TransactionEmbeddedExemption]] = UNSET
     r"""List of exemptions applied (if any)."""
 
     related_to: OptionalNullable[str] = UNSET
@@ -334,6 +343,15 @@ class TransactionRead(BaseModel):
 
     direction: Optional[TransactionDirectionEnum] = None
 
+    total_recoverable_input_vat: Optional[str] = "0.00"
+    r"""Recoverable input VAT across this transaction's lines, in the transaction's currency. 0.00 for sales and outside the EU and UK."""
+
+    converted_total_recoverable_input_vat: OptionalNullable[str] = UNSET
+    r"""Recoverable input VAT across this transaction's lines in the destination currency. Null when the transaction is unconverted."""
+
+    input_vat_recovery_rate: OptionalNullable[str] = UNSET
+    r"""Pro-rata coefficient 0-100 used to scale recoverable input VAT on this purchase. Null for sales and outside the EU and UK. 100 when the organization has no partial exemption rate for the tax-point year."""
+
     customer: OptionalNullable[CustomerRead] = UNSET
     r"""Customer information associated with the transaction."""
 
@@ -403,6 +421,9 @@ class TransactionRead(BaseModel):
                 "store_name",
                 "is_deferred_transaction",
                 "direction",
+                "total_recoverable_input_vat",
+                "converted_total_recoverable_input_vat",
+                "input_vat_recovery_rate",
                 "customer",
                 "total_discount",
                 "subtotal",
@@ -446,6 +467,8 @@ class TransactionRead(BaseModel):
                 "converted_subtotal",
                 "converted_total_tax_liability_amount",
                 "store_name",
+                "converted_total_recoverable_input_vat",
+                "input_vat_recovery_rate",
                 "customer",
                 "total_discount",
                 "subtotal",

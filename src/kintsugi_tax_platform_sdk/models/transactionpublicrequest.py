@@ -5,13 +5,16 @@ from .countrycodeenum import CountryCodeEnum
 from .currencyenum import CurrencyEnum
 from .customerbasebase import CustomerBaseBase, CustomerBaseBaseTypedDict
 from .documenttypeenum import DocumentTypeEnum
-from .exemption import Exemption, ExemptionTypedDict
 from .exemptionrequired import ExemptionRequired, ExemptionRequiredTypedDict
 from .sourceenum import SourceEnum
 from .taxliabilitysourceenum import TaxLiabilitySourceEnum
 from .transactionaddresspublic import (
     TransactionAddressPublic,
     TransactionAddressPublicTypedDict,
+)
+from .transactionembeddedexemption import (
+    TransactionEmbeddedExemption,
+    TransactionEmbeddedExemptionTypedDict,
 )
 from .transactionexemptstatusenum import TransactionExemptStatusEnum
 from .transactionimportcustomer import (
@@ -161,7 +164,7 @@ class TransactionPublicRequestTypedDict(TypedDict):
     r"""Indicates if transaction is marketplace-based."""
     exempt: NotRequired[Nullable[TransactionExemptStatusEnum]]
     r"""Exemption status (e.g., NOT_EXEMPT)"""
-    exemptions: NotRequired[Nullable[List[ExemptionTypedDict]]]
+    exemptions: NotRequired[Nullable[List[TransactionEmbeddedExemptionTypedDict]]]
     r"""List of exemptions applied (if any)."""
     related_to: NotRequired[Nullable[str]]
     r"""Related transaction identifier."""
@@ -268,7 +271,7 @@ class TransactionPublicRequest(BaseModel):
     exempt: OptionalNullable[TransactionExemptStatusEnum] = UNSET
     r"""Exemption status (e.g., NOT_EXEMPT)"""
 
-    exemptions: OptionalNullable[List[Exemption]] = UNSET
+    exemptions: OptionalNullable[List[TransactionEmbeddedExemption]] = UNSET
     r"""List of exemptions applied (if any)."""
 
     related_to: OptionalNullable[str] = UNSET

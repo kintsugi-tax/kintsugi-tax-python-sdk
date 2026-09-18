@@ -1553,7 +1553,10 @@ class Customers(BaseSDK):
         marketplace: OptionalNullable[bool] = UNSET,
         exempt: OptionalNullable[models.TransactionExemptStatusEnum] = UNSET,
         exemptions: OptionalNullable[
-            Union[Iterable[models.Exemption], Iterable[models.ExemptionTypedDict]]
+            Union[
+                Iterable[models.TransactionEmbeddedExemption],
+                Iterable[models.TransactionEmbeddedExemptionTypedDict],
+            ]
         ] = UNSET,
         related_to: OptionalNullable[str] = UNSET,
         secondary_external_id: OptionalNullable[str] = UNSET,
@@ -1758,7 +1761,8 @@ class Customers(BaseSDK):
                 marketplace=marketplace,
                 exempt=exempt,
                 exemptions=utils.get_pydantic_model(
-                    exemptions, OptionalNullable[List[models.Exemption]]
+                    exemptions,
+                    OptionalNullable[List[models.TransactionEmbeddedExemption]],
                 ),
                 related_to=related_to,
                 secondary_external_id=secondary_external_id,
@@ -1906,7 +1910,10 @@ class Customers(BaseSDK):
         marketplace: OptionalNullable[bool] = UNSET,
         exempt: OptionalNullable[models.TransactionExemptStatusEnum] = UNSET,
         exemptions: OptionalNullable[
-            Union[Iterable[models.Exemption], Iterable[models.ExemptionTypedDict]]
+            Union[
+                Iterable[models.TransactionEmbeddedExemption],
+                Iterable[models.TransactionEmbeddedExemptionTypedDict],
+            ]
         ] = UNSET,
         related_to: OptionalNullable[str] = UNSET,
         secondary_external_id: OptionalNullable[str] = UNSET,
@@ -2111,7 +2118,8 @@ class Customers(BaseSDK):
                 marketplace=marketplace,
                 exempt=exempt,
                 exemptions=utils.get_pydantic_model(
-                    exemptions, OptionalNullable[List[models.Exemption]]
+                    exemptions,
+                    OptionalNullable[List[models.TransactionEmbeddedExemption]],
                 ),
                 related_to=related_to,
                 secondary_external_id=secondary_external_id,
