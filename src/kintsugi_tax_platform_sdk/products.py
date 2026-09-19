@@ -290,7 +290,12 @@ class Products(BaseSDK):
         retrieve supported categories and subcategories from the
         [GET /products/categories endpoint](/reference/api/products/get-product-categories),
         or browse the full catalog with descriptions and examples in the
-        [Product Categories guide](/docs/guides/product-categories)
+        [Product Categories guide](/docs/guides/product-categories).
+
+        Idempotent on ``(organization_id, external_id, source)`` for connectionless
+        creates (CP-4726): a re-POST of an existing identity returns ``200``. A live
+        match is unchanged; a previously deleted match is revived (status returns to
+        ``PENDING``). Use PUT to update fields.
 
         :param x_organization_id: The unique identifier for the organization making the request
         :param external_id: A unique external identifier for the product.
@@ -378,7 +383,7 @@ class Products(BaseSDK):
         )
 
         response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
+        if utils.match_response(http_res, ["200", "201"], "application/json"):
             return unmarshal_json_response(models.ProductRead, http_res)
         if utils.match_response(http_res, "401", "application/json"):
             response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
@@ -430,7 +435,12 @@ class Products(BaseSDK):
         retrieve supported categories and subcategories from the
         [GET /products/categories endpoint](/reference/api/products/get-product-categories),
         or browse the full catalog with descriptions and examples in the
-        [Product Categories guide](/docs/guides/product-categories)
+        [Product Categories guide](/docs/guides/product-categories).
+
+        Idempotent on ``(organization_id, external_id, source)`` for connectionless
+        creates (CP-4726): a re-POST of an existing identity returns ``200``. A live
+        match is unchanged; a previously deleted match is revived (status returns to
+        ``PENDING``). Use PUT to update fields.
 
         :param x_organization_id: The unique identifier for the organization making the request
         :param external_id: A unique external identifier for the product.
@@ -518,7 +528,7 @@ class Products(BaseSDK):
         )
 
         response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
+        if utils.match_response(http_res, ["200", "201"], "application/json"):
             return unmarshal_json_response(models.ProductRead, http_res)
         if utils.match_response(http_res, "401", "application/json"):
             response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)

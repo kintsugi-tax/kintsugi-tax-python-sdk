@@ -5,7 +5,6 @@ from .countrycodeenum import CountryCodeEnum
 from .currencyenum import CurrencyEnum
 from .customerupdate import CustomerUpdate, CustomerUpdateTypedDict
 from .documenttypeenum import DocumentTypeEnum
-from .exemption import Exemption, ExemptionTypedDict
 from .exemptionrequired import ExemptionRequired, ExemptionRequiredTypedDict
 from .sourceenum import SourceEnum
 from .taxliabilitysourceenum import TaxLiabilitySourceEnum
@@ -16,6 +15,10 @@ from .transactionaddress_input import (
 from .transactionaddressbuilder import (
     TransactionAddressBuilder,
     TransactionAddressBuilderTypedDict,
+)
+from .transactionembeddedexemption import (
+    TransactionEmbeddedExemption,
+    TransactionEmbeddedExemptionTypedDict,
 )
 from .transactionexemptstatusenum import TransactionExemptStatusEnum
 from .transactionitemcreateupdate import (
@@ -164,7 +167,7 @@ class TransactionUpdateTypedDict(TypedDict):
     r"""Indicates if transaction is marketplace-based."""
     exempt: NotRequired[Nullable[TransactionExemptStatusEnum]]
     r"""Exemption status (e.g., NOT_EXEMPT)"""
-    exemptions: NotRequired[Nullable[List[ExemptionTypedDict]]]
+    exemptions: NotRequired[Nullable[List[TransactionEmbeddedExemptionTypedDict]]]
     r"""List of exemptions applied (if any)."""
     related_to: NotRequired[Nullable[str]]
     r"""Related transaction identifier."""
@@ -195,6 +198,7 @@ class TransactionUpdateTypedDict(TypedDict):
     taxable_amount: NotRequired[TransactionUpdateTaxableAmountTypedDict]
     r"""Taxable amount."""
     currency: NotRequired[CurrencyEnum]
+    r"""ISO-4217 currency code. Pair with a monetary amount on the same object."""
     locked: NotRequired[bool]
     r"""Transaction lock status."""
     source: NotRequired[SourceEnum]
@@ -269,7 +273,7 @@ class TransactionUpdate(BaseModel):
     exempt: OptionalNullable[TransactionExemptStatusEnum] = UNSET
     r"""Exemption status (e.g., NOT_EXEMPT)"""
 
-    exemptions: OptionalNullable[List[Exemption]] = UNSET
+    exemptions: OptionalNullable[List[TransactionEmbeddedExemption]] = UNSET
     r"""List of exemptions applied (if any)."""
 
     related_to: OptionalNullable[str] = UNSET
@@ -310,6 +314,7 @@ class TransactionUpdate(BaseModel):
     r"""Taxable amount."""
 
     currency: Optional[CurrencyEnum] = None
+    r"""ISO-4217 currency code. Pair with a monetary amount on the same object."""
 
     locked: Optional[bool] = False
     r"""Transaction lock status."""

@@ -40,6 +40,10 @@ class FilingDetailsReadTypedDict(TypedDict):
     r"""Identifier for the organization associated with the filing."""
     filing_website_url: Nullable[str]
     r"""Get the filing website URL for this filing's jurisdiction"""
+    input_vat_recovery_rate: NotRequired[Nullable[str]]
+    r"""Input VAT recovery rate applied to this filing, as a percentage 0-100. Null when no rate exists for the filing's country and year, which means fully recoverable. Uses the definitive rate when set, otherwise the year's frozen provisional."""
+    input_vat_recovery_rate_is_definitive: NotRequired[Nullable[bool]]
+    r"""True when input_vat_recovery_rate is this year's definitive rate. False when it is the provisional. Null when no rate exists."""
     status: NotRequired[FilingStatusEnum]
     due_date: NotRequired[Nullable[date]]
     r"""The due date of the filing."""
@@ -107,9 +111,13 @@ class FilingDetailsReadTypedDict(TypedDict):
     amount_use_tax: NotRequired[str]
     r"""Gross tax the buyer owes on purchases. US use tax, or EU/UK reverse-charge self-assessed VAT. Not net of recoverable VAT. Defaults to 0.00."""
     amount_input_vat_recoverable: NotRequired[str]
-    r"""Input VAT recovered on this filing's purchases. Subtracted from liability; always 0.00 outside EU/UK VAT AP filings."""
+    r"""Input VAT this filing actually claimed. Subtracted from liability; always 0.00 outside EU/UK VAT filings."""
     amount_input_vat_true_up: NotRequired[str]
-    r"""Prior-year input VAT pro-rata true-up on this filing. Positive claims more, negative repays. Always 0.00 until posted."""
+    r"""Prior-year input VAT pro-rata true-up on this filing. Negative claims more, positive repays. Always 0.00 until posted."""
+    amount_input_vat_recoverable_base: NotRequired[str]
+    r"""Input VAT this filing would have claimed at a 100% rate. Always 0.00 outside EU/UK VAT filings."""
+    input_vat_recovery_rate_applied: NotRequired[Nullable[str]]
+    r"""Rate actually used on this filing's reclaim. Null when this filing is not EU/UK VAT."""
     amount_sales: NotRequired[str]
     r"""Total sales amount during the filing period."""
     total_taxable_sales: NotRequired[Nullable[str]]
@@ -163,10 +171,6 @@ class FilingDetailsReadTypedDict(TypedDict):
     r"""Credits utilized for this filing."""
     deferred_transaction_count: NotRequired[int]
     r"""Number of transactions deferred from this filing period."""
-    input_vat_recovery_rate: NotRequired[Nullable[str]]
-    r"""Input VAT recovery rate applied to this filing, as a percentage 0-100. Null when no rate exists for the filing's country and year, which means fully recoverable. Uses the definitive rate when set, otherwise the year's frozen provisional."""
-    input_vat_recovery_rate_is_definitive: NotRequired[Nullable[bool]]
-    r"""True when input_vat_recovery_rate is this year's definitive rate. False when it is the provisional. Null when no rate exists."""
 
 
 class FilingDetailsRead(BaseModel):
@@ -189,6 +193,12 @@ class FilingDetailsRead(BaseModel):
 
     filing_website_url: Nullable[str]
     r"""Get the filing website URL for this filing's jurisdiction"""
+
+    input_vat_recovery_rate: OptionalNullable[str] = UNSET
+    r"""Input VAT recovery rate applied to this filing, as a percentage 0-100. Null when no rate exists for the filing's country and year, which means fully recoverable. Uses the definitive rate when set, otherwise the year's frozen provisional."""
+
+    input_vat_recovery_rate_is_definitive: OptionalNullable[bool] = UNSET
+    r"""True when input_vat_recovery_rate is this year's definitive rate. False when it is the provisional. Null when no rate exists."""
 
     status: Optional[FilingStatusEnum] = None
 
@@ -283,10 +293,16 @@ class FilingDetailsRead(BaseModel):
     r"""Gross tax the buyer owes on purchases. US use tax, or EU/UK reverse-charge self-assessed VAT. Not net of recoverable VAT. Defaults to 0.00."""
 
     amount_input_vat_recoverable: Optional[str] = "0.00"
-    r"""Input VAT recovered on this filing's purchases. Subtracted from liability; always 0.00 outside EU/UK VAT AP filings."""
+    r"""Input VAT this filing actually claimed. Subtracted from liability; always 0.00 outside EU/UK VAT filings."""
 
     amount_input_vat_true_up: Optional[str] = "0.00"
-    r"""Prior-year input VAT pro-rata true-up on this filing. Positive claims more, negative repays. Always 0.00 until posted."""
+    r"""Prior-year input VAT pro-rata true-up on this filing. Negative claims more, positive repays. Always 0.00 until posted."""
+
+    amount_input_vat_recoverable_base: Optional[str] = "0.00"
+    r"""Input VAT this filing would have claimed at a 100% rate. Always 0.00 outside EU/UK VAT filings."""
+
+    input_vat_recovery_rate_applied: OptionalNullable[str] = UNSET
+    r"""Rate actually used on this filing's reclaim. Null when this filing is not EU/UK VAT."""
 
     amount_sales: Optional[str] = "0.00"
     r"""Total sales amount during the filing period."""
@@ -365,16 +381,12 @@ class FilingDetailsRead(BaseModel):
     deferred_transaction_count: Optional[int] = 0
     r"""Number of transactions deferred from this filing period."""
 
-    input_vat_recovery_rate: OptionalNullable[str] = UNSET
-    r"""Input VAT recovery rate applied to this filing, as a percentage 0-100. Null when no rate exists for the filing's country and year, which means fully recoverable. Uses the definitive rate when set, otherwise the year's frozen provisional."""
-
-    input_vat_recovery_rate_is_definitive: OptionalNullable[bool] = UNSET
-    r"""True when input_vat_recovery_rate is this year's definitive rate. False when it is the provisional. Null when no rate exists."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "input_vat_recovery_rate",
+                "input_vat_recovery_rate_is_definitive",
                 "status",
                 "due_date",
                 "date_filed",
@@ -403,6 +415,8 @@ class FilingDetailsRead(BaseModel):
                 "amount_use_tax",
                 "amount_input_vat_recoverable",
                 "amount_input_vat_true_up",
+                "amount_input_vat_recoverable_base",
+                "input_vat_recovery_rate_applied",
                 "amount_sales",
                 "total_taxable_sales",
                 "amount",
@@ -429,12 +443,12 @@ class FilingDetailsRead(BaseModel):
                 "attachments",
                 "credits_utilized",
                 "deferred_transaction_count",
-                "input_vat_recovery_rate",
-                "input_vat_recovery_rate_is_definitive",
             ]
         )
         nullable_fields = set(
             [
+                "input_vat_recovery_rate",
+                "input_vat_recovery_rate_is_definitive",
                 "due_date",
                 "date_filed",
                 "is_manual",
@@ -448,6 +462,7 @@ class FilingDetailsRead(BaseModel):
                 "issue_reason",
                 "skip_reason",
                 "cancelled_reason",
+                "input_vat_recovery_rate_applied",
                 "total_taxable_sales",
                 "estimated_line_count",
                 "internal_notes",
@@ -466,8 +481,6 @@ class FilingDetailsRead(BaseModel):
                 "estimated_penalty_interest",
                 "penalty_interest_remittance_tag",
                 "attachments",
-                "input_vat_recovery_rate",
-                "input_vat_recovery_rate_is_definitive",
                 "filing_website_url",
             ]
         )
