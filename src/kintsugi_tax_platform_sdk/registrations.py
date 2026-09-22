@@ -1131,6 +1131,12 @@ class Registrations(BaseSDK):
         registration_completed: OptionalNullable[datetime] = UNSET,
         deregistration_requested: OptionalNullable[datetime] = UNSET,
         deregistration_completed: OptionalNullable[datetime] = UNSET,
+        deregistration_closure_date: OptionalNullable[date] = UNSET,
+        deregistration_reason: OptionalNullable[
+            models.DeregistrationReasonEnum
+        ] = UNSET,
+        deregistration_acknowledged_at: OptionalNullable[datetime] = UNSET,
+        deregistration_acknowledged_by: OptionalNullable[str] = UNSET,
         auto_registered: OptionalNullable[bool] = UNSET,
         registrations_regime: OptionalNullable[models.RegistrationsRegimeEnum] = UNSET,
         change_regime_status: OptionalNullable[models.ChangeRegimeStatusEnum] = UNSET,
@@ -1166,6 +1172,10 @@ class Registrations(BaseSDK):
         :param registration_completed: Timestamp when the registration was completed.
         :param deregistration_requested: Timestamp when deregistration was requested.
         :param deregistration_completed: Timestamp when the deregistration was completed.
+        :param deregistration_closure_date: Effective date the registration closes with the jurisdiction.
+        :param deregistration_reason: Reason the registration is being closed.
+        :param deregistration_acknowledged_at: When final-return acknowledgement was recorded.
+        :param deregistration_acknowledged_by: User id that acknowledged a final return is still owed.
         :param auto_registered: Indicates whether the registration was completed automatically.
         :param registrations_regime: The tax registration regime (e.g., STANDARD, SIMPLIFIED).
         :param change_regime_status:
@@ -1208,6 +1218,10 @@ class Registrations(BaseSDK):
                 registration_completed=registration_completed,
                 deregistration_requested=deregistration_requested,
                 deregistration_completed=deregistration_completed,
+                deregistration_closure_date=deregistration_closure_date,
+                deregistration_reason=deregistration_reason,
+                deregistration_acknowledged_at=deregistration_acknowledged_at,
+                deregistration_acknowledged_by=deregistration_acknowledged_by,
                 auto_registered=auto_registered,
                 registrations_regime=registrations_regime,
                 change_regime_status=change_regime_status,
@@ -1312,6 +1326,12 @@ class Registrations(BaseSDK):
         registration_completed: OptionalNullable[datetime] = UNSET,
         deregistration_requested: OptionalNullable[datetime] = UNSET,
         deregistration_completed: OptionalNullable[datetime] = UNSET,
+        deregistration_closure_date: OptionalNullable[date] = UNSET,
+        deregistration_reason: OptionalNullable[
+            models.DeregistrationReasonEnum
+        ] = UNSET,
+        deregistration_acknowledged_at: OptionalNullable[datetime] = UNSET,
+        deregistration_acknowledged_by: OptionalNullable[str] = UNSET,
         auto_registered: OptionalNullable[bool] = UNSET,
         registrations_regime: OptionalNullable[models.RegistrationsRegimeEnum] = UNSET,
         change_regime_status: OptionalNullable[models.ChangeRegimeStatusEnum] = UNSET,
@@ -1347,6 +1367,10 @@ class Registrations(BaseSDK):
         :param registration_completed: Timestamp when the registration was completed.
         :param deregistration_requested: Timestamp when deregistration was requested.
         :param deregistration_completed: Timestamp when the deregistration was completed.
+        :param deregistration_closure_date: Effective date the registration closes with the jurisdiction.
+        :param deregistration_reason: Reason the registration is being closed.
+        :param deregistration_acknowledged_at: When final-return acknowledgement was recorded.
+        :param deregistration_acknowledged_by: User id that acknowledged a final return is still owed.
         :param auto_registered: Indicates whether the registration was completed automatically.
         :param registrations_regime: The tax registration regime (e.g., STANDARD, SIMPLIFIED).
         :param change_regime_status:
@@ -1389,6 +1413,10 @@ class Registrations(BaseSDK):
                 registration_completed=registration_completed,
                 deregistration_requested=deregistration_requested,
                 deregistration_completed=deregistration_completed,
+                deregistration_closure_date=deregistration_closure_date,
+                deregistration_reason=deregistration_reason,
+                deregistration_acknowledged_at=deregistration_acknowledged_at,
+                deregistration_acknowledged_by=deregistration_acknowledged_by,
                 auto_registered=auto_registered,
                 registrations_regime=registrations_regime,
                 change_regime_status=change_regime_status,
