@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .changeregimestatusenum import ChangeRegimeStatusEnum
+from .deregistrationreasonenum import DeregistrationReasonEnum
 from .filingfrequencyenum import FilingFrequencyEnum
 from .registrationsregimeenum import RegistrationsRegimeEnum
 from datetime import date, datetime
@@ -30,6 +31,14 @@ class RegistrationUpdateAPITypedDict(TypedDict):
     r"""Timestamp when deregistration was requested."""
     deregistration_completed: NotRequired[Nullable[datetime]]
     r"""Timestamp when the deregistration was completed."""
+    deregistration_closure_date: NotRequired[Nullable[date]]
+    r"""Effective date the registration closes with the jurisdiction."""
+    deregistration_reason: NotRequired[Nullable[DeregistrationReasonEnum]]
+    r"""Reason the registration is being closed."""
+    deregistration_acknowledged_at: NotRequired[Nullable[datetime]]
+    r"""When final-return acknowledgement was recorded."""
+    deregistration_acknowledged_by: NotRequired[Nullable[str]]
+    r"""User id that acknowledged a final return is still owed."""
     auto_registered: NotRequired[Nullable[bool]]
     r"""Indicates whether the registration was completed automatically."""
     registrations_regime: NotRequired[Nullable[RegistrationsRegimeEnum]]
@@ -83,6 +92,18 @@ class RegistrationUpdateAPI(BaseModel):
 
     deregistration_completed: OptionalNullable[datetime] = UNSET
     r"""Timestamp when the deregistration was completed."""
+
+    deregistration_closure_date: OptionalNullable[date] = UNSET
+    r"""Effective date the registration closes with the jurisdiction."""
+
+    deregistration_reason: OptionalNullable[DeregistrationReasonEnum] = UNSET
+    r"""Reason the registration is being closed."""
+
+    deregistration_acknowledged_at: OptionalNullable[datetime] = UNSET
+    r"""When final-return acknowledgement was recorded."""
+
+    deregistration_acknowledged_by: OptionalNullable[str] = UNSET
+    r"""User id that acknowledged a final return is still owed."""
 
     auto_registered: OptionalNullable[bool] = UNSET
     r"""Indicates whether the registration was completed automatically."""
@@ -144,6 +165,10 @@ class RegistrationUpdateAPI(BaseModel):
                 "registration_completed",
                 "deregistration_requested",
                 "deregistration_completed",
+                "deregistration_closure_date",
+                "deregistration_reason",
+                "deregistration_acknowledged_at",
+                "deregistration_acknowledged_by",
                 "auto_registered",
                 "registrations_regime",
                 "change_regime_status",
@@ -171,6 +196,10 @@ class RegistrationUpdateAPI(BaseModel):
                 "registration_completed",
                 "deregistration_requested",
                 "deregistration_completed",
+                "deregistration_closure_date",
+                "deregistration_reason",
+                "deregistration_acknowledged_at",
+                "deregistration_acknowledged_by",
                 "auto_registered",
                 "registrations_regime",
                 "change_regime_status",
