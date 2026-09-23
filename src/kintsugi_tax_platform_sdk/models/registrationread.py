@@ -3,6 +3,7 @@
 from __future__ import annotations
 from .changeregimestatusenum import ChangeRegimeStatusEnum
 from .countrycodeenum import CountryCodeEnum
+from .deregistrationreasonenum import DeregistrationReasonEnum
 from .filingfrequencyenum import FilingFrequencyEnum
 from .osstypeenum import OssTypeEnum
 from .registrationcategoryenum import RegistrationCategoryEnum
@@ -137,6 +138,12 @@ class RegistrationReadTypedDict(TypedDict):
     registration_category: NotRequired[RegistrationCategoryEnum]
     jurisdiction_specific_fields: NotRequired[Nullable[Dict[str, Any]]]
     r"""Jurisdiction-specific registration fields."""
+    deregistration_closure_date: NotRequired[Nullable[date]]
+    r"""Effective date the registration closes with the jurisdiction."""
+    deregistration_reason: NotRequired[Nullable[DeregistrationReasonEnum]]
+    r"""Reason the registration is being closed."""
+    deregistration_acknowledged_at: NotRequired[Nullable[datetime]]
+    r"""When final-return acknowledgement was recorded."""
 
 
 class RegistrationRead(BaseModel):
@@ -302,6 +309,15 @@ class RegistrationRead(BaseModel):
     jurisdiction_specific_fields: OptionalNullable[Dict[str, Any]] = UNSET
     r"""Jurisdiction-specific registration fields."""
 
+    deregistration_closure_date: OptionalNullable[date] = UNSET
+    r"""Effective date the registration closes with the jurisdiction."""
+
+    deregistration_reason: OptionalNullable[DeregistrationReasonEnum] = UNSET
+    r"""Reason the registration is being closed."""
+
+    deregistration_acknowledged_at: OptionalNullable[datetime] = UNSET
+    r"""When final-return acknowledgement was recorded."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -346,6 +362,9 @@ class RegistrationRead(BaseModel):
                 "credits_total_available",
                 "registration_category",
                 "jurisdiction_specific_fields",
+                "deregistration_closure_date",
+                "deregistration_reason",
+                "deregistration_acknowledged_at",
             ]
         )
         nullable_fields = set(
@@ -383,6 +402,9 @@ class RegistrationRead(BaseModel):
                 "needs_mark_as_collecting",
                 "created_at",
                 "jurisdiction_specific_fields",
+                "deregistration_closure_date",
+                "deregistration_reason",
+                "deregistration_acknowledged_at",
                 "filing_website_url",
             ]
         )
