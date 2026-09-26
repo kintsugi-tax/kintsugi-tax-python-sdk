@@ -91,6 +91,7 @@ class CreditNoteCreateTypedDict(TypedDict):
     total_amount: CreditNoteCreateTotalAmountTypedDict
     r"""Total monetary value of the credit note, including all items and taxes."""
     currency: CurrencyEnum
+    r"""ISO-4217 currency code. Pair with a monetary amount on the same object."""
     transaction_items: List[CreditNoteItemCreateUpdateTypedDict]
     r"""Detailed list of individual items included in this credit note."""
     external_friendly_id: NotRequired[Nullable[str]]
@@ -127,6 +128,7 @@ class CreditNoteCreate(BaseModel):
     r"""Total monetary value of the credit note, including all items and taxes."""
 
     currency: CurrencyEnum
+    r"""ISO-4217 currency code. Pair with a monetary amount on the same object."""
 
     transaction_items: List[CreditNoteItemCreateUpdate]
     r"""Detailed list of individual items included in this credit note."""
