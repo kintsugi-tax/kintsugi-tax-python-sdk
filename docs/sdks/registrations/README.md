@@ -2169,14 +2169,15 @@ Deregister an existing registration.
 
 <!-- UsageSnippet language="python" operationID="deregister_registration_v1_registrations__registration_id__deregister_post" method="post" path="/v1/registrations/{registration_id}/deregister" -->
 ```python
-from kintsugi_tax_platform_sdk import SDK
+from datetime import date
+from kintsugi_tax_platform_sdk import SDK, models
 
 
 with SDK(
     api_key_header="<YOUR_API_KEY_HERE>",
 ) as sdk:
 
-    res = sdk.registrations.deregister(registration_id="regs_123456", x_organization_id="org_12345")
+    res = sdk.registrations.deregister(registration_id="regs_123456", x_organization_id="org_12345", closure_date=date.fromisoformat("2026-01-04"), reason=models.DeregistrationReasonEnum.CLOSING_NEXUS_IN_STATE)
 
     # Handle response
     print(res)
@@ -2185,12 +2186,14 @@ with SDK(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `registration_id`                                                   | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the registration to deregister.            | regs_123456                                                         |
-| `x_organization_id`                                                 | *Nullable[str]*                                                     | :heavy_check_mark:                                                  | The unique identifier for the organization making the request       | org_12345                                                           |
-| `request_id`                                                        | *OptionalNullable[str]*                                             | :heavy_minus_sign:                                                  | N/A                                                                 |                                                                     |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+| Parameter                                                                                                | Type                                                                                                     | Required                                                                                                 | Description                                                                                              | Example                                                                                                  |
+| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `registration_id`                                                                                        | *str*                                                                                                    | :heavy_check_mark:                                                                                       | The unique identifier of the registration to deregister.                                                 | regs_123456                                                                                              |
+| `x_organization_id`                                                                                      | *Nullable[str]*                                                                                          | :heavy_check_mark:                                                                                       | The unique identifier for the organization making the request                                            | org_12345                                                                                                |
+| `closure_date`                                                                                           | [datetime](https://docs.python.org/3/library/datetime.html#datetime-objects)                             | :heavy_check_mark:                                                                                       | Effective date the permit closes with the jurisdiction (YYYY-MM-DD). Past and future dates are accepted. |                                                                                                          |
+| `reason`                                                                                                 | [models.DeregistrationReasonEnum](../../models/deregistrationreasonenum.md)                              | :heavy_check_mark:                                                                                       | Reason a registration is being closed.                                                                   |                                                                                                          |
+| `request_id`                                                                                             | *OptionalNullable[str]*                                                                                  | :heavy_minus_sign:                                                                                       | Optional client-minted id for this confirm attempt.                                                      |                                                                                                          |
+| `retries`                                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                         | :heavy_minus_sign:                                                                                       | Configuration to override the default retry behavior of the client.                                      |                                                                                                          |
 
 ### Response
 

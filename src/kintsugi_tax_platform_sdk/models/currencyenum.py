@@ -5,6 +5,8 @@ from enum import Enum
 
 
 class CurrencyEnum(str, Enum):
+    r"""ISO-4217 currency code. Pair with a monetary amount on the same object."""
+
     AED = "AED"
     AFN = "AFN"
     ALL = "ALL"
