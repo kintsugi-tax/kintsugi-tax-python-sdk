@@ -143,6 +143,7 @@ class TransactionEstimatePublicRequestTypedDict(TypedDict):
     external_id: str
     r"""Unique identifier of this transaction in the source system."""
     currency: CurrencyEnum
+    r"""ISO-4217 currency code. Pair with a monetary amount on the same object."""
     transaction_items: List[TransactionItemEstimateBaseTypedDict]
     r"""List of items involved in the transaction."""
     addresses: List[TransactionEstimatePublicRequestAddressTypedDict]
@@ -171,6 +172,7 @@ class TransactionEstimatePublicRequest(BaseModel):
     r"""Unique identifier of this transaction in the source system."""
 
     currency: CurrencyEnum
+    r"""ISO-4217 currency code. Pair with a monetary amount on the same object."""
 
     transaction_items: List[TransactionItemEstimateBase]
     r"""List of items involved in the transaction."""
