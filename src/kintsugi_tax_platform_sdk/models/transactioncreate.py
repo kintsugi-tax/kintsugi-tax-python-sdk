@@ -6,7 +6,6 @@ from .countrycodeenum import CountryCodeEnum
 from .currencyenum import CurrencyEnum
 from .customercreate import CustomerCreate, CustomerCreateTypedDict
 from .documenttypeenum import DocumentTypeEnum
-from .exemption import Exemption, ExemptionTypedDict
 from .exemptionrequired import ExemptionRequired, ExemptionRequiredTypedDict
 from .processingstatusenum import ProcessingStatusEnum
 from .sourceenum import SourceEnum
@@ -18,6 +17,10 @@ from .transactionaddress_input import (
 from .transactionaddressbuilder import (
     TransactionAddressBuilder,
     TransactionAddressBuilderTypedDict,
+)
+from .transactionembeddedexemption import (
+    TransactionEmbeddedExemption,
+    TransactionEmbeddedExemptionTypedDict,
 )
 from .transactionexemptstatusenum import TransactionExemptStatusEnum
 from .transactionitemcreateupdate import (
@@ -255,7 +258,7 @@ class TransactionCreateTypedDict(TypedDict):
     r"""Indicates if transaction is marketplace-based."""
     exempt: NotRequired[Nullable[TransactionExemptStatusEnum]]
     r"""Exemption status (e.g., NOT_EXEMPT)"""
-    exemptions: NotRequired[Nullable[List[ExemptionTypedDict]]]
+    exemptions: NotRequired[Nullable[List[TransactionEmbeddedExemptionTypedDict]]]
     r"""List of exemptions applied (if any)."""
     related_to: NotRequired[Nullable[str]]
     r"""Related transaction identifier."""
@@ -285,7 +288,10 @@ class TransactionCreateTypedDict(TypedDict):
     r"""Source of tax liability."""
     taxable_amount: NotRequired[TransactionCreateTaxableAmountTypedDict]
     r"""Taxable amount."""
+    is_tax_inclusive: NotRequired[Nullable[bool]]
+    r"""Whether source amounts include tax. NULL means the source did not say."""
     currency: NotRequired[CurrencyEnum]
+    r"""ISO-4217 currency code. Pair with a monetary amount on the same object."""
     locked: NotRequired[bool]
     r"""Transaction lock status."""
     source: NotRequired[SourceEnum]
@@ -395,7 +401,7 @@ class TransactionCreate(BaseModel):
     exempt: OptionalNullable[TransactionExemptStatusEnum] = UNSET
     r"""Exemption status (e.g., NOT_EXEMPT)"""
 
-    exemptions: OptionalNullable[List[Exemption]] = UNSET
+    exemptions: OptionalNullable[List[TransactionEmbeddedExemption]] = UNSET
     r"""List of exemptions applied (if any)."""
 
     related_to: OptionalNullable[str] = UNSET
@@ -435,7 +441,11 @@ class TransactionCreate(BaseModel):
     taxable_amount: Optional[TransactionCreateTaxableAmount] = None
     r"""Taxable amount."""
 
+    is_tax_inclusive: OptionalNullable[bool] = UNSET
+    r"""Whether source amounts include tax. NULL means the source did not say."""
+
     currency: Optional[CurrencyEnum] = None
+    r"""ISO-4217 currency code. Pair with a monetary amount on the same object."""
 
     locked: Optional[bool] = False
     r"""Transaction lock status."""
@@ -552,6 +562,7 @@ class TransactionCreate(BaseModel):
                 "total_tax_liability_amount",
                 "tax_liability_source",
                 "taxable_amount",
+                "is_tax_inclusive",
                 "currency",
                 "locked",
                 "source",
@@ -597,6 +608,7 @@ class TransactionCreate(BaseModel):
                 "secondary_source",
                 "external_friendly_id",
                 "tax_liability_source",
+                "is_tax_inclusive",
                 "connection_id",
                 "filing_id",
                 "city",
