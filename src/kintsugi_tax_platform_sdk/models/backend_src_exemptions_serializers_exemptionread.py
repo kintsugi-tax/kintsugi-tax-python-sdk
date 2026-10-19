@@ -45,6 +45,8 @@ class BackendSrcExemptionsSerializersExemptionReadTypedDict(TypedDict):
     r"""Details of the customer associated with the exemption"""
     attachment: NotRequired[Nullable[List[AttachmentReadTypedDict]]]
     r"""List of attachments related to the exemption"""
+    certificate_type: NotRequired[Nullable[str]]
+    r"""Partial-exemption certificate form code. Null when the exemption is not a partial exemption."""
 
 
 class BackendSrcExemptionsSerializersExemptionRead(BaseModel):
@@ -85,6 +87,9 @@ class BackendSrcExemptionsSerializersExemptionRead(BaseModel):
     attachment: OptionalNullable[List[AttachmentRead]] = UNSET
     r"""List of attachments related to the exemption"""
 
+    certificate_type: OptionalNullable[str] = UNSET
+    r"""Partial-exemption certificate form code. Null when the exemption is not a partial exemption."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -98,6 +103,7 @@ class BackendSrcExemptionsSerializersExemptionRead(BaseModel):
                 "sales_tax_id",
                 "customer",
                 "attachment",
+                "certificate_type",
             ]
         )
         nullable_fields = set(
@@ -110,6 +116,7 @@ class BackendSrcExemptionsSerializersExemptionRead(BaseModel):
                 "sales_tax_id",
                 "customer",
                 "attachment",
+                "certificate_type",
             ]
         )
         serialized = handler(self)
