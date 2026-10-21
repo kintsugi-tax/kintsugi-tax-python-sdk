@@ -6,6 +6,7 @@ from .countrycodeenum import CountryCodeEnum
 from .filingfrequencyenum import FilingFrequencyEnum
 from .floridafields import FloridaFields, FloridaFieldsTypedDict
 from .registrationsregimeenum import RegistrationsRegimeEnum
+from .taxtypeenum import TaxTypeEnum
 from datetime import date, datetime
 from kintsugi_tax_platform_sdk.types import (
     BaseModel,
@@ -42,7 +43,6 @@ class FloridaRegistrationPayloadTypedDict(TypedDict):
     r"""The state/province code where the registration applies."""
     state_name: str
     r"""The name of the state/province."""
-    filing_frequency: FilingFrequencyEnum
     jurisdiction_specific_fields: FloridaFieldsTypedDict
     r"""State-specific fields for Florida (eFile & Pay) registration import.
 
@@ -71,9 +71,15 @@ class FloridaRegistrationPayloadTypedDict(TypedDict):
     registrations_regime: NotRequired[Nullable[RegistrationsRegimeEnum]]
     r"""The tax registration regime (e.g., STANDARD, SIMPLIFIED)."""
     change_regime_status: NotRequired[Nullable[ChangeRegimeStatusEnum]]
+    is_pre_collecting: NotRequired[bool]
+    r"""Set true to mark the organization as collecting tax in this jurisdiction ahead of registration details, instead of a normal import. Opens the registration in PROCESSING; filing frequency and credentials are not required."""
+    filing_frequency: NotRequired[Nullable[FilingFrequencyEnum]]
+    r"""Specifies how often tax filings should be made. Possible values: MONTHLY, QUARTERLY, ANNUALLY, UNKNOWN. Required unless isPreCollecting is set."""
     period_end_month: NotRequired[Nullable[int]]
-    r"""Fiscal-year anchor month (1-12) on which each quarterly/semiannual
-    period ends, for Hawaii (US-HI) filers whose periods are offset from the calendar.
+    r"""Fiscal-year anchor month (1-12) on which each recurring period
+    ends, for filers whose periods are offset from the calendar: Hawaii (US-HI)
+    quarterly/semiannual, British Columbia (CA-BC) and United Kingdom (GB)
+    quarterly, and California (US-CA) and District of Columbia (US-DC) annual.
     Null (default) keeps the standard calendar grid.
     """
     username: NotRequired[Nullable[str]]
@@ -104,6 +110,15 @@ class FloridaRegistrationPayloadTypedDict(TypedDict):
     r"""Metadata related to the password."""
     request_id: NotRequired[Nullable[str]]
     r"""Optional client-minted id for this confirm attempt."""
+    tax_type: NotRequired[TaxTypeEnum]
+    r"""Tax obligation on a nexus, registration, or filing row.
+
+    Registrations and filings may be SALES_AND_USE_TAX: one state account and
+    one return can cover both taxes, and each is stored as a single row.
+    Nexus rows are SALES_TAX, USE_TAX, or RETAIL_DELIVERY_FEE. Sales tax, use
+    tax, and the retail delivery fee are separate obligations with their own
+    met dates, period models, and liability accrual.
+    """
 
 
 class FloridaRegistrationPayload(BaseModel):
@@ -116,8 +131,6 @@ class FloridaRegistrationPayload(BaseModel):
 
     state_name: str
     r"""The name of the state/province."""
-
-    filing_frequency: FilingFrequencyEnum
 
     jurisdiction_specific_fields: FloridaFields
     r"""State-specific fields for Florida (eFile & Pay) registration import.
@@ -164,9 +177,17 @@ class FloridaRegistrationPayload(BaseModel):
 
     change_regime_status: OptionalNullable[ChangeRegimeStatusEnum] = UNSET
 
+    is_pre_collecting: Optional[bool] = False
+    r"""Set true to mark the organization as collecting tax in this jurisdiction ahead of registration details, instead of a normal import. Opens the registration in PROCESSING; filing frequency and credentials are not required."""
+
+    filing_frequency: OptionalNullable[FilingFrequencyEnum] = UNSET
+    r"""Specifies how often tax filings should be made. Possible values: MONTHLY, QUARTERLY, ANNUALLY, UNKNOWN. Required unless isPreCollecting is set."""
+
     period_end_month: OptionalNullable[int] = UNSET
-    r"""Fiscal-year anchor month (1-12) on which each quarterly/semiannual
-    period ends, for Hawaii (US-HI) filers whose periods are offset from the calendar.
+    r"""Fiscal-year anchor month (1-12) on which each recurring period
+    ends, for filers whose periods are offset from the calendar: Hawaii (US-HI)
+    quarterly/semiannual, British Columbia (CA-BC) and United Kingdom (GB)
+    quarterly, and California (US-CA) and District of Columbia (US-DC) annual.
     Null (default) keeps the standard calendar grid.
     """
 
@@ -212,6 +233,16 @@ class FloridaRegistrationPayload(BaseModel):
     request_id: OptionalNullable[str] = UNSET
     r"""Optional client-minted id for this confirm attempt."""
 
+    tax_type: Optional[TaxTypeEnum] = None
+    r"""Tax obligation on a nexus, registration, or filing row.
+
+    Registrations and filings may be SALES_AND_USE_TAX: one state account and
+    one return can cover both taxes, and each is stored as a single row.
+    Nexus rows are SALES_TAX, USE_TAX, or RETAIL_DELIVERY_FEE. Sales tax, use
+    tax, and the retail delivery fee are separate obligations with their own
+    met dates, period models, and liability accrual.
+    """
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -227,6 +258,8 @@ class FloridaRegistrationPayload(BaseModel):
                 "do_not_file",
                 "registrations_regime",
                 "change_regime_status",
+                "is_pre_collecting",
+                "filing_frequency",
                 "period_end_month",
                 "username",
                 "comment",
@@ -242,6 +275,7 @@ class FloridaRegistrationPayload(BaseModel):
                 "password_plain_text",
                 "password_metadata_plain_text",
                 "request_id",
+                "tax_type",
             ]
         )
         nullable_fields = set(
@@ -255,6 +289,7 @@ class FloridaRegistrationPayload(BaseModel):
                 "auto_registered",
                 "registrations_regime",
                 "change_regime_status",
+                "filing_frequency",
                 "period_end_month",
                 "username",
                 "comment",
