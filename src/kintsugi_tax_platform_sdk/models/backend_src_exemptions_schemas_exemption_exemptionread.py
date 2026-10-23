@@ -49,6 +49,7 @@ class BackendSrcExemptionsSchemasExemptionExemptionReadTypedDict(TypedDict):
     """
     customer_name: NotRequired[Nullable[str]]
     attachment_id: NotRequired[Nullable[str]]
+    certificate_type: NotRequired[Nullable[str]]
 
 
 class BackendSrcExemptionsSchemasExemptionExemptionRead(BaseModel):
@@ -96,6 +97,8 @@ class BackendSrcExemptionsSchemasExemptionExemptionRead(BaseModel):
 
     attachment_id: OptionalNullable[str] = UNSET
 
+    certificate_type: OptionalNullable[str] = UNSET
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -111,6 +114,7 @@ class BackendSrcExemptionsSchemasExemptionExemptionRead(BaseModel):
                 "status",
                 "customer_name",
                 "attachment_id",
+                "certificate_type",
             ]
         )
         nullable_fields = set(
@@ -125,6 +129,7 @@ class BackendSrcExemptionsSchemasExemptionExemptionRead(BaseModel):
                 "status",
                 "customer_name",
                 "attachment_id",
+                "certificate_type",
             ]
         )
         serialized = handler(self)
