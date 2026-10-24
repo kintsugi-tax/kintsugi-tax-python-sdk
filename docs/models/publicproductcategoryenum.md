@@ -7,7 +7,7 @@ Top-level tax category for a product.
 ```python
 from kintsugi_tax_platform_sdk.models import PublicProductCategoryEnum
 
-value = PublicProductCategoryEnum.DIGITAL
+value = PublicProductCategoryEnum.PHYSICAL
 ```
 
 
@@ -15,7 +15,7 @@ value = PublicProductCategoryEnum.DIGITAL
 
 | Name       | Value      |
 | ---------- | ---------- |
+| `PHYSICAL` | Physical   |
 | `DIGITAL`  | Digital    |
 | `MISC`     | Misc       |
-| `PHYSICAL` | Physical   |
 | `SERVICES` | Services   |
