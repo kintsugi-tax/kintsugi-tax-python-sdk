@@ -7,7 +7,7 @@ from enum import Enum
 class PublicProductCategoryEnum(str, Enum):
     r"""Top-level tax category for a product."""
 
+    PHYSICAL = "Physical"
     DIGITAL = "Digital"
     MISC = "Misc"
-    PHYSICAL = "Physical"
     SERVICES = "Services"
