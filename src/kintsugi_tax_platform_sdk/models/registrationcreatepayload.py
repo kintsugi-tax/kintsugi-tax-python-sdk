@@ -62,9 +62,10 @@ class RegistrationCreatePayloadTypedDict(TypedDict):
     r"""The tax registration regime (e.g., STANDARD, SIMPLIFIED)."""
     change_regime_status: NotRequired[Nullable[ChangeRegimeStatusEnum]]
     period_end_month: NotRequired[Nullable[int]]
-    r"""Fiscal-year anchor month (1-12) on which each quarterly/semiannual
-    period ends, for Hawaii (US-HI) filers whose periods are offset from the calendar.
-    Null (default) keeps the standard calendar grid.
+    r"""Fiscal-year anchor month (1-12) on which each recurring period
+    ends, for filers whose periods are offset from the calendar: Hawaii (US-HI)
+    quarterly/semiannual, British Columbia (CA-BC) quarterly, and California (US-CA)
+    annual. Null (default) keeps the standard calendar grid.
     """
     username: NotRequired[Nullable[str]]
     r"""Username for accessing tax registration details."""
@@ -147,9 +148,10 @@ class RegistrationCreatePayload(BaseModel):
     change_regime_status: OptionalNullable[ChangeRegimeStatusEnum] = UNSET
 
     period_end_month: OptionalNullable[int] = UNSET
-    r"""Fiscal-year anchor month (1-12) on which each quarterly/semiannual
-    period ends, for Hawaii (US-HI) filers whose periods are offset from the calendar.
-    Null (default) keeps the standard calendar grid.
+    r"""Fiscal-year anchor month (1-12) on which each recurring period
+    ends, for filers whose periods are offset from the calendar: Hawaii (US-HI)
+    quarterly/semiannual, British Columbia (CA-BC) quarterly, and California (US-CA)
+    annual. Null (default) keeps the standard calendar grid.
     """
 
     username: OptionalNullable[str] = UNSET
