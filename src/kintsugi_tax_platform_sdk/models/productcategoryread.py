@@ -9,18 +9,14 @@ from typing_extensions import TypedDict
 
 class ProductCategoryReadTypedDict(TypedDict):
     name: str
-    r"""Name of the product category
-    (e.g., PHYSICAL, SERVICE, DIGITAL, MISCELLANEOUS)
-    """
+    r"""Tax category display label (e.g. 'Physical', 'Services', 'Digital', 'Misc')."""
     subcategories: List[ProductSubCategoryTypedDict]
     r"""List of subcategories associated with the product category"""
 
 
 class ProductCategoryRead(BaseModel):
     name: str
-    r"""Name of the product category
-    (e.g., PHYSICAL, SERVICE, DIGITAL, MISCELLANEOUS)
-    """
+    r"""Tax category display label (e.g. 'Physical', 'Services', 'Digital', 'Misc')."""
 
     subcategories: List[ProductSubCategory]
     r"""List of subcategories associated with the product category"""
