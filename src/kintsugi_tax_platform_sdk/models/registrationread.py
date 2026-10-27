@@ -3,6 +3,7 @@
 from __future__ import annotations
 from .changeregimestatusenum import ChangeRegimeStatusEnum
 from .countrycodeenum import CountryCodeEnum
+from .deregistrationreasonenum import DeregistrationReasonEnum
 from .filingfrequencyenum import FilingFrequencyEnum
 from .osstypeenum import OssTypeEnum
 from .registrationcategoryenum import RegistrationCategoryEnum
@@ -10,7 +11,7 @@ from .registrationsregimeenum import RegistrationsRegimeEnum
 from .registrationstatusenum import RegistrationStatusEnum
 from .registrationtypeenum import RegistrationTypeEnum
 from .taxtypeenum import TaxTypeEnum
-from datetime import date, datetime
+from datetime import date
 from kintsugi_tax_platform_sdk.types import (
     BaseModel,
     Nullable,
@@ -41,13 +42,13 @@ class RegistrationReadTypedDict(TypedDict):
     r"""The date when the registration was created. Format: YYYY-MM-DD."""
     registration_email: NotRequired[Nullable[str]]
     r"""Email address associated with the registration."""
-    registration_requested: NotRequired[Nullable[datetime]]
+    registration_requested: NotRequired[Nullable[str]]
     r"""Timestamp when the registration was requested."""
-    registration_completed: NotRequired[Nullable[datetime]]
+    registration_completed: NotRequired[Nullable[str]]
     r"""Timestamp when the registration was completed."""
-    deregistration_requested: NotRequired[Nullable[datetime]]
+    deregistration_requested: NotRequired[Nullable[str]]
     r"""Timestamp when deregistration was requested."""
-    deregistration_completed: NotRequired[Nullable[datetime]]
+    deregistration_completed: NotRequired[Nullable[str]]
     r"""Timestamp when the deregistration was completed."""
     auto_registered: NotRequired[Nullable[bool]]
     r"""Indicates whether the registration was completed automatically."""
@@ -62,6 +63,8 @@ class RegistrationReadTypedDict(TypedDict):
     r"""Indicates whether two-factor authentication (2FA) is enabled for this registration."""
     marked_collecting: NotRequired[Nullable[bool]]
     r"""Indicates whether the  registration is marked as collecting in shopify"""
+    is_pre_collecting: NotRequired[bool]
+    r"""True when this PROCESSING registration marks the organization as collecting tax in the jurisdiction ahead of registration details. It skips the Tax Ops registration task until the flag is cleared."""
     initial_filing_frequency: NotRequired[Nullable[FilingFrequencyEnum]]
     r"""The first non-UNKNOWN filing frequency this registration
     was ever assigned.
@@ -91,10 +94,6 @@ class RegistrationReadTypedDict(TypedDict):
     """
     create_back_filing: NotRequired[bool]
     r"""Whether to also file the single period preceding the first filing period."""
-    retail_delivery_fee_obligated: NotRequired[bool]
-    r"""Whether this registration is declared obligated to file a Retail Delivery Fee return (e.g. Colorado DR 1786)."""
-    retail_delivery_fee_effective_from: NotRequired[Nullable[date]]
-    r"""First date from which retail delivery fee filings may be generated. Periods that closed before this date must not get those filings."""
     initial_sync: NotRequired[Nullable[bool]]
     r"""Indicates whether an initial synchronization should be performed."""
     amount_fees: NotRequired[str]
@@ -123,20 +122,26 @@ class RegistrationReadTypedDict(TypedDict):
 
     Registrations and filings may be SALES_AND_USE_TAX: one state account and
     one return can cover both taxes, and each is stored as a single row.
-    Nexus rows are only SALES_TAX or USE_TAX. Sales and use tax exposure are
-    separate obligations with their own met dates, period models, and liability
-    accrual.
+    Nexus rows are SALES_TAX, USE_TAX, or RETAIL_DELIVERY_FEE. Sales tax, use
+    tax, and the retail delivery fee are separate obligations with their own
+    met dates, period models, and liability accrual.
     """
-    marked_collecting_date: NotRequired[Nullable[datetime]]
+    marked_collecting_date: NotRequired[Nullable[str]]
     r"""The date when the registration was marked as collecting."""
     needs_mark_as_collecting: NotRequired[Nullable[bool]]
     r"""Indicates whether the registration needs to be marked as collecting."""
-    created_at: NotRequired[Nullable[datetime]]
+    created_at: NotRequired[Nullable[str]]
     r"""Timestamp when this registration was created in Kintsugi."""
     credits_total_available: NotRequired[str]
     registration_category: NotRequired[RegistrationCategoryEnum]
     jurisdiction_specific_fields: NotRequired[Nullable[Dict[str, Any]]]
     r"""Jurisdiction-specific registration fields."""
+    deregistration_closure_date: NotRequired[Nullable[date]]
+    r"""Effective date the registration closes with the jurisdiction."""
+    deregistration_reason: NotRequired[Nullable[DeregistrationReasonEnum]]
+    r"""Reason the registration is being closed."""
+    deregistration_acknowledged_at: NotRequired[Nullable[str]]
+    r"""When final-return acknowledgement was recorded."""
 
 
 class RegistrationRead(BaseModel):
@@ -168,16 +173,16 @@ class RegistrationRead(BaseModel):
     registration_email: OptionalNullable[str] = UNSET
     r"""Email address associated with the registration."""
 
-    registration_requested: OptionalNullable[datetime] = UNSET
+    registration_requested: OptionalNullable[str] = UNSET
     r"""Timestamp when the registration was requested."""
 
-    registration_completed: OptionalNullable[datetime] = UNSET
+    registration_completed: OptionalNullable[str] = UNSET
     r"""Timestamp when the registration was completed."""
 
-    deregistration_requested: OptionalNullable[datetime] = UNSET
+    deregistration_requested: OptionalNullable[str] = UNSET
     r"""Timestamp when deregistration was requested."""
 
-    deregistration_completed: OptionalNullable[datetime] = UNSET
+    deregistration_completed: OptionalNullable[str] = UNSET
     r"""Timestamp when the deregistration was completed."""
 
     auto_registered: OptionalNullable[bool] = UNSET
@@ -199,6 +204,9 @@ class RegistrationRead(BaseModel):
 
     marked_collecting: OptionalNullable[bool] = UNSET
     r"""Indicates whether the  registration is marked as collecting in shopify"""
+
+    is_pre_collecting: Optional[bool] = False
+    r"""True when this PROCESSING registration marks the organization as collecting tax in the jurisdiction ahead of registration details. It skips the Tax Ops registration task until the flag is cleared."""
 
     initial_filing_frequency: OptionalNullable[FilingFrequencyEnum] = UNSET
     r"""The first non-UNKNOWN filing frequency this registration
@@ -236,12 +244,6 @@ class RegistrationRead(BaseModel):
 
     create_back_filing: Optional[bool] = False
     r"""Whether to also file the single period preceding the first filing period."""
-
-    retail_delivery_fee_obligated: Optional[bool] = False
-    r"""Whether this registration is declared obligated to file a Retail Delivery Fee return (e.g. Colorado DR 1786)."""
-
-    retail_delivery_fee_effective_from: OptionalNullable[date] = UNSET
-    r"""First date from which retail delivery fee filings may be generated. Periods that closed before this date must not get those filings."""
 
     initial_sync: OptionalNullable[bool] = UNSET
     r"""Indicates whether an initial synchronization should be performed."""
@@ -281,18 +283,18 @@ class RegistrationRead(BaseModel):
 
     Registrations and filings may be SALES_AND_USE_TAX: one state account and
     one return can cover both taxes, and each is stored as a single row.
-    Nexus rows are only SALES_TAX or USE_TAX. Sales and use tax exposure are
-    separate obligations with their own met dates, period models, and liability
-    accrual.
+    Nexus rows are SALES_TAX, USE_TAX, or RETAIL_DELIVERY_FEE. Sales tax, use
+    tax, and the retail delivery fee are separate obligations with their own
+    met dates, period models, and liability accrual.
     """
 
-    marked_collecting_date: OptionalNullable[datetime] = UNSET
+    marked_collecting_date: OptionalNullable[str] = UNSET
     r"""The date when the registration was marked as collecting."""
 
     needs_mark_as_collecting: OptionalNullable[bool] = UNSET
     r"""Indicates whether the registration needs to be marked as collecting."""
 
-    created_at: OptionalNullable[datetime] = UNSET
+    created_at: OptionalNullable[str] = UNSET
     r"""Timestamp when this registration was created in Kintsugi."""
 
     credits_total_available: Optional[str] = "0.00"
@@ -301,6 +303,15 @@ class RegistrationRead(BaseModel):
 
     jurisdiction_specific_fields: OptionalNullable[Dict[str, Any]] = UNSET
     r"""Jurisdiction-specific registration fields."""
+
+    deregistration_closure_date: OptionalNullable[date] = UNSET
+    r"""Effective date the registration closes with the jurisdiction."""
+
+    deregistration_reason: OptionalNullable[DeregistrationReasonEnum] = UNSET
+    r"""Reason the registration is being closed."""
+
+    deregistration_acknowledged_at: OptionalNullable[str] = UNSET
+    r"""When final-return acknowledgement was recorded."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -319,6 +330,7 @@ class RegistrationRead(BaseModel):
                 "do_not_file",
                 "two_factor_enabled",
                 "marked_collecting",
+                "is_pre_collecting",
                 "initial_filing_frequency",
                 "scheduled_filing_frequency",
                 "filing_frequency_effective_date",
@@ -327,8 +339,6 @@ class RegistrationRead(BaseModel):
                 "comment",
                 "create_filings_from",
                 "create_back_filing",
-                "retail_delivery_fee_obligated",
-                "retail_delivery_fee_effective_from",
                 "initial_sync",
                 "amount_fees",
                 "vda",
@@ -346,6 +356,9 @@ class RegistrationRead(BaseModel):
                 "credits_total_available",
                 "registration_category",
                 "jurisdiction_specific_fields",
+                "deregistration_closure_date",
+                "deregistration_reason",
+                "deregistration_acknowledged_at",
             ]
         )
         nullable_fields = set(
@@ -369,7 +382,6 @@ class RegistrationRead(BaseModel):
                 "username",
                 "comment",
                 "create_filings_from",
-                "retail_delivery_fee_effective_from",
                 "initial_sync",
                 "vda",
                 "imported",
@@ -383,6 +395,9 @@ class RegistrationRead(BaseModel):
                 "needs_mark_as_collecting",
                 "created_at",
                 "jurisdiction_specific_fields",
+                "deregistration_closure_date",
+                "deregistration_reason",
+                "deregistration_acknowledged_at",
                 "filing_website_url",
             ]
         )
