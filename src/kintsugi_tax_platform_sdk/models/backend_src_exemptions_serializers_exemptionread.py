@@ -13,6 +13,8 @@ from kintsugi_tax_platform_sdk.types import (
     OptionalNullable,
     UNSET,
     UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
 )
 import pydantic
 from pydantic import model_serializer
@@ -45,6 +47,8 @@ class BackendSrcExemptionsSerializersExemptionReadTypedDict(TypedDict):
     r"""Details of the customer associated with the exemption"""
     attachment: NotRequired[Nullable[List[AttachmentReadTypedDict]]]
     r"""List of attachments related to the exemption"""
+    certificate_type: NotRequired[Nullable[str]]
+    r"""Partial-exemption certificate form code. Null when the exemption is not a partial exemption."""
 
 
 class BackendSrcExemptionsSerializersExemptionRead(BaseModel):
@@ -85,7 +89,13 @@ class BackendSrcExemptionsSerializersExemptionRead(BaseModel):
     attachment: OptionalNullable[List[AttachmentRead]] = UNSET
     r"""List of attachments related to the exemption"""
 
+    certificate_type: OptionalNullable[str] = UNSET
+    r"""Partial-exemption certificate form code. Null when the exemption is not a partial exemption."""
+
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -98,6 +108,7 @@ class BackendSrcExemptionsSerializersExemptionRead(BaseModel):
                 "sales_tax_id",
                 "customer",
                 "attachment",
+                "certificate_type",
             ]
         )
         nullable_fields = set(
@@ -110,13 +121,17 @@ class BackendSrcExemptionsSerializersExemptionRead(BaseModel):
                 "sales_tax_id",
                 "customer",
                 "attachment",
+                "certificate_type",
             ]
         )
+        exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and exclude_none is False:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields

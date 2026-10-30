@@ -6,6 +6,7 @@ from .countrycodeenum import CountryCodeEnum
 from .filingfrequencyenum import FilingFrequencyEnum
 from .northcarolinafields import NorthCarolinaFields, NorthCarolinaFieldsTypedDict
 from .registrationsregimeenum import RegistrationsRegimeEnum
+from .taxtypeenum import TaxTypeEnum
 from datetime import date, datetime
 from kintsugi_tax_platform_sdk.types import (
     BaseModel,
@@ -13,6 +14,8 @@ from kintsugi_tax_platform_sdk.types import (
     OptionalNullable,
     UNSET,
     UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
 )
 from kintsugi_tax_platform_sdk.utils import validate_const
 import pydantic
@@ -42,7 +45,6 @@ class NorthCarolinaRegistrationPayloadTypedDict(TypedDict):
     r"""The state/province code where the registration applies."""
     state_name: str
     r"""The name of the state/province."""
-    filing_frequency: FilingFrequencyEnum
     jurisdiction_specific_fields: NorthCarolinaFieldsTypedDict
     r"""State-specific fields for North Carolina (NCDOR) registration import.
 
@@ -71,9 +73,15 @@ class NorthCarolinaRegistrationPayloadTypedDict(TypedDict):
     registrations_regime: NotRequired[Nullable[RegistrationsRegimeEnum]]
     r"""The tax registration regime (e.g., STANDARD, SIMPLIFIED)."""
     change_regime_status: NotRequired[Nullable[ChangeRegimeStatusEnum]]
+    is_pre_collecting: NotRequired[bool]
+    r"""Set true to mark the organization as collecting tax in this jurisdiction ahead of registration details, instead of a normal import. Opens the registration in PROCESSING; filing frequency and credentials are not required."""
+    filing_frequency: NotRequired[Nullable[FilingFrequencyEnum]]
+    r"""Specifies how often tax filings should be made. Possible values: MONTHLY, QUARTERLY, ANNUALLY, UNKNOWN. Required unless isPreCollecting is set."""
     period_end_month: NotRequired[Nullable[int]]
-    r"""Fiscal-year anchor month (1-12) on which each quarterly/semiannual
-    period ends, for Hawaii (US-HI) filers whose periods are offset from the calendar.
+    r"""Fiscal-year anchor month (1-12) on which each recurring period
+    ends, for filers whose periods are offset from the calendar: Hawaii (US-HI)
+    quarterly/semiannual, British Columbia (CA-BC) and United Kingdom (GB)
+    quarterly, and California (US-CA) and District of Columbia (US-DC) annual.
     Null (default) keeps the standard calendar grid.
     """
     username: NotRequired[Nullable[str]]
@@ -104,6 +112,17 @@ class NorthCarolinaRegistrationPayloadTypedDict(TypedDict):
     r"""Metadata related to the password."""
     request_id: NotRequired[Nullable[str]]
     r"""Optional client-minted id for this confirm attempt."""
+    tax_type: NotRequired[TaxTypeEnum]
+    r"""Tax obligation on a nexus, registration, or filing row.
+
+    Registrations and filings may be SALES_AND_USE_TAX: one state account and
+    one return can cover both taxes, and each is stored as a single row.
+    Nexus rows are SALES_TAX, USE_TAX, RETAIL_DELIVERY_FEE, or
+    SMALL_PARCEL_VAT. Sales tax, use tax, the retail delivery fee, and the
+    Swiss small-parcel threshold are separate obligations with their own met
+    dates and period models. SMALL_PARCEL_VAT is a threshold only. A sales
+    tax registration covers it, and it has no account and no return of its own.
+    """
 
 
 class NorthCarolinaRegistrationPayload(BaseModel):
@@ -116,8 +135,6 @@ class NorthCarolinaRegistrationPayload(BaseModel):
 
     state_name: str
     r"""The name of the state/province."""
-
-    filing_frequency: FilingFrequencyEnum
 
     jurisdiction_specific_fields: NorthCarolinaFields
     r"""State-specific fields for North Carolina (NCDOR) registration import.
@@ -164,9 +181,17 @@ class NorthCarolinaRegistrationPayload(BaseModel):
 
     change_regime_status: OptionalNullable[ChangeRegimeStatusEnum] = UNSET
 
+    is_pre_collecting: Optional[bool] = False
+    r"""Set true to mark the organization as collecting tax in this jurisdiction ahead of registration details, instead of a normal import. Opens the registration in PROCESSING; filing frequency and credentials are not required."""
+
+    filing_frequency: OptionalNullable[FilingFrequencyEnum] = UNSET
+    r"""Specifies how often tax filings should be made. Possible values: MONTHLY, QUARTERLY, ANNUALLY, UNKNOWN. Required unless isPreCollecting is set."""
+
     period_end_month: OptionalNullable[int] = UNSET
-    r"""Fiscal-year anchor month (1-12) on which each quarterly/semiannual
-    period ends, for Hawaii (US-HI) filers whose periods are offset from the calendar.
+    r"""Fiscal-year anchor month (1-12) on which each recurring period
+    ends, for filers whose periods are offset from the calendar: Hawaii (US-HI)
+    quarterly/semiannual, British Columbia (CA-BC) and United Kingdom (GB)
+    quarterly, and California (US-CA) and District of Columbia (US-DC) annual.
     Null (default) keeps the standard calendar grid.
     """
 
@@ -212,7 +237,22 @@ class NorthCarolinaRegistrationPayload(BaseModel):
     request_id: OptionalNullable[str] = UNSET
     r"""Optional client-minted id for this confirm attempt."""
 
+    tax_type: Optional[TaxTypeEnum] = None
+    r"""Tax obligation on a nexus, registration, or filing row.
+
+    Registrations and filings may be SALES_AND_USE_TAX: one state account and
+    one return can cover both taxes, and each is stored as a single row.
+    Nexus rows are SALES_TAX, USE_TAX, RETAIL_DELIVERY_FEE, or
+    SMALL_PARCEL_VAT. Sales tax, use tax, the retail delivery fee, and the
+    Swiss small-parcel threshold are separate obligations with their own met
+    dates and period models. SMALL_PARCEL_VAT is a threshold only. A sales
+    tax registration covers it, and it has no account and no return of its own.
+    """
+
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -227,6 +267,8 @@ class NorthCarolinaRegistrationPayload(BaseModel):
                 "do_not_file",
                 "registrations_regime",
                 "change_regime_status",
+                "is_pre_collecting",
+                "filing_frequency",
                 "period_end_month",
                 "username",
                 "comment",
@@ -242,6 +284,7 @@ class NorthCarolinaRegistrationPayload(BaseModel):
                 "password_plain_text",
                 "password_metadata_plain_text",
                 "request_id",
+                "tax_type",
             ]
         )
         nullable_fields = set(
@@ -255,6 +298,7 @@ class NorthCarolinaRegistrationPayload(BaseModel):
                 "auto_registered",
                 "registrations_regime",
                 "change_regime_status",
+                "filing_frequency",
                 "period_end_month",
                 "username",
                 "comment",
@@ -271,11 +315,14 @@ class NorthCarolinaRegistrationPayload(BaseModel):
                 "request_id",
             ]
         )
+        exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and exclude_none is False:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
