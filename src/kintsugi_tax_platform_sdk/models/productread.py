@@ -9,6 +9,8 @@ from kintsugi_tax_platform_sdk.types import (
     OptionalNullable,
     UNSET,
     UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
 )
 from pydantic import model_serializer
 from typing import Any, Dict, List
@@ -29,10 +31,7 @@ class ProductReadTypedDict(TypedDict):
     retrieve supported categories from [GET /products/categories endpoint](/reference/api/products/get-product-categories)
     """
     product_subcategory: str
-    r"""Subcategory of the product.
-    For example, General Clothing, UNKNOWN, etc. You can
-    retrieve supported subcategories from [GET /products/categories endpoint](/reference/api/products/get-product-categories)
-    """
+    r"""Tax subcategory display label of the product (e.g. 'General Clothing'). List supported values from [GET /products/categories](/reference/api/products/get-product-categories)."""
     tax_exempt: bool
     source: SourceEnum
     connection_id: Nullable[str]
@@ -68,10 +67,7 @@ class ProductRead(BaseModel):
     """
 
     product_subcategory: str
-    r"""Subcategory of the product.
-    For example, General Clothing, UNKNOWN, etc. You can
-    retrieve supported subcategories from [GET /products/categories endpoint](/reference/api/products/get-product-categories)
-    """
+    r"""Tax subcategory display label of the product (e.g. 'General Clothing'). List supported values from [GET /products/categories](/reference/api/products/get-product-categories)."""
 
     tax_exempt: bool
 
@@ -96,6 +92,9 @@ class ProductRead(BaseModel):
     source_taxonomy_metadata: OptionalNullable[Dict[str, Any]] = UNSET
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -123,11 +122,14 @@ class ProductRead(BaseModel):
                 "source_taxonomy_metadata",
             ]
         )
+        exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and exclude_none is False:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
