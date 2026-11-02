@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 from .productstatusenum import ProductStatusEnum
-from .productsubcategoryenum import ProductSubCategoryEnum
 from .publicproductcategoryenum import PublicProductCategoryEnum
 from .sourceenum import SourceEnum
 from kintsugi_tax_platform_sdk.types import (
@@ -11,22 +10,12 @@ from kintsugi_tax_platform_sdk.types import (
     OptionalNullable,
     UNSET,
     UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
 )
 from pydantic import model_serializer
-from typing import Optional, Union
-from typing_extensions import NotRequired, TypeAliasType, TypedDict
-
-
-ProductSubcategoryUnionTypedDict = TypeAliasType(
-    "ProductSubcategoryUnionTypedDict", Union[ProductSubCategoryEnum, str]
-)
-r"""The subcategory of the product."""
-
-
-ProductSubcategoryUnion = TypeAliasType(
-    "ProductSubcategoryUnion", Union[ProductSubCategoryEnum, str]
-)
-r"""The subcategory of the product."""
+from typing import Optional
+from typing_extensions import NotRequired, TypedDict
 
 
 class ProductCreateManualTypedDict(TypedDict):
@@ -36,8 +25,8 @@ class ProductCreateManualTypedDict(TypedDict):
     r"""The name of the product."""
     product_category: PublicProductCategoryEnum
     r"""Top-level tax category for a product."""
-    product_subcategory: ProductSubcategoryUnionTypedDict
-    r"""The subcategory of the product."""
+    product_subcategory: str
+    r"""Tax subcategory display label within the category (e.g. 'General Clothing'). Together with product_category it resolves to a product tax code; an unrecognized pair on a new product returns 400. List supported values from [GET /products/categories](/reference/api/products/get-product-categories)."""
     tax_exempt: bool
     r"""Specifies whether the product is tax-exempt."""
     description: NotRequired[Nullable[str]]
@@ -56,8 +45,8 @@ class ProductCreateManual(BaseModel):
     product_category: PublicProductCategoryEnum
     r"""Top-level tax category for a product."""
 
-    product_subcategory: ProductSubcategoryUnion
-    r"""The subcategory of the product."""
+    product_subcategory: str
+    r"""Tax subcategory display label within the category (e.g. 'General Clothing'). Together with product_category it resolves to a product tax code; an unrecognized pair on a new product returns 400. List supported values from [GET /products/categories](/reference/api/products/get-product-categories)."""
 
     tax_exempt: bool
     r"""Specifies whether the product is tax-exempt."""
@@ -70,14 +59,20 @@ class ProductCreateManual(BaseModel):
     source: Optional[SourceEnum] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["description", "status", "source"])
         nullable_fields = set(["description"])
+        exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and exclude_none is False:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
