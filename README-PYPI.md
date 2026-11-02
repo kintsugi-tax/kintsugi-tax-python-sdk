@@ -213,6 +213,7 @@ with SDK(
 
 * [list](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/exemptions/README.md#list) - Get exemptions
 * [create](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/exemptions/README.md#create) - Create exemption
+* [list_partial_certificate_types_v1_exemptions_partial_certificate_types_get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/exemptions/README.md#list_partial_certificate_types_v1_exemptions_partial_certificate_types_get) - List partial certificate types
 * [get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/exemptions/README.md#get) - Get exemption by id
 * [list_attachments](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/exemptions/README.md#list_attachments) - Get attachments for exemption
 * [upload_certificate](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/exemptions/README.md#upload_certificate) - Upload exemption certificate
@@ -220,6 +221,9 @@ with SDK(
 ### [Filings](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/filings/README.md)
 
 * [get_all](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/filings/README.md#get_all) - Get filings
+* [create_back_filing_request_v1_filings_back_filing_request_post](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/filings/README.md#create_back_filing_request_v1_filings_back_filing_request_post) - Create back filing request
+* [get_back_filing_request_options_v1_filings_back_filing_request_options_get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/filings/README.md#get_back_filing_request_options_v1_filings_back_filing_request_options_get) - Get back filing request options
+* [get_current_back_filing_terms_v1_filings_back_filing_terms_current_get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/filings/README.md#get_current_back_filing_terms_v1_filings_back_filing_terms_current_get) - Get current back filing terms
 * [get_by_registration_id](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/filings/README.md#get_by_registration_id) - Get filings by registration id
 * [get](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/filings/README.md#get) - Get filing by id
 * [approve_filing_v1_filings_filing_id_approve_put](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/docs/sdks/filings/README.md#approve_filing_v1_filings_filing_id_approve_put) - Approve filing
@@ -375,17 +379,17 @@ with SDK(
 
 
 **Inherit from [`SDKError`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/sdkerror.py)**:
-* [`ErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/errorresponse.py): Applicable to 33 of 51 methods.*
-* [`HTTPValidationError`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/httpvalidationerror.py): Validation Error. Status code `422`. Applicable to 18 of 51 methods.*
-* [`BackendSrcExemptionsResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrcexemptionsresponsesvalidationerrorresponse.py): Validation issues, such as missing required fields or invalid field values. Status code `422`. Applicable to 5 of 51 methods.*
-* [`BackendSrcProductsSchemasResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrcproductsschemasresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 5 of 51 methods.*
-* [`BackendSrcRegistrationsResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrcregistrationsresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 5 of 51 methods.*
-* [`BackendSrcTransactionsResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrctransactionsresponsesvalidationerrorresponse.py): Status code `422`. Applicable to 5 of 51 methods.*
-* [`BackendSrcNexusResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrcnexusresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 4 of 51 methods.*
-* [`BackendSrcCustomersResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrccustomersresponsesvalidationerrorresponse.py): Query parameters failed validation, such as an out-of-range page number. Status code `422`. Applicable to 3 of 51 methods.*
-* [`BackendSrcFilingsResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrcfilingsresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 3 of 51 methods.*
-* [`BackendSrcAddressValidationResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrcaddressvalidationresponsesvalidationerrorresponse.py): Validation error - Address fields failed validation or are incomplete. Status code `422`. Applicable to 2 of 51 methods.*
-* [`BackendSrcTaxEstimationResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrctaxestimationresponsesvalidationerrorresponse.py): Validation Error. Status code `422`. Applicable to 1 of 51 methods.*
+* [`ErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/errorresponse.py): Applicable to 33 of 55 methods.*
+* [`HTTPValidationError`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/httpvalidationerror.py): Validation Error. Status code `422`. Applicable to 22 of 55 methods.*
+* [`BackendSrcExemptionsResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrcexemptionsresponsesvalidationerrorresponse.py): Validation issues, such as missing required fields or invalid field values. Status code `422`. Applicable to 5 of 55 methods.*
+* [`BackendSrcProductsSchemasResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrcproductsschemasresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 5 of 55 methods.*
+* [`BackendSrcRegistrationsResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrcregistrationsresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 5 of 55 methods.*
+* [`BackendSrcTransactionsResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrctransactionsresponsesvalidationerrorresponse.py): Status code `422`. Applicable to 5 of 55 methods.*
+* [`BackendSrcNexusResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrcnexusresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 4 of 55 methods.*
+* [`BackendSrcCustomersResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrccustomersresponsesvalidationerrorresponse.py): Query parameters failed validation, such as an out-of-range page number. Status code `422`. Applicable to 3 of 55 methods.*
+* [`BackendSrcFilingsResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrcfilingsresponsesvalidationerrorresponse.py): Validation error. Status code `422`. Applicable to 3 of 55 methods.*
+* [`BackendSrcAddressValidationResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrcaddressvalidationresponsesvalidationerrorresponse.py): Validation error - Address fields failed validation or are incomplete. Status code `422`. Applicable to 2 of 55 methods.*
+* [`BackendSrcTaxEstimationResponsesValidationErrorResponse`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/backendsrctaxestimationresponsesvalidationerrorresponse.py): Validation Error. Status code `422`. Applicable to 1 of 55 methods.*
 * [`ResponseValidationError`](https://github.com/kintsugi-tax/kintsugi-tax-python-sdk/blob/master/./src/kintsugi_tax_platform_sdk/errors/responsevalidationerror.py): Type mismatch between the response data and the expected Pydantic model. Provides access to the Pydantic validation error via the `cause` attribute.
 
 </details>
@@ -526,6 +530,7 @@ def main():
         api_key_header="<YOUR_API_KEY_HERE>",
     ) as sdk:
         # Rest of application here...
+        pass
 
 
 # Or when using async:
@@ -535,6 +540,7 @@ async def amain():
         api_key_header="<YOUR_API_KEY_HERE>",
     ) as sdk:
         # Rest of application here...
+        pass
 ```
 <!-- End Resource Management [resource-management] -->
 

@@ -16,15 +16,16 @@ from .registrationsregimeenum import RegistrationsRegimeEnum
 from .salesortransactionsenum import SalesOrTransactionsEnum
 from .taxtypeenum import TaxTypeEnum
 from .treatmentenum import TreatmentEnum
-from datetime import date, datetime
+from datetime import date
 from kintsugi_tax_platform_sdk.types import (
     BaseModel,
     Nullable,
     OptionalNullable,
     UNSET,
     UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
 )
-from kintsugi_tax_platform_sdk.utils import parse_datetime
 import pydantic
 from pydantic import model_serializer
 from typing import Any, Dict, List, Optional
@@ -46,8 +47,8 @@ class NexusResponseTypedDict(TypedDict):
     previous_period_start_date: Nullable[date]
     previous_period_end_date: Nullable[date]
     id: str
-    created_at: datetime
-    updated_at: datetime
+    created_at: Nullable[str]
+    updated_at: Nullable[str]
     organization_id: str
     threshold_sales: int
     is_vda_eligible: bool
@@ -76,9 +77,11 @@ class NexusResponseTypedDict(TypedDict):
 
     Registrations and filings may be SALES_AND_USE_TAX: one state account and
     one return can cover both taxes, and each is stored as a single row.
-    Nexus rows are only SALES_TAX or USE_TAX. Sales and use tax exposure are
-    separate obligations with their own met dates, period models, and liability
-    accrual.
+    Nexus rows are SALES_TAX, USE_TAX, RETAIL_DELIVERY_FEE, or
+    SMALL_PARCEL_VAT. Sales tax, use tax, the retail delivery fee, and the
+    Swiss small-parcel threshold are separate obligations with their own met
+    dates and period models. SMALL_PARCEL_VAT is a threshold only. A sales
+    tax registration covers it, and it has no account and no return of its own.
     """
     economic_nexus_met: NotRequired[bool]
     economic_nexus_met_date: NotRequired[Nullable[date]]
@@ -86,23 +89,23 @@ class NexusResponseTypedDict(TypedDict):
     physical_nexus_met_date: NotRequired[Nullable[date]]
     collected_tax_nexus_met: NotRequired[Nullable[bool]]
     collected_tax_nexus_met_date: NotRequired[Nullable[date]]
-    earliest_transaction_date: NotRequired[Nullable[datetime]]
-    most_recent_transaction_date: NotRequired[Nullable[datetime]]
+    earliest_transaction_date: NotRequired[Nullable[str]]
+    most_recent_transaction_date: NotRequired[Nullable[str]]
     find_threshold_crossing_transaction_state: NotRequired[
         Nullable[FindThresholdCrossingTransactionStateTypedDict]
     ]
-    earliest_collected_date: NotRequired[datetime]
+    earliest_collected_date: NotRequired[Nullable[str]]
     predicted_month_from_today: NotRequired[Nullable[int]]
     vda_eligible: NotRequired[Nullable[bool]]
     confidence_level: NotRequired[Nullable[float]]
-    last_processed_at: NotRequired[Nullable[datetime]]
-    last_tax_liability_processed_at: NotRequired[Nullable[datetime]]
+    last_processed_at: NotRequired[Nullable[str]]
+    last_tax_liability_processed_at: NotRequired[Nullable[str]]
     periods: NotRequired[List[Dict[str, Any]]]
     currency: NotRequired[Nullable[CurrencyEnum]]
     r"""Currency code for the nexus (e.g., USD, CAD)."""
     registration: NotRequired[Nullable[Dict[str, Any]]]
     registration_regime: NotRequired[Nullable[RegistrationsRegimeEnum]]
-    disregarded_at: NotRequired[Nullable[datetime]]
+    disregarded_at: NotRequired[Nullable[str]]
     disregarded_by: NotRequired[Nullable[str]]
     disregarded_type: NotRequired[Nullable[DisregardedTypeEnum]]
     disregarded_nexus_types: NotRequired[List[str]]
@@ -141,9 +144,9 @@ class NexusResponse(BaseModel):
 
     id: str
 
-    created_at: datetime
+    created_at: Nullable[str]
 
-    updated_at: datetime
+    updated_at: Nullable[str]
 
     organization_id: str
 
@@ -204,9 +207,11 @@ class NexusResponse(BaseModel):
 
     Registrations and filings may be SALES_AND_USE_TAX: one state account and
     one return can cover both taxes, and each is stored as a single row.
-    Nexus rows are only SALES_TAX or USE_TAX. Sales and use tax exposure are
-    separate obligations with their own met dates, period models, and liability
-    accrual.
+    Nexus rows are SALES_TAX, USE_TAX, RETAIL_DELIVERY_FEE, or
+    SMALL_PARCEL_VAT. Sales tax, use tax, the retail delivery fee, and the
+    Swiss small-parcel threshold are separate obligations with their own met
+    dates and period models. SMALL_PARCEL_VAT is a threshold only. A sales
+    tax registration covers it, and it has no account and no return of its own.
     """
 
     economic_nexus_met: Optional[bool] = False
@@ -221,15 +226,15 @@ class NexusResponse(BaseModel):
 
     collected_tax_nexus_met_date: OptionalNullable[date] = UNSET
 
-    earliest_transaction_date: OptionalNullable[datetime] = UNSET
+    earliest_transaction_date: OptionalNullable[str] = UNSET
 
-    most_recent_transaction_date: OptionalNullable[datetime] = UNSET
+    most_recent_transaction_date: OptionalNullable[str] = UNSET
 
     find_threshold_crossing_transaction_state: OptionalNullable[
         FindThresholdCrossingTransactionState
     ] = UNSET
 
-    earliest_collected_date: Optional[datetime] = parse_datetime("2018-01-01T00:00:00")
+    earliest_collected_date: OptionalNullable[str] = UNSET
 
     predicted_month_from_today: OptionalNullable[int] = UNSET
 
@@ -237,9 +242,9 @@ class NexusResponse(BaseModel):
 
     confidence_level: OptionalNullable[float] = UNSET
 
-    last_processed_at: OptionalNullable[datetime] = UNSET
+    last_processed_at: OptionalNullable[str] = UNSET
 
-    last_tax_liability_processed_at: OptionalNullable[datetime] = UNSET
+    last_tax_liability_processed_at: OptionalNullable[str] = UNSET
 
     periods: Optional[List[Dict[str, Any]]] = None
 
@@ -250,7 +255,7 @@ class NexusResponse(BaseModel):
 
     registration_regime: OptionalNullable[RegistrationsRegimeEnum] = UNSET
 
-    disregarded_at: OptionalNullable[datetime] = UNSET
+    disregarded_at: OptionalNullable[str] = UNSET
 
     disregarded_by: OptionalNullable[str] = UNSET
 
@@ -267,6 +272,9 @@ class NexusResponse(BaseModel):
     requires_ior_number_to_register: Optional[bool] = False
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -327,12 +335,15 @@ class NexusResponse(BaseModel):
                 "earliest_transaction_date",
                 "most_recent_transaction_date",
                 "find_threshold_crossing_transaction_state",
+                "earliest_collected_date",
                 "predicted_month_from_today",
                 "vda_eligible",
                 "confidence_level",
                 "last_processed_at",
                 "last_tax_liability_processed_at",
                 "currency",
+                "created_at",
+                "updated_at",
                 "registration",
                 "registration_regime",
                 "disregarded_at",
@@ -341,11 +352,14 @@ class NexusResponse(BaseModel):
                 "marketplace_included",
             ]
         )
+        exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and exclude_none is False:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
