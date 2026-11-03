@@ -18,6 +18,8 @@ from kintsugi_tax_platform_sdk.types import (
     OptionalNullable,
     UNSET,
     UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
 )
 import pydantic
 from pydantic import model_serializer
@@ -91,6 +93,7 @@ class CreditNoteCreateTypedDict(TypedDict):
     total_amount: CreditNoteCreateTotalAmountTypedDict
     r"""Total monetary value of the credit note, including all items and taxes."""
     currency: CurrencyEnum
+    r"""ISO-4217 currency code. Pair with a monetary amount on the same object."""
     transaction_items: List[CreditNoteItemCreateUpdateTypedDict]
     r"""Detailed list of individual items included in this credit note."""
     external_friendly_id: NotRequired[Nullable[str]]
@@ -111,6 +114,8 @@ class CreditNoteCreateTypedDict(TypedDict):
     r"""Total portion of the credit note amount subject to taxation."""
     addresses: NotRequired[Nullable[List[TransactionAddressBuilderTypedDict]]]
     r"""A list of TransactionAddressBuilder objects or None if no addresses are provided. This field represents the addresses associated with the transaction."""
+    is_tax_inclusive: NotRequired[Nullable[bool]]
+    r"""Whether the source amounts include tax (EI-1534). None means the source did not say. Mirrors the parent order's signal; netting stays EI-1538."""
 
 
 class CreditNoteCreate(BaseModel):
@@ -127,6 +132,7 @@ class CreditNoteCreate(BaseModel):
     r"""Total monetary value of the credit note, including all items and taxes."""
 
     currency: CurrencyEnum
+    r"""ISO-4217 currency code. Pair with a monetary amount on the same object."""
 
     transaction_items: List[CreditNoteItemCreateUpdate]
     r"""Detailed list of individual items included in this credit note."""
@@ -155,7 +161,13 @@ class CreditNoteCreate(BaseModel):
     addresses: OptionalNullable[List[TransactionAddressBuilder]] = UNSET
     r"""A list of TransactionAddressBuilder objects or None if no addresses are provided. This field represents the addresses associated with the transaction."""
 
+    is_tax_inclusive: OptionalNullable[bool] = UNSET
+    r"""Whether the source amounts include tax (EI-1534). None means the source did not say. Mirrors the parent order's signal; netting stays EI-1538."""
+
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -167,6 +179,7 @@ class CreditNoteCreate(BaseModel):
                 "tax_rate_imported",
                 "taxable_amount",
                 "addresses",
+                "is_tax_inclusive",
             ]
         )
         nullable_fields = set(
@@ -179,13 +192,17 @@ class CreditNoteCreate(BaseModel):
                 "tax_rate_imported",
                 "taxable_amount",
                 "addresses",
+                "is_tax_inclusive",
             ]
         )
+        exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and exclude_none is False:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
