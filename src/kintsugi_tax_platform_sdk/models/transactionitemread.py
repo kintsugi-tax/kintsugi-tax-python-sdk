@@ -4,13 +4,14 @@ from __future__ import annotations
 from .currencyenum import CurrencyEnum
 from .taxexemptionenum import TaxExemptionEnum
 from .taxitemread import TaxItemRead, TaxItemReadTypedDict
-from datetime import datetime
 from kintsugi_tax_platform_sdk.types import (
     BaseModel,
     Nullable,
     OptionalNullable,
     UNSET,
     UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
 )
 import pydantic
 from pydantic import model_serializer
@@ -21,7 +22,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 class TransactionItemReadTypedDict(TypedDict):
     organization_id: Nullable[str]
     r"""Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header."""
-    date_: datetime
+    date_: str
     r"""Date/time of item."""
     external_product_id: str
     r"""External product identifier."""
@@ -75,6 +76,8 @@ class TransactionItemReadTypedDict(TypedDict):
     r"""Tax exemption status."""
     exempt: NotRequired[bool]
     r"""Indicates if the item is exempt."""
+    is_tax_inclusive: NotRequired[Nullable[bool]]
+    r"""Whether this line's source amount includes tax. NULL means the source did not say."""
     total_discount: NotRequired[Nullable[str]]
     r"""Total discount amount applied to this transaction item."""
     subtotal: NotRequired[Nullable[str]]
@@ -83,6 +86,10 @@ class TransactionItemReadTypedDict(TypedDict):
     r"""Whether this purchase line is reverse-charged."""
     recoverability_percent: NotRequired[Nullable[str]]
     r"""Input VAT recoverability 0-100. Blank means 100%."""
+    recoverable_input_vat: NotRequired[str]
+    r"""VAT recoverable on this line in the transaction's currency, after the line's recoverability percentage and the organization's pro-rata recovery rate. 0.00 for sales and outside the EU and UK."""
+    converted_recoverable_input_vat: NotRequired[Nullable[str]]
+    r"""Recoverable VAT on this line in the destination currency. Null when the line has no converted amount."""
 
 
 class TransactionItemRead(BaseModel):
@@ -94,7 +101,7 @@ class TransactionItemRead(BaseModel):
     ]
     r"""Unique identifier of the organization. This field is deprecated, and should no longer be used. The value is populated through the 'x-organization-id' header."""
 
-    date_: Annotated[datetime, pydantic.Field(alias="date")]
+    date_: Annotated[str, pydantic.Field(alias="date")]
     r"""Date/time of item."""
 
     external_product_id: str
@@ -175,6 +182,9 @@ class TransactionItemRead(BaseModel):
     exempt: Optional[bool] = False
     r"""Indicates if the item is exempt."""
 
+    is_tax_inclusive: OptionalNullable[bool] = UNSET
+    r"""Whether this line's source amount includes tax. NULL means the source did not say."""
+
     total_discount: OptionalNullable[str] = UNSET
     r"""Total discount amount applied to this transaction item."""
 
@@ -187,7 +197,16 @@ class TransactionItemRead(BaseModel):
     recoverability_percent: OptionalNullable[str] = UNSET
     r"""Input VAT recoverability 0-100. Blank means 100%."""
 
+    recoverable_input_vat: Optional[str] = "0.00"
+    r"""VAT recoverable on this line in the transaction's currency, after the line's recoverability percentage and the organization's pro-rata recovery rate. 0.00 for sales and outside the EU and UK."""
+
+    converted_recoverable_input_vat: OptionalNullable[str] = UNSET
+    r"""Recoverable VAT on this line in the destination currency. Null when the line has no converted amount."""
+
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -214,10 +233,13 @@ class TransactionItemRead(BaseModel):
                 "taxable_amount",
                 "tax_exemption",
                 "exempt",
+                "is_tax_inclusive",
                 "total_discount",
                 "subtotal",
                 "is_reverse_charge_self_accounted",
                 "recoverability_percent",
+                "recoverable_input_vat",
+                "converted_recoverable_input_vat",
             ]
         )
         nullable_fields = set(
@@ -238,16 +260,21 @@ class TransactionItemRead(BaseModel):
                 "converted_total_discount",
                 "converted_subtotal",
                 "tax_exemption",
+                "is_tax_inclusive",
                 "total_discount",
                 "subtotal",
                 "recoverability_percent",
+                "converted_recoverable_input_vat",
             ]
         )
+        exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and exclude_none is False:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields

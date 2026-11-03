@@ -8,9 +8,9 @@ from .deregisterregistrationrequest import (
 from kintsugi_tax_platform_sdk.types import (
     BaseModel,
     Nullable,
-    OptionalNullable,
-    UNSET,
     UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
 )
 from kintsugi_tax_platform_sdk.utils import (
     FieldMetadata,
@@ -20,7 +20,7 @@ from kintsugi_tax_platform_sdk.utils import (
 )
 import pydantic
 from pydantic import model_serializer
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing_extensions import Annotated, TypedDict
 
 
 class DeregisterRegistrationV1RegistrationsRegistrationIDDeregisterPostRequestTypedDict(
@@ -30,9 +30,7 @@ class DeregisterRegistrationV1RegistrationsRegistrationIDDeregisterPostRequestTy
     r"""The unique identifier of the registration to deregister."""
     x_organization_id: Nullable[str]
     r"""The unique identifier for the organization making the request"""
-    deregister_registration_request: NotRequired[
-        Nullable[DeregisterRegistrationRequestTypedDict]
-    ]
+    deregister_registration_request: DeregisterRegistrationRequestTypedDict
 
 
 class DeregisterRegistrationV1RegistrationsRegistrationIDDeregisterPostRequest(
@@ -51,31 +49,26 @@ class DeregisterRegistrationV1RegistrationsRegistrationIDDeregisterPostRequest(
     r"""The unique identifier for the organization making the request"""
 
     deregister_registration_request: Annotated[
-        OptionalNullable[DeregisterRegistrationRequest],
+        DeregisterRegistrationRequest,
         FieldMetadata(request=RequestMetadata(media_type="application/json")),
-    ] = UNSET
+    ]
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
-        optional_fields = set(["DeregisterRegistrationRequest"])
-        nullable_fields = set(["x-organization-id", "DeregisterRegistrationRequest"])
+        exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and exclude_none is False:
+                continue
             val = serialized.get(k, serialized.get(n))
-            is_nullable_and_explicitly_set = (
-                k in nullable_fields
-                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
-            )
 
             if val != UNSET_SENTINEL:
-                if (
-                    val is not None
-                    or k not in optional_fields
-                    or is_nullable_and_explicitly_set
-                ):
-                    m[k] = val
+                m[k] = val
 
         return m

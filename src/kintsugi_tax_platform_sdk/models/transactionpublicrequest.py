@@ -5,13 +5,16 @@ from .countrycodeenum import CountryCodeEnum
 from .currencyenum import CurrencyEnum
 from .customerbasebase import CustomerBaseBase, CustomerBaseBaseTypedDict
 from .documenttypeenum import DocumentTypeEnum
-from .exemption import Exemption, ExemptionTypedDict
 from .exemptionrequired import ExemptionRequired, ExemptionRequiredTypedDict
 from .sourceenum import SourceEnum
 from .taxliabilitysourceenum import TaxLiabilitySourceEnum
 from .transactionaddresspublic import (
     TransactionAddressPublic,
     TransactionAddressPublicTypedDict,
+)
+from .transactionembeddedexemption import (
+    TransactionEmbeddedExemption,
+    TransactionEmbeddedExemptionTypedDict,
 )
 from .transactionexemptstatusenum import TransactionExemptStatusEnum
 from .transactionimportcustomer import (
@@ -32,6 +35,8 @@ from kintsugi_tax_platform_sdk.types import (
     OptionalNullable,
     UNSET,
     UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
 )
 import pydantic
 from pydantic import model_serializer
@@ -161,7 +166,7 @@ class TransactionPublicRequestTypedDict(TypedDict):
     r"""Indicates if transaction is marketplace-based."""
     exempt: NotRequired[Nullable[TransactionExemptStatusEnum]]
     r"""Exemption status (e.g., NOT_EXEMPT)"""
-    exemptions: NotRequired[Nullable[List[ExemptionTypedDict]]]
+    exemptions: NotRequired[Nullable[List[TransactionEmbeddedExemptionTypedDict]]]
     r"""List of exemptions applied (if any)."""
     related_to: NotRequired[Nullable[str]]
     r"""Related transaction identifier."""
@@ -191,7 +196,10 @@ class TransactionPublicRequestTypedDict(TypedDict):
     r"""Source of tax liability."""
     taxable_amount: NotRequired[TransactionPublicRequestTaxableAmountTypedDict]
     r"""Taxable amount."""
+    is_tax_inclusive: NotRequired[Nullable[bool]]
+    r"""Whether source amounts include tax. NULL means the source did not say."""
     currency: NotRequired[CurrencyEnum]
+    r"""ISO-4217 currency code. Pair with a monetary amount on the same object."""
     locked: NotRequired[bool]
     r"""Transaction lock status."""
     source: NotRequired[SourceEnum]
@@ -268,7 +276,7 @@ class TransactionPublicRequest(BaseModel):
     exempt: OptionalNullable[TransactionExemptStatusEnum] = UNSET
     r"""Exemption status (e.g., NOT_EXEMPT)"""
 
-    exemptions: OptionalNullable[List[Exemption]] = UNSET
+    exemptions: OptionalNullable[List[TransactionEmbeddedExemption]] = UNSET
     r"""List of exemptions applied (if any)."""
 
     related_to: OptionalNullable[str] = UNSET
@@ -310,7 +318,11 @@ class TransactionPublicRequest(BaseModel):
     taxable_amount: Optional[TransactionPublicRequestTaxableAmount] = None
     r"""Taxable amount."""
 
+    is_tax_inclusive: OptionalNullable[bool] = UNSET
+    r"""Whether source amounts include tax. NULL means the source did not say."""
+
     currency: Optional[CurrencyEnum] = None
+    r"""ISO-4217 currency code. Pair with a monetary amount on the same object."""
 
     locked: Optional[bool] = False
     r"""Transaction lock status."""
@@ -355,6 +367,9 @@ class TransactionPublicRequest(BaseModel):
     r"""Identifier of the invoice that created from a sales order."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -379,6 +394,7 @@ class TransactionPublicRequest(BaseModel):
                 "total_tax_liability_amount",
                 "tax_liability_source",
                 "taxable_amount",
+                "is_tax_inclusive",
                 "currency",
                 "locked",
                 "source",
@@ -411,6 +427,7 @@ class TransactionPublicRequest(BaseModel):
                 "secondary_source",
                 "external_friendly_id",
                 "tax_liability_source",
+                "is_tax_inclusive",
                 "connection_id",
                 "filing_id",
                 "city",
@@ -423,11 +440,14 @@ class TransactionPublicRequest(BaseModel):
                 "created_from",
             ]
         )
+        exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and exclude_none is False:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
