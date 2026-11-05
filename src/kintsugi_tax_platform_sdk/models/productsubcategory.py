@@ -9,9 +9,7 @@ from typing_extensions import NotRequired, TypedDict
 
 class ProductSubCategoryTypedDict(TypedDict):
     name: str
-    r"""Name of the product subcategory
-    (e.g., ORAL_HYGIENE, MEDICAL_DEVICES, etc.)
-    """
+    r"""Tax subcategory display label (e.g. 'Oral Hygiene', 'Medical Devices')."""
     description: str
     r"""Description of the subcategory in the context of sales tax"""
     example: str
@@ -22,9 +20,7 @@ class ProductSubCategoryTypedDict(TypedDict):
 
 class ProductSubCategory(BaseModel):
     name: str
-    r"""Name of the product subcategory
-    (e.g., ORAL_HYGIENE, MEDICAL_DEVICES, etc.)
-    """
+    r"""Tax subcategory display label (e.g. 'Oral Hygiene', 'Medical Devices')."""
 
     description: str
     r"""Description of the subcategory in the context of sales tax"""

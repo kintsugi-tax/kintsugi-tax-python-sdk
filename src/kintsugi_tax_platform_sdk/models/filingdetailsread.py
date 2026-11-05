@@ -7,6 +7,7 @@ from .camayprepaymentdisplay import (
 )
 from .countrycodeenum import CountryCodeEnum
 from .currencyenum import CurrencyEnum
+from .feetypeenum import FeeTypeEnum
 from .filingstatusenum import FilingStatusEnum
 from .quarterlyprepaybalancedisplay import (
     QuarterlyPrepayBalanceDisplay,
@@ -40,6 +41,10 @@ class FilingDetailsReadTypedDict(TypedDict):
     r"""Identifier for the organization associated with the filing."""
     filing_website_url: Nullable[str]
     r"""Get the filing website URL for this filing's jurisdiction"""
+    input_vat_recovery_rate: NotRequired[Nullable[str]]
+    r"""Input VAT recovery rate applied to this filing, as a percentage 0-100. Null when no rate exists for the filing's country and year, which means fully recoverable. Uses the definitive rate when set, otherwise the year's frozen provisional."""
+    input_vat_recovery_rate_is_definitive: NotRequired[Nullable[bool]]
+    r"""True when input_vat_recovery_rate is this year's definitive rate. False when it is the provisional. Null when no rate exists."""
     status: NotRequired[FilingStatusEnum]
     due_date: NotRequired[Nullable[date]]
     r"""The due date of the filing."""
@@ -86,12 +91,12 @@ class FilingDetailsReadTypedDict(TypedDict):
 
     Registrations and filings may be SALES_AND_USE_TAX: one state account and
     one return can cover both taxes, and each is stored as a single row.
-    Nexus rows are only SALES_TAX or USE_TAX. Sales and use tax exposure are
-    separate obligations with their own met dates, period models, and liability
-    accrual.
+    Nexus rows are SALES_TAX, USE_TAX, RETAIL_DELIVERY_FEE, or
+    SMALL_PARCEL_VAT. Sales tax, use tax, the retail delivery fee, and the
+    Swiss small-parcel threshold are separate obligations with their own met
+    dates and period models. SMALL_PARCEL_VAT is a threshold only. A sales
+    tax registration covers it, and it has no account and no return of its own.
     """
-    is_rdf: NotRequired[bool]
-    r"""True when this filing is a state Retail Delivery Fee return, a separate filing from the state's sales tax return."""
     amount_calculated: NotRequired[str]
     r"""The calculated amount for the filing. Defaults to 0.00."""
     amount_adjusted: NotRequired[str]
@@ -100,6 +105,8 @@ class FilingDetailsReadTypedDict(TypedDict):
     r"""Discounts applied to the filing."""
     amount_fees: NotRequired[str]
     r"""Fees applied to the filing."""
+    fee_type: NotRequired[Nullable[FeeTypeEnum]]
+    r"""Whether amount_fees is a penalty, interest, or other fee. Null when unknown (legacy rows)."""
     amount_penalties: NotRequired[str]
     r"""Penalties applied to the filing."""
     amount_tax_collected: NotRequired[str]
@@ -107,9 +114,13 @@ class FilingDetailsReadTypedDict(TypedDict):
     amount_use_tax: NotRequired[str]
     r"""Gross tax the buyer owes on purchases. US use tax, or EU/UK reverse-charge self-assessed VAT. Not net of recoverable VAT. Defaults to 0.00."""
     amount_input_vat_recoverable: NotRequired[str]
-    r"""Input VAT recovered on this filing's purchases. Subtracted from liability; always 0.00 outside EU/UK VAT AP filings."""
+    r"""Input VAT this filing actually claimed. Subtracted from liability; always 0.00 outside EU/UK VAT filings."""
     amount_input_vat_true_up: NotRequired[str]
-    r"""Prior-year input VAT pro-rata true-up on this filing. Positive claims more, negative repays. Always 0.00 until posted."""
+    r"""Prior-year input VAT pro-rata true-up on this filing. Negative claims more, positive repays. Always 0.00 until posted."""
+    amount_input_vat_recoverable_base: NotRequired[str]
+    r"""Input VAT this filing would have claimed at a 100% rate. Always 0.00 outside EU/UK VAT filings."""
+    input_vat_recovery_rate_applied: NotRequired[Nullable[str]]
+    r"""Rate actually used on this filing's reclaim. Null when this filing is not EU/UK VAT."""
     amount_sales: NotRequired[str]
     r"""Total sales amount during the filing period."""
     total_taxable_sales: NotRequired[Nullable[str]]
@@ -163,10 +174,6 @@ class FilingDetailsReadTypedDict(TypedDict):
     r"""Credits utilized for this filing."""
     deferred_transaction_count: NotRequired[int]
     r"""Number of transactions deferred from this filing period."""
-    input_vat_recovery_rate: NotRequired[Nullable[str]]
-    r"""Input VAT recovery rate applied to this filing, as a percentage 0-100. Null when no rate exists for the filing's country and year, which means fully recoverable. Uses the definitive rate when set, otherwise the year's frozen provisional."""
-    input_vat_recovery_rate_is_definitive: NotRequired[Nullable[bool]]
-    r"""True when input_vat_recovery_rate is this year's definitive rate. False when it is the provisional. Null when no rate exists."""
 
 
 class FilingDetailsRead(BaseModel):
@@ -189,6 +196,12 @@ class FilingDetailsRead(BaseModel):
 
     filing_website_url: Nullable[str]
     r"""Get the filing website URL for this filing's jurisdiction"""
+
+    input_vat_recovery_rate: OptionalNullable[str] = UNSET
+    r"""Input VAT recovery rate applied to this filing, as a percentage 0-100. Null when no rate exists for the filing's country and year, which means fully recoverable. Uses the definitive rate when set, otherwise the year's frozen provisional."""
+
+    input_vat_recovery_rate_is_definitive: OptionalNullable[bool] = UNSET
+    r"""True when input_vat_recovery_rate is this year's definitive rate. False when it is the provisional. Null when no rate exists."""
 
     status: Optional[FilingStatusEnum] = None
 
@@ -253,13 +266,12 @@ class FilingDetailsRead(BaseModel):
 
     Registrations and filings may be SALES_AND_USE_TAX: one state account and
     one return can cover both taxes, and each is stored as a single row.
-    Nexus rows are only SALES_TAX or USE_TAX. Sales and use tax exposure are
-    separate obligations with their own met dates, period models, and liability
-    accrual.
+    Nexus rows are SALES_TAX, USE_TAX, RETAIL_DELIVERY_FEE, or
+    SMALL_PARCEL_VAT. Sales tax, use tax, the retail delivery fee, and the
+    Swiss small-parcel threshold are separate obligations with their own met
+    dates and period models. SMALL_PARCEL_VAT is a threshold only. A sales
+    tax registration covers it, and it has no account and no return of its own.
     """
-
-    is_rdf: Optional[bool] = False
-    r"""True when this filing is a state Retail Delivery Fee return, a separate filing from the state's sales tax return."""
 
     amount_calculated: Optional[str] = "0.00"
     r"""The calculated amount for the filing. Defaults to 0.00."""
@@ -273,6 +285,9 @@ class FilingDetailsRead(BaseModel):
     amount_fees: Optional[str] = "0.00"
     r"""Fees applied to the filing."""
 
+    fee_type: OptionalNullable[FeeTypeEnum] = UNSET
+    r"""Whether amount_fees is a penalty, interest, or other fee. Null when unknown (legacy rows)."""
+
     amount_penalties: Optional[str] = "0.00"
     r"""Penalties applied to the filing."""
 
@@ -283,10 +298,16 @@ class FilingDetailsRead(BaseModel):
     r"""Gross tax the buyer owes on purchases. US use tax, or EU/UK reverse-charge self-assessed VAT. Not net of recoverable VAT. Defaults to 0.00."""
 
     amount_input_vat_recoverable: Optional[str] = "0.00"
-    r"""Input VAT recovered on this filing's purchases. Subtracted from liability; always 0.00 outside EU/UK VAT AP filings."""
+    r"""Input VAT this filing actually claimed. Subtracted from liability; always 0.00 outside EU/UK VAT filings."""
 
     amount_input_vat_true_up: Optional[str] = "0.00"
-    r"""Prior-year input VAT pro-rata true-up on this filing. Positive claims more, negative repays. Always 0.00 until posted."""
+    r"""Prior-year input VAT pro-rata true-up on this filing. Negative claims more, positive repays. Always 0.00 until posted."""
+
+    amount_input_vat_recoverable_base: Optional[str] = "0.00"
+    r"""Input VAT this filing would have claimed at a 100% rate. Always 0.00 outside EU/UK VAT filings."""
+
+    input_vat_recovery_rate_applied: OptionalNullable[str] = UNSET
+    r"""Rate actually used on this filing's reclaim. Null when this filing is not EU/UK VAT."""
 
     amount_sales: Optional[str] = "0.00"
     r"""Total sales amount during the filing period."""
@@ -365,16 +386,12 @@ class FilingDetailsRead(BaseModel):
     deferred_transaction_count: Optional[int] = 0
     r"""Number of transactions deferred from this filing period."""
 
-    input_vat_recovery_rate: OptionalNullable[str] = UNSET
-    r"""Input VAT recovery rate applied to this filing, as a percentage 0-100. Null when no rate exists for the filing's country and year, which means fully recoverable. Uses the definitive rate when set, otherwise the year's frozen provisional."""
-
-    input_vat_recovery_rate_is_definitive: OptionalNullable[bool] = UNSET
-    r"""True when input_vat_recovery_rate is this year's definitive rate. False when it is the provisional. Null when no rate exists."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "input_vat_recovery_rate",
+                "input_vat_recovery_rate_is_definitive",
                 "status",
                 "due_date",
                 "date_filed",
@@ -393,16 +410,18 @@ class FilingDetailsRead(BaseModel):
                 "skip_reason",
                 "cancelled_reason",
                 "tax_type",
-                "is_rdf",
                 "amount_calculated",
                 "amount_adjusted",
                 "amount_discounts",
                 "amount_fees",
+                "fee_type",
                 "amount_penalties",
                 "amount_tax_collected",
                 "amount_use_tax",
                 "amount_input_vat_recoverable",
                 "amount_input_vat_true_up",
+                "amount_input_vat_recoverable_base",
+                "input_vat_recovery_rate_applied",
                 "amount_sales",
                 "total_taxable_sales",
                 "amount",
@@ -429,12 +448,12 @@ class FilingDetailsRead(BaseModel):
                 "attachments",
                 "credits_utilized",
                 "deferred_transaction_count",
-                "input_vat_recovery_rate",
-                "input_vat_recovery_rate_is_definitive",
             ]
         )
         nullable_fields = set(
             [
+                "input_vat_recovery_rate",
+                "input_vat_recovery_rate_is_definitive",
                 "due_date",
                 "date_filed",
                 "is_manual",
@@ -448,6 +467,8 @@ class FilingDetailsRead(BaseModel):
                 "issue_reason",
                 "skip_reason",
                 "cancelled_reason",
+                "fee_type",
+                "input_vat_recovery_rate_applied",
                 "total_taxable_sales",
                 "estimated_line_count",
                 "internal_notes",
@@ -466,8 +487,6 @@ class FilingDetailsRead(BaseModel):
                 "estimated_penalty_interest",
                 "penalty_interest_remittance_tag",
                 "attachments",
-                "input_vat_recovery_rate",
-                "input_vat_recovery_rate_is_definitive",
                 "filing_website_url",
             ]
         )

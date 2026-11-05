@@ -242,6 +242,8 @@ class TransactionItemBuilderTypedDict(TypedDict):
     r"""Tax exemption status."""
     exempt: NotRequired[bool]
     r"""Indicates if the item is exempt."""
+    is_tax_inclusive: NotRequired[Nullable[bool]]
+    r"""Whether this line's source amount includes tax. NULL means the source did not say."""
     tax_items: NotRequired[List[TaxItemBuilderTypedDict]]
     discount_builder: NotRequired[Nullable[DiscountBuilderTypedDict]]
 
@@ -340,6 +342,9 @@ class TransactionItemBuilder(BaseModel):
     exempt: Optional[bool] = False
     r"""Indicates if the item is exempt."""
 
+    is_tax_inclusive: OptionalNullable[bool] = UNSET
+    r"""Whether this line's source amount includes tax. NULL means the source did not say."""
+
     tax_items: Optional[List[TaxItemBuilder]] = None
 
     discount_builder: OptionalNullable[DiscountBuilder] = UNSET
@@ -371,6 +376,7 @@ class TransactionItemBuilder(BaseModel):
                 "taxable_amount",
                 "tax_exemption",
                 "exempt",
+                "is_tax_inclusive",
                 "tax_items",
                 "discount_builder",
             ]
@@ -393,6 +399,7 @@ class TransactionItemBuilder(BaseModel):
                 "converted_total_discount",
                 "converted_subtotal",
                 "tax_exemption",
+                "is_tax_inclusive",
                 "discount_builder",
             ]
         )
