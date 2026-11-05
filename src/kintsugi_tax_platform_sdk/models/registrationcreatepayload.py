@@ -39,7 +39,6 @@ class RegistrationCreatePayloadTypedDict(TypedDict):
     r"""The state/province code where the registration applies."""
     state_name: str
     r"""The name of the state/province."""
-    filing_frequency: FilingFrequencyEnum
     registration_import_type: Literal["REGULAR"]
     r"""Specifies this is a regular jurisdiction registration import."""
     registration_date: NotRequired[Nullable[date]]
@@ -61,10 +60,16 @@ class RegistrationCreatePayloadTypedDict(TypedDict):
     registrations_regime: NotRequired[Nullable[RegistrationsRegimeEnum]]
     r"""The tax registration regime (e.g., STANDARD, SIMPLIFIED)."""
     change_regime_status: NotRequired[Nullable[ChangeRegimeStatusEnum]]
+    is_pre_collecting: NotRequired[bool]
+    r"""Set true to mark the organization as collecting tax in this jurisdiction ahead of registration details, instead of a normal import. Opens the registration in PROCESSING; filing frequency and credentials are not required."""
+    filing_frequency: NotRequired[Nullable[FilingFrequencyEnum]]
+    r"""Specifies how often tax filings should be made. Possible values: MONTHLY, QUARTERLY, ANNUALLY, UNKNOWN. Required unless isPreCollecting is set."""
     period_end_month: NotRequired[Nullable[int]]
-    r"""Fiscal-year anchor month (1-12) on which each quarterly/semiannual
-    period ends, for Hawaii (US-HI) filers whose periods are offset from the calendar.
-    Null (default) keeps the standard calendar grid.
+    r"""Fiscal-year anchor month (1-12) on which each recurring period
+    ends, for filers whose periods are offset from the calendar: Hawaii (US-HI)
+    quarterly/semiannual, British Columbia (CA-BC) quarterly, and California (US-CA)
+    and District of Columbia (US-DC) annual. Null (default) keeps the standard
+    calendar grid.
     """
     username: NotRequired[Nullable[str]]
     r"""Username for accessing tax registration details."""
@@ -107,8 +112,6 @@ class RegistrationCreatePayload(BaseModel):
     state_name: str
     r"""The name of the state/province."""
 
-    filing_frequency: FilingFrequencyEnum
-
     REGISTRATION_IMPORT_TYPE: Annotated[
         Annotated[
             Optional[Literal["REGULAR"]], AfterValidator(validate_const("REGULAR"))
@@ -146,10 +149,18 @@ class RegistrationCreatePayload(BaseModel):
 
     change_regime_status: OptionalNullable[ChangeRegimeStatusEnum] = UNSET
 
+    is_pre_collecting: Optional[bool] = False
+    r"""Set true to mark the organization as collecting tax in this jurisdiction ahead of registration details, instead of a normal import. Opens the registration in PROCESSING; filing frequency and credentials are not required."""
+
+    filing_frequency: OptionalNullable[FilingFrequencyEnum] = UNSET
+    r"""Specifies how often tax filings should be made. Possible values: MONTHLY, QUARTERLY, ANNUALLY, UNKNOWN. Required unless isPreCollecting is set."""
+
     period_end_month: OptionalNullable[int] = UNSET
-    r"""Fiscal-year anchor month (1-12) on which each quarterly/semiannual
-    period ends, for Hawaii (US-HI) filers whose periods are offset from the calendar.
-    Null (default) keeps the standard calendar grid.
+    r"""Fiscal-year anchor month (1-12) on which each recurring period
+    ends, for filers whose periods are offset from the calendar: Hawaii (US-HI)
+    quarterly/semiannual, British Columbia (CA-BC) quarterly, and California (US-CA)
+    and District of Columbia (US-DC) annual. Null (default) keeps the standard
+    calendar grid.
     """
 
     username: OptionalNullable[str] = UNSET
@@ -212,6 +223,8 @@ class RegistrationCreatePayload(BaseModel):
                 "do_not_file",
                 "registrations_regime",
                 "change_regime_status",
+                "is_pre_collecting",
+                "filing_frequency",
                 "period_end_month",
                 "username",
                 "comment",
@@ -241,6 +254,7 @@ class RegistrationCreatePayload(BaseModel):
                 "auto_registered",
                 "registrations_regime",
                 "change_regime_status",
+                "filing_frequency",
                 "period_end_month",
                 "username",
                 "comment",
