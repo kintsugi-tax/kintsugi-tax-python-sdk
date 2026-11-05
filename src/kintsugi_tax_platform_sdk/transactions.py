@@ -420,7 +420,10 @@ class Transactions(BaseSDK):
         marketplace: OptionalNullable[bool] = UNSET,
         exempt: OptionalNullable[models.TransactionExemptStatusEnum] = UNSET,
         exemptions: OptionalNullable[
-            Union[Iterable[models.Exemption], Iterable[models.ExemptionTypedDict]]
+            Union[
+                Iterable[models.TransactionEmbeddedExemption],
+                Iterable[models.TransactionEmbeddedExemptionTypedDict],
+            ]
         ] = UNSET,
         related_to: OptionalNullable[str] = UNSET,
         secondary_external_id: OptionalNullable[str] = UNSET,
@@ -463,6 +466,7 @@ class Transactions(BaseSDK):
                 models.TransactionPublicRequestTaxableAmountTypedDict,
             ]
         ] = None,
+        is_tax_inclusive: OptionalNullable[bool] = UNSET,
         currency: Optional[models.CurrencyEnum] = None,
         locked: Optional[bool] = False,
         source: Optional[models.SourceEnum] = None,
@@ -515,7 +519,8 @@ class Transactions(BaseSDK):
         :param total_tax_liability_amount: Total tax liability amount.
         :param tax_liability_source: Source of tax liability.
         :param taxable_amount: Taxable amount.
-        :param currency:
+        :param is_tax_inclusive: Whether source amounts include tax. NULL means the source did not say.
+        :param currency: ISO-4217 currency code. Pair with a monetary amount on the same object.
         :param locked: Transaction lock status.
         :param source:
         :param connection_id: Connection Identifier
@@ -562,7 +567,8 @@ class Transactions(BaseSDK):
                 marketplace=marketplace,
                 exempt=exempt,
                 exemptions=utils.get_pydantic_model(
-                    exemptions, OptionalNullable[List[models.Exemption]]
+                    exemptions,
+                    OptionalNullable[List[models.TransactionEmbeddedExemption]],
                 ),
                 related_to=related_to,
                 secondary_external_id=secondary_external_id,
@@ -575,6 +581,7 @@ class Transactions(BaseSDK):
                 total_tax_liability_amount=total_tax_liability_amount,
                 tax_liability_source=tax_liability_source,
                 taxable_amount=taxable_amount,
+                is_tax_inclusive=is_tax_inclusive,
                 currency=currency,
                 locked=locked,
                 source=source,
@@ -707,7 +714,10 @@ class Transactions(BaseSDK):
         marketplace: OptionalNullable[bool] = UNSET,
         exempt: OptionalNullable[models.TransactionExemptStatusEnum] = UNSET,
         exemptions: OptionalNullable[
-            Union[Iterable[models.Exemption], Iterable[models.ExemptionTypedDict]]
+            Union[
+                Iterable[models.TransactionEmbeddedExemption],
+                Iterable[models.TransactionEmbeddedExemptionTypedDict],
+            ]
         ] = UNSET,
         related_to: OptionalNullable[str] = UNSET,
         secondary_external_id: OptionalNullable[str] = UNSET,
@@ -750,6 +760,7 @@ class Transactions(BaseSDK):
                 models.TransactionPublicRequestTaxableAmountTypedDict,
             ]
         ] = None,
+        is_tax_inclusive: OptionalNullable[bool] = UNSET,
         currency: Optional[models.CurrencyEnum] = None,
         locked: Optional[bool] = False,
         source: Optional[models.SourceEnum] = None,
@@ -802,7 +813,8 @@ class Transactions(BaseSDK):
         :param total_tax_liability_amount: Total tax liability amount.
         :param tax_liability_source: Source of tax liability.
         :param taxable_amount: Taxable amount.
-        :param currency:
+        :param is_tax_inclusive: Whether source amounts include tax. NULL means the source did not say.
+        :param currency: ISO-4217 currency code. Pair with a monetary amount on the same object.
         :param locked: Transaction lock status.
         :param source:
         :param connection_id: Connection Identifier
@@ -849,7 +861,8 @@ class Transactions(BaseSDK):
                 marketplace=marketplace,
                 exempt=exempt,
                 exemptions=utils.get_pydantic_model(
-                    exemptions, OptionalNullable[List[models.Exemption]]
+                    exemptions,
+                    OptionalNullable[List[models.TransactionEmbeddedExemption]],
                 ),
                 related_to=related_to,
                 secondary_external_id=secondary_external_id,
@@ -862,6 +875,7 @@ class Transactions(BaseSDK):
                 total_tax_liability_amount=total_tax_liability_amount,
                 tax_liability_source=tax_liability_source,
                 taxable_amount=taxable_amount,
+                is_tax_inclusive=is_tax_inclusive,
                 currency=currency,
                 locked=locked,
                 source=source,
@@ -1620,7 +1634,7 @@ class Transactions(BaseSDK):
     ) -> models.TransactionRead:
         r"""Create credit note by transaction id
 
-        Create a new credit note for a specific transaction.
+        Create a new credit note for a specific transaction. Idempotent on ``(organization_id, connection_id, source, external_id)`` for the same parent: a re-POST returns ``200`` with the stored credit note unchanged. The same external id against a different parent still conflicts. Use PUT to update fields.
 
         :param original_transaction_id:
         :param x_organization_id: The unique identifier for the organization making the request
@@ -1628,7 +1642,7 @@ class Transactions(BaseSDK):
         :param date_: Date when the credit note was issued or created.
         :param status: Current state of the credit note in its lifecycle.
         :param total_amount: Total monetary value of the credit note, including all items and taxes.
-        :param currency:
+        :param currency: ISO-4217 currency code. Pair with a monetary amount on the same object.
         :param transaction_items: Detailed list of individual items included in this credit note.
         :param external_friendly_id: Human-readable identifier for the credit note, often used for display purposes.
         :param secondary_external_id: Secondary external identifier, reserved for marketplace/channel source ids (paired with secondary_source).
@@ -1726,7 +1740,7 @@ class Transactions(BaseSDK):
         )
 
         response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
+        if utils.match_response(http_res, "201", "application/json"):
             return unmarshal_json_response(models.TransactionRead, http_res)
         if utils.match_response(http_res, "422", "application/json"):
             response_data = unmarshal_json_response(
@@ -1794,7 +1808,7 @@ class Transactions(BaseSDK):
     ) -> models.TransactionRead:
         r"""Create credit note by transaction id
 
-        Create a new credit note for a specific transaction.
+        Create a new credit note for a specific transaction. Idempotent on ``(organization_id, connection_id, source, external_id)`` for the same parent: a re-POST returns ``200`` with the stored credit note unchanged. The same external id against a different parent still conflicts. Use PUT to update fields.
 
         :param original_transaction_id:
         :param x_organization_id: The unique identifier for the organization making the request
@@ -1802,7 +1816,7 @@ class Transactions(BaseSDK):
         :param date_: Date when the credit note was issued or created.
         :param status: Current state of the credit note in its lifecycle.
         :param total_amount: Total monetary value of the credit note, including all items and taxes.
-        :param currency:
+        :param currency: ISO-4217 currency code. Pair with a monetary amount on the same object.
         :param transaction_items: Detailed list of individual items included in this credit note.
         :param external_friendly_id: Human-readable identifier for the credit note, often used for display purposes.
         :param secondary_external_id: Secondary external identifier, reserved for marketplace/channel source ids (paired with secondary_source).
@@ -1900,7 +1914,7 @@ class Transactions(BaseSDK):
         )
 
         response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
+        if utils.match_response(http_res, "201", "application/json"):
             return unmarshal_json_response(models.TransactionRead, http_res)
         if utils.match_response(http_res, "422", "application/json"):
             response_data = unmarshal_json_response(
@@ -1978,7 +1992,7 @@ class Transactions(BaseSDK):
         :param date_: Date when the credit note was issued or created.
         :param status: Current state of the credit note in its lifecycle.
         :param total_amount: Total monetary value of the credit note, including all items and taxes.
-        :param currency:
+        :param currency: ISO-4217 currency code. Pair with a monetary amount on the same object.
         :param transaction_items: Detailed list of individual items included in this credit note.
         :param external_friendly_id: Human-readable identifier for the credit note, often used for display purposes.
         :param secondary_external_id: Secondary external identifier, reserved for marketplace/channel source ids (paired with secondary_source).
@@ -2155,7 +2169,7 @@ class Transactions(BaseSDK):
         :param date_: Date when the credit note was issued or created.
         :param status: Current state of the credit note in its lifecycle.
         :param total_amount: Total monetary value of the credit note, including all items and taxes.
-        :param currency:
+        :param currency: ISO-4217 currency code. Pair with a monetary amount on the same object.
         :param transaction_items: Detailed list of individual items included in this credit note.
         :param external_friendly_id: Human-readable identifier for the credit note, often used for display purposes.
         :param secondary_external_id: Secondary external identifier, reserved for marketplace/channel source ids (paired with secondary_source).
@@ -2510,7 +2524,10 @@ class Transactions(BaseSDK):
         marketplace: OptionalNullable[bool] = UNSET,
         exempt: OptionalNullable[models.TransactionExemptStatusEnum] = UNSET,
         exemptions: OptionalNullable[
-            Union[Iterable[models.Exemption], Iterable[models.ExemptionTypedDict]]
+            Union[
+                Iterable[models.TransactionEmbeddedExemption],
+                Iterable[models.TransactionEmbeddedExemptionTypedDict],
+            ]
         ] = UNSET,
         related_to: OptionalNullable[str] = UNSET,
         secondary_external_id: OptionalNullable[str] = UNSET,
@@ -2553,6 +2570,7 @@ class Transactions(BaseSDK):
                 models.TransactionUpdateTaxableAmountTypedDict,
             ]
         ] = None,
+        is_tax_inclusive: OptionalNullable[bool] = UNSET,
         currency: Optional[models.CurrencyEnum] = None,
         locked: Optional[bool] = False,
         source: Optional[models.SourceEnum] = None,
@@ -2605,7 +2623,8 @@ class Transactions(BaseSDK):
         :param total_tax_liability_amount: Total tax liability amount.
         :param tax_liability_source: Source of tax liability.
         :param taxable_amount: Taxable amount.
-        :param currency:
+        :param is_tax_inclusive: Whether source amounts include tax. NULL means the source did not say.
+        :param currency: ISO-4217 currency code. Pair with a monetary amount on the same object.
         :param locked: Transaction lock status.
         :param source:
         :param connection_id: Connection Identifier
@@ -2653,7 +2672,8 @@ class Transactions(BaseSDK):
                 marketplace=marketplace,
                 exempt=exempt,
                 exemptions=utils.get_pydantic_model(
-                    exemptions, OptionalNullable[List[models.Exemption]]
+                    exemptions,
+                    OptionalNullable[List[models.TransactionEmbeddedExemption]],
                 ),
                 related_to=related_to,
                 secondary_external_id=secondary_external_id,
@@ -2666,6 +2686,7 @@ class Transactions(BaseSDK):
                 total_tax_liability_amount=total_tax_liability_amount,
                 tax_liability_source=tax_liability_source,
                 taxable_amount=taxable_amount,
+                is_tax_inclusive=is_tax_inclusive,
                 currency=currency,
                 locked=locked,
                 source=source,
@@ -2788,7 +2809,10 @@ class Transactions(BaseSDK):
         marketplace: OptionalNullable[bool] = UNSET,
         exempt: OptionalNullable[models.TransactionExemptStatusEnum] = UNSET,
         exemptions: OptionalNullable[
-            Union[Iterable[models.Exemption], Iterable[models.ExemptionTypedDict]]
+            Union[
+                Iterable[models.TransactionEmbeddedExemption],
+                Iterable[models.TransactionEmbeddedExemptionTypedDict],
+            ]
         ] = UNSET,
         related_to: OptionalNullable[str] = UNSET,
         secondary_external_id: OptionalNullable[str] = UNSET,
@@ -2831,6 +2855,7 @@ class Transactions(BaseSDK):
                 models.TransactionUpdateTaxableAmountTypedDict,
             ]
         ] = None,
+        is_tax_inclusive: OptionalNullable[bool] = UNSET,
         currency: Optional[models.CurrencyEnum] = None,
         locked: Optional[bool] = False,
         source: Optional[models.SourceEnum] = None,
@@ -2883,7 +2908,8 @@ class Transactions(BaseSDK):
         :param total_tax_liability_amount: Total tax liability amount.
         :param tax_liability_source: Source of tax liability.
         :param taxable_amount: Taxable amount.
-        :param currency:
+        :param is_tax_inclusive: Whether source amounts include tax. NULL means the source did not say.
+        :param currency: ISO-4217 currency code. Pair with a monetary amount on the same object.
         :param locked: Transaction lock status.
         :param source:
         :param connection_id: Connection Identifier
@@ -2931,7 +2957,8 @@ class Transactions(BaseSDK):
                 marketplace=marketplace,
                 exempt=exempt,
                 exemptions=utils.get_pydantic_model(
-                    exemptions, OptionalNullable[List[models.Exemption]]
+                    exemptions,
+                    OptionalNullable[List[models.TransactionEmbeddedExemption]],
                 ),
                 related_to=related_to,
                 secondary_external_id=secondary_external_id,
@@ -2944,6 +2971,7 @@ class Transactions(BaseSDK):
                 total_tax_liability_amount=total_tax_liability_amount,
                 tax_liability_source=tax_liability_source,
                 taxable_amount=taxable_amount,
+                is_tax_inclusive=is_tax_inclusive,
                 currency=currency,
                 locked=locked,
                 source=source,
