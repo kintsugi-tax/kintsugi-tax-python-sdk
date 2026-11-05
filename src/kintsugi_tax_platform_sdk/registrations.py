@@ -1138,6 +1138,7 @@ class Registrations(BaseSDK):
         do_not_file: Optional[bool] = False,
         two_factor_enabled: OptionalNullable[bool] = UNSET,
         marked_collecting: OptionalNullable[bool] = UNSET,
+        is_pre_collecting: Optional[bool] = False,
         encrypted_username: OptionalNullable[str] = UNSET,
         username: OptionalNullable[str] = UNSET,
         filing_frequency: OptionalNullable[models.FilingFrequencyEnum] = UNSET,
@@ -1173,6 +1174,7 @@ class Registrations(BaseSDK):
         :param do_not_file: If true, do not file for this registration (treated as False by default).
         :param two_factor_enabled: Indicates whether two-factor authentication (2FA) is enabled for this registration.
         :param marked_collecting: Indicates whether the  registration is marked as collecting in shopify
+        :param is_pre_collecting: True when this PROCESSING registration marks the organization as collecting tax in the jurisdiction ahead of registration details. It skips the Tax Ops registration task until the flag is cleared.
         :param encrypted_username: The encrypted username for the registration.
         :param username: The username associated with the registration.
         :param filing_frequency: The updated filing frequency (MONTHLY, QUARTERLY, etc.).
@@ -1215,6 +1217,7 @@ class Registrations(BaseSDK):
                 do_not_file=do_not_file,
                 two_factor_enabled=two_factor_enabled,
                 marked_collecting=marked_collecting,
+                is_pre_collecting=is_pre_collecting,
                 encrypted_username=encrypted_username,
                 username=username,
                 filing_frequency=filing_frequency,
@@ -1319,6 +1322,7 @@ class Registrations(BaseSDK):
         do_not_file: Optional[bool] = False,
         two_factor_enabled: OptionalNullable[bool] = UNSET,
         marked_collecting: OptionalNullable[bool] = UNSET,
+        is_pre_collecting: Optional[bool] = False,
         encrypted_username: OptionalNullable[str] = UNSET,
         username: OptionalNullable[str] = UNSET,
         filing_frequency: OptionalNullable[models.FilingFrequencyEnum] = UNSET,
@@ -1354,6 +1358,7 @@ class Registrations(BaseSDK):
         :param do_not_file: If true, do not file for this registration (treated as False by default).
         :param two_factor_enabled: Indicates whether two-factor authentication (2FA) is enabled for this registration.
         :param marked_collecting: Indicates whether the  registration is marked as collecting in shopify
+        :param is_pre_collecting: True when this PROCESSING registration marks the organization as collecting tax in the jurisdiction ahead of registration details. It skips the Tax Ops registration task until the flag is cleared.
         :param encrypted_username: The encrypted username for the registration.
         :param username: The username associated with the registration.
         :param filing_frequency: The updated filing frequency (MONTHLY, QUARTERLY, etc.).
@@ -1396,6 +1401,7 @@ class Registrations(BaseSDK):
                 do_not_file=do_not_file,
                 two_factor_enabled=two_factor_enabled,
                 marked_collecting=marked_collecting,
+                is_pre_collecting=is_pre_collecting,
                 encrypted_username=encrypted_username,
                 username=username,
                 filing_frequency=filing_frequency,
@@ -1697,6 +1703,8 @@ class Registrations(BaseSDK):
         *,
         registration_id: str,
         x_organization_id: Nullable[str],
+        closure_date: date,
+        reason: models.DeregistrationReasonEnum,
         request_id: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1709,7 +1717,9 @@ class Registrations(BaseSDK):
 
         :param registration_id: The unique identifier of the registration to deregister.
         :param x_organization_id: The unique identifier for the organization making the request
-        :param request_id:
+        :param closure_date: Effective date the permit closes with the jurisdiction (YYYY-MM-DD). Past and future dates are accepted.
+        :param reason: Reason a registration is being closed.
+        :param request_id: Optional client-minted id for this confirm attempt.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1729,6 +1739,8 @@ class Registrations(BaseSDK):
             registration_id=registration_id,
             x_organization_id=x_organization_id,
             deregister_registration_request=models.DeregisterRegistrationRequest(
+                closure_date=closure_date,
+                reason=reason,
                 request_id=request_id,
             ),
         )
@@ -1739,7 +1751,7 @@ class Registrations(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -1747,13 +1759,11 @@ class Registrations(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.deregister_registration_request
-                if request is not None
-                else None,
-                True,
-                True,
+                request.deregister_registration_request,
+                False,
+                False,
                 "json",
-                OptionalNullable[models.DeregisterRegistrationRequest],
+                models.DeregisterRegistrationRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1813,6 +1823,8 @@ class Registrations(BaseSDK):
         *,
         registration_id: str,
         x_organization_id: Nullable[str],
+        closure_date: date,
+        reason: models.DeregistrationReasonEnum,
         request_id: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1825,7 +1837,9 @@ class Registrations(BaseSDK):
 
         :param registration_id: The unique identifier of the registration to deregister.
         :param x_organization_id: The unique identifier for the organization making the request
-        :param request_id:
+        :param closure_date: Effective date the permit closes with the jurisdiction (YYYY-MM-DD). Past and future dates are accepted.
+        :param reason: Reason a registration is being closed.
+        :param request_id: Optional client-minted id for this confirm attempt.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1845,6 +1859,8 @@ class Registrations(BaseSDK):
             registration_id=registration_id,
             x_organization_id=x_organization_id,
             deregister_registration_request=models.DeregisterRegistrationRequest(
+                closure_date=closure_date,
+                reason=reason,
                 request_id=request_id,
             ),
         )
@@ -1855,7 +1871,7 @@ class Registrations(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -1863,13 +1879,11 @@ class Registrations(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.deregister_registration_request
-                if request is not None
-                else None,
-                True,
-                True,
+                request.deregister_registration_request,
+                False,
+                False,
                 "json",
-                OptionalNullable[models.DeregisterRegistrationRequest],
+                models.DeregisterRegistrationRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
