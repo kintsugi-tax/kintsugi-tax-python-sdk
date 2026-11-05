@@ -107,9 +107,13 @@ class FilingDetailsReadTypedDict(TypedDict):
     amount_use_tax: NotRequired[str]
     r"""Gross tax the buyer owes on purchases. US use tax, or EU/UK reverse-charge self-assessed VAT. Not net of recoverable VAT. Defaults to 0.00."""
     amount_input_vat_recoverable: NotRequired[str]
-    r"""Input VAT recovered on this filing's purchases. Subtracted from liability; always 0.00 outside EU/UK VAT AP filings."""
+    r"""Input VAT this filing actually claimed. Subtracted from liability; always 0.00 outside EU/UK VAT filings."""
     amount_input_vat_true_up: NotRequired[str]
     r"""Prior-year input VAT pro-rata true-up on this filing. Positive claims more, negative repays. Always 0.00 until posted."""
+    amount_input_vat_recoverable_base: NotRequired[str]
+    r"""Input VAT this filing would have claimed at a 100% rate. Always 0.00 outside EU/UK VAT filings."""
+    input_vat_recovery_rate_applied: NotRequired[Nullable[str]]
+    r"""Rate actually used on this filing's reclaim. Null when this filing is not EU/UK VAT."""
     amount_sales: NotRequired[str]
     r"""Total sales amount during the filing period."""
     total_taxable_sales: NotRequired[Nullable[str]]
@@ -283,10 +287,16 @@ class FilingDetailsRead(BaseModel):
     r"""Gross tax the buyer owes on purchases. US use tax, or EU/UK reverse-charge self-assessed VAT. Not net of recoverable VAT. Defaults to 0.00."""
 
     amount_input_vat_recoverable: Optional[str] = "0.00"
-    r"""Input VAT recovered on this filing's purchases. Subtracted from liability; always 0.00 outside EU/UK VAT AP filings."""
+    r"""Input VAT this filing actually claimed. Subtracted from liability; always 0.00 outside EU/UK VAT filings."""
 
     amount_input_vat_true_up: Optional[str] = "0.00"
     r"""Prior-year input VAT pro-rata true-up on this filing. Positive claims more, negative repays. Always 0.00 until posted."""
+
+    amount_input_vat_recoverable_base: Optional[str] = "0.00"
+    r"""Input VAT this filing would have claimed at a 100% rate. Always 0.00 outside EU/UK VAT filings."""
+
+    input_vat_recovery_rate_applied: OptionalNullable[str] = UNSET
+    r"""Rate actually used on this filing's reclaim. Null when this filing is not EU/UK VAT."""
 
     amount_sales: Optional[str] = "0.00"
     r"""Total sales amount during the filing period."""
@@ -403,6 +413,8 @@ class FilingDetailsRead(BaseModel):
                 "amount_use_tax",
                 "amount_input_vat_recoverable",
                 "amount_input_vat_true_up",
+                "amount_input_vat_recoverable_base",
+                "input_vat_recovery_rate_applied",
                 "amount_sales",
                 "total_taxable_sales",
                 "amount",
@@ -448,6 +460,7 @@ class FilingDetailsRead(BaseModel):
                 "issue_reason",
                 "skip_reason",
                 "cancelled_reason",
+                "input_vat_recovery_rate_applied",
                 "total_taxable_sales",
                 "estimated_line_count",
                 "internal_notes",
