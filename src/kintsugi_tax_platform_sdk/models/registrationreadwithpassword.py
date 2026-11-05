@@ -3,6 +3,7 @@
 from __future__ import annotations
 from .changeregimestatusenum import ChangeRegimeStatusEnum
 from .countrycodeenum import CountryCodeEnum
+from .deregistrationreasonenum import DeregistrationReasonEnum
 from .filingfrequencyenum import FilingFrequencyEnum
 from .osstypeenum import OssTypeEnum
 from .registrationcategoryenum import RegistrationCategoryEnum
@@ -130,9 +131,9 @@ class RegistrationReadWithPasswordTypedDict(TypedDict):
 
     Registrations and filings may be SALES_AND_USE_TAX: one state account and
     one return can cover both taxes, and each is stored as a single row.
-    Nexus rows are only SALES_TAX or USE_TAX. Sales and use tax exposure are
-    separate obligations with their own met dates, period models, and liability
-    accrual.
+    Nexus rows are SALES_TAX, USE_TAX, or RETAIL_DELIVERY_FEE. Sales tax, use
+    tax, and the retail delivery fee are separate obligations with their own
+    met dates, period models, and liability accrual.
     """
     marked_collecting_date: NotRequired[Nullable[datetime]]
     r"""The date when the registration was marked as collecting."""
@@ -144,6 +145,12 @@ class RegistrationReadWithPasswordTypedDict(TypedDict):
     registration_category: NotRequired[RegistrationCategoryEnum]
     jurisdiction_specific_fields: NotRequired[Nullable[Dict[str, Any]]]
     r"""Jurisdiction-specific registration fields."""
+    deregistration_closure_date: NotRequired[Nullable[date]]
+    r"""Effective date the registration closes with the jurisdiction."""
+    deregistration_reason: NotRequired[Nullable[DeregistrationReasonEnum]]
+    r"""Reason the registration is being closed."""
+    deregistration_acknowledged_at: NotRequired[Nullable[datetime]]
+    r"""When final-return acknowledgement was recorded."""
     password_encrypted: NotRequired[Nullable[str]]
     r"""Encrypted password for accessing the registration,
     if applicable.
@@ -306,9 +313,9 @@ class RegistrationReadWithPassword(BaseModel):
 
     Registrations and filings may be SALES_AND_USE_TAX: one state account and
     one return can cover both taxes, and each is stored as a single row.
-    Nexus rows are only SALES_TAX or USE_TAX. Sales and use tax exposure are
-    separate obligations with their own met dates, period models, and liability
-    accrual.
+    Nexus rows are SALES_TAX, USE_TAX, or RETAIL_DELIVERY_FEE. Sales tax, use
+    tax, and the retail delivery fee are separate obligations with their own
+    met dates, period models, and liability accrual.
     """
 
     marked_collecting_date: OptionalNullable[datetime] = UNSET
@@ -326,6 +333,15 @@ class RegistrationReadWithPassword(BaseModel):
 
     jurisdiction_specific_fields: OptionalNullable[Dict[str, Any]] = UNSET
     r"""Jurisdiction-specific registration fields."""
+
+    deregistration_closure_date: OptionalNullable[date] = UNSET
+    r"""Effective date the registration closes with the jurisdiction."""
+
+    deregistration_reason: OptionalNullable[DeregistrationReasonEnum] = UNSET
+    r"""Reason the registration is being closed."""
+
+    deregistration_acknowledged_at: OptionalNullable[datetime] = UNSET
+    r"""When final-return acknowledgement was recorded."""
 
     password_encrypted: OptionalNullable[str] = UNSET
     r"""Encrypted password for accessing the registration,
@@ -385,6 +401,9 @@ class RegistrationReadWithPassword(BaseModel):
                 "credits_total_available",
                 "registration_category",
                 "jurisdiction_specific_fields",
+                "deregistration_closure_date",
+                "deregistration_reason",
+                "deregistration_acknowledged_at",
                 "password_encrypted",
                 "pin_encrypted",
                 "has_all_credentials",
@@ -425,6 +444,9 @@ class RegistrationReadWithPassword(BaseModel):
                 "needs_mark_as_collecting",
                 "created_at",
                 "jurisdiction_specific_fields",
+                "deregistration_closure_date",
+                "deregistration_reason",
+                "deregistration_acknowledged_at",
                 "password_encrypted",
                 "pin_encrypted",
                 "filing_website_url",
