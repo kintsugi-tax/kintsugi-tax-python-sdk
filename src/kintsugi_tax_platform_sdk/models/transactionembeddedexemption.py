@@ -19,7 +19,19 @@ from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class ExemptionTypedDict(TypedDict):
+class TransactionEmbeddedExemptionTypedDict(TypedDict):
+    r"""Public read schema mirroring the ORM ``Exemption`` for /v1 transaction embedding.
+
+    A non-table twin of ``exemptions.models.Exemption``: it re-declares the exact fields
+    the ORM adds on top of ``ExemptionBase``/``TableBase`` (id, organization_id,
+    certificate_import_id, source, certificate_type) so
+    ``TransactionSerializerBase.exemptions`` can be
+    typed without importing the private ORM model (CP-4895). Its serialized shape is
+    byte-identical to the ORM's — ``from_attributes`` reads the same attributes off each
+    ORM row — so the /v1 response payload is unchanged. Keep it in lockstep with
+    ``Exemption`` if the ORM's public columns change (a JSON-schema parity test guards it).
+    """
+
     exemption_type: ExemptionType
     start_date: date
     r"""Start date for the exemption validity period (YYYY-MM-DD format)"""
@@ -58,9 +70,23 @@ class ExemptionTypedDict(TypedDict):
     r"""FK to bulk-imported certificate; NULL for manually-created exemptions"""
     source: NotRequired[Nullable[ExemptionSourceEnum]]
     r"""Source of exemption."""
+    certificate_type: NotRequired[Nullable[str]]
+    r"""Partial-exemption certificate form code. Null when the exemption is not a partial exemption."""
 
 
-class Exemption(BaseModel):
+class TransactionEmbeddedExemption(BaseModel):
+    r"""Public read schema mirroring the ORM ``Exemption`` for /v1 transaction embedding.
+
+    A non-table twin of ``exemptions.models.Exemption``: it re-declares the exact fields
+    the ORM adds on top of ``ExemptionBase``/``TableBase`` (id, organization_id,
+    certificate_import_id, source, certificate_type) so
+    ``TransactionSerializerBase.exemptions`` can be
+    typed without importing the private ORM model (CP-4895). Its serialized shape is
+    byte-identical to the ORM's — ``from_attributes`` reads the same attributes off each
+    ORM row — so the /v1 response payload is unchanged. Keep it in lockstep with
+    ``Exemption`` if the ORM's public columns change (a JSON-schema parity test guards it).
+    """
+
     exemption_type: ExemptionType
 
     start_date: date
@@ -116,6 +142,9 @@ class Exemption(BaseModel):
     source: OptionalNullable[ExemptionSourceEnum] = UNSET
     r"""Source of exemption."""
 
+    certificate_type: OptionalNullable[str] = UNSET
+    r"""Partial-exemption certificate form code. Null when the exemption is not a partial exemption."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -135,6 +164,7 @@ class Exemption(BaseModel):
                 "organization_id",
                 "certificate_import_id",
                 "source",
+                "certificate_type",
             ]
         )
         nullable_fields = set(
@@ -150,6 +180,7 @@ class Exemption(BaseModel):
                 "status",
                 "certificate_import_id",
                 "source",
+                "certificate_type",
             ]
         )
         serialized = handler(self)
@@ -175,6 +206,6 @@ class Exemption(BaseModel):
 
 
 try:
-    Exemption.model_rebuild()
+    TransactionEmbeddedExemption.model_rebuild()
 except NameError:
     pass

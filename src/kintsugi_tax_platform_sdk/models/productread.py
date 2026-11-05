@@ -29,10 +29,7 @@ class ProductReadTypedDict(TypedDict):
     retrieve supported categories from [GET /products/categories endpoint](/reference/api/products/get-product-categories)
     """
     product_subcategory: str
-    r"""Subcategory of the product.
-    For example, General Clothing, UNKNOWN, etc. You can
-    retrieve supported subcategories from [GET /products/categories endpoint](/reference/api/products/get-product-categories)
-    """
+    r"""Tax subcategory display label of the product (e.g. 'General Clothing'). List supported values from [GET /products/categories](/reference/api/products/get-product-categories)."""
     tax_exempt: bool
     source: SourceEnum
     connection_id: Nullable[str]
@@ -68,10 +65,7 @@ class ProductRead(BaseModel):
     """
 
     product_subcategory: str
-    r"""Subcategory of the product.
-    For example, General Clothing, UNKNOWN, etc. You can
-    retrieve supported subcategories from [GET /products/categories endpoint](/reference/api/products/get-product-categories)
-    """
+    r"""Tax subcategory display label of the product (e.g. 'General Clothing'). List supported values from [GET /products/categories](/reference/api/products/get-product-categories)."""
 
     tax_exempt: bool
 
