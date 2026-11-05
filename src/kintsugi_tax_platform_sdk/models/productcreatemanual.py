@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 from .productstatusenum import ProductStatusEnum
-from .productsubcategoryenum import ProductSubCategoryEnum
 from .publicproductcategoryenum import PublicProductCategoryEnum
 from .sourceenum import SourceEnum
 from kintsugi_tax_platform_sdk.types import (
@@ -13,20 +12,8 @@ from kintsugi_tax_platform_sdk.types import (
     UNSET_SENTINEL,
 )
 from pydantic import model_serializer
-from typing import Optional, Union
-from typing_extensions import NotRequired, TypeAliasType, TypedDict
-
-
-ProductSubcategoryUnionTypedDict = TypeAliasType(
-    "ProductSubcategoryUnionTypedDict", Union[ProductSubCategoryEnum, str]
-)
-r"""The subcategory of the product."""
-
-
-ProductSubcategoryUnion = TypeAliasType(
-    "ProductSubcategoryUnion", Union[ProductSubCategoryEnum, str]
-)
-r"""The subcategory of the product."""
+from typing import Optional
+from typing_extensions import NotRequired, TypedDict
 
 
 class ProductCreateManualTypedDict(TypedDict):
@@ -36,8 +23,8 @@ class ProductCreateManualTypedDict(TypedDict):
     r"""The name of the product."""
     product_category: PublicProductCategoryEnum
     r"""Top-level tax category for a product."""
-    product_subcategory: ProductSubcategoryUnionTypedDict
-    r"""The subcategory of the product."""
+    product_subcategory: str
+    r"""Tax subcategory display label within the category (e.g. 'General Clothing'). Together with product_category it resolves to a product tax code; an unrecognized pair on a new product returns 400. List supported values from [GET /products/categories](/reference/api/products/get-product-categories)."""
     tax_exempt: bool
     r"""Specifies whether the product is tax-exempt."""
     description: NotRequired[Nullable[str]]
@@ -56,8 +43,8 @@ class ProductCreateManual(BaseModel):
     product_category: PublicProductCategoryEnum
     r"""Top-level tax category for a product."""
 
-    product_subcategory: ProductSubcategoryUnion
-    r"""The subcategory of the product."""
+    product_subcategory: str
+    r"""Tax subcategory display label within the category (e.g. 'General Clothing'). Together with product_category it resolves to a product tax code; an unrecognized pair on a new product returns 400. List supported values from [GET /products/categories](/reference/api/products/get-product-categories)."""
 
     tax_exempt: bool
     r"""Specifies whether the product is tax-exempt."""
