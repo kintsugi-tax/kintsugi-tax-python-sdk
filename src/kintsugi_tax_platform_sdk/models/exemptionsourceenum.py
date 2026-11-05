@@ -27,6 +27,8 @@ class ExemptionSourceEnum(str, Enum):
     SHOPLINE = "SHOPLINE"
     ORB = "ORB"
     ZENSKAR = "ZENSKAR"
+    HYPERLINE = "HYPERLINE"
+    ODOO = "ODOO"
     MANUAL = "MANUAL"
     BULK_UPLOAD = "BULK_UPLOAD"
     EMAIL = "EMAIL"
