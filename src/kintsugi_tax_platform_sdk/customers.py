@@ -1553,7 +1553,10 @@ class Customers(BaseSDK):
         marketplace: OptionalNullable[bool] = UNSET,
         exempt: OptionalNullable[models.TransactionExemptStatusEnum] = UNSET,
         exemptions: OptionalNullable[
-            Union[Iterable[models.Exemption], Iterable[models.ExemptionTypedDict]]
+            Union[
+                Iterable[models.TransactionEmbeddedExemption],
+                Iterable[models.TransactionEmbeddedExemptionTypedDict],
+            ]
         ] = UNSET,
         related_to: OptionalNullable[str] = UNSET,
         secondary_external_id: OptionalNullable[str] = UNSET,
@@ -1596,6 +1599,7 @@ class Customers(BaseSDK):
                 models.TransactionCreateTaxableAmountTypedDict,
             ]
         ] = None,
+        is_tax_inclusive: OptionalNullable[bool] = UNSET,
         currency: Optional[models.CurrencyEnum] = None,
         locked: Optional[bool] = False,
         source: Optional[models.SourceEnum] = None,
@@ -1696,7 +1700,8 @@ class Customers(BaseSDK):
         :param total_tax_liability_amount: Total tax liability amount.
         :param tax_liability_source: Source of tax liability.
         :param taxable_amount: Taxable amount.
-        :param currency:
+        :param is_tax_inclusive: Whether source amounts include tax. NULL means the source did not say.
+        :param currency: ISO-4217 currency code. Pair with a monetary amount on the same object.
         :param locked: Transaction lock status.
         :param source:
         :param connection_id: Connection Identifier
@@ -1758,7 +1763,8 @@ class Customers(BaseSDK):
                 marketplace=marketplace,
                 exempt=exempt,
                 exemptions=utils.get_pydantic_model(
-                    exemptions, OptionalNullable[List[models.Exemption]]
+                    exemptions,
+                    OptionalNullable[List[models.TransactionEmbeddedExemption]],
                 ),
                 related_to=related_to,
                 secondary_external_id=secondary_external_id,
@@ -1771,6 +1777,7 @@ class Customers(BaseSDK):
                 total_tax_liability_amount=total_tax_liability_amount,
                 tax_liability_source=tax_liability_source,
                 taxable_amount=taxable_amount,
+                is_tax_inclusive=is_tax_inclusive,
                 currency=currency,
                 locked=locked,
                 source=source,
@@ -1906,7 +1913,10 @@ class Customers(BaseSDK):
         marketplace: OptionalNullable[bool] = UNSET,
         exempt: OptionalNullable[models.TransactionExemptStatusEnum] = UNSET,
         exemptions: OptionalNullable[
-            Union[Iterable[models.Exemption], Iterable[models.ExemptionTypedDict]]
+            Union[
+                Iterable[models.TransactionEmbeddedExemption],
+                Iterable[models.TransactionEmbeddedExemptionTypedDict],
+            ]
         ] = UNSET,
         related_to: OptionalNullable[str] = UNSET,
         secondary_external_id: OptionalNullable[str] = UNSET,
@@ -1949,6 +1959,7 @@ class Customers(BaseSDK):
                 models.TransactionCreateTaxableAmountTypedDict,
             ]
         ] = None,
+        is_tax_inclusive: OptionalNullable[bool] = UNSET,
         currency: Optional[models.CurrencyEnum] = None,
         locked: Optional[bool] = False,
         source: Optional[models.SourceEnum] = None,
@@ -2049,7 +2060,8 @@ class Customers(BaseSDK):
         :param total_tax_liability_amount: Total tax liability amount.
         :param tax_liability_source: Source of tax liability.
         :param taxable_amount: Taxable amount.
-        :param currency:
+        :param is_tax_inclusive: Whether source amounts include tax. NULL means the source did not say.
+        :param currency: ISO-4217 currency code. Pair with a monetary amount on the same object.
         :param locked: Transaction lock status.
         :param source:
         :param connection_id: Connection Identifier
@@ -2111,7 +2123,8 @@ class Customers(BaseSDK):
                 marketplace=marketplace,
                 exempt=exempt,
                 exemptions=utils.get_pydantic_model(
-                    exemptions, OptionalNullable[List[models.Exemption]]
+                    exemptions,
+                    OptionalNullable[List[models.TransactionEmbeddedExemption]],
                 ),
                 related_to=related_to,
                 secondary_external_id=secondary_external_id,
@@ -2124,6 +2137,7 @@ class Customers(BaseSDK):
                 total_tax_liability_amount=total_tax_liability_amount,
                 tax_liability_source=tax_liability_source,
                 taxable_amount=taxable_amount,
+                is_tax_inclusive=is_tax_inclusive,
                 currency=currency,
                 locked=locked,
                 source=source,
