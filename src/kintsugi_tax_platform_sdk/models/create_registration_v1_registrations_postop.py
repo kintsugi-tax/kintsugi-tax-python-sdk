@@ -17,10 +17,6 @@ from .californiaregistrationpayload import (
     CaliforniaRegistrationPayload,
     CaliforniaRegistrationPayloadTypedDict,
 )
-from .coloradoregistrationpayload import (
-    ColoradoRegistrationPayload,
-    ColoradoRegistrationPayloadTypedDict,
-)
 from .connecticutregistrationpayload import (
     ConnecticutRegistrationPayload,
     ConnecticutRegistrationPayloadTypedDict,
@@ -197,7 +193,13 @@ from .wyomingregistrationpayload import (
     WyomingRegistrationPayload,
     WyomingRegistrationPayloadTypedDict,
 )
-from kintsugi_tax_platform_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
+from kintsugi_tax_platform_sdk.types import (
+    BaseModel,
+    Nullable,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
 from kintsugi_tax_platform_sdk.utils import (
     FieldMetadata,
     HeaderMetadata,
@@ -214,10 +216,9 @@ CreateRegistrationTypedDict = TypeAliasType(
     Union[
         SSTRegistrationCreatePayloadTypedDict,
         OSSRegistrationCreatePayloadTypedDict,
-        WestVirginiaRegistrationPayloadTypedDict,
-        MassachusettsRegistrationPayloadTypedDict,
+        WisconsinRegistrationPayloadTypedDict,
+        TennesseeRegistrationPayloadTypedDict,
         ConnecticutRegistrationPayloadTypedDict,
-        NorthCarolinaRegistrationPayloadTypedDict,
         DistrictOfColumbiaRegistrationPayloadTypedDict,
         GeorgiaRegistrationPayloadTypedDict,
         HawaiiRegistrationPayloadTypedDict,
@@ -226,26 +227,26 @@ CreateRegistrationTypedDict = TypeAliasType(
         IndianaRegistrationPayloadTypedDict,
         IowaRegistrationPayloadTypedDict,
         KansasRegistrationPayloadTypedDict,
-        WisconsinRegistrationPayloadTypedDict,
+        MassachusettsRegistrationPayloadTypedDict,
         MississippiRegistrationPayloadTypedDict,
         MichiganRegistrationPayloadTypedDict,
         MissouriRegistrationPayloadTypedDict,
-        TennesseeRegistrationPayloadTypedDict,
+        MaineRegistrationPayloadTypedDict,
         TexasRegistrationPayloadTypedDict,
-        FloridaRegistrationPayloadTypedDict,
+        NorthCarolinaRegistrationPayloadTypedDict,
         VermontRegistrationPayloadTypedDict,
         VirginiaRegistrationPayloadTypedDict,
         WashingtonRegistrationPayloadTypedDict,
+        WestVirginiaRegistrationPayloadTypedDict,
         CaliforniaRegistrationPayloadTypedDict,
         AlabamaRegistrationPayloadTypedDict,
-        SouthDakotaRegistrationPayloadTypedDict,
-        MinnesotaRegistrationPayloadTypedDict,
+        LouisianaRegistrationPayloadTypedDict,
         RegistrationCreatePayloadTypedDict,
         ArkansasRegistrationPayloadTypedDict,
-        RhodeIslandRegistrationPayloadTypedDict,
+        FloridaRegistrationPayloadTypedDict,
         KentuckyRegistrationPayloadTypedDict,
         MarylandRegistrationPayloadTypedDict,
-        MaineRegistrationPayloadTypedDict,
+        SouthDakotaRegistrationPayloadTypedDict,
         NevadaRegistrationPayloadTypedDict,
         NewJerseyRegistrationPayloadTypedDict,
         NewMexicoRegistrationPayloadTypedDict,
@@ -253,13 +254,13 @@ CreateRegistrationTypedDict = TypeAliasType(
         NorthDakotaRegistrationPayloadTypedDict,
         SouthCarolinaRegistrationPayloadTypedDict,
         OklahomaRegistrationPayloadTypedDict,
-        LouisianaRegistrationPayloadTypedDict,
+        MinnesotaRegistrationPayloadTypedDict,
         OhioRegistrationPayloadTypedDict,
         PennsylvaniaRegistrationPayloadTypedDict,
-        ArizonaRegistrationPayloadTypedDict,
+        RhodeIslandRegistrationPayloadTypedDict,
         NebraskaRegistrationPayloadTypedDict,
+        ArizonaRegistrationPayloadTypedDict,
         UtahRegistrationPayloadTypedDict,
-        ColoradoRegistrationPayloadTypedDict,
         WyomingRegistrationPayloadTypedDict,
     ],
 )
@@ -270,10 +271,9 @@ CreateRegistration = TypeAliasType(
     Union[
         SSTRegistrationCreatePayload,
         OSSRegistrationCreatePayload,
-        WestVirginiaRegistrationPayload,
-        MassachusettsRegistrationPayload,
+        WisconsinRegistrationPayload,
+        TennesseeRegistrationPayload,
         ConnecticutRegistrationPayload,
-        NorthCarolinaRegistrationPayload,
         DistrictOfColumbiaRegistrationPayload,
         GeorgiaRegistrationPayload,
         HawaiiRegistrationPayload,
@@ -282,26 +282,26 @@ CreateRegistration = TypeAliasType(
         IndianaRegistrationPayload,
         IowaRegistrationPayload,
         KansasRegistrationPayload,
-        WisconsinRegistrationPayload,
+        MassachusettsRegistrationPayload,
         MississippiRegistrationPayload,
         MichiganRegistrationPayload,
         MissouriRegistrationPayload,
-        TennesseeRegistrationPayload,
+        MaineRegistrationPayload,
         TexasRegistrationPayload,
-        FloridaRegistrationPayload,
+        NorthCarolinaRegistrationPayload,
         VermontRegistrationPayload,
         VirginiaRegistrationPayload,
         WashingtonRegistrationPayload,
+        WestVirginiaRegistrationPayload,
         CaliforniaRegistrationPayload,
         AlabamaRegistrationPayload,
-        SouthDakotaRegistrationPayload,
-        MinnesotaRegistrationPayload,
+        LouisianaRegistrationPayload,
         RegistrationCreatePayload,
         ArkansasRegistrationPayload,
-        RhodeIslandRegistrationPayload,
+        FloridaRegistrationPayload,
         KentuckyRegistrationPayload,
         MarylandRegistrationPayload,
-        MaineRegistrationPayload,
+        SouthDakotaRegistrationPayload,
         NevadaRegistrationPayload,
         NewJerseyRegistrationPayload,
         NewMexicoRegistrationPayload,
@@ -309,13 +309,13 @@ CreateRegistration = TypeAliasType(
         NorthDakotaRegistrationPayload,
         SouthCarolinaRegistrationPayload,
         OklahomaRegistrationPayload,
-        LouisianaRegistrationPayload,
+        MinnesotaRegistrationPayload,
         OhioRegistrationPayload,
         PennsylvaniaRegistrationPayload,
-        ArizonaRegistrationPayload,
+        RhodeIslandRegistrationPayload,
         NebraskaRegistrationPayload,
+        ArizonaRegistrationPayload,
         UtahRegistrationPayload,
-        ColoradoRegistrationPayload,
         WyomingRegistrationPayload,
     ],
 )
@@ -339,12 +339,18 @@ class CreateRegistrationV1RegistrationsPostRequest(BaseModel):
     ]
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
+        exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and exclude_none is False:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
