@@ -5,6 +5,9 @@
 ### Available Operations
 
 * [get_all](#get_all) - Get filings
+* [create_back_filing_request_v1_filings_back_filing_request_post](#create_back_filing_request_v1_filings_back_filing_request_post) - Create back filing request
+* [get_back_filing_request_options_v1_filings_back_filing_request_options_get](#get_back_filing_request_options_v1_filings_back_filing_request_options_get) - Get back filing request options
+* [get_current_back_filing_terms_v1_filings_back_filing_terms_current_get](#get_current_back_filing_terms_v1_filings_back_filing_terms_current_get) - Get current back filing terms
 * [get_by_registration_id](#get_by_registration_id) - Get filings by registration id
 * [get](#get) - Get filing by id
 * [approve_filing_v1_filings_filing_id_approve_put](#approve_filing_v1_filings_filing_id_approve_put) - Approve filing
@@ -27,7 +30,7 @@ with SDK(
     api_key_header="<YOUR_API_KEY_HERE>",
 ) as sdk:
 
-    res = sdk.filings.get_all(x_organization_id="org_12345", status_in="FILED,FILING,UNFILED,PAUSED,CANCELLED,ISSUE,SKIPPED", start_date=date.fromisoformat("2024-01-01"), end_date=date.fromisoformat("2024-12-31"), date_filed_gte=date.fromisoformat("2024-01-01"), date_filed_lte=date.fromisoformat("2024-12-31"), order_by="status,start_date,end_date,amount", state_code="CA", country_code=[
+    res = sdk.filings.get_all(x_organization_id="org_12345", status_in="FILED,FILING,SUBMITTED,UNFILED,PAUSED,CANCELLED,ISSUE,SKIPPED", start_date=date.fromisoformat("2024-01-01"), end_date=date.fromisoformat("2024-12-31"), date_filed_gte=date.fromisoformat("2024-01-01"), date_filed_lte=date.fromisoformat("2024-12-31"), order_by="status,start_date,end_date,amount", state_code="CA", country_code=[
         "U",
         "S",
     ], filing_category_in="REGULAR", tax_type_in="SALES_TAX,USE_TAX", page=1, size=50)
@@ -42,7 +45,7 @@ with SDK(
 | Parameter                                                                                                                          | Type                                                                                                                               | Required                                                                                                                           | Description                                                                                                                        | Example                                                                                                                            |
 | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | `x_organization_id`                                                                                                                | *Nullable[str]*                                                                                                                    | :heavy_check_mark:                                                                                                                 | The unique identifier for the organization making the request                                                                      | org_12345                                                                                                                          |
-| `status_in`                                                                                                                        | *OptionalNullable[str]*                                                                                                            | :heavy_minus_sign:                                                                                                                 | Filter filings by status                                                                                                           | FILED,FILING,UNFILED,PAUSED,CANCELLED,ISSUE,SKIPPED                                                                                |
+| `status_in`                                                                                                                        | *OptionalNullable[str]*                                                                                                            | :heavy_minus_sign:                                                                                                                 | Filter filings by status                                                                                                           | FILED,FILING,SUBMITTED,UNFILED,PAUSED,CANCELLED,ISSUE,SKIPPED                                                                      |
 | `start_date`                                                                                                                       | [datetime](https://docs.python.org/3/library/datetime.html#datetime-objects)                                                       | :heavy_minus_sign:                                                                                                                 | Filter filings with a start date greater than or equal to this date.                                                               | 2024-01-01                                                                                                                         |
 | `end_date`                                                                                                                         | [datetime](https://docs.python.org/3/library/datetime.html#datetime-objects)                                                       | :heavy_minus_sign:                                                                                                                 | Filter filings with an end date less than or equal to this date.                                                                   | 2024-12-31                                                                                                                         |
 | `date_filed_gte`                                                                                                                   | [datetime](https://docs.python.org/3/library/datetime.html#datetime-objects)                                                       | :heavy_minus_sign:                                                                                                                 | Filter filings filed on or after this date.                                                                                        | 2024-01-01                                                                                                                         |
@@ -68,6 +71,139 @@ with SDK(
 | errors.BackendSrcFilingsResponsesValidationErrorResponse | 422                                                      | application/json                                         |
 | errors.ErrorResponse                                     | 500                                                      | application/json                                         |
 | errors.APIError                                          | 4XX, 5XX                                                 | \*/\*                                                    |
+
+## create_back_filing_request_v1_filings_back_filing_request_post
+
+Create unapproved BACK_FILING rows for requested in-bounds periods.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="create_back_filing_request_v1_filings_back_filing_request_post" method="post" path="/v1/filings/back-filing-request" -->
+```python
+from datetime import date
+from kintsugi_tax_platform_sdk import SDK
+
+
+with SDK(
+    api_key_header="<YOUR_API_KEY_HERE>",
+) as sdk:
+
+    res = sdk.filings.create_back_filing_request_v1_filings_back_filing_request_post(x_organization_id="<id>", requests=[
+        {
+            "registration_id": "<id>",
+            "periods": [
+                {
+                    "start_date": date.fromisoformat("2026-03-03"),
+                    "end_date": date.fromisoformat("2026-08-19"),
+                },
+            ],
+        },
+    ])
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                             | Type                                                                                                  | Required                                                                                              | Description                                                                                           |
+| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `x_organization_id`                                                                                   | *Nullable[str]*                                                                                       | :heavy_check_mark:                                                                                    | N/A                                                                                                   |
+| `requests`                                                                                            | List[[models.BackFilingRequestRegistrationInput](../../models/backfilingrequestregistrationinput.md)] | :heavy_check_mark:                                                                                    | N/A                                                                                                   |
+| `notes`                                                                                               | *OptionalNullable[str]*                                                                               | :heavy_minus_sign:                                                                                    | N/A                                                                                                   |
+| `retries`                                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                      | :heavy_minus_sign:                                                                                    | Configuration to override the default retry behavior of the client.                                   |
+
+### Response
+
+**[models.BackFilingRequestCreateResponse](../../models/backfilingrequestcreateresponse.md)**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.HTTPValidationError | 422                        | application/json           |
+| errors.APIError            | 4XX, 5XX                   | \*/\*                      |
+
+## get_back_filing_request_options_v1_filings_back_filing_request_options_get
+
+Eligible US registrations and periods for a customer back-filing request.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="get_back_filing_request_options_v1_filings_back_filing_request_options_get" method="get" path="/v1/filings/back-filing-request/options" -->
+```python
+from kintsugi_tax_platform_sdk import SDK
+
+
+with SDK(
+    api_key_header="<YOUR_API_KEY_HERE>",
+) as sdk:
+
+    res = sdk.filings.get_back_filing_request_options_v1_filings_back_filing_request_options_get(x_organization_id="org_12345")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `x_organization_id`                                                 | *Nullable[str]*                                                     | :heavy_check_mark:                                                  | The unique identifier for the organization making the request       | org_12345                                                           |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+
+### Response
+
+**[models.BackFilingRequestOptionsResponse](../../models/backfilingrequestoptionsresponse.md)**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.HTTPValidationError | 422                        | application/json           |
+| errors.APIError            | 4XX, 5XX                   | \*/\*                      |
+
+## get_current_back_filing_terms_v1_filings_back_filing_terms_current_get
+
+Current back filing terms shown before BACK_FILING approval.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="get_current_back_filing_terms_v1_filings_back_filing_terms_current_get" method="get" path="/v1/filings/back-filing-terms/current" -->
+```python
+from kintsugi_tax_platform_sdk import SDK
+
+
+with SDK(
+    api_key_header="<YOUR_API_KEY_HERE>",
+) as sdk:
+
+    res = sdk.filings.get_current_back_filing_terms_v1_filings_back_filing_terms_current_get(x_organization_id="org_12345")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `x_organization_id`                                                 | *Nullable[str]*                                                     | :heavy_check_mark:                                                  | The unique identifier for the organization making the request       | org_12345                                                           |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+
+### Response
+
+**[models.BackFilingTermsRead](../../models/backfilingtermsread.md)**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.HTTPValidationError | 422                        | application/json           |
+| errors.APIError            | 4XX, 5XX                   | \*/\*                      |
 
 ## get_by_registration_id
 
