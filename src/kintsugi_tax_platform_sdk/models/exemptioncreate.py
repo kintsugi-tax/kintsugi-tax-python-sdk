@@ -39,6 +39,8 @@ class ExemptionCreateTypedDict(TypedDict):
     r"""Unique identifier for the transaction, if applicable"""
     reseller: NotRequired[bool]
     r"""Indicates whether the exemption is for a reseller"""
+    certificate_type: NotRequired[Nullable[str]]
+    r"""Partial-exemption certificate form code. Required when exemption_type is partial; must be absent otherwise."""
 
 
 class ExemptionCreate(BaseModel):
@@ -73,13 +75,29 @@ class ExemptionCreate(BaseModel):
     reseller: Optional[bool] = False
     r"""Indicates whether the exemption is for a reseller"""
 
+    certificate_type: OptionalNullable[str] = UNSET
+    r"""Partial-exemption certificate form code. Required when exemption_type is partial; must be absent otherwise."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["jurisdiction", "country_code", "end_date", "transaction_id", "reseller"]
+            [
+                "jurisdiction",
+                "country_code",
+                "end_date",
+                "transaction_id",
+                "reseller",
+                "certificate_type",
+            ]
         )
         nullable_fields = set(
-            ["jurisdiction", "country_code", "end_date", "transaction_id"]
+            [
+                "jurisdiction",
+                "country_code",
+                "end_date",
+                "transaction_id",
+                "certificate_type",
+            ]
         )
         serialized = handler(self)
         m = {}
