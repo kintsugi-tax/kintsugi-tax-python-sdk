@@ -113,6 +113,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "AL",
         "state_name": "Alabama",
@@ -148,6 +149,7 @@ with SDK(
     res = sdk.registrations.create(x_organization_id=None, request_body={
         "registration_import_type": "REGULAR",
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.TD,
         "state_code": "<value>",
         "state_name": "<value>",
@@ -185,6 +187,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "AR",
         "state_name": "Arkansas",
@@ -224,6 +227,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "CA",
         "state_name": "California",
@@ -262,6 +266,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "CT",
         "state_name": "Connecticut",
@@ -301,6 +306,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "DC",
         "state_name": "District of Columbia",
@@ -339,6 +345,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "FL",
         "state_name": "Florida",
@@ -376,6 +383,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "GA",
         "state_name": "Georgia",
@@ -415,6 +423,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "HI",
         "state_name": "Hawaii",
@@ -455,6 +464,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "ID",
         "state_name": "Idaho",
@@ -493,6 +503,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "IL",
         "state_name": "Illinois",
@@ -535,6 +546,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "IN",
         "state_name": "Indiana",
@@ -575,6 +587,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "IA",
         "state_name": "Iowa",
@@ -614,6 +627,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "KS",
         "state_name": "Kansas",
@@ -652,6 +666,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "KY",
         "state_name": "Kentucky",
@@ -691,6 +706,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "TX",
         "state_name": "Texas",
@@ -722,6 +738,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "LA",
         "state_name": "Louisiana",
@@ -764,6 +781,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "ME",
         "state_name": "Maine",
@@ -801,6 +819,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "MD",
         "state_name": "Maryland",
@@ -839,6 +858,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "MA",
         "state_name": "Massachusetts",
@@ -877,6 +897,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "MI",
         "state_name": "Michigan",
@@ -914,6 +935,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "MN",
         "state_name": "Minnesota",
@@ -951,6 +973,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "MS",
         "state_name": "Mississippi",
@@ -991,6 +1014,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "MO",
         "state_name": "Missouri",
@@ -1028,6 +1052,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "NE",
         "state_name": "Nebraska",
@@ -1066,6 +1091,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "NV",
         "state_name": "Nevada",
@@ -1103,6 +1129,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "TX",
         "state_name": "Texas",
@@ -1130,6 +1157,7 @@ with SDK(
     res = sdk.registrations.create(x_organization_id="<id>", request_body={
         "registration_import_type": "REGULAR",
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.SZ,
         "state_code": "<value>",
         "state_name": "<value>",
@@ -1166,6 +1194,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "NM",
         "state_name": "New Mexico",
@@ -1203,6 +1232,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "NY",
         "state_name": "New York",
@@ -1239,6 +1269,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "NC",
         "state_name": "North Carolina",
@@ -1278,6 +1309,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "ND",
         "state_name": "North Dakota",
@@ -1316,6 +1348,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "OH",
         "state_name": "Ohio",
@@ -1354,6 +1387,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "OK",
         "state_name": "Oklahoma",
@@ -1392,6 +1426,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "PA",
         "state_name": "Pennsylvania",
@@ -1436,6 +1471,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "RI",
         "state_name": "Rhode Island",
@@ -1475,6 +1511,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "SC",
         "state_name": "South Carolina",
@@ -1514,6 +1551,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "SD",
         "state_name": "South Dakota",
@@ -1550,6 +1588,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "TN",
         "state_name": "Tennessee",
@@ -1589,6 +1628,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "TX",
         "state_name": "Texas",
@@ -1629,6 +1669,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "UT",
         "state_name": "Utah",
@@ -1667,6 +1708,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "VT",
         "state_name": "Vermont",
@@ -1705,6 +1747,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "VA",
         "state_name": "Virginia",
@@ -1743,6 +1786,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "WA",
         "state_name": "Washington",
@@ -1783,6 +1827,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "WV",
         "state_name": "West Virginia",
@@ -1821,6 +1866,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "WI",
         "state_name": "Wisconsin",
@@ -1859,6 +1905,7 @@ with SDK(
         "registration_email": "example@domain.com",
         "auto_registered": True,
         "do_not_file": False,
+        "is_pre_collecting": False,
         "country_code": models.CountryCodeEnum.US,
         "state_code": "WY",
         "state_name": "Wyoming",
@@ -2068,7 +2115,7 @@ with SDK(
     api_key_header="<YOUR_API_KEY_HERE>",
 ) as sdk:
 
-    res = sdk.registrations.update(registration_id="<id>", x_organization_id="org_12345", registration_date=date.fromisoformat("2025-03-01"), registration_email="example@domain.com", registration_requested=parse_datetime("2025-02-18T19:43:32.684802"), auto_registered=True, registrations_regime=models.RegistrationsRegimeEnum.STANDARD, change_regime_status=models.ChangeRegimeStatusEnum.REQUESTED, do_not_file=False, username="User Name", filing_frequency=models.FilingFrequencyEnum.MONTHLY, create_filings_from=date.fromisoformat("2025-03-01"), is_approaching=False, comment="Updated registration for compliance", vda=False, create_back_filing=False)
+    res = sdk.registrations.update(registration_id="<id>", x_organization_id="org_12345", registration_date=date.fromisoformat("2025-03-01"), registration_email="example@domain.com", registration_requested=parse_datetime("2025-02-18T19:43:32.684802"), auto_registered=True, registrations_regime=models.RegistrationsRegimeEnum.STANDARD, change_regime_status=models.ChangeRegimeStatusEnum.REQUESTED, do_not_file=False, is_pre_collecting=False, username="User Name", filing_frequency=models.FilingFrequencyEnum.MONTHLY, create_filings_from=date.fromisoformat("2025-03-01"), is_approaching=False, comment="Updated registration for compliance", vda=False, create_back_filing=False)
 
     # Handle response
     print(res)
@@ -2077,34 +2124,35 @@ with SDK(
 
 ### Parameters
 
-| Parameter                                                                                   | Type                                                                                        | Required                                                                                    | Description                                                                                 | Example                                                                                     |
-| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `registration_id`                                                                           | *str*                                                                                       | :heavy_check_mark:                                                                          | The unique identifier of the registration to be updated.                                    |                                                                                             |
-| `x_organization_id`                                                                         | *Nullable[str]*                                                                             | :heavy_check_mark:                                                                          | The unique identifier for the organization making the request                               | org_12345                                                                                   |
-| `registration_date`                                                                         | [datetime](https://docs.python.org/3/library/datetime.html#datetime-objects)                | :heavy_minus_sign:                                                                          | The date when the registration was created. Format: YYYY-MM-DD.                             |                                                                                             |
-| `registration_email`                                                                        | *OptionalNullable[str]*                                                                     | :heavy_minus_sign:                                                                          | Email address associated with the registration.                                             |                                                                                             |
-| `registration_requested`                                                                    | [date](https://docs.python.org/3/library/datetime.html#date-objects)                        | :heavy_minus_sign:                                                                          | Timestamp when the registration was requested.                                              |                                                                                             |
-| `registration_completed`                                                                    | [date](https://docs.python.org/3/library/datetime.html#date-objects)                        | :heavy_minus_sign:                                                                          | Timestamp when the registration was completed.                                              |                                                                                             |
-| `deregistration_requested`                                                                  | [date](https://docs.python.org/3/library/datetime.html#date-objects)                        | :heavy_minus_sign:                                                                          | Timestamp when deregistration was requested.                                                |                                                                                             |
-| `deregistration_completed`                                                                  | [date](https://docs.python.org/3/library/datetime.html#date-objects)                        | :heavy_minus_sign:                                                                          | Timestamp when the deregistration was completed.                                            |                                                                                             |
-| `auto_registered`                                                                           | *OptionalNullable[bool]*                                                                    | :heavy_minus_sign:                                                                          | Indicates whether the registration was completed automatically.                             |                                                                                             |
-| `registrations_regime`                                                                      | [OptionalNullable[models.RegistrationsRegimeEnum]](../../models/registrationsregimeenum.md) | :heavy_minus_sign:                                                                          | The tax registration regime (e.g., STANDARD, SIMPLIFIED).                                   |                                                                                             |
-| `change_regime_status`                                                                      | [OptionalNullable[models.ChangeRegimeStatusEnum]](../../models/changeregimestatusenum.md)   | :heavy_minus_sign:                                                                          | N/A                                                                                         |                                                                                             |
-| `third_party_enabled`                                                                       | *OptionalNullable[bool]*                                                                    | :heavy_minus_sign:                                                                          | Indicates whether third-party access is enabled for this registration.                      |                                                                                             |
-| `do_not_file`                                                                               | *Optional[bool]*                                                                            | :heavy_minus_sign:                                                                          | If true, do not file for this registration (treated as False by default).                   |                                                                                             |
-| `two_factor_enabled`                                                                        | *OptionalNullable[bool]*                                                                    | :heavy_minus_sign:                                                                          | Indicates whether two-factor authentication (2FA) is enabled for this registration.         |                                                                                             |
-| `marked_collecting`                                                                         | *OptionalNullable[bool]*                                                                    | :heavy_minus_sign:                                                                          | Indicates whether the  registration is marked as collecting in shopify                      |                                                                                             |
-| `encrypted_username`                                                                        | *OptionalNullable[str]*                                                                     | :heavy_minus_sign:                                                                          | The encrypted username for the registration.                                                |                                                                                             |
-| `username`                                                                                  | *OptionalNullable[str]*                                                                     | :heavy_minus_sign:                                                                          | The username associated with the registration.                                              |                                                                                             |
-| `filing_frequency`                                                                          | [OptionalNullable[models.FilingFrequencyEnum]](../../models/filingfrequencyenum.md)         | :heavy_minus_sign:                                                                          | The updated filing frequency (MONTHLY, QUARTERLY, etc.).                                    |                                                                                             |
-| `create_filings_from`                                                                       | [datetime](https://docs.python.org/3/library/datetime.html#datetime-objects)                | :heavy_minus_sign:                                                                          | The updated date from which filings should start (YYYY-MM-DD).                              |                                                                                             |
-| `is_approaching`                                                                            | *OptionalNullable[bool]*                                                                    | :heavy_minus_sign:                                                                          | Indicates whether the registration is approaching an action (e.g., renewal).                |                                                                                             |
-| `comment`                                                                                   | *OptionalNullable[str]*                                                                     | :heavy_minus_sign:                                                                          | Additional notes or comments related to the registration.                                   |                                                                                             |
-| `vda`                                                                                       | *OptionalNullable[bool]*                                                                    | :heavy_minus_sign:                                                                          | Indicates if the Voluntary Disclosure Agreement (VDA) applies.                              |                                                                                             |
-| `tax_id`                                                                                    | *OptionalNullable[str]*                                                                     | :heavy_minus_sign:                                                                          | Organization-level tax ID (e.g., VAT number, Canada Business Number).                       |                                                                                             |
-| `ior_number`                                                                                | *OptionalNullable[str]*                                                                     | :heavy_minus_sign:                                                                          | The Importer of Record (IOR) number for the registration.                                   |                                                                                             |
-| `create_back_filing`                                                                        | *Optional[bool]*                                                                            | :heavy_minus_sign:                                                                          | Whether to also file the single period preceding the first filing period.                   |                                                                                             |
-| `retries`                                                                                   | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                            | :heavy_minus_sign:                                                                          | Configuration to override the default retry behavior of the client.                         |                                                                                             |
+| Parameter                                                                                                                                                                                            | Type                                                                                                                                                                                                 | Required                                                                                                                                                                                             | Description                                                                                                                                                                                          | Example                                                                                                                                                                                              |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `registration_id`                                                                                                                                                                                    | *str*                                                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                                                   | The unique identifier of the registration to be updated.                                                                                                                                             |                                                                                                                                                                                                      |
+| `x_organization_id`                                                                                                                                                                                  | *Nullable[str]*                                                                                                                                                                                      | :heavy_check_mark:                                                                                                                                                                                   | The unique identifier for the organization making the request                                                                                                                                        | org_12345                                                                                                                                                                                            |
+| `registration_date`                                                                                                                                                                                  | [datetime](https://docs.python.org/3/library/datetime.html#datetime-objects)                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                   | The date when the registration was created. Format: YYYY-MM-DD.                                                                                                                                      |                                                                                                                                                                                                      |
+| `registration_email`                                                                                                                                                                                 | *OptionalNullable[str]*                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                   | Email address associated with the registration.                                                                                                                                                      |                                                                                                                                                                                                      |
+| `registration_requested`                                                                                                                                                                             | [date](https://docs.python.org/3/library/datetime.html#date-objects)                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                   | Timestamp when the registration was requested.                                                                                                                                                       |                                                                                                                                                                                                      |
+| `registration_completed`                                                                                                                                                                             | [date](https://docs.python.org/3/library/datetime.html#date-objects)                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                   | Timestamp when the registration was completed.                                                                                                                                                       |                                                                                                                                                                                                      |
+| `deregistration_requested`                                                                                                                                                                           | [date](https://docs.python.org/3/library/datetime.html#date-objects)                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                   | Timestamp when deregistration was requested.                                                                                                                                                         |                                                                                                                                                                                                      |
+| `deregistration_completed`                                                                                                                                                                           | [date](https://docs.python.org/3/library/datetime.html#date-objects)                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                   | Timestamp when the deregistration was completed.                                                                                                                                                     |                                                                                                                                                                                                      |
+| `auto_registered`                                                                                                                                                                                    | *OptionalNullable[bool]*                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                   | Indicates whether the registration was completed automatically.                                                                                                                                      |                                                                                                                                                                                                      |
+| `registrations_regime`                                                                                                                                                                               | [OptionalNullable[models.RegistrationsRegimeEnum]](../../models/registrationsregimeenum.md)                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                   | The tax registration regime (e.g., STANDARD, SIMPLIFIED).                                                                                                                                            |                                                                                                                                                                                                      |
+| `change_regime_status`                                                                                                                                                                               | [OptionalNullable[models.ChangeRegimeStatusEnum]](../../models/changeregimestatusenum.md)                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                   | N/A                                                                                                                                                                                                  |                                                                                                                                                                                                      |
+| `third_party_enabled`                                                                                                                                                                                | *OptionalNullable[bool]*                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                   | Indicates whether third-party access is enabled for this registration.                                                                                                                               |                                                                                                                                                                                                      |
+| `do_not_file`                                                                                                                                                                                        | *Optional[bool]*                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                   | If true, do not file for this registration (treated as False by default).                                                                                                                            |                                                                                                                                                                                                      |
+| `two_factor_enabled`                                                                                                                                                                                 | *OptionalNullable[bool]*                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                   | Indicates whether two-factor authentication (2FA) is enabled for this registration.                                                                                                                  |                                                                                                                                                                                                      |
+| `marked_collecting`                                                                                                                                                                                  | *OptionalNullable[bool]*                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                   | Indicates whether the  registration is marked as collecting in shopify                                                                                                                               |                                                                                                                                                                                                      |
+| `is_pre_collecting`                                                                                                                                                                                  | *Optional[bool]*                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                   | True when this PROCESSING registration marks the organization as collecting tax in the jurisdiction ahead of registration details. It skips the Tax Ops registration task until the flag is cleared. |                                                                                                                                                                                                      |
+| `encrypted_username`                                                                                                                                                                                 | *OptionalNullable[str]*                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                   | The encrypted username for the registration.                                                                                                                                                         |                                                                                                                                                                                                      |
+| `username`                                                                                                                                                                                           | *OptionalNullable[str]*                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                   | The username associated with the registration.                                                                                                                                                       |                                                                                                                                                                                                      |
+| `filing_frequency`                                                                                                                                                                                   | [OptionalNullable[models.FilingFrequencyEnum]](../../models/filingfrequencyenum.md)                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                   | The updated filing frequency (MONTHLY, QUARTERLY, etc.).                                                                                                                                             |                                                                                                                                                                                                      |
+| `create_filings_from`                                                                                                                                                                                | [datetime](https://docs.python.org/3/library/datetime.html#datetime-objects)                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                   | The updated date from which filings should start (YYYY-MM-DD).                                                                                                                                       |                                                                                                                                                                                                      |
+| `is_approaching`                                                                                                                                                                                     | *OptionalNullable[bool]*                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                   | Indicates whether the registration is approaching an action (e.g., renewal).                                                                                                                         |                                                                                                                                                                                                      |
+| `comment`                                                                                                                                                                                            | *OptionalNullable[str]*                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                   | Additional notes or comments related to the registration.                                                                                                                                            |                                                                                                                                                                                                      |
+| `vda`                                                                                                                                                                                                | *OptionalNullable[bool]*                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                   | Indicates if the Voluntary Disclosure Agreement (VDA) applies.                                                                                                                                       |                                                                                                                                                                                                      |
+| `tax_id`                                                                                                                                                                                             | *OptionalNullable[str]*                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                   | Organization-level tax ID (e.g., VAT number, Canada Business Number).                                                                                                                                |                                                                                                                                                                                                      |
+| `ior_number`                                                                                                                                                                                         | *OptionalNullable[str]*                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                   | The Importer of Record (IOR) number for the registration.                                                                                                                                            |                                                                                                                                                                                                      |
+| `create_back_filing`                                                                                                                                                                                 | *Optional[bool]*                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                   | Whether to also file the single period preceding the first filing period.                                                                                                                            |                                                                                                                                                                                                      |
+| `retries`                                                                                                                                                                                            | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                   | Configuration to override the default retry behavior of the client.                                                                                                                                  |                                                                                                                                                                                                      |
 
 ### Response
 
@@ -2169,14 +2217,15 @@ Deregister an existing registration.
 
 <!-- UsageSnippet language="python" operationID="deregister_registration_v1_registrations__registration_id__deregister_post" method="post" path="/v1/registrations/{registration_id}/deregister" -->
 ```python
-from kintsugi_tax_platform_sdk import SDK
+from datetime import date
+from kintsugi_tax_platform_sdk import SDK, models
 
 
 with SDK(
     api_key_header="<YOUR_API_KEY_HERE>",
 ) as sdk:
 
-    res = sdk.registrations.deregister(registration_id="regs_123456", x_organization_id="org_12345")
+    res = sdk.registrations.deregister(registration_id="regs_123456", x_organization_id="org_12345", closure_date=date.fromisoformat("2026-01-04"), reason=models.DeregistrationReasonEnum.CLOSING_NEXUS_IN_STATE)
 
     # Handle response
     print(res)
@@ -2185,12 +2234,14 @@ with SDK(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `registration_id`                                                   | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the registration to deregister.            | regs_123456                                                         |
-| `x_organization_id`                                                 | *Nullable[str]*                                                     | :heavy_check_mark:                                                  | The unique identifier for the organization making the request       | org_12345                                                           |
-| `request_id`                                                        | *OptionalNullable[str]*                                             | :heavy_minus_sign:                                                  | N/A                                                                 |                                                                     |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+| Parameter                                                                                                | Type                                                                                                     | Required                                                                                                 | Description                                                                                              | Example                                                                                                  |
+| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `registration_id`                                                                                        | *str*                                                                                                    | :heavy_check_mark:                                                                                       | The unique identifier of the registration to deregister.                                                 | regs_123456                                                                                              |
+| `x_organization_id`                                                                                      | *Nullable[str]*                                                                                          | :heavy_check_mark:                                                                                       | The unique identifier for the organization making the request                                            | org_12345                                                                                                |
+| `closure_date`                                                                                           | [datetime](https://docs.python.org/3/library/datetime.html#datetime-objects)                             | :heavy_check_mark:                                                                                       | Effective date the permit closes with the jurisdiction (YYYY-MM-DD). Past and future dates are accepted. |                                                                                                          |
+| `reason`                                                                                                 | [models.DeregistrationReasonEnum](../../models/deregistrationreasonenum.md)                              | :heavy_check_mark:                                                                                       | Reason a registration is being closed.                                                                   |                                                                                                          |
+| `request_id`                                                                                             | *OptionalNullable[str]*                                                                                  | :heavy_minus_sign:                                                                                       | Optional client-minted id for this confirm attempt.                                                      |                                                                                                          |
+| `retries`                                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                         | :heavy_minus_sign:                                                                                       | Configuration to override the default retry behavior of the client.                                      |                                                                                                          |
 
 ### Response
 
