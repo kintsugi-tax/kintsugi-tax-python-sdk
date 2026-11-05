@@ -97,6 +97,35 @@ if TYPE_CHECKING:
         BackendSrcTransactionsResponsesValidationErrorItem,
         BackendSrcTransactionsResponsesValidationErrorItemTypedDict,
     )
+    from .backfilingrequestcreate import (
+        BackFilingRequestCreate,
+        BackFilingRequestCreateTypedDict,
+    )
+    from .backfilingrequestcreateresponse import (
+        BackFilingRequestCreateResponse,
+        BackFilingRequestCreateResponseTypedDict,
+    )
+    from .backfilingrequestoptionsresponse import (
+        BackFilingRequestOptionsResponse,
+        BackFilingRequestOptionsResponseTypedDict,
+    )
+    from .backfilingrequestperiod import (
+        BackFilingRequestPeriod,
+        BackFilingRequestPeriodTypedDict,
+    )
+    from .backfilingrequestperiodinput import (
+        BackFilingRequestPeriodInput,
+        BackFilingRequestPeriodInputTypedDict,
+    )
+    from .backfilingrequestregistrationinput import (
+        BackFilingRequestRegistrationInput,
+        BackFilingRequestRegistrationInputTypedDict,
+    )
+    from .backfilingrequestregistrationoption import (
+        BackFilingRequestRegistrationOption,
+        BackFilingRequestRegistrationOptionTypedDict,
+    )
+    from .backfilingtermsread import BackFilingTermsRead, BackFilingTermsReadTypedDict
     from .body_upload_exemption_certificate_v1_exemptions_exemption_id_attachments_post import (
         BodyUploadExemptionCertificateV1ExemptionsExemptionIDAttachmentsPost,
         BodyUploadExemptionCertificateV1ExemptionsExemptionIDAttachmentsPostTypedDict,
@@ -118,12 +147,6 @@ if TYPE_CHECKING:
         CaMayPrepaymentDisplayTypedDict,
     )
     from .changeregimestatusenum import ChangeRegimeStatusEnum
-    from .coloradoregistrationpayload import (
-        ColoradoRegistrationPayload,
-        ColoradoRegistrationPayloadAmountFees,
-        ColoradoRegistrationPayloadAmountFeesTypedDict,
-        ColoradoRegistrationPayloadTypedDict,
-    )
     from .connecticutfields import ConnecticutFields, ConnecticutFieldsTypedDict
     from .connecticutregistrationpayload import (
         ConnecticutRegistrationPayload,
@@ -133,6 +156,10 @@ if TYPE_CHECKING:
     )
     from .connecticutregistrationtype import ConnecticutRegistrationType
     from .countrycodeenum import CountryCodeEnum
+    from .create_back_filing_request_v1_filings_back_filing_request_postop import (
+        CreateBackFilingRequestV1FilingsBackFilingRequestPostRequest,
+        CreateBackFilingRequestV1FilingsBackFilingRequestPostRequestTypedDict,
+    )
     from .create_customer_v1_customers_postop import (
         CreateCustomerV1CustomersPostRequest,
         CreateCustomerV1CustomersPostRequestTypedDict,
@@ -195,6 +222,10 @@ if TYPE_CHECKING:
     from .customerbasebase import CustomerBaseBase, CustomerBaseBaseTypedDict
     from .customerbasepublic import CustomerBasePublic, CustomerBasePublicTypedDict
     from .customercreate import CustomerCreate, CustomerCreateTypedDict
+    from .customerjurisdictionspecificfieldsresponse import (
+        CustomerJurisdictionSpecificFieldsResponse,
+        CustomerJurisdictionSpecificFieldsResponseTypedDict,
+    )
     from .customerread import CustomerRead, CustomerReadTypedDict
     from .customertaxregistrationcreateupdate import (
         CustomerTaxRegistrationCreateUpdate,
@@ -218,6 +249,7 @@ if TYPE_CHECKING:
         DeregisterRegistrationRequest,
         DeregisterRegistrationRequestTypedDict,
     )
+    from .deregistrationreasonenum import DeregistrationReasonEnum
     from .discountbuilder import (
         DiscountAmount,
         DiscountAmountTypedDict,
@@ -241,7 +273,6 @@ if TYPE_CHECKING:
         EstimateTaxV1TaxEstimatePostRequest,
         EstimateTaxV1TaxEstimatePostRequestTypedDict,
     )
-    from .exemption import Exemption, ExemptionTypedDict
     from .exemptioncreate import ExemptionCreate, ExemptionCreateTypedDict
     from .exemptionrequired import ExemptionRequired, ExemptionRequiredTypedDict
     from .exemptionsourceenum import ExemptionSourceEnum
@@ -251,6 +282,7 @@ if TYPE_CHECKING:
         FastapiPaginationDefaultPageExemptionRead2,
         FastapiPaginationDefaultPageExemptionRead2TypedDict,
     )
+    from .feetypeenum import FeeTypeEnum
     from .filingapproverequest import (
         FilingApproveRequest,
         FilingApproveRequestTypedDict,
@@ -281,6 +313,14 @@ if TYPE_CHECKING:
     from .get_attachments_for_exemption_v1_exemptions_exemption_id_attachments_getop import (
         GetAttachmentsForExemptionV1ExemptionsExemptionIDAttachmentsGetRequest,
         GetAttachmentsForExemptionV1ExemptionsExemptionIDAttachmentsGetRequestTypedDict,
+    )
+    from .get_back_filing_request_options_v1_filings_back_filing_request_options_getop import (
+        GetBackFilingRequestOptionsV1FilingsBackFilingRequestOptionsGetRequest,
+        GetBackFilingRequestOptionsV1FilingsBackFilingRequestOptionsGetRequestTypedDict,
+    )
+    from .get_current_back_filing_terms_v1_filings_back_filing_terms_current_getop import (
+        GetCurrentBackFilingTermsV1FilingsBackFilingTermsCurrentGetRequest,
+        GetCurrentBackFilingTermsV1FilingsBackFilingTermsCurrentGetRequestTypedDict,
     )
     from .get_customer_by_external_id_v1_customers_external_external_id_getop import (
         GetCustomerByExternalIDV1CustomersExternalExternalIDGetRequest,
@@ -432,10 +472,6 @@ if TYPE_CHECKING:
         IowaRegistrationPayloadTypedDict,
     )
     from .iowaregistrationtype import IowaRegistrationType
-    from .jurisdictionspecificfieldsresponse import (
-        JurisdictionSpecificFieldsResponse,
-        JurisdictionSpecificFieldsResponseTypedDict,
-    )
     from .jurisdictiontype import JurisdictionType
     from .kansasfields import KansasFields, KansasFieldsTypedDict
     from .kansasregistrationpayload import (
@@ -453,6 +489,10 @@ if TYPE_CHECKING:
         KentuckyRegistrationPayloadTypedDict,
     )
     from .kentuckyregistrationtype import KentuckyRegistrationType
+    from .list_partial_certificate_types_v1_exemptions_partial_certificate_types_getop import (
+        ListPartialCertificateTypesV1ExemptionsPartialCertificateTypesGetRequest,
+        ListPartialCertificateTypesV1ExemptionsPartialCertificateTypesGetRequestTypedDict,
+    )
     from .list_registration_jurisdictions_v1_registrations_jurisdictions_getop import (
         ListRegistrationJurisdictionsV1RegistrationsJurisdictionsGetRequest,
         ListRegistrationJurisdictionsV1RegistrationsJurisdictionsGetRequestTypedDict,
@@ -618,6 +658,10 @@ if TYPE_CHECKING:
         PageRegistrationReadWithPasswordTypedDict,
     )
     from .page_transactionread_ import PageTransactionRead, PageTransactionReadTypedDict
+    from .partialcertificatetyperead import (
+        PartialCertificateTypeRead,
+        PartialCertificateTypeReadTypedDict,
+    )
     from .pennsylvaniaaccounttype import PennsylvaniaAccountType
     from .pennsylvaniaaccountvalidationmethod import PennsylvaniaAccountValidationMethod
     from .pennsylvaniafields import PennsylvaniaFields, PennsylvaniaFieldsTypedDict
@@ -818,6 +862,10 @@ if TYPE_CHECKING:
         TransactionCreateTypedDict,
     )
     from .transactiondirectionenum import TransactionDirectionEnum
+    from .transactionembeddedexemption import (
+        TransactionEmbeddedExemption,
+        TransactionEmbeddedExemptionTypedDict,
+    )
     from .transactionestimatepublicrequest import (
         TransactionEstimatePublicRequest,
         TransactionEstimatePublicRequestAddress,
@@ -1095,6 +1143,22 @@ __all__ = [
     "AttachmentRead",
     "AttachmentReadTypedDict",
     "AttachmentTypedDict",
+    "BackFilingRequestCreate",
+    "BackFilingRequestCreateResponse",
+    "BackFilingRequestCreateResponseTypedDict",
+    "BackFilingRequestCreateTypedDict",
+    "BackFilingRequestOptionsResponse",
+    "BackFilingRequestOptionsResponseTypedDict",
+    "BackFilingRequestPeriod",
+    "BackFilingRequestPeriodInput",
+    "BackFilingRequestPeriodInputTypedDict",
+    "BackFilingRequestPeriodTypedDict",
+    "BackFilingRequestRegistrationInput",
+    "BackFilingRequestRegistrationInputTypedDict",
+    "BackFilingRequestRegistrationOption",
+    "BackFilingRequestRegistrationOptionTypedDict",
+    "BackFilingTermsRead",
+    "BackFilingTermsReadTypedDict",
     "BackendSrcAddressValidationResponsesValidationErrorItem",
     "BackendSrcAddressValidationResponsesValidationErrorItemTypedDict",
     "BackendSrcCustomersResponsesValidationErrorItem",
@@ -1131,10 +1195,6 @@ __all__ = [
     "CaliforniaRegistrationPayloadTypedDict",
     "CaliforniaRegistrationType",
     "ChangeRegimeStatusEnum",
-    "ColoradoRegistrationPayload",
-    "ColoradoRegistrationPayloadAmountFees",
-    "ColoradoRegistrationPayloadAmountFeesTypedDict",
-    "ColoradoRegistrationPayloadTypedDict",
     "ConnecticutFields",
     "ConnecticutFieldsTypedDict",
     "ConnecticutRegistrationPayload",
@@ -1157,6 +1217,8 @@ __all__ = [
     "CountryCodeEnum",
     "CountryCodeIn",
     "CountryCodeInTypedDict",
+    "CreateBackFilingRequestV1FilingsBackFilingRequestPostRequest",
+    "CreateBackFilingRequestV1FilingsBackFilingRequestPostRequestTypedDict",
     "CreateCustomerV1CustomersPostRequest",
     "CreateCustomerV1CustomersPostRequestTypedDict",
     "CreateExemptionV1ExemptionsPostRequest",
@@ -1205,6 +1267,8 @@ __all__ = [
     "CustomerBaseTypedDict",
     "CustomerCreate",
     "CustomerCreateTypedDict",
+    "CustomerJurisdictionSpecificFieldsResponse",
+    "CustomerJurisdictionSpecificFieldsResponseTypedDict",
     "CustomerRead",
     "CustomerReadTypedDict",
     "CustomerTaxRegistrationCreateUpdate",
@@ -1221,6 +1285,7 @@ __all__ = [
     "DeregisterRegistrationRequestTypedDict",
     "DeregisterRegistrationV1RegistrationsRegistrationIDDeregisterPostRequest",
     "DeregisterRegistrationV1RegistrationsRegistrationIDDeregisterPostRequestTypedDict",
+    "DeregistrationReasonEnum",
     "DiscountAmount",
     "DiscountAmountTypedDict",
     "DiscountBuilder",
@@ -1236,7 +1301,6 @@ __all__ = [
     "DocumentTypeEnum",
     "EstimateTaxV1TaxEstimatePostRequest",
     "EstimateTaxV1TaxEstimatePostRequestTypedDict",
-    "Exemption",
     "ExemptionCreate",
     "ExemptionCreateTypedDict",
     "ExemptionRequired",
@@ -1244,9 +1308,9 @@ __all__ = [
     "ExemptionSourceEnum",
     "ExemptionStatus",
     "ExemptionType",
-    "ExemptionTypedDict",
     "FastapiPaginationDefaultPageExemptionRead2",
     "FastapiPaginationDefaultPageExemptionRead2TypedDict",
+    "FeeTypeEnum",
     "FilingApproveRequest",
     "FilingApproveRequestTypedDict",
     "FilingDetailsRead",
@@ -1272,6 +1336,10 @@ __all__ = [
     "GeorgiaRegistrationType",
     "GetAttachmentsForExemptionV1ExemptionsExemptionIDAttachmentsGetRequest",
     "GetAttachmentsForExemptionV1ExemptionsExemptionIDAttachmentsGetRequestTypedDict",
+    "GetBackFilingRequestOptionsV1FilingsBackFilingRequestOptionsGetRequest",
+    "GetBackFilingRequestOptionsV1FilingsBackFilingRequestOptionsGetRequestTypedDict",
+    "GetCurrentBackFilingTermsV1FilingsBackFilingTermsCurrentGetRequest",
+    "GetCurrentBackFilingTermsV1FilingsBackFilingTermsCurrentGetRequestTypedDict",
     "GetCustomerByExternalIDV1CustomersExternalExternalIDGetRequest",
     "GetCustomerByExternalIDV1CustomersExternalExternalIDGetRequestTypedDict",
     "GetCustomerByIDV1CustomersCustomerIDGetRequest",
@@ -1363,8 +1431,6 @@ __all__ = [
     "IowaRegistrationPayloadAmountFeesTypedDict",
     "IowaRegistrationPayloadTypedDict",
     "IowaRegistrationType",
-    "JurisdictionSpecificFieldsResponse",
-    "JurisdictionSpecificFieldsResponseTypedDict",
     "JurisdictionType",
     "KansasFields",
     "KansasFieldsTypedDict",
@@ -1381,6 +1447,8 @@ __all__ = [
     "KentuckyRegistrationPayloadTypedDict",
     "KentuckyRegistrationType",
     "LicenseType",
+    "ListPartialCertificateTypesV1ExemptionsPartialCertificateTypesGetRequest",
+    "ListPartialCertificateTypesV1ExemptionsPartialCertificateTypesGetRequestTypedDict",
     "ListRegistrationJurisdictionsV1RegistrationsJurisdictionsGetRequest",
     "ListRegistrationJurisdictionsV1RegistrationsJurisdictionsGetRequestTypedDict",
     "Loc",
@@ -1524,6 +1592,8 @@ __all__ = [
     "PageRegistrationReadWithPasswordTypedDict",
     "PageTransactionRead",
     "PageTransactionReadTypedDict",
+    "PartialCertificateTypeRead",
+    "PartialCertificateTypeReadTypedDict",
     "PennsylvaniaAccountType",
     "PennsylvaniaAccountValidationMethod",
     "PennsylvaniaFields",
@@ -1690,6 +1760,8 @@ __all__ = [
     "TransactionCreateTotalTaxLiabilityAmountTypedDict",
     "TransactionCreateTypedDict",
     "TransactionDirectionEnum",
+    "TransactionEmbeddedExemption",
+    "TransactionEmbeddedExemptionTypedDict",
     "TransactionEstimatePublicRequest",
     "TransactionEstimatePublicRequestAddress",
     "TransactionEstimatePublicRequestAddressTypedDict",
@@ -1938,6 +2010,22 @@ _dynamic_imports: dict[str, str] = {
     "BackendSrcTaxEstimationResponsesValidationErrorItemTypedDict": ".backend_src_tax_estimation_responses_validationerroritem",
     "BackendSrcTransactionsResponsesValidationErrorItem": ".backend_src_transactions_responses_validationerroritem",
     "BackendSrcTransactionsResponsesValidationErrorItemTypedDict": ".backend_src_transactions_responses_validationerroritem",
+    "BackFilingRequestCreate": ".backfilingrequestcreate",
+    "BackFilingRequestCreateTypedDict": ".backfilingrequestcreate",
+    "BackFilingRequestCreateResponse": ".backfilingrequestcreateresponse",
+    "BackFilingRequestCreateResponseTypedDict": ".backfilingrequestcreateresponse",
+    "BackFilingRequestOptionsResponse": ".backfilingrequestoptionsresponse",
+    "BackFilingRequestOptionsResponseTypedDict": ".backfilingrequestoptionsresponse",
+    "BackFilingRequestPeriod": ".backfilingrequestperiod",
+    "BackFilingRequestPeriodTypedDict": ".backfilingrequestperiod",
+    "BackFilingRequestPeriodInput": ".backfilingrequestperiodinput",
+    "BackFilingRequestPeriodInputTypedDict": ".backfilingrequestperiodinput",
+    "BackFilingRequestRegistrationInput": ".backfilingrequestregistrationinput",
+    "BackFilingRequestRegistrationInputTypedDict": ".backfilingrequestregistrationinput",
+    "BackFilingRequestRegistrationOption": ".backfilingrequestregistrationoption",
+    "BackFilingRequestRegistrationOptionTypedDict": ".backfilingrequestregistrationoption",
+    "BackFilingTermsRead": ".backfilingtermsread",
+    "BackFilingTermsReadTypedDict": ".backfilingtermsread",
     "BodyUploadExemptionCertificateV1ExemptionsExemptionIDAttachmentsPost": ".body_upload_exemption_certificate_v1_exemptions_exemption_id_attachments_post",
     "BodyUploadExemptionCertificateV1ExemptionsExemptionIDAttachmentsPostTypedDict": ".body_upload_exemption_certificate_v1_exemptions_exemption_id_attachments_post",
     "BodyUploadRegistrationAttachmentV1RegistrationsRegistrationIDAttachmentsPost": ".body_upload_registration_attachment_v1_registrations_registration_id_attachments_post",
@@ -1952,10 +2040,6 @@ _dynamic_imports: dict[str, str] = {
     "CaMayPrepaymentDisplay": ".camayprepaymentdisplay",
     "CaMayPrepaymentDisplayTypedDict": ".camayprepaymentdisplay",
     "ChangeRegimeStatusEnum": ".changeregimestatusenum",
-    "ColoradoRegistrationPayload": ".coloradoregistrationpayload",
-    "ColoradoRegistrationPayloadAmountFees": ".coloradoregistrationpayload",
-    "ColoradoRegistrationPayloadAmountFeesTypedDict": ".coloradoregistrationpayload",
-    "ColoradoRegistrationPayloadTypedDict": ".coloradoregistrationpayload",
     "ConnecticutFields": ".connecticutfields",
     "ConnecticutFieldsTypedDict": ".connecticutfields",
     "ConnecticutRegistrationPayload": ".connecticutregistrationpayload",
@@ -1964,6 +2048,8 @@ _dynamic_imports: dict[str, str] = {
     "ConnecticutRegistrationPayloadTypedDict": ".connecticutregistrationpayload",
     "ConnecticutRegistrationType": ".connecticutregistrationtype",
     "CountryCodeEnum": ".countrycodeenum",
+    "CreateBackFilingRequestV1FilingsBackFilingRequestPostRequest": ".create_back_filing_request_v1_filings_back_filing_request_postop",
+    "CreateBackFilingRequestV1FilingsBackFilingRequestPostRequestTypedDict": ".create_back_filing_request_v1_filings_back_filing_request_postop",
     "CreateCustomerV1CustomersPostRequest": ".create_customer_v1_customers_postop",
     "CreateCustomerV1CustomersPostRequestTypedDict": ".create_customer_v1_customers_postop",
     "CreateExemptionV1ExemptionsPostRequest": ".create_exemption_v1_exemptions_postop",
@@ -2012,6 +2098,8 @@ _dynamic_imports: dict[str, str] = {
     "CustomerBasePublicTypedDict": ".customerbasepublic",
     "CustomerCreate": ".customercreate",
     "CustomerCreateTypedDict": ".customercreate",
+    "CustomerJurisdictionSpecificFieldsResponse": ".customerjurisdictionspecificfieldsresponse",
+    "CustomerJurisdictionSpecificFieldsResponseTypedDict": ".customerjurisdictionspecificfieldsresponse",
     "CustomerRead": ".customerread",
     "CustomerReadTypedDict": ".customerread",
     "CustomerTaxRegistrationCreateUpdate": ".customertaxregistrationcreateupdate",
@@ -2027,6 +2115,7 @@ _dynamic_imports: dict[str, str] = {
     "DeregisterRegistrationV1RegistrationsRegistrationIDDeregisterPostRequestTypedDict": ".deregister_registration_v1_registrations_registration_id_deregister_postop",
     "DeregisterRegistrationRequest": ".deregisterregistrationrequest",
     "DeregisterRegistrationRequestTypedDict": ".deregisterregistrationrequest",
+    "DeregistrationReasonEnum": ".deregistrationreasonenum",
     "DiscountAmount": ".discountbuilder",
     "DiscountAmountTypedDict": ".discountbuilder",
     "DiscountBuilder": ".discountbuilder",
@@ -2042,8 +2131,6 @@ _dynamic_imports: dict[str, str] = {
     "DocumentTypeEnum": ".documenttypeenum",
     "EstimateTaxV1TaxEstimatePostRequest": ".estimate_tax_v1_tax_estimate_postop",
     "EstimateTaxV1TaxEstimatePostRequestTypedDict": ".estimate_tax_v1_tax_estimate_postop",
-    "Exemption": ".exemption",
-    "ExemptionTypedDict": ".exemption",
     "ExemptionCreate": ".exemptioncreate",
     "ExemptionCreateTypedDict": ".exemptioncreate",
     "ExemptionRequired": ".exemptionrequired",
@@ -2053,6 +2140,7 @@ _dynamic_imports: dict[str, str] = {
     "ExemptionType": ".exemptiontype",
     "FastapiPaginationDefaultPageExemptionRead2": ".fastapi_pagination_default_page_exemptionread_2",
     "FastapiPaginationDefaultPageExemptionRead2TypedDict": ".fastapi_pagination_default_page_exemptionread_2",
+    "FeeTypeEnum": ".feetypeenum",
     "FilingApproveRequest": ".filingapproverequest",
     "FilingApproveRequestTypedDict": ".filingapproverequest",
     "FilingDetailsRead": ".filingdetailsread",
@@ -2078,6 +2166,10 @@ _dynamic_imports: dict[str, str] = {
     "GeorgiaRegistrationType": ".georgiaregistrationtype",
     "GetAttachmentsForExemptionV1ExemptionsExemptionIDAttachmentsGetRequest": ".get_attachments_for_exemption_v1_exemptions_exemption_id_attachments_getop",
     "GetAttachmentsForExemptionV1ExemptionsExemptionIDAttachmentsGetRequestTypedDict": ".get_attachments_for_exemption_v1_exemptions_exemption_id_attachments_getop",
+    "GetBackFilingRequestOptionsV1FilingsBackFilingRequestOptionsGetRequest": ".get_back_filing_request_options_v1_filings_back_filing_request_options_getop",
+    "GetBackFilingRequestOptionsV1FilingsBackFilingRequestOptionsGetRequestTypedDict": ".get_back_filing_request_options_v1_filings_back_filing_request_options_getop",
+    "GetCurrentBackFilingTermsV1FilingsBackFilingTermsCurrentGetRequest": ".get_current_back_filing_terms_v1_filings_back_filing_terms_current_getop",
+    "GetCurrentBackFilingTermsV1FilingsBackFilingTermsCurrentGetRequestTypedDict": ".get_current_back_filing_terms_v1_filings_back_filing_terms_current_getop",
     "GetCustomerByExternalIDV1CustomersExternalExternalIDGetRequest": ".get_customer_by_external_id_v1_customers_external_external_id_getop",
     "GetCustomerByExternalIDV1CustomersExternalExternalIDGetRequestTypedDict": ".get_customer_by_external_id_v1_customers_external_external_id_getop",
     "GetCustomerByIDV1CustomersCustomerIDGetRequest": ".get_customer_by_id_v1_customers_customer_id_getop",
@@ -2175,8 +2267,6 @@ _dynamic_imports: dict[str, str] = {
     "IowaRegistrationPayloadAmountFeesTypedDict": ".iowaregistrationpayload",
     "IowaRegistrationPayloadTypedDict": ".iowaregistrationpayload",
     "IowaRegistrationType": ".iowaregistrationtype",
-    "JurisdictionSpecificFieldsResponse": ".jurisdictionspecificfieldsresponse",
-    "JurisdictionSpecificFieldsResponseTypedDict": ".jurisdictionspecificfieldsresponse",
     "JurisdictionType": ".jurisdictiontype",
     "KansasFields": ".kansasfields",
     "KansasFieldsTypedDict": ".kansasfields",
@@ -2192,6 +2282,8 @@ _dynamic_imports: dict[str, str] = {
     "KentuckyRegistrationPayloadAmountFeesTypedDict": ".kentuckyregistrationpayload",
     "KentuckyRegistrationPayloadTypedDict": ".kentuckyregistrationpayload",
     "KentuckyRegistrationType": ".kentuckyregistrationtype",
+    "ListPartialCertificateTypesV1ExemptionsPartialCertificateTypesGetRequest": ".list_partial_certificate_types_v1_exemptions_partial_certificate_types_getop",
+    "ListPartialCertificateTypesV1ExemptionsPartialCertificateTypesGetRequestTypedDict": ".list_partial_certificate_types_v1_exemptions_partial_certificate_types_getop",
     "ListRegistrationJurisdictionsV1RegistrationsJurisdictionsGetRequest": ".list_registration_jurisdictions_v1_registrations_jurisdictions_getop",
     "ListRegistrationJurisdictionsV1RegistrationsJurisdictionsGetRequestTypedDict": ".list_registration_jurisdictions_v1_registrations_jurisdictions_getop",
     "LicenseType": ".louisianafields",
@@ -2330,6 +2422,8 @@ _dynamic_imports: dict[str, str] = {
     "PageRegistrationReadWithPasswordTypedDict": ".page_registrationreadwithpassword_",
     "PageTransactionRead": ".page_transactionread_",
     "PageTransactionReadTypedDict": ".page_transactionread_",
+    "PartialCertificateTypeRead": ".partialcertificatetyperead",
+    "PartialCertificateTypeReadTypedDict": ".partialcertificatetyperead",
     "PennsylvaniaAccountType": ".pennsylvaniaaccounttype",
     "PennsylvaniaAccountValidationMethod": ".pennsylvaniaaccountvalidationmethod",
     "PennsylvaniaFields": ".pennsylvaniafields",
@@ -2499,6 +2593,8 @@ _dynamic_imports: dict[str, str] = {
     "TransactionCreateTotalTaxLiabilityAmountTypedDict": ".transactioncreate",
     "TransactionCreateTypedDict": ".transactioncreate",
     "TransactionDirectionEnum": ".transactiondirectionenum",
+    "TransactionEmbeddedExemption": ".transactionembeddedexemption",
+    "TransactionEmbeddedExemptionTypedDict": ".transactionembeddedexemption",
     "TransactionEstimatePublicRequest": ".transactionestimatepublicrequest",
     "TransactionEstimatePublicRequestAddress": ".transactionestimatepublicrequest",
     "TransactionEstimatePublicRequestAddressTypedDict": ".transactionestimatepublicrequest",
