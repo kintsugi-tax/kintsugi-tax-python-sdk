@@ -1,9 +1,9 @@
-speakeasyVersion: 1.797.0
+speakeasyVersion: 1.800.1
 sources:
     kintsugi-overlay:
         sourceNamespace: kintsugi-overlay
-        sourceRevisionDigest: sha256:dc66ca7bde1e7efa0b3cc0ed8d14e62cc5ec2db0262fe5ed9c0dad13c4c706f3
-        sourceBlobDigest: sha256:99314277d71249232525c72e9c9619934fb66807396137040abf62dca257009f
+        sourceRevisionDigest: sha256:b4094f3cf0febbfec1a16012cad26be709600e41d1c6ec4899fa71388c22c9d3
+        sourceBlobDigest: sha256:5d7ef8d602f84849a488d58e20da80c2be0def20ad80db0a64d847cd15de5a56
         tags:
             - latest
             - 1.0.0
@@ -11,10 +11,10 @@ targets:
     python:
         source: kintsugi-overlay
         sourceNamespace: kintsugi-overlay
-        sourceRevisionDigest: sha256:dc66ca7bde1e7efa0b3cc0ed8d14e62cc5ec2db0262fe5ed9c0dad13c4c706f3
-        sourceBlobDigest: sha256:99314277d71249232525c72e9c9619934fb66807396137040abf62dca257009f
+        sourceRevisionDigest: sha256:b4094f3cf0febbfec1a16012cad26be709600e41d1c6ec4899fa71388c22c9d3
+        sourceBlobDigest: sha256:5d7ef8d602f84849a488d58e20da80c2be0def20ad80db0a64d847cd15de5a56
         codeSamplesNamespace: kintsugi-overlay-python-code-samples
-        codeSamplesRevisionDigest: sha256:51df78c637587c3db8de53751dc37b3b791b7eefd8afc216808ee9eaf7fd9df0
+        codeSamplesRevisionDigest: sha256:377c7ade2bc5c455381ca8abbadd47eeb4a9ccf50734a58963e5dde5559a50bd
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

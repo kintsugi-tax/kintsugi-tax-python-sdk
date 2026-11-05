@@ -317,6 +317,7 @@ class Exemptions(BaseSDK):
         end_date: OptionalNullable[date] = UNSET,
         transaction_id: OptionalNullable[str] = UNSET,
         reseller: Optional[bool] = False,
+        certificate_type: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -340,6 +341,7 @@ class Exemptions(BaseSDK):
         :param end_date: End date for the exemption validity period (YYYY-MM-DD format)
         :param transaction_id: Unique identifier for the transaction, if applicable
         :param reseller: Indicates whether the exemption is for a reseller
+        :param certificate_type: Partial-exemption certificate form code. Required when exemption_type is partial; must be absent otherwise.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -369,6 +371,7 @@ class Exemptions(BaseSDK):
                 fein=fein,
                 sales_tax_id=sales_tax_id,
                 status=status,
+                certificate_type=certificate_type,
             ),
         )
 
@@ -458,6 +461,7 @@ class Exemptions(BaseSDK):
         end_date: OptionalNullable[date] = UNSET,
         transaction_id: OptionalNullable[str] = UNSET,
         reseller: Optional[bool] = False,
+        certificate_type: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -481,6 +485,7 @@ class Exemptions(BaseSDK):
         :param end_date: End date for the exemption validity period (YYYY-MM-DD format)
         :param transaction_id: Unique identifier for the transaction, if applicable
         :param reseller: Indicates whether the exemption is for a reseller
+        :param certificate_type: Partial-exemption certificate form code. Required when exemption_type is partial; must be absent otherwise.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -510,6 +515,7 @@ class Exemptions(BaseSDK):
                 fein=fein,
                 sales_tax_id=sales_tax_id,
                 status=status,
+                certificate_type=certificate_type,
             ),
         )
 

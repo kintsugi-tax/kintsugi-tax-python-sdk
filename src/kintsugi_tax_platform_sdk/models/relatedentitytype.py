@@ -9,3 +9,4 @@ class RelatedEntityType(str, Enum):
     REGISTRATION = "REGISTRATION"
     FILING = "FILING"
     FILING_PAYMENT = "FILING_PAYMENT"
+    TASK = "TASK"
