@@ -241,7 +241,6 @@ if TYPE_CHECKING:
         EstimateTaxV1TaxEstimatePostRequest,
         EstimateTaxV1TaxEstimatePostRequestTypedDict,
     )
-    from .exemption import Exemption, ExemptionTypedDict
     from .exemptioncreate import ExemptionCreate, ExemptionCreateTypedDict
     from .exemptionrequired import ExemptionRequired, ExemptionRequiredTypedDict
     from .exemptionsourceenum import ExemptionSourceEnum
@@ -818,6 +817,10 @@ if TYPE_CHECKING:
         TransactionCreateTypedDict,
     )
     from .transactiondirectionenum import TransactionDirectionEnum
+    from .transactionembeddedexemption import (
+        TransactionEmbeddedExemption,
+        TransactionEmbeddedExemptionTypedDict,
+    )
     from .transactionestimatepublicrequest import (
         TransactionEstimatePublicRequest,
         TransactionEstimatePublicRequestAddress,
@@ -1236,7 +1239,6 @@ __all__ = [
     "DocumentTypeEnum",
     "EstimateTaxV1TaxEstimatePostRequest",
     "EstimateTaxV1TaxEstimatePostRequestTypedDict",
-    "Exemption",
     "ExemptionCreate",
     "ExemptionCreateTypedDict",
     "ExemptionRequired",
@@ -1244,7 +1246,6 @@ __all__ = [
     "ExemptionSourceEnum",
     "ExemptionStatus",
     "ExemptionType",
-    "ExemptionTypedDict",
     "FastapiPaginationDefaultPageExemptionRead2",
     "FastapiPaginationDefaultPageExemptionRead2TypedDict",
     "FilingApproveRequest",
@@ -1690,6 +1691,8 @@ __all__ = [
     "TransactionCreateTotalTaxLiabilityAmountTypedDict",
     "TransactionCreateTypedDict",
     "TransactionDirectionEnum",
+    "TransactionEmbeddedExemption",
+    "TransactionEmbeddedExemptionTypedDict",
     "TransactionEstimatePublicRequest",
     "TransactionEstimatePublicRequestAddress",
     "TransactionEstimatePublicRequestAddressTypedDict",
@@ -2042,8 +2045,6 @@ _dynamic_imports: dict[str, str] = {
     "DocumentTypeEnum": ".documenttypeenum",
     "EstimateTaxV1TaxEstimatePostRequest": ".estimate_tax_v1_tax_estimate_postop",
     "EstimateTaxV1TaxEstimatePostRequestTypedDict": ".estimate_tax_v1_tax_estimate_postop",
-    "Exemption": ".exemption",
-    "ExemptionTypedDict": ".exemption",
     "ExemptionCreate": ".exemptioncreate",
     "ExemptionCreateTypedDict": ".exemptioncreate",
     "ExemptionRequired": ".exemptionrequired",
@@ -2499,6 +2500,8 @@ _dynamic_imports: dict[str, str] = {
     "TransactionCreateTotalTaxLiabilityAmountTypedDict": ".transactioncreate",
     "TransactionCreateTypedDict": ".transactioncreate",
     "TransactionDirectionEnum": ".transactiondirectionenum",
+    "TransactionEmbeddedExemption": ".transactionembeddedexemption",
+    "TransactionEmbeddedExemptionTypedDict": ".transactionembeddedexemption",
     "TransactionEstimatePublicRequest": ".transactionestimatepublicrequest",
     "TransactionEstimatePublicRequestAddress": ".transactionestimatepublicrequest",
     "TransactionEstimatePublicRequestAddressTypedDict": ".transactionestimatepublicrequest",
