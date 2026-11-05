@@ -6,6 +6,7 @@ from .changeregimestatusenum import ChangeRegimeStatusEnum
 from .countrycodeenum import CountryCodeEnum
 from .filingfrequencyenum import FilingFrequencyEnum
 from .registrationsregimeenum import RegistrationsRegimeEnum
+from .taxtypeenum import TaxTypeEnum
 from datetime import date, datetime
 from kintsugi_tax_platform_sdk.types import (
     BaseModel,
@@ -42,7 +43,6 @@ class ArkansasRegistrationPayloadTypedDict(TypedDict):
     r"""The state/province code where the registration applies."""
     state_name: str
     r"""The name of the state/province."""
-    filing_frequency: FilingFrequencyEnum
     jurisdiction_specific_fields: ArkansasFieldsTypedDict
     r"""State-specific fields for Arkansas registration import (ATAP).
 
@@ -69,10 +69,16 @@ class ArkansasRegistrationPayloadTypedDict(TypedDict):
     registrations_regime: NotRequired[Nullable[RegistrationsRegimeEnum]]
     r"""The tax registration regime (e.g., STANDARD, SIMPLIFIED)."""
     change_regime_status: NotRequired[Nullable[ChangeRegimeStatusEnum]]
+    is_pre_collecting: NotRequired[bool]
+    r"""Set true to mark the organization as collecting tax in this jurisdiction ahead of registration details, instead of a normal import. Opens the registration in PROCESSING; filing frequency and credentials are not required."""
+    filing_frequency: NotRequired[Nullable[FilingFrequencyEnum]]
+    r"""Specifies how often tax filings should be made. Possible values: MONTHLY, QUARTERLY, ANNUALLY, UNKNOWN. Required unless isPreCollecting is set."""
     period_end_month: NotRequired[Nullable[int]]
-    r"""Fiscal-year anchor month (1-12) on which each quarterly/semiannual
-    period ends, for Hawaii (US-HI) filers whose periods are offset from the calendar.
-    Null (default) keeps the standard calendar grid.
+    r"""Fiscal-year anchor month (1-12) on which each recurring period
+    ends, for filers whose periods are offset from the calendar: Hawaii (US-HI)
+    quarterly/semiannual, British Columbia (CA-BC) quarterly, and California (US-CA)
+    and District of Columbia (US-DC) annual. Null (default) keeps the standard
+    calendar grid.
     """
     username: NotRequired[Nullable[str]]
     r"""Username for accessing tax registration details."""
@@ -102,6 +108,15 @@ class ArkansasRegistrationPayloadTypedDict(TypedDict):
     r"""Metadata related to the password."""
     request_id: NotRequired[Nullable[str]]
     r"""Optional client-minted id for this confirm attempt."""
+    tax_type: NotRequired[TaxTypeEnum]
+    r"""Tax obligation on a nexus, registration, or filing row.
+
+    Registrations and filings may be SALES_AND_USE_TAX: one state account and
+    one return can cover both taxes, and each is stored as a single row.
+    Nexus rows are SALES_TAX, USE_TAX, or RETAIL_DELIVERY_FEE. Sales tax, use
+    tax, and the retail delivery fee are separate obligations with their own
+    met dates, period models, and liability accrual.
+    """
 
 
 class ArkansasRegistrationPayload(BaseModel):
@@ -114,8 +129,6 @@ class ArkansasRegistrationPayload(BaseModel):
 
     state_name: str
     r"""The name of the state/province."""
-
-    filing_frequency: FilingFrequencyEnum
 
     jurisdiction_specific_fields: ArkansasFields
     r"""State-specific fields for Arkansas registration import (ATAP).
@@ -160,10 +173,18 @@ class ArkansasRegistrationPayload(BaseModel):
 
     change_regime_status: OptionalNullable[ChangeRegimeStatusEnum] = UNSET
 
+    is_pre_collecting: Optional[bool] = False
+    r"""Set true to mark the organization as collecting tax in this jurisdiction ahead of registration details, instead of a normal import. Opens the registration in PROCESSING; filing frequency and credentials are not required."""
+
+    filing_frequency: OptionalNullable[FilingFrequencyEnum] = UNSET
+    r"""Specifies how often tax filings should be made. Possible values: MONTHLY, QUARTERLY, ANNUALLY, UNKNOWN. Required unless isPreCollecting is set."""
+
     period_end_month: OptionalNullable[int] = UNSET
-    r"""Fiscal-year anchor month (1-12) on which each quarterly/semiannual
-    period ends, for Hawaii (US-HI) filers whose periods are offset from the calendar.
-    Null (default) keeps the standard calendar grid.
+    r"""Fiscal-year anchor month (1-12) on which each recurring period
+    ends, for filers whose periods are offset from the calendar: Hawaii (US-HI)
+    quarterly/semiannual, British Columbia (CA-BC) quarterly, and California (US-CA)
+    and District of Columbia (US-DC) annual. Null (default) keeps the standard
+    calendar grid.
     """
 
     username: OptionalNullable[str] = UNSET
@@ -208,6 +229,16 @@ class ArkansasRegistrationPayload(BaseModel):
     request_id: OptionalNullable[str] = UNSET
     r"""Optional client-minted id for this confirm attempt."""
 
+    tax_type: Optional[TaxTypeEnum] = None
+    r"""Tax obligation on a nexus, registration, or filing row.
+
+    Registrations and filings may be SALES_AND_USE_TAX: one state account and
+    one return can cover both taxes, and each is stored as a single row.
+    Nexus rows are SALES_TAX, USE_TAX, or RETAIL_DELIVERY_FEE. Sales tax, use
+    tax, and the retail delivery fee are separate obligations with their own
+    met dates, period models, and liability accrual.
+    """
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -223,6 +254,8 @@ class ArkansasRegistrationPayload(BaseModel):
                 "do_not_file",
                 "registrations_regime",
                 "change_regime_status",
+                "is_pre_collecting",
+                "filing_frequency",
                 "period_end_month",
                 "username",
                 "comment",
@@ -238,6 +271,7 @@ class ArkansasRegistrationPayload(BaseModel):
                 "password_plain_text",
                 "password_metadata_plain_text",
                 "request_id",
+                "tax_type",
             ]
         )
         nullable_fields = set(
@@ -251,6 +285,7 @@ class ArkansasRegistrationPayload(BaseModel):
                 "auto_registered",
                 "registrations_regime",
                 "change_regime_status",
+                "filing_frequency",
                 "period_end_month",
                 "username",
                 "comment",
