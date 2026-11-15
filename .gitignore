@@ -11,6 +11,5 @@ pyrightconfig.json
 **/.speakeasy/temp/
 **/.speakeasy/logs/
 .speakeasy/reports
-
 # Local planning docs (plans, design notes); see the planning-doc-placement rule.
 docs/plans/
