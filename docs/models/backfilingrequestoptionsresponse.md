@@ -1,0 +1,10 @@
+# BackFilingRequestOptionsResponse
+
+
+## Fields
+
+| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `registrations`                                                                                      | List[[models.BackFilingRequestRegistrationOption](../models/backfilingrequestregistrationoption.md)] | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
+| `help_article_url`                                                                                   | *Nullable[str]*                                                                                      | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
+| `help_article_label`                                                                                 | *str*                                                                                                | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
