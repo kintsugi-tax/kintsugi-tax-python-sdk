@@ -12,7 +12,10 @@ from kintsugi_tax_platform_sdk.types import (
     OptionalNullable,
     UNSET,
     UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
 )
+from kintsugi_tax_platform_sdk.types.basemodel import current_filtered_dump
 import pydantic
 from pydantic import model_serializer
 from typing import List, Optional, Union
@@ -247,6 +250,8 @@ class TransactionItemCreateUpdateTypedDict(TypedDict):
     r"""Tax exemption status."""
     exempt: NotRequired[bool]
     r"""Indicates if the item is exempt."""
+    is_tax_inclusive: NotRequired[Nullable[bool]]
+    r"""Whether this line's source amount includes tax. NULL means the source did not say."""
     tax_items: NotRequired[List[TaxItemBuilderTypedDict]]
     discount_builder: NotRequired[Nullable[DiscountBuilderTypedDict]]
 
@@ -349,11 +354,17 @@ class TransactionItemCreateUpdate(BaseModel):
     exempt: Optional[bool] = False
     r"""Indicates if the item is exempt."""
 
+    is_tax_inclusive: OptionalNullable[bool] = UNSET
+    r"""Whether this line's source amount includes tax. NULL means the source did not say."""
+
     tax_items: Optional[List[TaxItemBuilder]] = None
 
     discount_builder: OptionalNullable[DiscountBuilder] = UNSET
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -380,6 +391,7 @@ class TransactionItemCreateUpdate(BaseModel):
                 "taxable_amount",
                 "tax_exemption",
                 "exempt",
+                "is_tax_inclusive",
                 "tax_items",
                 "discount_builder",
             ]
@@ -402,14 +414,19 @@ class TransactionItemCreateUpdate(BaseModel):
                 "converted_total_discount",
                 "converted_subtotal",
                 "tax_exemption",
+                "is_tax_inclusive",
                 "discount_builder",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields

@@ -1,0 +1,9 @@
+# BackFilingRequestCreate
+
+
+## Fields
+
+| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `requests`                                                                                         | List[[models.BackFilingRequestRegistrationInput](../models/backfilingrequestregistrationinput.md)] | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `notes`                                                                                            | *OptionalNullable[str]*                                                                            | :heavy_minus_sign:                                                                                 | N/A                                                                                                |
