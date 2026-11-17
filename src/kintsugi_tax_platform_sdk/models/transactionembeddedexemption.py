@@ -12,14 +12,29 @@ from kintsugi_tax_platform_sdk.types import (
     OptionalNullable,
     UNSET,
     UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
 )
+from kintsugi_tax_platform_sdk.types.basemodel import current_filtered_dump
 import pydantic
 from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class ExemptionTypedDict(TypedDict):
+class TransactionEmbeddedExemptionTypedDict(TypedDict):
+    r"""Public read schema mirroring the ORM ``Exemption`` for /v1 transaction embedding.
+
+    A non-table twin of ``exemptions.models.Exemption``: it re-declares the exact fields
+    the ORM adds on top of ``ExemptionBase``/``TableBase`` (id, organization_id,
+    certificate_import_id, source, certificate_type) so
+    ``TransactionSerializerBase.exemptions`` can be
+    typed without importing the private ORM model (CP-4895). Its serialized shape is
+    byte-identical to the ORM's — ``from_attributes`` reads the same attributes off each
+    ORM row — so the /v1 response payload is unchanged. Keep it in lockstep with
+    ``Exemption`` if the ORM's public columns change (a JSON-schema parity test guards it).
+    """
+
     exemption_type: ExemptionType
     start_date: date
     r"""Start date for the exemption validity period (YYYY-MM-DD format)"""
@@ -58,9 +73,23 @@ class ExemptionTypedDict(TypedDict):
     r"""FK to bulk-imported certificate; NULL for manually-created exemptions"""
     source: NotRequired[Nullable[ExemptionSourceEnum]]
     r"""Source of exemption."""
+    certificate_type: NotRequired[Nullable[str]]
+    r"""Partial-exemption certificate form code. Null when the exemption is not a partial exemption."""
 
 
-class Exemption(BaseModel):
+class TransactionEmbeddedExemption(BaseModel):
+    r"""Public read schema mirroring the ORM ``Exemption`` for /v1 transaction embedding.
+
+    A non-table twin of ``exemptions.models.Exemption``: it re-declares the exact fields
+    the ORM adds on top of ``ExemptionBase``/``TableBase`` (id, organization_id,
+    certificate_import_id, source, certificate_type) so
+    ``TransactionSerializerBase.exemptions`` can be
+    typed without importing the private ORM model (CP-4895). Its serialized shape is
+    byte-identical to the ORM's — ``from_attributes`` reads the same attributes off each
+    ORM row — so the /v1 response payload is unchanged. Keep it in lockstep with
+    ``Exemption`` if the ORM's public columns change (a JSON-schema parity test guards it).
+    """
+
     exemption_type: ExemptionType
 
     start_date: date
@@ -116,7 +145,13 @@ class Exemption(BaseModel):
     source: OptionalNullable[ExemptionSourceEnum] = UNSET
     r"""Source of exemption."""
 
+    certificate_type: OptionalNullable[str] = UNSET
+    r"""Partial-exemption certificate form code. Null when the exemption is not a partial exemption."""
+
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -135,6 +170,7 @@ class Exemption(BaseModel):
                 "organization_id",
                 "certificate_import_id",
                 "source",
+                "certificate_type",
             ]
         )
         nullable_fields = set(
@@ -150,13 +186,18 @@ class Exemption(BaseModel):
                 "status",
                 "certificate_import_id",
                 "source",
+                "certificate_type",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
@@ -175,6 +216,6 @@ class Exemption(BaseModel):
 
 
 try:
-    Exemption.model_rebuild()
+    TransactionEmbeddedExemption.model_rebuild()
 except NameError:
     pass

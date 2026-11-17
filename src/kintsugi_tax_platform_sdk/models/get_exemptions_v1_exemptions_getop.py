@@ -9,7 +9,10 @@ from kintsugi_tax_platform_sdk.types import (
     OptionalNullable,
     UNSET,
     UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
 )
+from kintsugi_tax_platform_sdk.types.basemodel import current_filtered_dump
 from kintsugi_tax_platform_sdk.utils import (
     FieldMetadata,
     HeaderMetadata,
@@ -45,9 +48,9 @@ class GetExemptionsV1ExemptionsGetRequestTypedDict(TypedDict):
     jurisdiction: NotRequired[Nullable[str]]
     r"""Jurisdiction identifier"""
     start_date: NotRequired[Nullable[date]]
-    r"""Start date for filtering exemptions"""
+    r"""Include exemptions whose validity start date is on or after this date (YYYY-MM-DD)"""
     end_date: NotRequired[Nullable[date]]
-    r"""End date for filtering exemptions"""
+    r"""Include exemptions whose validity end date is on or before this date (YYYY-MM-DD). Open-ended exemptions (null end date) are excluded when this filter is set."""
     customer_id: NotRequired[Nullable[str]]
     r"""Customer ID to filter exemptions"""
     transaction_id: NotRequired[Nullable[str]]
@@ -99,13 +102,13 @@ class GetExemptionsV1ExemptionsGetRequest(BaseModel):
         OptionalNullable[date],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = UNSET
-    r"""Start date for filtering exemptions"""
+    r"""Include exemptions whose validity start date is on or after this date (YYYY-MM-DD)"""
 
     end_date: Annotated[
         OptionalNullable[date],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = UNSET
-    r"""End date for filtering exemptions"""
+    r"""Include exemptions whose validity end date is on or before this date (YYYY-MM-DD). Open-ended exemptions (null end date) are excluded when this filter is set."""
 
     customer_id: Annotated[
         OptionalNullable[str],
@@ -145,6 +148,9 @@ class GetExemptionsV1ExemptionsGetRequest(BaseModel):
     r"""Page size"""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -177,11 +183,15 @@ class GetExemptionsV1ExemptionsGetRequest(BaseModel):
                 "x-organization-id",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
