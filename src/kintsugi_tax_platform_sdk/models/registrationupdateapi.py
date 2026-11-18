@@ -11,7 +11,10 @@ from kintsugi_tax_platform_sdk.types import (
     OptionalNullable,
     UNSET,
     UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
 )
+from kintsugi_tax_platform_sdk.types.basemodel import current_filtered_dump
 from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import NotRequired, TypedDict
@@ -43,6 +46,8 @@ class RegistrationUpdateAPITypedDict(TypedDict):
     r"""Indicates whether two-factor authentication (2FA) is enabled for this registration."""
     marked_collecting: NotRequired[Nullable[bool]]
     r"""Indicates whether the  registration is marked as collecting in shopify"""
+    is_pre_collecting: NotRequired[bool]
+    r"""True when this PROCESSING registration marks the organization as collecting tax in the jurisdiction ahead of registration details. It skips the Tax Ops registration task until the flag is cleared."""
     encrypted_username: NotRequired[Nullable[str]]
     r"""The encrypted username for the registration."""
     username: NotRequired[Nullable[str]]
@@ -104,6 +109,9 @@ class RegistrationUpdateAPI(BaseModel):
     marked_collecting: OptionalNullable[bool] = UNSET
     r"""Indicates whether the  registration is marked as collecting in shopify"""
 
+    is_pre_collecting: Optional[bool] = False
+    r"""True when this PROCESSING registration marks the organization as collecting tax in the jurisdiction ahead of registration details. It skips the Tax Ops registration task until the flag is cleared."""
+
     encrypted_username: OptionalNullable[str] = UNSET
     r"""The encrypted username for the registration."""
 
@@ -135,6 +143,9 @@ class RegistrationUpdateAPI(BaseModel):
     r"""Whether to also file the single period preceding the first filing period."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -151,6 +162,7 @@ class RegistrationUpdateAPI(BaseModel):
                 "do_not_file",
                 "two_factor_enabled",
                 "marked_collecting",
+                "is_pre_collecting",
                 "encrypted_username",
                 "username",
                 "filing_frequency",
@@ -188,11 +200,15 @@ class RegistrationUpdateAPI(BaseModel):
                 "ior_number",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
