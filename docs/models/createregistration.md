@@ -33,12 +33,6 @@ value: models.CaliforniaRegistrationPayload = /* values here */
 value: models.ConnecticutRegistrationPayload = /* values here */
 ```
 
-### `models.ColoradoRegistrationPayload`
-
-```python
-value: models.ColoradoRegistrationPayload = /* values here */
-```
-
 ### `models.DistrictOfColumbiaRegistrationPayload`
 
 ```python
