@@ -11,7 +11,10 @@ from kintsugi_tax_platform_sdk.types import (
     OptionalNullable,
     UNSET,
     UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
 )
+from kintsugi_tax_platform_sdk.types.basemodel import current_filtered_dump
 import pydantic
 from pydantic import model_serializer
 from typing import Optional
@@ -39,6 +42,8 @@ class ExemptionCreateTypedDict(TypedDict):
     r"""Unique identifier for the transaction, if applicable"""
     reseller: NotRequired[bool]
     r"""Indicates whether the exemption is for a reseller"""
+    certificate_type: NotRequired[Nullable[str]]
+    r"""Partial-exemption certificate form code. Required when exemption_type is partial; must be absent otherwise."""
 
 
 class ExemptionCreate(BaseModel):
@@ -73,19 +78,42 @@ class ExemptionCreate(BaseModel):
     reseller: Optional[bool] = False
     r"""Indicates whether the exemption is for a reseller"""
 
+    certificate_type: OptionalNullable[str] = UNSET
+    r"""Partial-exemption certificate form code. Required when exemption_type is partial; must be absent otherwise."""
+
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
-            ["jurisdiction", "country_code", "end_date", "transaction_id", "reseller"]
+            [
+                "jurisdiction",
+                "country_code",
+                "end_date",
+                "transaction_id",
+                "reseller",
+                "certificate_type",
+            ]
         )
         nullable_fields = set(
-            ["jurisdiction", "country_code", "end_date", "transaction_id"]
+            [
+                "jurisdiction",
+                "country_code",
+                "end_date",
+                "transaction_id",
+                "certificate_type",
+            ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields

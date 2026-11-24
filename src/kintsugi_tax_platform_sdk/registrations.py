@@ -40,7 +40,8 @@ class Registrations(BaseSDK):
         The Get Registrations API retrieves a
         paginated list of registrations.
         This API helps in tracking and managing registrations efficiently across multiple
-        jurisdictions.
+        jurisdictions. Stored credential fields come back masked; use the reveal parameter
+        of the Get Registration By ID API to read them.
 
         :param x_organization_id: The unique identifier for the organization making the request
         :param status_in: Filter registrations by status. Multiple statuses can be passed,
@@ -180,7 +181,8 @@ class Registrations(BaseSDK):
         The Get Registrations API retrieves a
         paginated list of registrations.
         This API helps in tracking and managing registrations efficiently across multiple
-        jurisdictions.
+        jurisdictions. Stored credential fields come back masked; use the reveal parameter
+        of the Get Registration By ID API to read them.
 
         :param x_organization_id: The unique identifier for the organization making the request
         :param status_in: Filter registrations by status. Multiple statuses can be passed,
@@ -522,10 +524,10 @@ class Registrations(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.JurisdictionSpecificFieldsResponse:
+    ) -> models.CustomerJurisdictionSpecificFieldsResponse:
         r"""Get jurisdiction specific fields
 
-        Returns the JSON Schema and UI metadata for a state-specific registration form
+        Returns the JSON Schema and UI metadata for a state-specific registration form, and the tax types that can be imported there.
 
         :param country_code: ISO 3166-1 alpha-2 country code (e.g., US).
         :param state_code: State/province code (e.g., AL, LA).
@@ -594,7 +596,7 @@ class Registrations(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                models.JurisdictionSpecificFieldsResponse, http_res
+                models.CustomerJurisdictionSpecificFieldsResponse, http_res
             )
         if utils.match_response(http_res, "422", "application/json"):
             response_data = unmarshal_json_response(
@@ -620,10 +622,10 @@ class Registrations(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.JurisdictionSpecificFieldsResponse:
+    ) -> models.CustomerJurisdictionSpecificFieldsResponse:
         r"""Get jurisdiction specific fields
 
-        Returns the JSON Schema and UI metadata for a state-specific registration form
+        Returns the JSON Schema and UI metadata for a state-specific registration form, and the tax types that can be imported there.
 
         :param country_code: ISO 3166-1 alpha-2 country code (e.g., US).
         :param state_code: State/province code (e.g., AL, LA).
@@ -692,7 +694,7 @@ class Registrations(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                models.JurisdictionSpecificFieldsResponse, http_res
+                models.CustomerJurisdictionSpecificFieldsResponse, http_res
             )
         if utils.match_response(http_res, "422", "application/json"):
             response_data = unmarshal_json_response(
@@ -925,7 +927,7 @@ class Registrations(BaseSDK):
         :param registration_id: The unique identifier of the
             registration to retrieve.
         :param x_organization_id: The unique identifier for the organization making the request
-        :param reveal: Name of field to reveal
+        :param reveal: Comma-separated credential fields to return decrypted. Only an Owner of the organization or a Kintsugi Portfolio user who can open it may use it. An API key counts as the user it belongs to, and a service key as the user who created it. Other callers, and automated assistant integrations, get 403. Without this parameter, credential fields come back masked.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -990,7 +992,7 @@ class Registrations(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.RegistrationRead, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
+        if utils.match_response(http_res, ["401", "403"], "application/json"):
             response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
             raise errors.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "422", "application/json"):
@@ -1032,7 +1034,7 @@ class Registrations(BaseSDK):
         :param registration_id: The unique identifier of the
             registration to retrieve.
         :param x_organization_id: The unique identifier for the organization making the request
-        :param reveal: Name of field to reveal
+        :param reveal: Comma-separated credential fields to return decrypted. Only an Owner of the organization or a Kintsugi Portfolio user who can open it may use it. An API key counts as the user it belongs to, and a service key as the user who created it. Other callers, and automated assistant integrations, get 403. Without this parameter, credential fields come back masked.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1097,7 +1099,7 @@ class Registrations(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.RegistrationRead, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
+        if utils.match_response(http_res, ["401", "403"], "application/json"):
             response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
             raise errors.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "422", "application/json"):
@@ -1138,6 +1140,7 @@ class Registrations(BaseSDK):
         do_not_file: Optional[bool] = False,
         two_factor_enabled: OptionalNullable[bool] = UNSET,
         marked_collecting: OptionalNullable[bool] = UNSET,
+        is_pre_collecting: Optional[bool] = False,
         encrypted_username: OptionalNullable[str] = UNSET,
         username: OptionalNullable[str] = UNSET,
         filing_frequency: OptionalNullable[models.FilingFrequencyEnum] = UNSET,
@@ -1156,7 +1159,17 @@ class Registrations(BaseSDK):
         r"""Update registration
 
         The Update Registration API allows you to modify
-        an existing registration using its unique registration_id.
+        an existing registration using its unique registration_id. Sending a value for,
+        or clearing, a credential that is already stored (username, password, security
+        questions or a portal access code) needs an Owner of the organization or a
+        Kintsugi Portfolio user who can open it. An API key counts as the user it belongs
+        to, and a service key as the user who created it. Other callers, and automated
+        assistant integrations, get 403, even when the value matches the stored one.
+        Any caller who can edit the registration may fill a credential that has no
+        stored value, except that a stored password also guards the username and security
+        questions. A masked username sent back unchanged is ignored. A password made
+        only of asterisks, the mask a read shows, gets 400. Stored credential fields in the
+        response come back masked.
 
         :param registration_id: The unique identifier of the registration to be updated.
         :param x_organization_id: The unique identifier for the organization making the request
@@ -1173,6 +1186,7 @@ class Registrations(BaseSDK):
         :param do_not_file: If true, do not file for this registration (treated as False by default).
         :param two_factor_enabled: Indicates whether two-factor authentication (2FA) is enabled for this registration.
         :param marked_collecting: Indicates whether the  registration is marked as collecting in shopify
+        :param is_pre_collecting: True when this PROCESSING registration marks the organization as collecting tax in the jurisdiction ahead of registration details. It skips the Tax Ops registration task until the flag is cleared.
         :param encrypted_username: The encrypted username for the registration.
         :param username: The username associated with the registration.
         :param filing_frequency: The updated filing frequency (MONTHLY, QUARTERLY, etc.).
@@ -1215,6 +1229,7 @@ class Registrations(BaseSDK):
                 do_not_file=do_not_file,
                 two_factor_enabled=two_factor_enabled,
                 marked_collecting=marked_collecting,
+                is_pre_collecting=is_pre_collecting,
                 encrypted_username=encrypted_username,
                 username=username,
                 filing_frequency=filing_frequency,
@@ -1278,7 +1293,7 @@ class Registrations(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.RegistrationRead, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
+        if utils.match_response(http_res, ["401", "403"], "application/json"):
             response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
             raise errors.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "422", "application/json"):
@@ -1319,6 +1334,7 @@ class Registrations(BaseSDK):
         do_not_file: Optional[bool] = False,
         two_factor_enabled: OptionalNullable[bool] = UNSET,
         marked_collecting: OptionalNullable[bool] = UNSET,
+        is_pre_collecting: Optional[bool] = False,
         encrypted_username: OptionalNullable[str] = UNSET,
         username: OptionalNullable[str] = UNSET,
         filing_frequency: OptionalNullable[models.FilingFrequencyEnum] = UNSET,
@@ -1337,7 +1353,17 @@ class Registrations(BaseSDK):
         r"""Update registration
 
         The Update Registration API allows you to modify
-        an existing registration using its unique registration_id.
+        an existing registration using its unique registration_id. Sending a value for,
+        or clearing, a credential that is already stored (username, password, security
+        questions or a portal access code) needs an Owner of the organization or a
+        Kintsugi Portfolio user who can open it. An API key counts as the user it belongs
+        to, and a service key as the user who created it. Other callers, and automated
+        assistant integrations, get 403, even when the value matches the stored one.
+        Any caller who can edit the registration may fill a credential that has no
+        stored value, except that a stored password also guards the username and security
+        questions. A masked username sent back unchanged is ignored. A password made
+        only of asterisks, the mask a read shows, gets 400. Stored credential fields in the
+        response come back masked.
 
         :param registration_id: The unique identifier of the registration to be updated.
         :param x_organization_id: The unique identifier for the organization making the request
@@ -1354,6 +1380,7 @@ class Registrations(BaseSDK):
         :param do_not_file: If true, do not file for this registration (treated as False by default).
         :param two_factor_enabled: Indicates whether two-factor authentication (2FA) is enabled for this registration.
         :param marked_collecting: Indicates whether the  registration is marked as collecting in shopify
+        :param is_pre_collecting: True when this PROCESSING registration marks the organization as collecting tax in the jurisdiction ahead of registration details. It skips the Tax Ops registration task until the flag is cleared.
         :param encrypted_username: The encrypted username for the registration.
         :param username: The username associated with the registration.
         :param filing_frequency: The updated filing frequency (MONTHLY, QUARTERLY, etc.).
@@ -1396,6 +1423,7 @@ class Registrations(BaseSDK):
                 do_not_file=do_not_file,
                 two_factor_enabled=two_factor_enabled,
                 marked_collecting=marked_collecting,
+                is_pre_collecting=is_pre_collecting,
                 encrypted_username=encrypted_username,
                 username=username,
                 filing_frequency=filing_frequency,
@@ -1459,7 +1487,7 @@ class Registrations(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.RegistrationRead, http_res)
-        if utils.match_response(http_res, "401", "application/json"):
+        if utils.match_response(http_res, ["401", "403"], "application/json"):
             response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
             raise errors.ErrorResponse(response_data, http_res)
         if utils.match_response(http_res, "422", "application/json"):
@@ -1697,6 +1725,8 @@ class Registrations(BaseSDK):
         *,
         registration_id: str,
         x_organization_id: Nullable[str],
+        closure_date: date,
+        reason: models.DeregistrationReasonEnum,
         request_id: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1705,11 +1735,14 @@ class Registrations(BaseSDK):
     ) -> models.RegistrationRead:
         r"""Deregister registration
 
-        Deregister an existing registration.
+        Deregister an existing registration. Stored credential fields in the
+        response come back masked.
 
         :param registration_id: The unique identifier of the registration to deregister.
         :param x_organization_id: The unique identifier for the organization making the request
-        :param request_id:
+        :param closure_date: Effective date the permit closes with the jurisdiction (YYYY-MM-DD). Past and future dates are accepted.
+        :param reason: Reason a registration is being closed.
+        :param request_id: Optional client-minted id for this confirm attempt.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1729,6 +1762,8 @@ class Registrations(BaseSDK):
             registration_id=registration_id,
             x_organization_id=x_organization_id,
             deregister_registration_request=models.DeregisterRegistrationRequest(
+                closure_date=closure_date,
+                reason=reason,
                 request_id=request_id,
             ),
         )
@@ -1739,7 +1774,7 @@ class Registrations(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -1747,13 +1782,11 @@ class Registrations(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.deregister_registration_request
-                if request is not None
-                else None,
-                True,
-                True,
+                request.deregister_registration_request,
+                False,
+                False,
                 "json",
-                OptionalNullable[models.DeregisterRegistrationRequest],
+                models.DeregisterRegistrationRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1813,6 +1846,8 @@ class Registrations(BaseSDK):
         *,
         registration_id: str,
         x_organization_id: Nullable[str],
+        closure_date: date,
+        reason: models.DeregistrationReasonEnum,
         request_id: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1821,11 +1856,14 @@ class Registrations(BaseSDK):
     ) -> models.RegistrationRead:
         r"""Deregister registration
 
-        Deregister an existing registration.
+        Deregister an existing registration. Stored credential fields in the
+        response come back masked.
 
         :param registration_id: The unique identifier of the registration to deregister.
         :param x_organization_id: The unique identifier for the organization making the request
-        :param request_id:
+        :param closure_date: Effective date the permit closes with the jurisdiction (YYYY-MM-DD). Past and future dates are accepted.
+        :param reason: Reason a registration is being closed.
+        :param request_id: Optional client-minted id for this confirm attempt.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1845,6 +1883,8 @@ class Registrations(BaseSDK):
             registration_id=registration_id,
             x_organization_id=x_organization_id,
             deregister_registration_request=models.DeregisterRegistrationRequest(
+                closure_date=closure_date,
+                reason=reason,
                 request_id=request_id,
             ),
         )
@@ -1855,7 +1895,7 @@ class Registrations(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -1863,13 +1903,11 @@ class Registrations(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.deregister_registration_request
-                if request is not None
-                else None,
-                True,
-                True,
+                request.deregister_registration_request,
+                False,
+                False,
                 "json",
-                OptionalNullable[models.DeregisterRegistrationRequest],
+                models.DeregisterRegistrationRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,

@@ -9,7 +9,10 @@ from kintsugi_tax_platform_sdk.types import (
     OptionalNullable,
     UNSET,
     UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
 )
+from kintsugi_tax_platform_sdk.types.basemodel import current_filtered_dump
 import pydantic
 from pydantic import model_serializer
 from typing import Optional, Union
@@ -69,13 +72,11 @@ class TransactionItemEstimateBaseTypedDict(TypedDict):
     exempt: NotRequired[bool]
     r"""Defaults to false. Indicates whether the item is exempt from tax."""
     is_tax_inclusive: NotRequired[bool]
-    r"""**Beta — not yet available in production.** When it is not enabled for your environment the field is accepted but ignored, and the response echoes `false`.
-
-    Defaults to false. When true, `amount` is the gross (tax-included) price and the tax is backed out of it rather than added on top; for a taxable line, `taxable_amount` in the response is then the net base.
+    r"""Defaults to false. When true, `amount` is the gross (tax-included) price and the tax is backed out of it rather than added on top; for a taxable line, `taxable_amount` in the response is then the net base.
 
     When the line is not taxed - exempt, or no tax rule applies in the destination - `taxable_amount` is `0.00` rather than the net base, matching how exempt tax-exclusive lines already behave. Read the net amount as `taxable_amount` when `tax_amount` is non-zero, and as `amount` otherwise.
 
-    This applies to the estimate in this request only. Transactions imported through a connection carry no such flag, so an order quoted here as gross is treated as net when it later syncs, and its recorded tax will be higher than this estimate. Send net amounts on the connection side, or reconcile the difference, until tax-inclusive import support ships.
+    This applies to the estimate in this request only. Connection imports that report an inclusive price store the gross amount and the inclusive flag, and recalc backs the tax out the same way as this estimate.
     """
 
 
@@ -122,16 +123,17 @@ class TransactionItemEstimateBase(BaseModel):
     r"""Defaults to false. Indicates whether the item is exempt from tax."""
 
     is_tax_inclusive: Optional[bool] = False
-    r"""**Beta — not yet available in production.** When it is not enabled for your environment the field is accepted but ignored, and the response echoes `false`.
-
-    Defaults to false. When true, `amount` is the gross (tax-included) price and the tax is backed out of it rather than added on top; for a taxable line, `taxable_amount` in the response is then the net base.
+    r"""Defaults to false. When true, `amount` is the gross (tax-included) price and the tax is backed out of it rather than added on top; for a taxable line, `taxable_amount` in the response is then the net base.
 
     When the line is not taxed - exempt, or no tax rule applies in the destination - `taxable_amount` is `0.00` rather than the net base, matching how exempt tax-exclusive lines already behave. Read the net amount as `taxable_amount` when `tax_amount` is non-zero, and as `amount` otherwise.
 
-    This applies to the estimate in this request only. Transactions imported through a connection carry no such flag, so an order quoted here as gross is treated as net when it later syncs, and its recorded tax will be higher than this estimate. Send net amounts on the connection side, or reconcile the difference, until tax-inclusive import support ships.
+    This applies to the estimate in this request only. Connection imports that report an inclusive price store the gross amount and the inclusive flag, and recalc backs the tax out the same way as this estimate.
     """
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             [
@@ -160,11 +162,15 @@ class TransactionItemEstimateBase(BaseModel):
                 "product_category",
             ]
         )
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields

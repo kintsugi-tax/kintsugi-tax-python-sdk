@@ -49,7 +49,7 @@ class TaxEstimation(BaseSDK):
         :param x_organization_id: The unique identifier for the organization making the request
         :param date_: The date of the transaction in ISO 8601 format (e.g., 2025-01-25T12:00:00Z).
         :param external_id: Unique identifier of this transaction in the source system.
-        :param currency:
+        :param currency: ISO-4217 currency code. Pair with a monetary amount on the same object.
         :param transaction_items: List of items involved in the transaction.
         :param addresses: List of addresses related to the transaction. At least one BILL_TO or SHIP_TO address must be provided. The address will be validated during estimation, and the transaction may be rejected if the address does not pass validation. The SHIP_TO will be preferred to use for determining tax liability.
         :param simulate_nexus_met: **Deprecated:** Use `simulate_active_registration` in the request body instead.
@@ -206,7 +206,7 @@ class TaxEstimation(BaseSDK):
         :param x_organization_id: The unique identifier for the organization making the request
         :param date_: The date of the transaction in ISO 8601 format (e.g., 2025-01-25T12:00:00Z).
         :param external_id: Unique identifier of this transaction in the source system.
-        :param currency:
+        :param currency: ISO-4217 currency code. Pair with a monetary amount on the same object.
         :param transaction_items: List of items involved in the transaction.
         :param addresses: List of addresses related to the transaction. At least one BILL_TO or SHIP_TO address must be provided. The address will be validated during estimation, and the transaction may be rejected if the address does not pass validation. The SHIP_TO will be preferred to use for determining tax liability.
         :param simulate_nexus_met: **Deprecated:** Use `simulate_active_registration` in the request body instead.
