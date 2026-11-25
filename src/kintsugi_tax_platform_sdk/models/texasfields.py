@@ -2,14 +2,16 @@
 
 from __future__ import annotations
 from .texasregistrationtype import TexasRegistrationType
-from .texassltrelection import TexasSltrElection
 from kintsugi_tax_platform_sdk.types import (
     BaseModel,
     Nullable,
     OptionalNullable,
     UNSET,
     UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
 )
+from kintsugi_tax_platform_sdk.types.basemodel import current_filtered_dump
 from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import NotRequired, TypedDict
@@ -31,10 +33,6 @@ class TexasFieldsTypedDict(TypedDict):
     r"""Registered location number from Texas sales tax paperwork or taxpayer record."""
     registered_address: NotRequired[Nullable[str]]
     r"""Address provided when registering for the Texas sales tax license."""
-    sltr_elected: NotRequired[Nullable[TexasSltrElection]]
-    r"""Whether the remote seller elected the Single Local Tax Rate (SLTR) option: Yes, No, or Unsure."""
-    single_local_tax_rate: NotRequired[Nullable[str]]
-    r"""Optional Single Local Tax Rate (SLTR) for remote sellers; can change year to year."""
 
 
 class TexasFields(BaseModel):
@@ -60,36 +58,24 @@ class TexasFields(BaseModel):
     registered_address: OptionalNullable[str] = UNSET
     r"""Address provided when registering for the Texas sales tax license."""
 
-    sltr_elected: OptionalNullable[TexasSltrElection] = UNSET
-    r"""Whether the remote seller elected the Single Local Tax Rate (SLTR) option: Yes, No, or Unsure."""
-
-    single_local_tax_rate: OptionalNullable[str] = UNSET
-    r"""Optional Single Local Tax Rate (SLTR) for remote sellers; can change year to year."""
-
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
-            [
-                "mfa_completed",
-                "registered_location_number",
-                "registered_address",
-                "sltr_elected",
-                "single_local_tax_rate",
-            ]
+            ["mfa_completed", "registered_location_number", "registered_address"]
         )
-        nullable_fields = set(
-            [
-                "registered_location_number",
-                "registered_address",
-                "sltr_elected",
-                "single_local_tax_rate",
-            ]
-        )
+        nullable_fields = set(["registered_location_number", "registered_address"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
