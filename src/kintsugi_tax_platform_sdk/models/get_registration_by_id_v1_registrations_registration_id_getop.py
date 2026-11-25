@@ -7,7 +7,10 @@ from kintsugi_tax_platform_sdk.types import (
     OptionalNullable,
     UNSET,
     UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
 )
+from kintsugi_tax_platform_sdk.types.basemodel import current_filtered_dump
 from kintsugi_tax_platform_sdk.utils import (
     FieldMetadata,
     HeaderMetadata,
@@ -27,7 +30,7 @@ class GetRegistrationByIDV1RegistrationsRegistrationIDGetRequestTypedDict(TypedD
     x_organization_id: Nullable[str]
     r"""The unique identifier for the organization making the request"""
     reveal: NotRequired[Nullable[str]]
-    r"""Name of field to reveal"""
+    r"""Comma-separated credential fields to return decrypted. Only an Owner of the organization or a Kintsugi Portfolio user who can open it may use it. An API key counts as the user it belongs to, and a service key as the user who created it. Other callers, and automated assistant integrations, get 403. Without this parameter, credential fields come back masked."""
 
 
 class GetRegistrationByIDV1RegistrationsRegistrationIDGetRequest(BaseModel):
@@ -49,17 +52,24 @@ class GetRegistrationByIDV1RegistrationsRegistrationIDGetRequest(BaseModel):
         OptionalNullable[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = UNSET
-    r"""Name of field to reveal"""
+    r"""Comma-separated credential fields to return decrypted. Only an Owner of the organization or a Kintsugi Portfolio user who can open it may use it. An API key counts as the user it belongs to, and a service key as the user who created it. Other callers, and automated assistant integrations, get 403. Without this parameter, credential fields come back masked."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["reveal"])
         nullable_fields = set(["reveal", "x-organization-id"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
