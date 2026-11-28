@@ -14,7 +14,7 @@ from .quarterlyprepaybalancedisplay import (
     QuarterlyPrepayBalanceDisplayTypedDict,
 )
 from .taxtypeenum import TaxTypeEnum
-from datetime import date, datetime
+from datetime import date
 from kintsugi_tax_platform_sdk.types import (
     BaseModel,
     Nullable,
@@ -81,7 +81,7 @@ class FilingDetailsReadTypedDict(TypedDict):
     r"""True when this filing is a final return for deregistration. Independent of filing_category — finals stay REGULAR."""
     approved_by: NotRequired[Nullable[str]]
     r"""User ID of who approved the filing."""
-    approved_at: NotRequired[Nullable[datetime]]
+    approved_at: NotRequired[Nullable[str]]
     r"""Timestamp when the filing was approved."""
     issue_reason: NotRequired[Nullable[str]]
     r"""Reason why the filing has an issue, if applicable."""
@@ -94,11 +94,12 @@ class FilingDetailsReadTypedDict(TypedDict):
 
     Registrations and filings may be SALES_AND_USE_TAX: one state account and
     one return can cover both taxes, and each is stored as a single row.
-    Nexus rows are SALES_TAX, USE_TAX, RETAIL_DELIVERY_FEE, or
-    SMALL_PARCEL_VAT. Sales tax, use tax, the retail delivery fee, and the
-    Swiss small-parcel threshold are separate obligations with their own met
-    dates and period models. SMALL_PARCEL_VAT is a threshold only. A sales
-    tax registration covers it, and it has no account and no return of its own.
+    Nexus rows are SALES_TAX, USE_TAX, RETAIL_DELIVERY_FEE, SMALL_PARCEL_VAT,
+    or LEASE_TAX. Each of these is a separate obligation. Each has its own met
+    dates and period models. SMALL_PARCEL_VAT is a threshold only. A sales tax
+    registration covers it, and it has no account and no return of its own.
+    LEASE_TAX is a city tax on leased goods, such as the
+    Chicago lease tax. It has its own account and return.
     """
     amount_calculated: NotRequired[str]
     r"""The calculated amount for the filing. Defaults to 0.00."""
@@ -260,7 +261,7 @@ class FilingDetailsRead(BaseModel):
     approved_by: OptionalNullable[str] = UNSET
     r"""User ID of who approved the filing."""
 
-    approved_at: OptionalNullable[datetime] = UNSET
+    approved_at: OptionalNullable[str] = UNSET
     r"""Timestamp when the filing was approved."""
 
     issue_reason: OptionalNullable[str] = UNSET
@@ -277,11 +278,12 @@ class FilingDetailsRead(BaseModel):
 
     Registrations and filings may be SALES_AND_USE_TAX: one state account and
     one return can cover both taxes, and each is stored as a single row.
-    Nexus rows are SALES_TAX, USE_TAX, RETAIL_DELIVERY_FEE, or
-    SMALL_PARCEL_VAT. Sales tax, use tax, the retail delivery fee, and the
-    Swiss small-parcel threshold are separate obligations with their own met
-    dates and period models. SMALL_PARCEL_VAT is a threshold only. A sales
-    tax registration covers it, and it has no account and no return of its own.
+    Nexus rows are SALES_TAX, USE_TAX, RETAIL_DELIVERY_FEE, SMALL_PARCEL_VAT,
+    or LEASE_TAX. Each of these is a separate obligation. Each has its own met
+    dates and period models. SMALL_PARCEL_VAT is a threshold only. A sales tax
+    registration covers it, and it has no account and no return of its own.
+    LEASE_TAX is a city tax on leased goods, such as the
+    Chicago lease tax. It has its own account and return.
     """
 
     amount_calculated: Optional[str] = "0.00"

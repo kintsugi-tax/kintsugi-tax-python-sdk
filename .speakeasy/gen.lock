@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: a3b5f8df-3e69-405c-9eb8-40a21cc5faba
 management:
-  docChecksum: 832c2289a1536918a9bcbd333d52b724
+  docChecksum: d3c0eced5622ebed9406fc4c7a37e9b5
   docVersion: 1.0.0
-  speakeasyVersion: 1.811.0
-  generationVersion: 2.968.1
-  releaseVersion: 0.13.1
-  configChecksum: 877385199e2cb882bd865964d984e6d4
+  speakeasyVersion: 1.813.0
+  generationVersion: 2.969.4
+  releaseVersion: 0.13.2
+  configChecksum: f17b4b4a1a04a8d85a313d234d5b39a4
   repoURL: https://github.com/kintsugi-tax/kintsugi-tax-python-sdk.git
   installationURL: https://github.com/kintsugi-tax/kintsugi-tax-python-sdk.git
   published: true
 persistentEdits:
-  generation_id: 21bbb08f-6f55-425d-a4b0-db5f3ffa1bf4
-  pristine_commit_hash: 1e2e815da7727138b65ee1fb4fdbd4fe4c2e8ac3
-  pristine_tree_hash: 7857cbb830469fddf8b8f12c0ec3e1052bf410df
+  generation_id: 4819bed3-3cd3-477f-836b-97a9c148bc98
+  pristine_commit_hash: 5dc7e8f2477155622e97b07799b36ad0f2a07334
+  pristine_tree_hash: 16b297e08ae3bd7d3ee0cea6bc8d761f27a237e9
 features:
   python:
     additionalDependencies: 1.1.0
@@ -124,8 +124,8 @@ trackedFiles:
     pristine_git_object: 3ace951e7e7c915edf458d9fcd4f240ca9da924d
   docs/models/alabamaregistrationpayload.md:
     id: 8e6f745eb945
-    last_write_checksum: sha1:30fa1d3412caf37c7334d53b3778d9688294e4b3
-    pristine_git_object: 8146b80e6a3533d2a86eeecdf56e5a4b2c82c4f3
+    last_write_checksum: sha1:1d2517b16af042cd897db38ab21f0a4204bd5eb0
+    pristine_git_object: 14a429dcf89152ac43eeb3e867a27a7fb4ea529d
   docs/models/alabamaregistrationpayloadamountfees.md:
     id: 105d570e9641
     last_write_checksum: sha1:51f42df1d6941d326a0e1a79be1a80a1b1c64468
@@ -152,8 +152,8 @@ trackedFiles:
     pristine_git_object: d35aea084b23bef2fc22d413c0c2bda474dc53b6
   docs/models/arizonaregistrationpayload.md:
     id: 5645da05a2ae
-    last_write_checksum: sha1:b4e07ba7588be2e9bf413d7729a4f3373507918c
-    pristine_git_object: 6a1c65fdad1e4efcb531b44d0255e4fe013a48de
+    last_write_checksum: sha1:c40e78c61452b686dd8f81ca14fe335ebb476d91
+    pristine_git_object: e1b1d384594a33df917f8d032644e1bbbf619e84
   docs/models/arizonaregistrationpayloadamountfees.md:
     id: 0565f2577238
     last_write_checksum: sha1:4d4d40d8e8921aeadc080723106dbfdc9c521b7a
@@ -168,8 +168,8 @@ trackedFiles:
     pristine_git_object: de2d7641fdf0f6c8476f0d782bc66ce67b868f03
   docs/models/arkansasregistrationpayload.md:
     id: 8c24521877bd
-    last_write_checksum: sha1:3dff14e86b4b94798d1877cb09fedcfdbb30b6e4
-    pristine_git_object: 8a647c4ab423a316e783ba1e21ff957523bd19ed
+    last_write_checksum: sha1:7fa3e9d15adb496643799d3bb81e88c97c3e472a
+    pristine_git_object: 09dd179ecf54cfdf2521348326c87c22e119617c
   docs/models/arkansasregistrationpayloadamountfees.md:
     id: 5d3edf340b55
     last_write_checksum: sha1:68112175e88834bb319f215f91cb3bff3a41a19a
@@ -280,8 +280,8 @@ trackedFiles:
     pristine_git_object: c4405ef10264d54810080d23111cf9c9227c0803
   docs/models/californiaregistrationpayload.md:
     id: ff214a5862c7
-    last_write_checksum: sha1:4f31a90c262ecae673abd1531c708eb6c9ab4e57
-    pristine_git_object: 4b3e3c00ec84e0d14165d1be1024acabc9a8637c
+    last_write_checksum: sha1:83f4b5e6e7443aa6875c22a337830dc9c5165e56
+    pristine_git_object: e6adadea5607000a9527a109085cffa367e35e17
   docs/models/californiaregistrationpayloadamountfees.md:
     id: 9c4e8dcfb893
     last_write_checksum: sha1:36461f8cf05fd29971b3d1f3f5ca492907ca0538
@@ -304,8 +304,8 @@ trackedFiles:
     pristine_git_object: 7659db93e5d9bd41942b239b2ba231bca9da02f3
   docs/models/connecticutregistrationpayload.md:
     id: 096d3c341a18
-    last_write_checksum: sha1:9676ebdff2b7d672de0167f39045e5afda098485
-    pristine_git_object: cdd0870bef06548e0b708733714834c89cba5795
+    last_write_checksum: sha1:1cdab90995eb951ea61850e10aa67bd6d4870ee0
+    pristine_git_object: 3f0351391fbf636b77f665e79bd0bd22bb8aab5c
   docs/models/connecticutregistrationpayloadamountfees.md:
     id: c05be927b4c5
     last_write_checksum: sha1:fca58af77b707b978abe7b4390b95d4ce8ac9438
@@ -508,8 +508,8 @@ trackedFiles:
     pristine_git_object: 609aa5522b24b99509416ba219a64617ce993c9b
   docs/models/districtofcolumbiaregistrationpayload.md:
     id: 8e786ff631bf
-    last_write_checksum: sha1:8ea2b1e18bce5af07953d6e8f2f8bbf811b9fa73
-    pristine_git_object: 722b6a3c84cf78ebe54446b825b439b8e81c8082
+    last_write_checksum: sha1:08c503d47e6c8eedebe6641f15d458a1131299fe
+    pristine_git_object: ccbd2a29214f54e0c60614787c66167e38118f74
   docs/models/districtofcolumbiaregistrationpayloadamountfees.md:
     id: 0124054fc223
     last_write_checksum: sha1:043491088d56820a8c95253830c1b33dd04fd50c
@@ -560,16 +560,16 @@ trackedFiles:
     pristine_git_object: e553de6cce5ae9573c4d75d4a3f1a22b22c81383
   docs/models/filingdetailsread.md:
     id: baec5defb9a0
-    last_write_checksum: sha1:185ee447875775c377b2c78f01ba4e34dfe13461
-    pristine_git_object: 16f1bfa6eeaafebd9e2d08459944d90040ac18b4
+    last_write_checksum: sha1:658bb35e5fd78a7116fc7114834bfe1dfdbee604
+    pristine_git_object: 62c29888b01254a95abe4aab735d5094122ac616
   docs/models/filingfrequencyenum.md:
     id: 658eaf570cde
     last_write_checksum: sha1:13332538545c4c2470baab6caf343344024abf36
     pristine_git_object: 7e29492a2b7619dd711d8580ce4f21066d80a6c2
   docs/models/filingread.md:
     id: 4db15e71f26d
-    last_write_checksum: sha1:125d329969b8ce6835133febe3e140c336221d30
-    pristine_git_object: e4c4864e403ecc5905afe775f19ccefd7cee43ce
+    last_write_checksum: sha1:81f9bcf55e07794fe2afd3cfd081b387b229e62a
+    pristine_git_object: fe4469787e385b7208eeeddef641474999a77898
   docs/models/filingstatusenum.md:
     id: eae31a20b434
     last_write_checksum: sha1:bf19bc47d9f15c4b39e52dc4dbe047cd7c6cfcb0
@@ -584,8 +584,8 @@ trackedFiles:
     pristine_git_object: 88e6987834a94cbf2d5e6972aee11b06dcb1ec1d
   docs/models/floridaregistrationpayload.md:
     id: ba324561ad7e
-    last_write_checksum: sha1:bbfe9ce6642e85742c2e67faa390a0542708eb7a
-    pristine_git_object: 7342b19a78cb6c8cd5c9b60077b6c912146081c7
+    last_write_checksum: sha1:82538cfad484435b0719d624a26971fa80b5947a
+    pristine_git_object: 2b8b63256b056f29e84abf2ba2c4bc83e77ce68e
   docs/models/floridaregistrationpayloadamountfees.md:
     id: f54a9fe98e2f
     last_write_checksum: sha1:43468a75cbbf54acb849c267635a729f7da8a937
@@ -596,8 +596,8 @@ trackedFiles:
     pristine_git_object: 10f09d340edce0f7c4fc4ef031b28dc602c27750
   docs/models/georgiaregistrationpayload.md:
     id: d4d88d9bd984
-    last_write_checksum: sha1:ef418afc2a582d2aa8432c06b6aba119e68e90eb
-    pristine_git_object: be9ff9839b7dfe0127a231ad5ea0a409ca67430f
+    last_write_checksum: sha1:84354090a022d62c7c16fc533776d2ab63420376
+    pristine_git_object: 20fc9969b042929ada209a716fae39b97323003b
   docs/models/georgiaregistrationpayloadamountfees.md:
     id: 1309aba68464
     last_write_checksum: sha1:aaf77df0664a8c6549ecf10824616033cfdb593e
@@ -736,8 +736,8 @@ trackedFiles:
     pristine_git_object: 868e367971d625d6e9b58319df8f582284f109d7
   docs/models/hawaiiregistrationpayload.md:
     id: 3d3702662975
-    last_write_checksum: sha1:9f801c42e510853afd6423d968642c70b0ba3cf9
-    pristine_git_object: 422ba0af621c72841f9efa6a80ef88eb30d51233
+    last_write_checksum: sha1:738f4f0d800dd5213c636971641f3ed1a3314d3d
+    pristine_git_object: 682963898156a9b833fcb20becc4aef8468fc28f
   docs/models/hawaiiregistrationpayloadamountfees.md:
     id: a8851fb087d4
     last_write_checksum: sha1:44979704cfcb9b5510bc3098a4141acb8d48e1ca
@@ -752,8 +752,8 @@ trackedFiles:
     pristine_git_object: 7e4b656c335b38e930585e71caa3880c656f4521
   docs/models/idahoregistrationpayload.md:
     id: 43863d864413
-    last_write_checksum: sha1:5d1a24c6b3b72c30398fb20f4ba0a3ae6eee5a98
-    pristine_git_object: 79eb62e42108080c21658fdb775a866fd840b6f6
+    last_write_checksum: sha1:5c96eabc263f2b85265d521a35426bb97b9f8806
+    pristine_git_object: 45b7effb3800c1f7e8d9ea4251ce1a33137df6f8
   docs/models/idahoregistrationpayloadamountfees.md:
     id: 686f84465b29
     last_write_checksum: sha1:f3e0e27c43b980ba974c362fa5103e7b7cea7e05
@@ -768,8 +768,8 @@ trackedFiles:
     pristine_git_object: 1dbebdad4f5969d98db25cc01229851370349494
   docs/models/illinoisregistrationpayload.md:
     id: 00f0e2e66fb5
-    last_write_checksum: sha1:618462dc5bf921201946dc8d795d941f9a5f8c78
-    pristine_git_object: b74a39cff72f3d0bafd1dd0de684d25a085adc7e
+    last_write_checksum: sha1:10554028de52acdfd66b8d749251c1964149c302
+    pristine_git_object: d1485d7cc7ca845f1b4ebcb1bf7de8a8a1a89101
   docs/models/illinoisregistrationpayloadamountfees.md:
     id: d4722d332244
     last_write_checksum: sha1:a213724b97e801e83fa8568910cef516d2d052e1
@@ -784,8 +784,8 @@ trackedFiles:
     pristine_git_object: 75a133ca2458238cc20ff0ef52019371763aa9a3
   docs/models/indianaregistrationpayload.md:
     id: 8e8fe35f9fc6
-    last_write_checksum: sha1:e7b59ef29c21c8363fcd13f2a1af2841782236a3
-    pristine_git_object: 1c745bae44357487d0494765aa259f143f68f971
+    last_write_checksum: sha1:330a3ac4a312f4c16fb84e37d190afab1ed9ff68
+    pristine_git_object: 8f5b2b8a6207fa1c3e7ac6c7783683f4c84b982d
   docs/models/indianaregistrationpayloadamountfees.md:
     id: 89f2c4f7c080
     last_write_checksum: sha1:cd44b0570405c265c02bf8fd3dffa18038f42588
@@ -800,8 +800,8 @@ trackedFiles:
     pristine_git_object: f923bbb6474bf1a9b976df8b22d6d877a3f48880
   docs/models/iowaregistrationpayload.md:
     id: fecb58d3020a
-    last_write_checksum: sha1:632719c17b2ff652a89a76fefb956523a7be2d40
-    pristine_git_object: 67c81c1fd71347575df4e4b6e94c8cd3bce1de2d
+    last_write_checksum: sha1:00271e9af5be66163d938e329d67644955fe285b
+    pristine_git_object: eb16776d5895219047c85e06ce52656ee7c437dd
   docs/models/iowaregistrationpayloadamountfees.md:
     id: 7297c6be28e6
     last_write_checksum: sha1:4bd3ec80d5a08439a68035c1261aeb1056176c46
@@ -820,8 +820,8 @@ trackedFiles:
     pristine_git_object: ce5994e5cef2d73b95308038ed5c3ad30768b245
   docs/models/kansasregistrationpayload.md:
     id: e950bfeb29f7
-    last_write_checksum: sha1:dbe2fc6e02db53b06c4c60d1dcfde64ff1aa9e51
-    pristine_git_object: 140eade6d419dd1f58b787f67932c1e0d21364a5
+    last_write_checksum: sha1:6818289677253bfb491ef0a2931771dce210b98f
+    pristine_git_object: 562b5d494be9f416d5bd610a25c6872024f42400
   docs/models/kansasregistrationpayloadamountfees.md:
     id: cfc82d4d8bf0
     last_write_checksum: sha1:11be3c682b34cfef4298aabe6ea91684edd97e22
@@ -836,8 +836,8 @@ trackedFiles:
     pristine_git_object: 83a15d71a396dbd12cb138579ca59045525d72b6
   docs/models/kentuckyregistrationpayload.md:
     id: 554c9d243b73
-    last_write_checksum: sha1:2b66256885fd22f883048a061e22836877cf28eb
-    pristine_git_object: 334f42116c27dd595b41304772adc0c757b1ee2d
+    last_write_checksum: sha1:c5c3f9c0e570bb291cdfb5593a9bd6dab8d0fd7f
+    pristine_git_object: 3326b7698e4805c49ca8982b52d12e62d2daf51d
   docs/models/kentuckyregistrationpayloadamountfees.md:
     id: 9292f42760fb
     last_write_checksum: sha1:f98b591aa5702f37d472def5de09e363c23905e9
@@ -872,8 +872,8 @@ trackedFiles:
     pristine_git_object: 40ae32697ee1946c94183c3ce5e6d7bf6068be43
   docs/models/louisianaregistrationpayload.md:
     id: 70619d1ce246
-    last_write_checksum: sha1:89aaf42a0b28af9c6e79b5ac270b7a4097f8b93d
-    pristine_git_object: d5dd6c83a1cbe38e5f38e827d8e5751e7dc2ab56
+    last_write_checksum: sha1:17b74ddee30463957cb41555c435c1606edf187a
+    pristine_git_object: 855df1107e71e0fee6affee38fbedaec82c18fd3
   docs/models/louisianaregistrationpayloadamountfees.md:
     id: 216c4f1d22de
     last_write_checksum: sha1:977afefaf5ed08c47a47975917cf6c6872b7188f
@@ -884,8 +884,8 @@ trackedFiles:
     pristine_git_object: 7367650355360f07c4eec286bbff8f37b963b13d
   docs/models/maineregistrationpayload.md:
     id: 8d6e11c383c3
-    last_write_checksum: sha1:2d001802928a3334b676c4d0e5cec0353378d537
-    pristine_git_object: 7a77caa1f711ca0284502fc4337182881aa36d85
+    last_write_checksum: sha1:189a643779c0c1c5074589cf9ce98e9478bd2096
+    pristine_git_object: ca5bda5ed8bdef18eeaea31666a4949917c2fb91
   docs/models/maineregistrationpayloadamountfees.md:
     id: c444d3c0d626
     last_write_checksum: sha1:6217db9d6fa7184a03ae7ebff3157beb7ba3872c
@@ -896,8 +896,8 @@ trackedFiles:
     pristine_git_object: 5dac35ddb822e85915bba84b2c0b98e05d5c0a1d
   docs/models/marylandregistrationpayload.md:
     id: 5bce158d608c
-    last_write_checksum: sha1:e4c14a78cb205714391d10ee090c734e0b506744
-    pristine_git_object: c80924a6ca7c163d558843240a1079a8ae60969d
+    last_write_checksum: sha1:70c5a326ad454b6c11d422c78142a1751c4db249
+    pristine_git_object: f0b9de0146e56fe2fe9783441c805cbf4b44b5f2
   docs/models/marylandregistrationpayloadamountfees.md:
     id: "702202133203"
     last_write_checksum: sha1:ec797f28ca4b07b848473101b8b1860947eb4513
@@ -908,8 +908,8 @@ trackedFiles:
     pristine_git_object: 4cbe38037dbbe3315d71a506477d272e1a28e60a
   docs/models/massachusettsregistrationpayload.md:
     id: 7a6cab814023
-    last_write_checksum: sha1:5dc9fa85b0f5012dae8d28e619c849ff58ba0412
-    pristine_git_object: e9bc2ea2b80213b7dacb749aa77a73d301783272
+    last_write_checksum: sha1:f62f0e6dae9be15f82a3aaad42e930c9dffdb3c5
+    pristine_git_object: abff6f80d918203a9e7678a7840f1452fde073c7
   docs/models/massachusettsregistrationpayloadamountfees.md:
     id: 10825a18411a
     last_write_checksum: sha1:1a024033aae4794b9539dc394d64db98fbe9387d
@@ -924,8 +924,8 @@ trackedFiles:
     pristine_git_object: e09b9831e9614baaa58aa3d0be6196cf22889bd5
   docs/models/michiganregistrationpayload.md:
     id: d623e75abeb4
-    last_write_checksum: sha1:015376e2c9ccc81d52631ba2eb698d74bf6ddad3
-    pristine_git_object: a12608b32cbce371de244bde0fad19065fc55d99
+    last_write_checksum: sha1:a9303f8cf5278dee7fb0483fce31a1d0adac3755
+    pristine_git_object: c6c061d804ca1036277461cf73a226bcccc39980
   docs/models/michiganregistrationpayloadamountfees.md:
     id: 58da7dcc84ab
     last_write_checksum: sha1:af5e5b9100f6a0f4dae55c777864608405b995fa
@@ -940,8 +940,8 @@ trackedFiles:
     pristine_git_object: d507ca2b05472f2c8cac4f4b5271c14ea26b69ef
   docs/models/minnesotaregistrationpayload.md:
     id: af8572407079
-    last_write_checksum: sha1:f18e6f1a3c586a87b3859b269d0708b1f1c75993
-    pristine_git_object: 6c87c11c37b0997c042de2174cad9203eee60ca3
+    last_write_checksum: sha1:33251fe14a70e45a99df92845c0f87bed56bf339
+    pristine_git_object: 9e231b334ef9476b0a2bc5374cef7a23f8df58e8
   docs/models/minnesotaregistrationpayloadamountfees.md:
     id: 427c12b3403c
     last_write_checksum: sha1:c2c734be57b63d382474de35619e639ca8f611dc
@@ -956,8 +956,8 @@ trackedFiles:
     pristine_git_object: c06aa509a665107f3f67693403ae3c1257bc6581
   docs/models/mississippiregistrationpayload.md:
     id: 11b7faace732
-    last_write_checksum: sha1:6371ec4e468fe7f89a9a2b1b195fa2ec756c0dcb
-    pristine_git_object: 5bb3b5526ec579dfa7532af8e71ee11dfdbe5ebb
+    last_write_checksum: sha1:c874206b0c80d9437b12900982702ff47040d541
+    pristine_git_object: 8a4c5b576fe0bb35be4e1c1b181b8d9983ed0a94
   docs/models/mississippiregistrationpayloadamountfees.md:
     id: 887c57e7c6da
     last_write_checksum: sha1:1227859e638ffe312c496966f945af58bc868077
@@ -972,8 +972,8 @@ trackedFiles:
     pristine_git_object: 5d5ade393a365de582820b5c6ca979ea3cb73668
   docs/models/missouriregistrationpayload.md:
     id: 61ff2622fe90
-    last_write_checksum: sha1:7228d7d5c9590c6a97a1a39592eac27e958d1c1e
-    pristine_git_object: 107a2126aa73c210d30e35e6f4519dc0d09bbc2a
+    last_write_checksum: sha1:ff47e718e8cccb9203d53b0738cccd2e62a5469e
+    pristine_git_object: 6cb989956ade0dc9ac75f1e91bcd2d2be19eed32
   docs/models/missouriregistrationpayloadamountfees.md:
     id: 0bf92cb994cf
     last_write_checksum: sha1:f935861b350cabbe24815aea6c422c9631395470
@@ -988,8 +988,8 @@ trackedFiles:
     pristine_git_object: b8826a893ada3408da72f7edda5939fea35786ea
   docs/models/nebraskaregistrationpayload.md:
     id: 2fd3e2646edf
-    last_write_checksum: sha1:ce21a5af2be12bdbf4b3028b379a28466dd14965
-    pristine_git_object: 95dbb7353fcccf5e55d85444b1a17f6ab9b9de17
+    last_write_checksum: sha1:92fa6950c2c2506d828c1539d6b26f77c37224ad
+    pristine_git_object: 3c4a36e5c9342cd8ccb1cf76a9793ab7fb14cd3d
   docs/models/nebraskaregistrationpayloadamountfees.md:
     id: c79944d1fba0
     last_write_checksum: sha1:b7b1a8b769510e2b428a5374609a017e2741943e
@@ -1004,8 +1004,8 @@ trackedFiles:
     pristine_git_object: bb4466fa2dc9711b1c17beef91de793c73dfbf4c
   docs/models/nevadaregistrationpayload.md:
     id: 964a30530296
-    last_write_checksum: sha1:11ce190bcdee46fc3d23c12b1447cc4192c1c0d9
-    pristine_git_object: aee634a57947b29f12af01c992de9a7a67b1f406
+    last_write_checksum: sha1:7da5d2c1dfc2e136ee75eb99d08a7e2d15b048e9
+    pristine_git_object: 55f02e492d4e183630c244e9427132264c1c99ac
   docs/models/nevadaregistrationpayloadamountfees.md:
     id: 8d314ad1d7e3
     last_write_checksum: sha1:86b63a7ede350d00bbefdea73b853867980dd131
@@ -1016,8 +1016,8 @@ trackedFiles:
     pristine_git_object: 6b9359a3a6e1d5d734bea51404d194b1577e74d0
   docs/models/newjerseyregistrationpayload.md:
     id: 6551ed8b7682
-    last_write_checksum: sha1:1cbf5806bc537421b94944390efb070d1a5aaf15
-    pristine_git_object: d37091186bc0d01d43e790f2c569bb316e322310
+    last_write_checksum: sha1:2ac6edff6efdc8a1be6f1e486b02aba064ef78d4
+    pristine_git_object: 28cd7ee4810c6aa25d8216e777b22214401bc3c6
   docs/models/newjerseyregistrationpayloadamountfees.md:
     id: 901086c85feb
     last_write_checksum: sha1:9dd1b674cb9ea9cb55d2c2132f7bbbbc53569a64
@@ -1028,8 +1028,8 @@ trackedFiles:
     pristine_git_object: 0520819979e73e385db256adeffb574d9929a41e
   docs/models/newmexicoregistrationpayload.md:
     id: 404424187a2f
-    last_write_checksum: sha1:71244e19e1a6d37982243abbd99a90a10ee8a82f
-    pristine_git_object: f0606c5613ec34023ec5a2e614d046d397388748
+    last_write_checksum: sha1:9f4a5bd131d51f0f05de026f5df9f9e94a850889
+    pristine_git_object: 6c8d5ad3ad0ea0ba46c406185bbdad51f373a177
   docs/models/newmexicoregistrationpayloadamountfees.md:
     id: 6b12fd65be88
     last_write_checksum: sha1:e366cefedddc82f5f7246ea234beb5f44dd84ef3
@@ -1040,16 +1040,16 @@ trackedFiles:
     pristine_git_object: 3ef1152d5e8213b89413c772f0cc1c0acf957301
   docs/models/newyorkregistrationpayload.md:
     id: 1454bfb38dbc
-    last_write_checksum: sha1:afe93c1eb96ff7cc0ffb4f814309729fada6eb19
-    pristine_git_object: f92cfcdf94dada8a4e591af47a8ba9091189ba04
+    last_write_checksum: sha1:a0c5f2a53b614b2b002e10c8cc78e4576bf9b2be
+    pristine_git_object: 96ecf36487e56d7a7a82e2aa28a3b9b4089e1a11
   docs/models/newyorkregistrationpayloadamountfees.md:
     id: e17719e0ae38
     last_write_checksum: sha1:86525a25eddf19a2233d955e281fc72e6d489bb0
     pristine_git_object: b57db8ba9addae80668cc89d9d08001459548995
   docs/models/nexusresponse.md:
     id: 5bbb1928f171
-    last_write_checksum: sha1:0a3a776d934e1c5cff7fe3f1062dc45c69fd43f2
-    pristine_git_object: 3033d07b66924edf6b96e8417dc812f3ef0544f5
+    last_write_checksum: sha1:b522a3244316b7825ffb973914d243c32b2b69d9
+    pristine_git_object: efbeca8444191232724ce3b0236425a394ed0252
   docs/models/nexusstateenum.md:
     id: 52e57754644f
     last_write_checksum: sha1:c76fb0565522f4c64b87d01e126aed9a496429b8
@@ -1068,8 +1068,8 @@ trackedFiles:
     pristine_git_object: 388c25844fdf2b629b79834177bb6d83468ed6af
   docs/models/northcarolinaregistrationpayload.md:
     id: 112cae5ba829
-    last_write_checksum: sha1:a7e838efa837698418c3518b8293c1c2d092e013
-    pristine_git_object: d48fdaf2f8ee8c8a4110926979fb76b8483f4075
+    last_write_checksum: sha1:6955539166c2890074c88bdeaf1258f1ef002d4b
+    pristine_git_object: ae36537ffcaea4dabbbfb4614d342ba7e24f7f10
   docs/models/northcarolinaregistrationpayloadamountfees.md:
     id: 9fd395c414cb
     last_write_checksum: sha1:87148f726417ea74797f227038f3218daf5c2a7a
@@ -1080,8 +1080,8 @@ trackedFiles:
     pristine_git_object: a8496616a40fbebb7f53856e8106446f5b1186df
   docs/models/northdakotaregistrationpayload.md:
     id: 137caebddfc1
-    last_write_checksum: sha1:654d483b60b7e8911fb6262d93c4dd0437a559df
-    pristine_git_object: af16511c6a5b8c382011999acf12a61c866bd828
+    last_write_checksum: sha1:965620c006d38034e2ac5cca791160a48416dd8c
+    pristine_git_object: a38b798588ab6f9042f6f041e597558c859148ab
   docs/models/northdakotaregistrationpayloadamountfees.md:
     id: 4264a32cfe08
     last_write_checksum: sha1:51f86a5bc81411aee6c38ee4eab3c8443ece264c
@@ -1092,8 +1092,8 @@ trackedFiles:
     pristine_git_object: 20ff4195f9272331b091ba90cc5123394bf01037
   docs/models/ohioregistrationpayload.md:
     id: 7c9e966e2c32
-    last_write_checksum: sha1:4e99593f28772a4a8c006116bddd46f2d3456aa0
-    pristine_git_object: 7bb1fda8b244459f468943413f6fc5cf92a2f798
+    last_write_checksum: sha1:82841fd84d77abc0c30d0c50d6daa3d1a787768d
+    pristine_git_object: 9cb70f46157e5d28c52cbbf7500ba089544cfc79
   docs/models/ohioregistrationpayloadamountfees.md:
     id: 783894b7f6c9
     last_write_checksum: sha1:c374ca429cc5cf00e6cc9209b1fae72d8ca76042
@@ -1108,8 +1108,8 @@ trackedFiles:
     pristine_git_object: 2e40d7d2955f0fed07405344542d8258940b3a1d
   docs/models/oklahomaregistrationpayload.md:
     id: c9adba88b368
-    last_write_checksum: sha1:a950ffdd1604aea41d5e8191b58206af147b5d30
-    pristine_git_object: 889cf2e347222d095292787bc64346d899bda5c7
+    last_write_checksum: sha1:33bb0478584dbdf3551a5f36bc0ac1bb9b6ec712
+    pristine_git_object: 6bb734bcbf483cffce4d615a1edd59b5f25ad649
   docs/models/oklahomaregistrationpayloadamountfees.md:
     id: a3293af707e4
     last_write_checksum: sha1:b9f5726b4086f2311123c9631994392f01c24b86
@@ -1180,8 +1180,8 @@ trackedFiles:
     pristine_git_object: 19cd94cfc86dd5901062f94f0f078ee3c2dc404b
   docs/models/pennsylvaniaregistrationpayload.md:
     id: 9db5391cba53
-    last_write_checksum: sha1:d713adc9e0d3f140d96145f692f206f4f3b2d974
-    pristine_git_object: 33729f23d1f69edc0fccda1630b119902b62ae30
+    last_write_checksum: sha1:a95f7d3996ca897e387116f94c7cd4b2d386030f
+    pristine_git_object: 320becdaa81741eb37d00ba26b10743000f51f3a
   docs/models/pennsylvaniaregistrationpayloadamountfees.md:
     id: 9bec7b871e73
     last_write_checksum: sha1:1f6411f5479ed78dca1c48a5197219eb934636fb
@@ -1284,8 +1284,8 @@ trackedFiles:
     pristine_git_object: 6a02464c293c34640519f1e4847c389f2905c273
   docs/models/registrationcreatepayload.md:
     id: e2db5bea0912
-    last_write_checksum: sha1:8229aa7df135bd428a919d01e51ccebc488ea84b
-    pristine_git_object: 3640476832072772c4a65ef4cf9e312a1e433c4c
+    last_write_checksum: sha1:ab89666a7b76da5c16b2763d41eab812fa4cfaec
+    pristine_git_object: 1c4a0a2b16a46a9170fcb1b5af4840d75cb21aed
   docs/models/registrationcreatepayloadamountfees.md:
     id: a1284bec8928
     last_write_checksum: sha1:96aa665c0a0ab5037d9602c45214182cc217897e
@@ -1296,12 +1296,12 @@ trackedFiles:
     pristine_git_object: 6e01de0facff85ac5732f7f00c1b8eeb27417e70
   docs/models/registrationread.md:
     id: 5e5a06ebcc16
-    last_write_checksum: sha1:9f6aa573bc623606dc8bf55f83ee3ec60a977562
-    pristine_git_object: e3d9985447669f825d77794e794a15c7888417f0
+    last_write_checksum: sha1:40b34066543890a457c7b6df57ce4fbdc64aa398
+    pristine_git_object: 9973e363c237a9938f775d52e6fc46eedc005fb9
   docs/models/registrationreadwithpassword.md:
     id: 31d49b544bf8
-    last_write_checksum: sha1:a76e3fb5bdb62a03123feb14dbb55385427a4041
-    pristine_git_object: 6cb347d6a804e7ebaea7799a933f07f6e1f404dc
+    last_write_checksum: sha1:4f7055b6bea40b74fcaede0fb0e432799b78e9cf
+    pristine_git_object: a9694121762d3d6b36baf9adcc30f8572736093c
   docs/models/registrationsregimeenum.md:
     id: 95e36021d759
     last_write_checksum: sha1:6efcff9812830440bd2a107c6492c6eddeda91cd
@@ -1336,8 +1336,8 @@ trackedFiles:
     pristine_git_object: bcd94ac0cbc85025fb4589531c7d5a30e7a56fd9
   docs/models/rhodeislandregistrationpayload.md:
     id: 5418ea2244e4
-    last_write_checksum: sha1:28dd88a1d0be7f16a63d78db28850349aa921722
-    pristine_git_object: 695cf5b353dbe799881461ee19fbb02ed568f04d
+    last_write_checksum: sha1:d3ca75594743e80457c9ec5c9aae0cde823e8810
+    pristine_git_object: 2bb177afab755d44f57192ba418fa20c2cd91890
   docs/models/rhodeislandregistrationpayloadamountfees.md:
     id: 5ca6f4cd3222
     last_write_checksum: sha1:fb0b2921e1b83c94638c7f2baf0a052cc26cbb52
@@ -1364,8 +1364,8 @@ trackedFiles:
     pristine_git_object: a47b4454c86b064c5bd7d684e2766664682fed55
   docs/models/southcarolinaregistrationpayload.md:
     id: d35c9c9933b7
-    last_write_checksum: sha1:822f23feb5469e02d305823b578ee70cd4abc897
-    pristine_git_object: 527320173ad7325d8a64f5364d2d59bd52add411
+    last_write_checksum: sha1:0e57f8873b8917e48758d73f1b95eac101af87b2
+    pristine_git_object: e11db56279e4a92a03c873140cb353cbc0f7b6d4
   docs/models/southcarolinaregistrationpayloadamountfees.md:
     id: 338136b99fe5
     last_write_checksum: sha1:ab4f0e5ab6304a1edca433a233ff61ecb3c379d1
@@ -1376,8 +1376,8 @@ trackedFiles:
     pristine_git_object: be221f559cd1ae1fdc087b49d8630ac572753e86
   docs/models/southdakotaregistrationpayload.md:
     id: 194e40e23574
-    last_write_checksum: sha1:1b5c65d30b9c71b763b328e70c555bd47a26de23
-    pristine_git_object: 13fe4dabc320b0b1e2b653ae31c7591d1d0282ec
+    last_write_checksum: sha1:68246f4ed56fa25bf13ed1ea25cf40e52e291a39
+    pristine_git_object: 09e07af7ae32dd1986c6ef7cbf58d396c953e975
   docs/models/southdakotaregistrationpayloadamountfees.md:
     id: fa52b34497c3
     last_write_checksum: sha1:7c98b24fb8d89928eb09ac4afc4f6d11a33d8577
@@ -1440,16 +1440,16 @@ trackedFiles:
     pristine_git_object: b15698a9e5078fb2f8ec1ace230ef64601a9b1d1
   docs/models/taxtypeenum.md:
     id: 78b2803facc7
-    last_write_checksum: sha1:2ab4599ed40472d2769f1875168f550d31ba5f0e
-    pristine_git_object: b1b1b06f2ed13e93bf56aab255b998e85f9f399c
+    last_write_checksum: sha1:49a0a51638e1fb4ca5af5d54eec54a2f294ba76c
+    pristine_git_object: e4ab958355c77ddc842c5d83841ec467de721bdb
   docs/models/tennesseefields.md:
     id: f07e6bcdc234
     last_write_checksum: sha1:7922bd61560f5652ce4ed121d44db7b33d59a35c
     pristine_git_object: 074451d04e9df9ed7cb1967d01aa477d42781058
   docs/models/tennesseeregistrationpayload.md:
     id: 16c9f5765f5c
-    last_write_checksum: sha1:673d365a21f76e9f8afdd508850cd355c83aaba6
-    pristine_git_object: eece7cb60a1a29e66648acb37b9b1a06f74717be
+    last_write_checksum: sha1:c1ab72ded179f673933ea01457919687321a9bd3
+    pristine_git_object: f839263c71d3f3992cd50b0e3794839f9a5b3f96
   docs/models/tennesseeregistrationpayloadamountfees.md:
     id: 40942ee0f571
     last_write_checksum: sha1:f68f4dab179d35f4f016322d9fe7730f4e10cad2
@@ -1464,8 +1464,8 @@ trackedFiles:
     pristine_git_object: ff46c465dcc6888bd2f7a9ff5f8c3c7a85b82d62
   docs/models/texasregistrationpayload.md:
     id: d2fc91c0fa03
-    last_write_checksum: sha1:fd9c43862c310e783dae236dfd4b58b238f83458
-    pristine_git_object: 86469b269cb4c0a3b467bbc7a26514873eeb43ad
+    last_write_checksum: sha1:f6d1e2cc7d84dd1ebcbde08d380eb292712caf31
+    pristine_git_object: 3f7c4a7922978934bcd2b1f3265f670fb3b53fd0
   docs/models/texasregistrationpayloadamountfees.md:
     id: 1cc3a391ea23
     last_write_checksum: sha1:ec9c67d99e2e4367ac07c64921aa188cb993b1dc
@@ -1836,8 +1836,8 @@ trackedFiles:
     pristine_git_object: c6984ea76ab17b7ad1ad61fadde18eb27863c24e
   docs/models/utahregistrationpayload.md:
     id: 1ee745b03e71
-    last_write_checksum: sha1:74e51040d21b8dbf351b23aa61fb1cf2c575c48b
-    pristine_git_object: 16e561c0a787f6ec0fb20d0f96add0db2b10c941
+    last_write_checksum: sha1:c3732a39059ee861128443229480dc2b7d5cfffd
+    pristine_git_object: 678c178070ead66dcc00769c21b008fbd654ad37
   docs/models/utahregistrationpayloadamountfees.md:
     id: 8fd3badfcdd0
     last_write_checksum: sha1:e1976da52b1d56eb85e89af19dfa4f44e4acdd02
@@ -1864,8 +1864,8 @@ trackedFiles:
     pristine_git_object: 2897f960e32cf961e0bc1a7ee3011ab9079d2661
   docs/models/vermontregistrationpayload.md:
     id: b37954885c3c
-    last_write_checksum: sha1:ca1393956f3d03ee0a4840eee2cc2d7b8ef9cc42
-    pristine_git_object: 7c2f1790694477ebb05c4a9755f2342e61961f93
+    last_write_checksum: sha1:68b487d41b4f6e68af6975bff0e22b8d3f5e78cb
+    pristine_git_object: 5dbde6c96b89a1b0bc6bdafbfe511d7f8fa62f0d
   docs/models/vermontregistrationpayloadamountfees.md:
     id: 5550a81a7a78
     last_write_checksum: sha1:043a854c834618c0ea1ddc8375bf4f892cbede7a
@@ -1880,8 +1880,8 @@ trackedFiles:
     pristine_git_object: dd787ba0fec40cff1d652b044dcf923ac482ab8d
   docs/models/virginiaregistrationpayload.md:
     id: 0b27100fa74d
-    last_write_checksum: sha1:98ea2e19b7faee188d79fb0f3735d42abc3c11bc
-    pristine_git_object: ea52f2bddf6b89fef9c6668bbfe352f7c0df6fd4
+    last_write_checksum: sha1:4e778aecd923696dbfa6ce73eeb35057bff8ccf1
+    pristine_git_object: 1e126f4464e8b8bd165861bf052a6933509cfd88
   docs/models/virginiaregistrationpayloadamountfees.md:
     id: 2bda9a61085a
     last_write_checksum: sha1:083fd2120fefd7505d0d6e614182e35714bca03f
@@ -1896,8 +1896,8 @@ trackedFiles:
     pristine_git_object: 92c0c437c0988fb6d9a87610781868f00ec92b31
   docs/models/washingtonregistrationpayload.md:
     id: 782ad08cb0ee
-    last_write_checksum: sha1:529cc7cb971c597d87eec4103bd8d37b439ff1b2
-    pristine_git_object: c3c020da32f039d51b37aa505d184e6b0e082bc9
+    last_write_checksum: sha1:ac787a5db81717db26113432506defdfc9f76bc5
+    pristine_git_object: 6006d47b0f51285ae15a96400cc7294d8fb4bcf8
   docs/models/washingtonregistrationpayloadamountfees.md:
     id: d04e9baa7b14
     last_write_checksum: sha1:a68c3255a2164551bde2fc0837e22a5f0f7b2664
@@ -1908,8 +1908,8 @@ trackedFiles:
     pristine_git_object: 8d5c378f5099238ed771b0805f525c76806b3fea
   docs/models/westvirginiaregistrationpayload.md:
     id: d7a3e7567d7e
-    last_write_checksum: sha1:0f4617e2a9fba97a2e38b05257e6c2524f2edc70
-    pristine_git_object: f91f896e6b55de048195745f32b19b42fd68032b
+    last_write_checksum: sha1:4046a9da5ca74719844e2e769e3dd5167241b70c
+    pristine_git_object: abb60149f6414fb5a8b30ca43fee0e01ef5b6609
   docs/models/westvirginiaregistrationpayloadamountfees.md:
     id: 948d49b078e6
     last_write_checksum: sha1:17945bbe24c4d8e0b639d6adfae12396669838da
@@ -1924,8 +1924,8 @@ trackedFiles:
     pristine_git_object: 2d5ed445e07634eaf68354ccb1bbfcfa13ecc14d
   docs/models/wisconsinregistrationpayload.md:
     id: 8e33be216577
-    last_write_checksum: sha1:b76c5df13a426af5f0de380702695e2c94676218
-    pristine_git_object: 12316dd55a844ad14bd0476df6c932f0f352bb55
+    last_write_checksum: sha1:de473338308116cd8c073688b6c724f233585b8a
+    pristine_git_object: 75b21e632b8a5ba7554b1ccfa0ad14e80bd47767
   docs/models/wisconsinregistrationpayloadamountfees.md:
     id: bb4e21f8f1b9
     last_write_checksum: sha1:720ad32bcc668cada95e098ebdb3d5c9ac7c7788
@@ -1940,8 +1940,8 @@ trackedFiles:
     pristine_git_object: c86efc3c383897f5f9f85fd7f0ff570ba5e9e618
   docs/models/wyomingregistrationpayload.md:
     id: f5ae0a9f6ed4
-    last_write_checksum: sha1:eaacd37b0d570ae14924428db7c38d6d1a4c68ed
-    pristine_git_object: 5a8e2a8de0f4da02d62528c8c578725bad06f2fa
+    last_write_checksum: sha1:21b6c86aba8a81c413f0f671549267d538a5ab57
+    pristine_git_object: a35348e0e2d5a78405d87b2a2dae5cae0a51e456
   docs/models/wyomingregistrationpayloadamountfees.md:
     id: ca2f2feaeb1a
     last_write_checksum: sha1:8e552ee4788caf8af911e319bbd8feeb1cbb656e
@@ -2000,8 +2000,8 @@ trackedFiles:
     pristine_git_object: cb9c15d314c1930557401074329ed7a737147919
   pyproject.toml:
     id: 5d07e7d72637
-    last_write_checksum: sha1:28b29b9e26168d89ffc3c06a05cb10c1628733ce
-    pristine_git_object: 89f271684764038cf0691d2aba31ecb2b6411124
+    last_write_checksum: sha1:999c0042a6d9943dbd21714f507887a830096d78
+    pristine_git_object: 40acdc2b6ce97118074b25f6c2be6f57de3ed820
   scripts/prepare_readme.py:
     id: e0c5957a6035
     last_write_checksum: sha1:4ea7d94835b88cb20895d848f2404f3ee7636b82
@@ -2028,8 +2028,8 @@ trackedFiles:
     pristine_git_object: df75d102592b8683b8d86e1cfbefd1aa5e91ac03
   src/kintsugi_tax_platform_sdk/_version.py:
     id: e7ee59f2041f
-    last_write_checksum: sha1:c346ab5fce4ab69497a18cb172ef5b99aa2d1e59
-    pristine_git_object: ebadeda8cd9f21c8e69820c0bdc959b4c371e962
+    last_write_checksum: sha1:85fdc1b0517ed2802e51c6518218ad2d87f41a08
+    pristine_git_object: c18c3961ecbf752da29c24c8b627f2192d1fee0e
   src/kintsugi_tax_platform_sdk/addressvalidation.py:
     id: 7831ec6b509b
     last_write_checksum: sha1:a46f2fce063078213af0da5b9ed00e7644cd3dea
@@ -2156,8 +2156,8 @@ trackedFiles:
     pristine_git_object: 8cdcbcb41cbb1f98a3cfa32299fae451c89dbbbc
   src/kintsugi_tax_platform_sdk/models/alabamaregistrationpayload.py:
     id: 059aeb2bc4eb
-    last_write_checksum: sha1:47a15900577f07608abf44f88a1fd5c81afd334f
-    pristine_git_object: 77bfce199e9840d7ed404875c73537fd27f141ef
+    last_write_checksum: sha1:2a6d11edefd10a2b3720cd6c236787d5f814a379
+    pristine_git_object: 0d57576db8cf7c8596550df542e7a8eca339e533
   src/kintsugi_tax_platform_sdk/models/alabamaregistrationtype.py:
     id: b8f21f14d8ea
     last_write_checksum: sha1:52bd18ef9ff11953ac544886cbc4f4c41f741027
@@ -2180,8 +2180,8 @@ trackedFiles:
     pristine_git_object: 4e0cf39695cb239ee82c11552383f7ce0ebd73ec
   src/kintsugi_tax_platform_sdk/models/arizonaregistrationpayload.py:
     id: b82b54647798
-    last_write_checksum: sha1:03f303c364846a0842a138d893f26f490b49d0a0
-    pristine_git_object: 304d74918cb4942f2e5ac3881fb3e3cec716f221
+    last_write_checksum: sha1:6123a91e7b3bb1ea37d8f0aa00ff464a08343dfa
+    pristine_git_object: 8f9efa3ce1601cdd60373f23c8335f56f3c7a176
   src/kintsugi_tax_platform_sdk/models/arizonaregistrationtype.py:
     id: b9474bcbc607
     last_write_checksum: sha1:75f7f271a9b87742b4308ee8b9978066fbafd46e
@@ -2192,8 +2192,8 @@ trackedFiles:
     pristine_git_object: 10982847f9667cbca66bd14871e074565deb3692
   src/kintsugi_tax_platform_sdk/models/arkansasregistrationpayload.py:
     id: b48d36dae9c7
-    last_write_checksum: sha1:b63fd15d780eb7143d1cefa4a0f5b6e14b5e0522
-    pristine_git_object: 188a416688fa394d2394922ac01494f2ef2dd5d8
+    last_write_checksum: sha1:eb5144f22274c938ef8f5c9e033ac85f0ab4c9ae
+    pristine_git_object: 4d5a0ad0d597b658bf427f25b583202b50186e0a
   src/kintsugi_tax_platform_sdk/models/arkansasregistrationtype.py:
     id: 66306ecabbda
     last_write_checksum: sha1:ab103a3c7044a8bbea3755affc141cab2e82b8a7
@@ -2300,8 +2300,8 @@ trackedFiles:
     pristine_git_object: 75acf4e262044be21a0d0b310d9e1d7ebdf170a0
   src/kintsugi_tax_platform_sdk/models/californiaregistrationpayload.py:
     id: 2116491882ad
-    last_write_checksum: sha1:176cc1cd167c036586e03be3f12820c471daa6c8
-    pristine_git_object: 78f3844bc0abeff565ef7120f25adf0dc4cb5f34
+    last_write_checksum: sha1:6df476df14b4474d13ea788d10b694ffe0bf5e89
+    pristine_git_object: 93c6af92acb237dd0eb26c11d5d7b46d03e17840
   src/kintsugi_tax_platform_sdk/models/californiaregistrationtype.py:
     id: ab341d0bfc84
     last_write_checksum: sha1:2fc9b1829027479588f3ccccbeb466bad1bfb2a4
@@ -2320,8 +2320,8 @@ trackedFiles:
     pristine_git_object: fe27907ad4ec19a93bd1d3dbd3f8b24cb56a7f5c
   src/kintsugi_tax_platform_sdk/models/connecticutregistrationpayload.py:
     id: 1f0d12c3b7ba
-    last_write_checksum: sha1:d28c9ecad898c7e76f4fc031ef9c1565d8400118
-    pristine_git_object: c6adddca6d2f411173e8cd46e14ad85734f9334e
+    last_write_checksum: sha1:a411dbe2dff6a18e89e3961ff9fbcd54bccde4cc
+    pristine_git_object: ab3611b7dfb7bbd941703ba961ccf9dfadc5bdae
   src/kintsugi_tax_platform_sdk/models/connecticutregistrationtype.py:
     id: a4a28c4393fe
     last_write_checksum: sha1:7b7428360f89c6d487f76703c2d7d99659a3ce0d
@@ -2444,8 +2444,8 @@ trackedFiles:
     pristine_git_object: e97882c5d12b55a4c83f6211dda3a4f157ac805d
   src/kintsugi_tax_platform_sdk/models/districtofcolumbiaregistrationpayload.py:
     id: cf1ac7e58320
-    last_write_checksum: sha1:da33bf231046b75d47e5569875ab7ebae24e7587
-    pristine_git_object: eb425f0c1d07af414362af63e1394f8473d74935
+    last_write_checksum: sha1:6ab754131892cc38ec00cf425a98e5addb362ea1
+    pristine_git_object: 663ece4534ec4bf1f40904e6486b1fb5fbb137d8
   src/kintsugi_tax_platform_sdk/models/districtofcolumbiaregistrationtype.py:
     id: 5edd3ad3e5aa
     last_write_checksum: sha1:0bffa3de5236f1b3bb5ed0b817f79a12eb003783
@@ -2492,16 +2492,16 @@ trackedFiles:
     pristine_git_object: 63c15aaf29780eca26260dd1b3e10547a0288f94
   src/kintsugi_tax_platform_sdk/models/filingdetailsread.py:
     id: 6b044463bc7a
-    last_write_checksum: sha1:2db65161104b95684f02b712a8055b0b71554679
-    pristine_git_object: bf14aa44b99eda1842b92e41ee33bff1e676c130
+    last_write_checksum: sha1:e7b82d0304c31478f3cf49c6d6f0ad57b7700bf6
+    pristine_git_object: db273e17b9c6deaca9f166fee110970096d5740b
   src/kintsugi_tax_platform_sdk/models/filingfrequencyenum.py:
     id: b5d81fb62551
     last_write_checksum: sha1:1555c4ee3805bc0581fd0e508ff64cf9716b0602
     pristine_git_object: 6a5557bb2ca2c251e5a14b9efa21422aee3374b9
   src/kintsugi_tax_platform_sdk/models/filingread.py:
     id: ca28ba9b041b
-    last_write_checksum: sha1:ca404ee5011b9dc5f08fb8c7baade2f1840dfd0d
-    pristine_git_object: 6a00056ff83dbe8e641875167d1955953a62ce33
+    last_write_checksum: sha1:08321d6d7bc08876f85037d58a1c2e1e39fa44e6
+    pristine_git_object: 5d3e3f42645529393c33255014895ef7a3f7b057
   src/kintsugi_tax_platform_sdk/models/filingstatusenum.py:
     id: 198df97ed918
     last_write_checksum: sha1:7324869d63141c3b387a53421f259e88b0688acd
@@ -2516,16 +2516,16 @@ trackedFiles:
     pristine_git_object: 9e2334aeba6cabae46966a9121fd3647093b8984
   src/kintsugi_tax_platform_sdk/models/floridaregistrationpayload.py:
     id: adf5e44b413f
-    last_write_checksum: sha1:d8b51980768878ae5ab6a63e27cfbc0d5369407a
-    pristine_git_object: b874925ef001c81c31cdf6b48a1b955f0f0570c2
+    last_write_checksum: sha1:23440d9c964a76f2992d56a9955431236f2b1779
+    pristine_git_object: c7dda19adf6870aa4c724950b303780576801f8a
   src/kintsugi_tax_platform_sdk/models/georgiafields.py:
     id: "248482672280"
     last_write_checksum: sha1:29e77fb48e13a257899c74c39eb0fe5c6a87e696
     pristine_git_object: 3967aa0f9b1d2acc9acacd40053eaf86b0530cfa
   src/kintsugi_tax_platform_sdk/models/georgiaregistrationpayload.py:
     id: 0bddc51a21f9
-    last_write_checksum: sha1:190e340438e352fdde554f1ad038f3fd6445b835
-    pristine_git_object: 4ed15c5ea24a913446a96d4a52f669e8ac64e09c
+    last_write_checksum: sha1:9b3ef14edcf3d6a8ee4ed5c70f347cdab5818c38
+    pristine_git_object: f81ce5457028ca2adfce661b42cdfa97b40bbca2
   src/kintsugi_tax_platform_sdk/models/georgiaregistrationtype.py:
     id: f9a13eb2f366
     last_write_checksum: sha1:20ef51195adf951e68cddb899117405c54b40393
@@ -2644,8 +2644,8 @@ trackedFiles:
     pristine_git_object: 636019a7c301a88150a4bfcff30dbca0fd9b742c
   src/kintsugi_tax_platform_sdk/models/hawaiiregistrationpayload.py:
     id: 780bd0e0450d
-    last_write_checksum: sha1:9749f5f700fb857365470fd408b70c0160fe078e
-    pristine_git_object: aed98775bb1cdb52b5beabd30c58a7f3b5f69090
+    last_write_checksum: sha1:8303db3fc58e9b761b4d76b2d8e6621e346feb24
+    pristine_git_object: 07361a456b46b61e1f046e1539325e3ccbdd5ebd
   src/kintsugi_tax_platform_sdk/models/hawaiiregistrationtype.py:
     id: ded7b918d0f8
     last_write_checksum: sha1:ba9e387debb6dff50e3adbc747e4aa9af767edcc
@@ -2656,8 +2656,8 @@ trackedFiles:
     pristine_git_object: 67e8b365902ef96de5e557b7f5edd7d4c83852fb
   src/kintsugi_tax_platform_sdk/models/idahoregistrationpayload.py:
     id: 71d9be0ac817
-    last_write_checksum: sha1:acbe2f3ec83425261ea5af02780c7b7a79e60b6c
-    pristine_git_object: 8ee3afb04d3377c54bcf094f3cfb772e2ce613c7
+    last_write_checksum: sha1:7478eb8f74f7cbe10d8607ee4296988d8c45bfab
+    pristine_git_object: efd8d7fbe1689053fee83cc6f6dbcb2e55cb3442
   src/kintsugi_tax_platform_sdk/models/idahoregistrationtype.py:
     id: 49f6ddb4002d
     last_write_checksum: sha1:b0de0aa95426e83047d54e6753cb36ada1fcc399
@@ -2668,8 +2668,8 @@ trackedFiles:
     pristine_git_object: 07bbe626ec7fd160998cf3c8a4b7cc696dcc5c6a
   src/kintsugi_tax_platform_sdk/models/illinoisregistrationpayload.py:
     id: 96dada103005
-    last_write_checksum: sha1:83bead985b5c9eb599d9b110d411d4bbdabfd018
-    pristine_git_object: f69b312309222f1f1fbdcd6174ff26c321e70c9d
+    last_write_checksum: sha1:c0acf4aa4fd4e70015611b2c3711eeb4c364f067
+    pristine_git_object: 07372656ee1756fcc5bafbe87b2cfe4d5995cf16
   src/kintsugi_tax_platform_sdk/models/illinoisregistrationtype.py:
     id: 491c21541a4c
     last_write_checksum: sha1:4b8ec31386378056db217d45a8ad537758123d57
@@ -2680,8 +2680,8 @@ trackedFiles:
     pristine_git_object: 14bffe1a3286c0b4fc02694aa8e34dd92a404de2
   src/kintsugi_tax_platform_sdk/models/indianaregistrationpayload.py:
     id: 3b5c25fe4dc5
-    last_write_checksum: sha1:2da693f7e6cf7cb2edaa2849416d6eda4d9d1972
-    pristine_git_object: 55da8e87cd569267f08ccb71bbfcb07ec3b6e123
+    last_write_checksum: sha1:51c07fa3f189299abb1164ead72a1fac666d6986
+    pristine_git_object: 1b89f30c35ed8fdf595888762b5c6fc7b0098d09
   src/kintsugi_tax_platform_sdk/models/iowaaccounttype.py:
     id: 9a2a9e3d94f5
     last_write_checksum: sha1:11e2cfc03f8d4dcff1190eaaa1114dcd7a2077da
@@ -2692,8 +2692,8 @@ trackedFiles:
     pristine_git_object: 89e32ee4d7a322447636bd8dea56a53edf6a985e
   src/kintsugi_tax_platform_sdk/models/iowaregistrationpayload.py:
     id: 460392b8eb5f
-    last_write_checksum: sha1:7a085ef11dd6342a9df1ebae5c7393bd88541035
-    pristine_git_object: 9b855b028296a79b30a5826389b102a23ae276f9
+    last_write_checksum: sha1:9fd89b1c6a4fab58a799d094328305ac33f274d5
+    pristine_git_object: 78a4be390e0b0b3e2e8500f0d416a6fbe3ef2043
   src/kintsugi_tax_platform_sdk/models/iowaregistrationtype.py:
     id: 910ff62e9527
     last_write_checksum: sha1:048837f3cbbb77f5f24bde9acfb702f47b6d86c3
@@ -2708,8 +2708,8 @@ trackedFiles:
     pristine_git_object: eb790d871e78b74844fc0f290f46546dd5f8788c
   src/kintsugi_tax_platform_sdk/models/kansasregistrationpayload.py:
     id: 87504adfd8b8
-    last_write_checksum: sha1:24397be7503ad45d509871bd7124505bc8e3e746
-    pristine_git_object: b86c12c13c33052037f20db6153d54cc924aadab
+    last_write_checksum: sha1:0243ef3e94beff0cfef36c75f7797193c3eddc58
+    pristine_git_object: 47a6ba1199bdd65b6fcc7871ab40293bde420408
   src/kintsugi_tax_platform_sdk/models/kansasregistrationtype.py:
     id: 37f755a533d3
     last_write_checksum: sha1:2525bddbfb28129d3182b67b9da6e7a712e84d18
@@ -2720,8 +2720,8 @@ trackedFiles:
     pristine_git_object: 16be7d50ab4ac0ebf2270f2b069f06f8baa26a48
   src/kintsugi_tax_platform_sdk/models/kentuckyregistrationpayload.py:
     id: 1464bc49365a
-    last_write_checksum: sha1:7c99e911a545402234ab271d75fc20d669672e57
-    pristine_git_object: 24354f54082401e7bff17ce19193ea52b1471027
+    last_write_checksum: sha1:7df8331649387299f7becc10a9a873253a2b3b55
+    pristine_git_object: b162130c01891afb1b36bd223ddbbddfeff23c2b
   src/kintsugi_tax_platform_sdk/models/kentuckyregistrationtype.py:
     id: 6a988d590723
     last_write_checksum: sha1:2dc6614f8a2fdf47853e597178c424d16e880d94
@@ -2740,32 +2740,32 @@ trackedFiles:
     pristine_git_object: 11660ccdc721810f3cc108344846a6dbfd2b8b10
   src/kintsugi_tax_platform_sdk/models/louisianaregistrationpayload.py:
     id: 635252187ab3
-    last_write_checksum: sha1:209efcfbb439d285ddf8cfe497e6e7af9bb860e4
-    pristine_git_object: 6bcb41777e411f5f83affce83e8739403af7ffbe
+    last_write_checksum: sha1:25987c42dfdd4b3cd637e90fbf4b01db6dd673d7
+    pristine_git_object: f189b5d3929810f7cdd8ef683ce322f72231fa93
   src/kintsugi_tax_platform_sdk/models/mainefields.py:
     id: 9b3700f54e9b
     last_write_checksum: sha1:dc9e05c56ed5817fc02af8d17780a3195a0fb6a7
     pristine_git_object: 4f21d2e0a1c8aacf9351644fcc95bf3e324c4858
   src/kintsugi_tax_platform_sdk/models/maineregistrationpayload.py:
     id: d7861cd1c84f
-    last_write_checksum: sha1:3fd74cd0d35cf26dbcbf23ad89361cbe50b9b59c
-    pristine_git_object: f2ec8ab172604cf888d9a630d9ad43a37d1b5a4b
+    last_write_checksum: sha1:37ee41d4f6424354104038b7d5b8add7a91fcca9
+    pristine_git_object: 51eae72a0d6e214c68022c3fe5080a9a88e6fcd5
   src/kintsugi_tax_platform_sdk/models/marylandfields.py:
     id: c7975e583c52
     last_write_checksum: sha1:229090000e814ca9846c308e45356f6dc20f99c0
     pristine_git_object: abe9364967d5547b835928042b1c050e5e20abe9
   src/kintsugi_tax_platform_sdk/models/marylandregistrationpayload.py:
     id: 7e05bdb7bec7
-    last_write_checksum: sha1:57432dc04eb2ada3a9e32ad4a0aebbc25fe38e40
-    pristine_git_object: ab28796ec568d61162fd1c36fa9f064a51582a0b
+    last_write_checksum: sha1:dbe393884975b351f94d0667d31ae8abe89e83be
+    pristine_git_object: 35c78c299a9f817334c5c1d3a4a53a51cf1bf600
   src/kintsugi_tax_platform_sdk/models/massachusettsfields.py:
     id: 8b2df965f90c
     last_write_checksum: sha1:f6c17e90089f47dfde65ab47b56ef32fa1926238
     pristine_git_object: 29961013b29f38204e0143a5b19dadc7d700cf5b
   src/kintsugi_tax_platform_sdk/models/massachusettsregistrationpayload.py:
     id: 859f14593576
-    last_write_checksum: sha1:cc22c50a8bae9ee8b13385b0668e91702e018bfa
-    pristine_git_object: f6ba9b2684639fc604fb2011ca5f29f1ce33884e
+    last_write_checksum: sha1:652674463f5dc375101d168f256813b5fb2f30bd
+    pristine_git_object: 3f8fe455c84409843826a52f631ab919b0722dc9
   src/kintsugi_tax_platform_sdk/models/massachusettsregistrationtype.py:
     id: f997b8df31d9
     last_write_checksum: sha1:d5da5057bd962981cd89eff2d4cf6c803921f77e
@@ -2776,8 +2776,8 @@ trackedFiles:
     pristine_git_object: e9fbef8cfb19586bb8cdaed70dfb445ce1c011e2
   src/kintsugi_tax_platform_sdk/models/michiganregistrationpayload.py:
     id: 8f69a7ff1c03
-    last_write_checksum: sha1:b82d0595b4c32e4e5e22d51829f82dd0e7b3c718
-    pristine_git_object: df73aac4c772b2a4f70758ffe60613c025e6e202
+    last_write_checksum: sha1:7f8f12658106377a78e2053a248ff70e0be90faf
+    pristine_git_object: 0ebe106ba02777740590de1c62e4b827aaca04ee
   src/kintsugi_tax_platform_sdk/models/michiganregistrationtype.py:
     id: b0518735bcfd
     last_write_checksum: sha1:80c54383d8820f6a72454f93adffc416e829e1f2
@@ -2788,8 +2788,8 @@ trackedFiles:
     pristine_git_object: 0dfb693d01aadb254783bce8bc6d1ca2daf490f2
   src/kintsugi_tax_platform_sdk/models/minnesotaregistrationpayload.py:
     id: 8377161ab32c
-    last_write_checksum: sha1:e0bebdde4b213a7ecc12d0110a39bba4545f180c
-    pristine_git_object: fcc55b9c42e2289464dfd8b84e87098daf8eb22f
+    last_write_checksum: sha1:da707aa8ca7cbea8d5694ef5590ba7cd22ac0d6e
+    pristine_git_object: b539e704fdca0643ea443d71cc497df76efce1a1
   src/kintsugi_tax_platform_sdk/models/mississippiaccounttype.py:
     id: 4e05aaf0cff3
     last_write_checksum: sha1:9b1702ebd46c9738fc20daccc9b5a87c6af6784b
@@ -2800,8 +2800,8 @@ trackedFiles:
     pristine_git_object: 01e639444ee5044b93607e3a42e458be26933f73
   src/kintsugi_tax_platform_sdk/models/mississippiregistrationpayload.py:
     id: 223fa28033c6
-    last_write_checksum: sha1:a8f4eb3a2f1dd981b7fabc6a66b5bac264b45ea8
-    pristine_git_object: eabcd874968a2f231e44dffb3b3c44810940ffb1
+    last_write_checksum: sha1:31420c1571b97b240816a2ae23684f5db69eb72a
+    pristine_git_object: 2228bf5e0d0ca72396ba0f870d933767a16398f0
   src/kintsugi_tax_platform_sdk/models/mississippiregistrationtype.py:
     id: 774407c0650f
     last_write_checksum: sha1:1eb64be263fea99e560e326fc3296dd25e08212a
@@ -2812,8 +2812,8 @@ trackedFiles:
     pristine_git_object: ac395e23d9eeca27bf88352910196375e18a308f
   src/kintsugi_tax_platform_sdk/models/missouriregistrationpayload.py:
     id: 1f0595eb0a5d
-    last_write_checksum: sha1:ad7df6354c7bfa95d3c636740d77b1f49772976a
-    pristine_git_object: 3043f7fe844ea3c5da6d0af3bb6a34c9483496b8
+    last_write_checksum: sha1:fd82265724c7e88cd647dc1bce370347a85a5907
+    pristine_git_object: b1faecd4943dc2f12c40b24c2d14ca4119846fa2
   src/kintsugi_tax_platform_sdk/models/missouriregistrationtype.py:
     id: c4eb18232f52
     last_write_checksum: sha1:6e130dc8c09ef38a7bb6532a22685a7ab3c69b17
@@ -2824,8 +2824,8 @@ trackedFiles:
     pristine_git_object: 0b933d45accf140d10e700a42cce3e55a7712b92
   src/kintsugi_tax_platform_sdk/models/nebraskaregistrationpayload.py:
     id: eb341f6456d9
-    last_write_checksum: sha1:cd62a4d8e6b5f243c91f7b30435a69f7d84f8999
-    pristine_git_object: cf65ba25f3b44c08ffcda2873ca878dee402edac
+    last_write_checksum: sha1:5b00ab77d423c79c8cb71c3b9578ee0f3d3d2046
+    pristine_git_object: 0c76f4c0091dddb3a40e00caa5f0a00149425627
   src/kintsugi_tax_platform_sdk/models/nebraskaregistrationtype.py:
     id: 2268825f5f2e
     last_write_checksum: sha1:3e3f088a11aaee0d1c6a22b4d2570d54141a72a0
@@ -2836,36 +2836,36 @@ trackedFiles:
     pristine_git_object: 11e2492ffc7c8f02a351fa392b533061ccb5406c
   src/kintsugi_tax_platform_sdk/models/nevadaregistrationpayload.py:
     id: aabc7f90527c
-    last_write_checksum: sha1:ffe6bd5fe745d6cbc8eca835bb7768839964e3ac
-    pristine_git_object: 00f17479f5cb97fcacf4ecf5945559b2fc7d0951
+    last_write_checksum: sha1:04c0abac1f69ece7f358073ad21d9a93935f32a2
+    pristine_git_object: e0d2ca7cb1a5dbe723d288eedda08c1b3d27d66a
   src/kintsugi_tax_platform_sdk/models/newjerseyfields.py:
     id: 273f4aeaf010
     last_write_checksum: sha1:da9e2bae48da5c09066a544a33b6279724bc860c
     pristine_git_object: 94c9ae81ac66bcb05350effc880e3c0e5b1b778b
   src/kintsugi_tax_platform_sdk/models/newjerseyregistrationpayload.py:
     id: 113322bd3518
-    last_write_checksum: sha1:89f04db3e1120868e1c6ced11b8c777e9ac5ca3e
-    pristine_git_object: 55601d4ed03cf913c70d303872da48e4d949c824
+    last_write_checksum: sha1:d85b40d29737bb30a8765c45d8ce0c36d3020cda
+    pristine_git_object: b4b4078b19cbaaec019e4e206cc9aee761d8cd48
   src/kintsugi_tax_platform_sdk/models/newmexicofields.py:
     id: 98886e54b904
     last_write_checksum: sha1:cd8a1635f930cf347fb2e83047da9582577c9a98
     pristine_git_object: b554ca82ce08dccf0b3f6d273c8abb41ee815663
   src/kintsugi_tax_platform_sdk/models/newmexicoregistrationpayload.py:
     id: 19599f2df8c6
-    last_write_checksum: sha1:ab9c8b68593ea71b028eef67b8978bd3c798bdab
-    pristine_git_object: 1a58f5de3690e64b1a7a258545c8511f43518081
+    last_write_checksum: sha1:aee93761447e8f2dc09eff0de6dbdc6400406254
+    pristine_git_object: 05a516a0e2763d953f6b93dda1d7825872764031
   src/kintsugi_tax_platform_sdk/models/newyorkfields.py:
     id: db511ddf59c4
     last_write_checksum: sha1:a8ef055858d7b94f93e7525c1be62ad397fac3e2
     pristine_git_object: 4e6528cf69d95711e7401cf377bf7c5a4348c160
   src/kintsugi_tax_platform_sdk/models/newyorkregistrationpayload.py:
     id: b68d4360809f
-    last_write_checksum: sha1:f6fd638516b381bcdad5819a369c35761623d2f0
-    pristine_git_object: 8030d87234b62ff0f3b4c73d1ee9750a666bc5f3
+    last_write_checksum: sha1:f2b2e8b9f244b720435cbdcef951586cbd8a6a7c
+    pristine_git_object: fc981dc1790bb30147d4676f08716be12aa3dbf1
   src/kintsugi_tax_platform_sdk/models/nexusresponse.py:
     id: fd3f4d1b8644
-    last_write_checksum: sha1:1b42852869d8161b708f72b4ce50386ac93f7e45
-    pristine_git_object: 86891d3b76048c8291a77c0f19719184fccc497f
+    last_write_checksum: sha1:243da01d6312f09b173d2f307686a4b3605748a6
+    pristine_git_object: ba02ce9649c39ed6c17daeeeb787b4c90fd5b9b2
   src/kintsugi_tax_platform_sdk/models/nexusstateenum.py:
     id: 05a9f9fd13ba
     last_write_checksum: sha1:899e98206f3a036b8ba9c7ce28e29f2dfac32106
@@ -2884,32 +2884,32 @@ trackedFiles:
     pristine_git_object: 271a3ef75fa9d0d75735709f3568e0075d8a4269
   src/kintsugi_tax_platform_sdk/models/northcarolinaregistrationpayload.py:
     id: 329f68589950
-    last_write_checksum: sha1:36e22e94333482f4e8782ea18a2866e5f94de347
-    pristine_git_object: a9876498cee3be8cff232cfbdbe6154f307a4c06
+    last_write_checksum: sha1:c2007efacf8947b6229957cf0088ada6d91d443c
+    pristine_git_object: 5297fcc0ead0cdc25edda36565ae89990e92dd04
   src/kintsugi_tax_platform_sdk/models/northdakotafields.py:
     id: ef0c7418407b
     last_write_checksum: sha1:b5eaf957d56819f030b522118fdcbaed8f3ba488
     pristine_git_object: e7e3773871c1bbdd24523ac47d738f31ef6e7420
   src/kintsugi_tax_platform_sdk/models/northdakotaregistrationpayload.py:
     id: 39f470f2b48d
-    last_write_checksum: sha1:c4ce768050d52faa3f65eaef6fe697a94b4ed273
-    pristine_git_object: 760cd8e4eec33ef63a30f087cc97f0959a6ced67
+    last_write_checksum: sha1:fc8675966dcb186fa0cb07a579c098595213b27a
+    pristine_git_object: e7eadca9c91876b999eb28cc67c0eb8ee02b9520
   src/kintsugi_tax_platform_sdk/models/ohiofields.py:
     id: 6dbf7b1681f1
     last_write_checksum: sha1:09f0fbc9fac8628496b478d655184e4c0fa96dd9
     pristine_git_object: 1efbc91ea03d6504ad13c39895aa43b92372c0db
   src/kintsugi_tax_platform_sdk/models/ohioregistrationpayload.py:
     id: ac6a1d48b619
-    last_write_checksum: sha1:25f2446acc9299a20ff68cdd173714da109bd754
-    pristine_git_object: bb80d215c582d81bbdd2ee98cf12dbee53be00f3
+    last_write_checksum: sha1:455ab651e9afa6863ac146d7511ad06762fe0a75
+    pristine_git_object: b14b96f73a96e40966295569eec08e6273752344
   src/kintsugi_tax_platform_sdk/models/oklahomafields.py:
     id: 759d880f3a9c
     last_write_checksum: sha1:74f31879a5e9f8fb12c354847eb3f8f4da9f9df5
     pristine_git_object: 01324ede5079e3f6996c96c73d373a316506137c
   src/kintsugi_tax_platform_sdk/models/oklahomaregistrationpayload.py:
     id: f17221c7a9c3
-    last_write_checksum: sha1:3a112366e9823ef16877411e066921c0d735ecff
-    pristine_git_object: 67aaffc48a573b74bbbf89f953df9d104858e15d
+    last_write_checksum: sha1:9aae36427a385a0a46cc5e62df9f4722304eaf32
+    pristine_git_object: 61d2df486adb0a261a3ffb4e4c15ee19f49cd769
   src/kintsugi_tax_platform_sdk/models/osscountrystatusenum.py:
     id: 1667a119423f
     last_write_checksum: sha1:3c2ec2cb08414a3bfcc38cb04da418785bb65cf6
@@ -2976,8 +2976,8 @@ trackedFiles:
     pristine_git_object: 140de9a211e3de354b66c3cb1d10f92213a0bdca
   src/kintsugi_tax_platform_sdk/models/pennsylvaniaregistrationpayload.py:
     id: 46f7d3649463
-    last_write_checksum: sha1:63f61a655a2b9e76ce8e5531971a63353be192bf
-    pristine_git_object: 07c505c0e82e0fc5c2db662d37fc23626ac41a1f
+    last_write_checksum: sha1:986d495b3a72363372f7cfbacf476ed38fd72bb7
+    pristine_git_object: 3576bff59fd543500df2443b8518355c521773a2
   src/kintsugi_tax_platform_sdk/models/periodmodelenum.py:
     id: c3f79628713b
     last_write_checksum: sha1:e8deecac6c11046f2526b70002b0c5dfb1554d99
@@ -3064,20 +3064,20 @@ trackedFiles:
     pristine_git_object: 5f152368b853cf6eaa456086d1cefa1e7fc7741b
   src/kintsugi_tax_platform_sdk/models/registrationcreatepayload.py:
     id: 77cd28e71ae3
-    last_write_checksum: sha1:e669dc7bcd15d9c14dbf682fa8082ac544e642be
-    pristine_git_object: 02bafc01c80d9659f9c359bb39b6d44934954701
+    last_write_checksum: sha1:b44bdc300f11225c8a1dbd173ac0add672a49995
+    pristine_git_object: 153e3ea3712f449cb5d4767bb1f19ad2799d9234
   src/kintsugi_tax_platform_sdk/models/registrationjurisdictionoptionread.py:
     id: 092054a69a45
     last_write_checksum: sha1:3657bb3effdbc42cc33215d555f27adc447ea5d7
     pristine_git_object: ffb066ba9d79e7dfb86a37b6e0b8a76ee97f465b
   src/kintsugi_tax_platform_sdk/models/registrationread.py:
     id: 4be39cb2beaa
-    last_write_checksum: sha1:06f0b7c05110e299773ff09a0e5bdf2380545318
-    pristine_git_object: 9a433109a4c981c48d998a381716be91120c423d
+    last_write_checksum: sha1:d42573bf52cdac1b99df41a3b70318799e699912
+    pristine_git_object: 3f40a7ceae73ddc564e571aee420cddcd01ba409
   src/kintsugi_tax_platform_sdk/models/registrationreadwithpassword.py:
     id: 92fabd966ea0
-    last_write_checksum: sha1:990d41ebf41c5fb19980a923b6c3ef0f78f5c255
-    pristine_git_object: eda0f934fa5a9752141f724b6170ef9a2aa46ca0
+    last_write_checksum: sha1:f473373a18768057bb0fdb27ab156f389607b84e
+    pristine_git_object: 0e4a5faf69f1cff2a61982aef34b7b8c0174eb74
   src/kintsugi_tax_platform_sdk/models/registrationsregimeenum.py:
     id: 4bb37d7373d0
     last_write_checksum: sha1:8ce80dd9f18eef2ca8d31de4e3b7e2244f6f482f
@@ -3104,8 +3104,8 @@ trackedFiles:
     pristine_git_object: 79560eb7b62653d991e510d945036235bd187ef6
   src/kintsugi_tax_platform_sdk/models/rhodeislandregistrationpayload.py:
     id: 1256e0be2930
-    last_write_checksum: sha1:1ab0ff83caf7aad27510fea220dcd834c3a61c4a
-    pristine_git_object: c1d9d1ab6e7937a06086d90cd14de9a5a16f1084
+    last_write_checksum: sha1:e996e92d7faa83d851ec5546766eed9782866ece
+    pristine_git_object: 89304df1785be3e93aaa8692994c895c10a3212f
   src/kintsugi_tax_platform_sdk/models/salesortransactionsenum.py:
     id: a2db7f713fe8
     last_write_checksum: sha1:0fb7f06ec5c04c5a9b466d3f590dcaf0daaf22fd
@@ -3128,16 +3128,16 @@ trackedFiles:
     pristine_git_object: e5d1e7648eefd1ca3e9a29027644f2dd3a18a5c2
   src/kintsugi_tax_platform_sdk/models/southcarolinaregistrationpayload.py:
     id: 3251a5788b75
-    last_write_checksum: sha1:0b9c207764b509700afd50e7b806c87522aa8de2
-    pristine_git_object: b3cc0415140142a2e5f93dd2b4b09d9660fd0e6b
+    last_write_checksum: sha1:2f191008b9ac44f20477def98c9a602afcf5908f
+    pristine_git_object: 06897603bf051bb751272ac0741f4ab31a241be2
   src/kintsugi_tax_platform_sdk/models/southdakotafields.py:
     id: f6fc21eb065f
     last_write_checksum: sha1:5e5c375c478a70f9447c2590c13488178accf9e3
     pristine_git_object: 5e287435b6044e9428767b591d74b33544f15695
   src/kintsugi_tax_platform_sdk/models/southdakotaregistrationpayload.py:
     id: e89f28920609
-    last_write_checksum: sha1:50d2d70587c2917c75dc7fb120390f8df0f4ada9
-    pristine_git_object: c2e258a9160669d7f126a5fc3da623c4a6412e55
+    last_write_checksum: sha1:dfe8e5386ef0061a562376ad851910c0f13f6ee7
+    pristine_git_object: ba754f3bbec99e0da8c788d7e5aa8e1527ed5d1a
   src/kintsugi_tax_platform_sdk/models/sstregistrationcreatepayload.py:
     id: 5d0d3597d317
     last_write_checksum: sha1:99f6f1754af363c152829ba955325d8fea7e9f8a
@@ -3184,16 +3184,16 @@ trackedFiles:
     pristine_git_object: 487afbb4efa74da08c1fa917546b9df75578ace0
   src/kintsugi_tax_platform_sdk/models/taxtypeenum.py:
     id: c0291d17cc9f
-    last_write_checksum: sha1:bf951041ecce86dfd61374fc4559ab55cf1bd731
-    pristine_git_object: 763a5a7c020909369a3484de3560c7dcfd89729f
+    last_write_checksum: sha1:127272fa03b09f41c72062cbdb067bab22cf62c1
+    pristine_git_object: b835e5bbdd56e21fe923f0638f8ea519dfdc962d
   src/kintsugi_tax_platform_sdk/models/tennesseefields.py:
     id: 3a4aa6a593cd
     last_write_checksum: sha1:290d81ae4feed13b1bc7b6b3cc59a7f4c4ba8196
     pristine_git_object: 4bb3068151588f8b5e2403cc787ccb1faf467259
   src/kintsugi_tax_platform_sdk/models/tennesseeregistrationpayload.py:
     id: 67fe5f9d2591
-    last_write_checksum: sha1:661666fdbe34941476a8003de3e90190cacdc80a
-    pristine_git_object: 8769b29be731f3c0763c90323152acc208af6261
+    last_write_checksum: sha1:7b49c8d36c93e59267b3eea3e181b19c21e9edbe
+    pristine_git_object: 2f2bbb727dae4a607ce4d6636ecb16ec138f1560
   src/kintsugi_tax_platform_sdk/models/tennesseeregistrationtype.py:
     id: ac7f65dcf746
     last_write_checksum: sha1:abb35ab6f901bf765a5164a36001b2fc7d851f54
@@ -3204,8 +3204,8 @@ trackedFiles:
     pristine_git_object: cee68eacefaf43c523f1f95de8344aa791fd851f
   src/kintsugi_tax_platform_sdk/models/texasregistrationpayload.py:
     id: f1c217eb181c
-    last_write_checksum: sha1:131a545f6f9fb4219cba1283cd8d25e31813bedb
-    pristine_git_object: 4efe076caa2e233f7c1b13ab1c2d214e768a6274
+    last_write_checksum: sha1:3260bcbf29103e0afc24790ec1040fae650edd4f
+    pristine_git_object: 9b839cf30e319ada73a12cea1832ffc1717e5a78
   src/kintsugi_tax_platform_sdk/models/texasregistrationtype.py:
     id: 2bd5be987797
     last_write_checksum: sha1:b01f951d01e519536a5e57c167108aaf9dbbd4d3
@@ -3344,8 +3344,8 @@ trackedFiles:
     pristine_git_object: d9e153f706b2f9baa4962154f5d5932e4b366ccb
   src/kintsugi_tax_platform_sdk/models/utahregistrationpayload.py:
     id: c0df4edbfce4
-    last_write_checksum: sha1:1884d9ee96e5159fe698fc0ccfab456182ce2fcf
-    pristine_git_object: 9e2a818179733f56c98fff839c78fcc139445a7c
+    last_write_checksum: sha1:7d5863fa40fed0d64f437e9c97a2ee986a5e7bad
+    pristine_git_object: b7c346656c6c39ce2f8157ac04e1e3dcf2f2dc48
   src/kintsugi_tax_platform_sdk/models/utahregistrationtype.py:
     id: b3960703bbc9
     last_write_checksum: sha1:1137c7b23c739303b002ad76010759585b09e77c
@@ -3364,8 +3364,8 @@ trackedFiles:
     pristine_git_object: 01849ec83ffa12dd546a49a74966f792f9cb03c7
   src/kintsugi_tax_platform_sdk/models/vermontregistrationpayload.py:
     id: a4962e7d4a9c
-    last_write_checksum: sha1:9548902fccf404e1b6ee44c1cee67eb540154470
-    pristine_git_object: 806fc4da0f4821aeeb9cdd509e1a5d05dfd26dc9
+    last_write_checksum: sha1:9fe09393bce986888516e75efb1586c36772a867
+    pristine_git_object: 16924c80340118de7e2a8a60fe992bd256d2d376
   src/kintsugi_tax_platform_sdk/models/vermontregistrationtype.py:
     id: eedc0c92ee3e
     last_write_checksum: sha1:30d20e8633d3db57585c5716ecbe2f5012e8be9e
@@ -3376,8 +3376,8 @@ trackedFiles:
     pristine_git_object: 7bd719d141c91334ec5b36ede2199bb91521323e
   src/kintsugi_tax_platform_sdk/models/virginiaregistrationpayload.py:
     id: 22de3e265a0b
-    last_write_checksum: sha1:e4b756a3586754272cc2b1491b92772700818d7f
-    pristine_git_object: f8d02d0a571e20ebeaf2247edebc8c5d8fc19710
+    last_write_checksum: sha1:d171e7e06bbc7959f340bf28b657ced2833a8a1c
+    pristine_git_object: 4458ea4554ad7feac85dd8adb88bc29b68e5ea08
   src/kintsugi_tax_platform_sdk/models/virginiaregistrationtype.py:
     id: 964254c86e90
     last_write_checksum: sha1:6b11e733048d094379f052a22499e6579d95cffb
@@ -3388,16 +3388,16 @@ trackedFiles:
     pristine_git_object: 5590fb4581e1e1f8d7d5d26d5143c8ad2d17afd9
   src/kintsugi_tax_platform_sdk/models/washingtonregistrationpayload.py:
     id: 2a07ff5a1f71
-    last_write_checksum: sha1:8a3f79b1c063010f8bc89cf878ce89eb74ab60eb
-    pristine_git_object: fe221f6689cf8afeef0ad24029b9e64f7d135838
+    last_write_checksum: sha1:c1f1510e6365c0417ca0cf6134157132037c3aba
+    pristine_git_object: ae2805c6cc7f52c09bc4b2ab2cf7e283e1dff9c2
   src/kintsugi_tax_platform_sdk/models/westvirginiafields.py:
     id: 29d54801222c
     last_write_checksum: sha1:854f9cafc4e7f0e9418d71c74a46bb106ed460bd
     pristine_git_object: a737c30f0da67e217ebd29a3f4bb8f6db74383a5
   src/kintsugi_tax_platform_sdk/models/westvirginiaregistrationpayload.py:
     id: b194008c53e3
-    last_write_checksum: sha1:297ba4702459b4a42e6e155884e9fd20449ddd4f
-    pristine_git_object: 78541b1d71e165469aea8ed87ef45ac7b2e7ac38
+    last_write_checksum: sha1:a109eab2d0bc3158a3cde3257b3a478ca81cad29
+    pristine_git_object: dda7af8534b9978148137e033d46dca66f702341
   src/kintsugi_tax_platform_sdk/models/westvirginiaregistrationtype.py:
     id: 07497efbf34a
     last_write_checksum: sha1:d89dd38fd55742e25f6485c1aac3d79b386c3a12
@@ -3408,8 +3408,8 @@ trackedFiles:
     pristine_git_object: faf7adbbae6f41baa14f154f212bad6305e07e28
   src/kintsugi_tax_platform_sdk/models/wisconsinregistrationpayload.py:
     id: bf8e9cb36b6b
-    last_write_checksum: sha1:a4ff4a6c267c7fd811e05b70610ec3df43b633a3
-    pristine_git_object: 9620b1eb9aa0f62e51e7c93534a23e4ff36946e6
+    last_write_checksum: sha1:7ad7cee19f46eeedd82d9ef5e36ebd80f978f94d
+    pristine_git_object: e45d52269be4bf7864eb7f7f89c76c48f3a9adc7
   src/kintsugi_tax_platform_sdk/models/wisconsinregistrationtype.py:
     id: 549be68c9ca3
     last_write_checksum: sha1:d64acb3ea8302daa7a17e0480a04e123e0b45b07
@@ -3420,8 +3420,8 @@ trackedFiles:
     pristine_git_object: 485e64dc0c3769ab0be1bd6e0b10e8e5c7bc060d
   src/kintsugi_tax_platform_sdk/models/wyomingregistrationpayload.py:
     id: 5f1659bda19b
-    last_write_checksum: sha1:ce5cfc821a05033c88844cd76c22953ac3c4789e
-    pristine_git_object: a4425ed99035ee189f7fe1eb67bfb18793ff1b83
+    last_write_checksum: sha1:4c233ffbdf00f565d8e554b06c76c2bbab8f7a76
+    pristine_git_object: 7974f5f1fdfccfd58f9179debee56eb042bd03de
   src/kintsugi_tax_platform_sdk/nexus.py:
     id: fbd5b08ffd4b
     last_write_checksum: sha1:bf26783f0f29f8d2d1a19aec21c432b40e5ca45c
@@ -5283,7 +5283,7 @@ examples:
         "422":
           application/json: {}
 examplesVersion: 1.0.2
-releaseNotes: "## Python SDK Changes:\n* `sdk.nexus.get_all()`:  `response.union(Array<NexusResponse>)[]` **Changed** (Breaking ⚠️)\n* `sdk.nexus.get_nexus_details_for_id_v1_nexus_nexus_id_get()`:  `response` **Changed** (Breaking ⚠️)\n* `sdk.products.get_products_v1_products_get()`:  `response.items[].source` **Changed** (Breaking ⚠️)\n* `sdk.transactions.update()`: \n  *  `request` **Changed**\n  *  `response` **Changed** (Breaking ⚠️)\n* `sdk.customers.list()`:  `response.items[].source` **Changed** (Breaking ⚠️)\n* `sdk.customers.create()`: \n  *  `request.source` **Changed**\n  *  `response.source` **Changed** (Breaking ⚠️)\n* `sdk.customers.get_by_external_id()`:  `response.source` **Changed** (Breaking ⚠️)\n* `sdk.customers.get()`:  `response.source` **Changed** (Breaking ⚠️)\n* `sdk.customers.update()`: \n  *  `request.source` **Changed**\n  *  `response.source` **Changed** (Breaking ⚠️)\n* `sdk.customers.get_transactions()`:  `response.union(Page_TransactionRead_).items[]` **Changed** (Breaking ⚠️)\n* `sdk.customers.create_transaction()`: \n  *  `request` **Changed**\n  *  `response` **Changed** (Breaking ⚠️)\n* `sdk.exemptions.list()`:  `response.items[]` **Changed** (Breaking ⚠️)\n* `sdk.exemptions.create()`: \n  *  `request` **Changed**\n  *  `response` **Changed** (Breaking ⚠️)\n* `sdk.exemptions.get()`:  `response` **Changed** (Breaking ⚠️)\n* `sdk.exemptions.list_attachments()`:  `response.[].related_entity_type` **Changed** (Breaking ⚠️)\n* `sdk.exemptions.upload_certificate()`:  `response.related_entity_type` **Changed** (Breaking ⚠️)\n* `sdk.filings.get_all()`:  `response.items[]` **Changed** (Breaking ⚠️)\n* `sdk.filings.get_by_registration_id()`:  `response.items[]` **Changed** (Breaking ⚠️)\n* `sdk.filings.get()`:  `response` **Changed** (Breaking ⚠️)\n* `sdk.filings.approve_filing_v1_filings_filing_id_approve_put()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error.status[409]` **Added**\n* `sdk.transactions.get_by_id()`:  `response` **Changed** (Breaking ⚠️)\n* `sdk.transactions.create_credit_note()`: \n  *  `request` **Changed**\n  *  `response` **Changed** (Breaking ⚠️)\n* `sdk.transactions.get_by_filing_id()`:  `response.[]` **Changed** (Breaking ⚠️)\n* `sdk.products.create_product_v1_products_post()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n* `sdk.products.retrieve()`:  `response.source` **Changed** (Breaking ⚠️)\n* `sdk.products.update()`:  `response.source` **Changed** (Breaking ⚠️)\n* `sdk.registrations.get_all()`:  `response.items[]` **Changed** (Breaking ⚠️)\n* `sdk.registrations.create()`: \n  *  `request_body` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n* `sdk.transactions.get_by_external_id()`:  `response` **Changed** (Breaking ⚠️)\n* `sdk.registrations.get()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error.status[403]` **Added**\n* `sdk.registrations.update()`: \n  *  `request.is_pre_collecting` **Added**\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error.status[403]` **Added**\n* `sdk.registrations.upload_registration_attachment_v1_registrations_registration_id_attachments_post()`:  `response.related_entity_type` **Changed** (Breaking ⚠️)\n* `sdk.registrations.deregister()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n* `sdk.tax_estimation.estimate()`: \n  *  `request.transaction_items[].product_source` **Changed**\n  *  `response` **Changed** (Breaking ⚠️)\n* `sdk.transactions.list()`:  `response.items[]` **Changed** (Breaking ⚠️)\n* `sdk.transactions.create()`: \n  *  `request` **Changed**\n  *  `response` **Changed** (Breaking ⚠️)\n* `sdk.registrations.get_jurisdiction_specific_fields_v1_registrations_jurisdiction_specific_fields_get()`:  `response.tax_types` **Added**\n* `sdk.filings.get_back_filing_request_options_v1_filings_back_filing_request_options_get()`: **Added**\n* `sdk.exemptions.list_partial_certificate_types_v1_exemptions_partial_certificate_types_get()`: **Added**\n* `sdk.transactions.update_credit_note()`:  `request` **Changed**\n* `sdk.filings.create_back_filing_request_v1_filings_back_filing_request_post()`: **Added**\n* `sdk.filings.get_current_back_filing_terms_v1_filings_back_filing_terms_current_get()`: **Added**\n"
+releaseNotes: "## Python SDK Changes:\n* `sdk.filings.get_all()`:  `response.items[]` **Changed** (Breaking ⚠️)\n* `sdk.filings.create_back_filing_request_v1_filings_back_filing_request_post()`:  `response.created_filings[]` **Changed** (Breaking ⚠️)\n* `sdk.filings.get_by_registration_id()`:  `response.items[]` **Changed** (Breaking ⚠️)\n* `sdk.filings.get()`:  `response` **Changed** (Breaking ⚠️)\n* `sdk.filings.approve_filing_v1_filings_filing_id_approve_put()`:  `response` **Changed** (Breaking ⚠️)\n* `sdk.nexus.get_all()`:  `response.union(Page_NexusResponse_).items[].tax_type.enum(lease_tax)` **Added** (Breaking ⚠️)\n* `sdk.nexus.get_nexus_details_for_id_v1_nexus_nexus_id_get()`:  `response.tax_type.enum(lease_tax)` **Added** (Breaking ⚠️)\n* `sdk.registrations.get_all()`:  `response.items[].tax_type.enum(lease_tax)` **Added** (Breaking ⚠️)\n* `sdk.registrations.create()`: \n  *  `request_body.union(GeorgiaRegistrationPayload).tax_type.enum(lease_tax)` **Added**\n  *  `response.tax_type.enum(lease_tax)` **Added** (Breaking ⚠️)\n* `sdk.registrations.get_jurisdiction_specific_fields_v1_registrations_jurisdiction_specific_fields_get()`:  `response.tax_types[].enum(lease_tax)` **Added** (Breaking ⚠️)\n* `sdk.registrations.get()`:  `response.tax_type.enum(lease_tax)` **Added** (Breaking ⚠️)\n* `sdk.registrations.update()`:  `response.tax_type.enum(lease_tax)` **Added** (Breaking ⚠️)\n* `sdk.registrations.deregister()`:  `response.tax_type.enum(lease_tax)` **Added** (Breaking ⚠️)\n"
 generatedFiles:
   - .gitattributes
   - .vscode/settings.json
